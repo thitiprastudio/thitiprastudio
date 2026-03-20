@@ -104,4 +104,93 @@
     <span class="close-btn" onclick="closeModal()">&times;</span>
     <div class="modal-content">
         <h2 id="modalFontName" style="margin: 0; font-size: 1.2rem;">ชื่อฟอนต์</h2>
-        <p id="modalFontEn" style="color: #bbb; margin: 5px 0 30px 0; font-size: 0.
+        <p id="modalFontEn" style="color: #bbb; margin: 5px 0 30px 0; font-size: 0.9rem;">Font Name</p>
+        
+        <input type="text" class="tester-input" id="testerInput" placeholder="ลองพิมพ์ทดสอบยาวๆ ได้ที่นี่..." oninput="updatePreview(this.value)">
+        
+        <div class="tester-display" id="testerDisplay">hello สวัสดี</div>
+    </div>
+</div>
+
+<script>
+    const fonts = [
+        { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", file: "Stephanie.ttf" },
+        { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", file: "Anthony.ttf" },
+        { th: "ลิลลี่", en: "Lily", p: "79.-", c: "169.-", file: "BRLily.ttf" }
+    ];
+
+    const list = document.getElementById('fontList');
+    const modal = document.getElementById('fontModal');
+    const display = document.getElementById('testerDisplay');
+
+    async function loadFonts() {
+        for (const font of fonts) {
+            try {
+                const f = new FontFace(font.en, `url(${font.file})`);
+                await f.load();
+                document.fonts.add(f);
+                renderCard(font);
+            } catch (e) { renderCard(font); }
+        }
+    }
+
+    function renderCard(font) {
+        const div = document.createElement('div');
+        div.className = 'font-card';
+        div.innerHTML = `
+            <div class="font-info">
+                <div class="font-names">
+                    <h3>${font.th}</h3>
+                    <p>${font.en}</p>
+                </div>
+                <div class="price-tag">ส่วนตัว: ${font.p} | พาณิชย์: ${font.c}</div>
+            </div>
+            <div class="preview-text" style="font-family: '${font.en}', sans-serif">สวัสดี hello</div>
+        `;
+        div.onclick = () => openModal(font);
+        list.appendChild(div);
+    }
+
+    function openModal(font) {
+        modal.style.display = 'block';
+        document.getElementById('modalFontName').innerText = font.th;
+        document.getElementById('modalFontEn').innerText = font.en;
+        display.style.fontFamily = `'${font.en}', sans-serif`;
+        display.style.fontSize = "80px"; 
+        display.innerText = "hello สวัสดี";
+        document.getElementById('testerInput').value = "";
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    function updatePreview(val) {
+        const text = val || "hello สวัสดี";
+        display.innerText = text;
+
+        let fontSize = 80; 
+        const len = text.length;
+
+        if (len > 300) {
+            fontSize = 30; 
+        } else if (len > 150) {
+            fontSize = 40; 
+        } else if (len > 50) {
+            fontSize = 60; 
+        } else {
+            fontSize = 80; 
+        }
+
+        display.style.fontSize = fontSize + "px";
+    }
+
+    window.onclick = (e) => { if (e.target == modal) closeModal(); }
+
+    loadFonts();
+</script>
+
+</body>
+</html>
