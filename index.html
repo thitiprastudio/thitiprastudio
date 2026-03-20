@@ -19,10 +19,10 @@
             color: var(--primary-color);
         }
 
-        /* --- Header & Logo Section --- */
+        /* --- Header --- */
         header {
             text-align: center;
-            padding: 60px 20px;
+            padding: 50px 20px;
             background: white;
             border-bottom: 1px solid #eee;
         }
@@ -34,7 +34,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 15px; /* มุมโค้งมน */
+            border-radius: 15px;
             overflow: hidden;
             border: 1px solid #eee;
             background: #fff;
@@ -43,9 +43,10 @@
         .logo-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* ให้รูปเต็มพื้นที่ 1:1 พอดี */
+            object-fit: cover;
         }
 
+        /* --- Font Grid --- */
         .container {
             max-width: 1100px;
             margin: 40px auto;
@@ -55,7 +56,6 @@
             gap: 25px;
         }
 
-        /* --- Font Card Design --- */
         .font-card {
             background: white;
             border-radius: 16px;
@@ -69,7 +69,6 @@
         .font-card:hover {
             transform: translateY(-8px);
             border-color: var(--accent-color);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
         }
 
         .font-info {
@@ -78,20 +77,15 @@
             margin-bottom: 20px;
         }
 
-        .font-names h3 { margin: 0; font-size: 1.1rem; color: #111; }
-        .font-names p { margin: 4px 0; color: #888; font-size: 0.85rem; }
-
         .price-tag {
             text-align: right;
             font-size: 0.8rem;
             color: var(--accent-color);
             font-weight: bold;
-            line-height: 1.4;
         }
 
         .preview-text {
             font-size: 2.2rem;
-            margin-top: 10px;
             border-top: 1px solid #f9f9f9;
             padding-top: 20px;
             white-space: nowrap;
@@ -99,45 +93,62 @@
             text-overflow: ellipsis;
         }
 
-        /* --- Modal Tester --- */
+        /* --- Modal (เลื่อนขึ้นลงได้) --- */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: white;
             z-index: 1000;
+            overflow-y: auto; /* ทำให้ Modal เลื่อนขึ้นลงได้ถ้าเนื้อหายาว */
             flex-direction: column;
             align-items: center;
-            padding-top: 80px;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 900px;
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh; /* ให้เนื้อหาครอบคลุมความสูงหน้าจอ */
         }
 
         .close-btn {
-            position: absolute;
-            top: 25px; right: 35px;
+            position: fixed; /* ให้อยู่กับที่แม้เลื่อนหน้าจอ */
+            top: 20px; right: 30px;
             font-size: 40px; cursor: pointer; color: #ccc;
+            z-index: 1001;
         }
 
         .tester-input {
-            width: 80%;
-            max-width: 700px;
+            width: 100%;
+            max-width: 600px;
             padding: 15px;
             font-size: 1.2rem;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             border: none;
             border-bottom: 2px solid #eee;
             text-align: center;
             outline: none;
+            background: transparent;
         }
 
         .tester-display {
-            width: 90%;
+            width: 100%;
             text-align: center;
-            font-size: clamp(2rem, 10vw, 6rem);
-            word-wrap: break-word;
+            /* clamp(ขนาดเล็กสุด, ขนาดที่แปรผัน, ขนาดใหญ่สุด) */
+            font-size: clamp(1.5rem, 8vw, 5rem); 
+            word-wrap: break-word; /* ให้ตัดคำลงบรรทัดใหม่เมื่อยาวเกิน */
+            line-height: 1.3;
+            color: #111;
+            padding-bottom: 50px;
         }
 
         @media (max-width: 600px) {
             .container { grid-template-columns: 1fr; }
+            .tester-display { font-size: clamp(1.2rem, 10vw, 3.5rem); }
         }
     </style>
 </head>
@@ -148,38 +159,34 @@
         <img src="IPCB5121.PNG" alt="ThitipraStudio Logo">
     </div>
     <h1>ThitipraStudio</h1>
-    <p style="max-width: 600px; margin: 0 auto; line-height: 1.6; color: #666;">
-        เริ่มเปิดขายฟอนต์ลายมือครั้งแรกวันที่ 15 May 2023<br>
-        สไตล์ฟอนต์ประจำร้านแนวลายมือน่ารัก สดใสปุ๊กปิ๊กที่สุดในสามโลก
-    </p>
+    <p>สไตล์ฟอนต์ประจำร้านแนวลายมือน่ารัก สดใสปุ๊กปิ๊กที่สุดในสามโลก</p>
 </header>
 
-<div class="container" id="fontList">
-    </div>
+<div class="container" id="fontList"></div>
 
 <div class="modal" id="fontModal">
     <span class="close-btn" onclick="closeModal()">&times;</span>
-    <h2 id="modalFontName">ชื่อฟอนต์</h2>
-    <p id="modalFontEn" style="color: #888; margin-bottom: 30px;">Font Name</p>
-    
-    <input type="text" class="tester-input" id="testerInput" placeholder="พิมพ์ข้อความทดสอบที่นี่..." oninput="updatePreview(this.value)">
-    <div class="tester-display" id="testerDisplay">hello สวัสดี</div>
+    <div class="modal-content">
+        <h2 id="modalFontName" style="margin: 0;">ชื่อฟอนต์</h2>
+        <p id="modalFontEn" style="color: #888; margin: 5px 0 40px 0;">Font Name</p>
+        
+        <input type="text" class="tester-input" id="testerInput" placeholder="พิมพ์ลองฟอนต์ยาวๆ ได้ที่นี่..." oninput="updatePreview(this.value)">
+        
+        <div class="tester-display" id="testerDisplay">hello สวัสดี</div>
+    </div>
 </div>
 
 <script>
-    // รายชื่อฟอนต์ (คุณสามารถก๊อปปี้บรรทัดเพิ่มได้เรื่อยๆ จนครบ 50 ตัว)
     const fonts = [
         { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", file: "Stephanie.ttf" },
         { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", file: "Anthony.ttf" },
-        { th: "ลิลลี่", en: "Lily", p: "79.-", c: "169.-", file: "BRLily.ttf" },
-        // เพิ่มฟอนต์ที่ 4, 5, 6... ตรงนี้
+        { th: "ลิลลี่", en: "Lily", p: "79.-", c: "169.-", file: "BRLily.ttf" }
     ];
 
     const list = document.getElementById('fontList');
     const modal = document.getElementById('fontModal');
     const display = document.getElementById('testerDisplay');
 
-    // ฟังก์ชันโหลดฟอนต์เข้าเว็บไซต์
     async function loadFonts() {
         for (const font of fonts) {
             try {
@@ -188,8 +195,7 @@
                 document.fonts.add(f);
                 renderCard(font);
             } catch (e) {
-                console.error("โหลดฟอนต์ไม่สำเร็จ:", font.file);
-                renderCard(font); // แสดงการ์ดแม้ฟอนต์จะโหลดไม่ขึ้น
+                renderCard(font);
             }
         }
     }
@@ -203,14 +209,9 @@
                     <h3>${font.th}</h3>
                     <p>${font.en}</p>
                 </div>
-                <div class="price-tag">
-                    ส่วนตัว: ${font.p}<br>
-                    เชิงพาณิชย์: ${font.c}
-                </div>
+                <div class="price-tag">ส่วนตัว: ${font.p}<br>เชิงพาณิชย์: ${font.c}</div>
             </div>
-            <div class="preview-text" style="font-family: '${font.en}', sans-serif">
-                hello สวัสดี
-            </div>
+            <div class="preview-text" style="font-family: '${font.en}', sans-serif">hello สวัสดี</div>
         `;
         div.onclick = () => openModal(font);
         list.appendChild(div);
@@ -223,14 +224,20 @@
         display.style.fontFamily = `'${font.en}', sans-serif`;
         display.innerText = "hello สวัสดี";
         document.getElementById('testerInput').value = "";
+        document.body.style.overflow = 'hidden'; // ล็อคหน้าหลักไม่ให้เลื่อน
     }
 
-    function closeModal() { modal.style.display = 'none'; }
-    function updatePreview(val) { display.innerText = val || "hello สวัสดี"; }
+    function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // คืนค่าหน้าหลักให้เลื่อนได้
+    }
+
+    function updatePreview(val) {
+        display.innerText = val || "hello สวัสดี";
+    }
 
     window.onclick = (e) => { if (e.target == modal) closeModal(); }
 
-    // เริ่มทำงาน
     loadFonts();
 </script>
 
