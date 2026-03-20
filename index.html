@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThitipraStudio - Font Preview</title>
+    <style>
+        :root {
+            --primary-color: #333;
+            --accent-color: #ff4757;
+            --bg-color: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            background: #eee;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #ccc;
+            aspect-ratio: 1/1; /* ขนาด 1*1 */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* ส่วนแสดงรายการฟอนต์ */
+        .font-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .font-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .font-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .font-names h3 { margin: 0; font-size: 1.2rem; }
+        .font-names p { margin: 5px 0; color: #666; font-size: 0.9rem; }
+
+        .price-tag {
+            text-align: right;
+            font-size: 0.85rem;
+            background: #fff0f1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--accent-color);
+        }
+
+        .preview-text {
+            font-size: 2.5rem;
+            margin-top: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ส่วน Modal สำหรับทดลองพิมพ์ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 24px; cursor: pointer;
+        }
+
+        .tester-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .tester-display {
+            min-height: 200px;
+            font-size: 3.5rem;
+            word-wrap: break-word;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .font-info { flex-direction: column; }
+            .price-tag { text-align: left; margin-top: 10px; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-placeholder">Logo 1:1</div>
+    <h1>ThitipraStudio</h1>
+    <p>เลือกฟอนต์ที่ใช่ ในสไตล์ที่เป็นคุณ</p>
+</header>
+
+<div class="container" id="fontList">
+    </div>
+
+<div class="modal" id="fontModal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 id="modalFontName">ชื่อฟอนต์</h2>
+        <input type="text" class="tester-input" id="testerInput" placeholder="พิมพ์ข้อความที่นี่เพื่อทดสอบ..." oninput="updatePreview(this.value)">
+        <div class="tester-display" id="testerDisplay">hello สวัสดี</div>
+    </div>
+</div>
+
+<script>
+    // ข้อมูลฟอนต์ (สมมติ)
+    // หมายเหตุ: ในการใช้งานจริง คุณต้องเพิ่ม @font-face ใน CSS เพื่อดึงไฟล์ฟอนต์มาใช้
+    const fonts = [
+        {
+            nameTh: "ทิติปรา สบาย",
+            nameEn: "Thitipra Sabai",
+            personalPrice: "159.-",
+            commercialPrice: "359.-",
+            family: "'Courier New', Courier, monospace" // แทนที่ด้วยชื่อ Font Family จริงของคุณ
+        },
+        {
+            nameTh: "ทิติปรา น่ารัก",
+            nameEn: "Thitipra Cute",
+            personalPrice: "129.-",
+            commercialPrice: "299.-",
+            family: "cursive"
+        },
+        {
+            nameTh: "ทิติปรา ทางการ",
+            nameEn: "Thitipra Formal",
+            personalPrice: "199.-",
+            commercialPrice: "499.-",
+            family: "serif"
+        }
+    ];
+
+    const fontListContainer = document.getElementById('fontList');
+    const modal = document.getElementById('fontModal');
+    const testerDisplay = document.getElementById('testerDisplay');
+    const modalFontName = document.getElementById('modalFontName');
+
+    // สร้าง Card ฟอนต์
+    fonts.forEach(font => {
+        const card = document.createElement('div');
+        card.className = 'font-card';
+        card.innerHTML = `
+            <div class="font-info">
+                <div class="font-names">
+                    <h3>${font.nameTh}</h3>
+                    <p>${font.nameEn}</p>
+                </div>
+                <div class="price-tag">
+                    ส่วนตัว: ${font.personalPrice}<br>
+                    เชิงพาณิชย์: ${font.commercialPrice}
+                </div>
+            </div>
+            <div class="preview-text" style="font-family: ${font.family}">
+                hello สวัสดี
+            </div>
+        `;
+        card.onclick = () => openModal(font);
+        fontListContainer.appendChild(card);
+    });
+
+    function openModal(font) {
+        modal.style.display = 'flex';
+        modalFontName.innerText = `${font.nameTh} (${font.nameEn})`;
+        testerDisplay.style.fontFamily = font.family;
+        document.getElementById('testerInput').value = "";
+        testerDisplay.innerText = "hello สวัสดี";
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    function updatePreview(text) {
+        testerDisplay.innerText = text || "hello สวัสดี";
+    }
+
+    // ปิด Modal เมื่อคลิกข้างนอก
+    window.onclick = (event) => {
+        if (event.target == modal) closeModal();
+    }
+</script>
+
+</body>
+</html>
