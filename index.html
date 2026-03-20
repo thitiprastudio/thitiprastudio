@@ -7,8 +7,8 @@
     <style>
         :root {
             --primary-color: #333;
-            --accent-color: #ff4757;
-            --bg-color: #f9f9f9;
+            --accent-color: #d4af37; 
+            --bg-color: #fdfdfd;
         }
 
         body {
@@ -19,231 +19,219 @@
             color: var(--primary-color);
         }
 
+        /* --- Header & Logo Section --- */
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             background: white;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
         }
 
-        .logo-placeholder {
-            width: 100px;
-            height: 100px;
-            background: #eee;
-            margin: 0 auto 15px;
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px dashed #ccc;
-            aspect-ratio: 1/1; /* ขนาด 1*1 */
+            border-radius: 15px; /* มุมโค้งมน */
+            overflow: hidden;
+            border: 1px solid #eee;
+            background: #fff;
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* ให้รูปเต็มพื้นที่ 1:1 พอดี */
         }
 
         .container {
-            max-width: 1000px;
-            margin: 20px auto;
+            max-width: 1100px;
+            margin: 40px auto;
             padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
         }
 
-        /* ส่วนแสดงรายการฟอนต์ */
+        /* --- Font Card Design --- */
         .font-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 1px solid #eee;
         }
 
         .font-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-color: var(--accent-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
         }
 
         .font-info {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .font-names h3 { margin: 0; font-size: 1.2rem; }
-        .font-names p { margin: 5px 0; color: #666; font-size: 0.9rem; }
+        .font-names h3 { margin: 0; font-size: 1.1rem; color: #111; }
+        .font-names p { margin: 4px 0; color: #888; font-size: 0.85rem; }
 
         .price-tag {
             text-align: right;
-            font-size: 0.85rem;
-            background: #fff0f1;
-            padding: 8px 12px;
-            border-radius: 8px;
+            font-size: 0.8rem;
             color: var(--accent-color);
+            font-weight: bold;
+            line-height: 1.4;
         }
 
         .preview-text {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-top: 10px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
+            border-top: 1px solid #f9f9f9;
+            padding-top: 20px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* ส่วน Modal สำหรับทดลองพิมพ์ */
+        /* --- Modal Tester --- */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
             background: white;
-            width: 90%;
-            max-width: 800px;
-            padding: 40px;
-            border-radius: 20px;
-            position: relative;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 80px;
         }
 
         .close-btn {
             position: absolute;
-            top: 20px; right: 20px;
-            font-size: 24px; cursor: pointer;
+            top: 25px; right: 35px;
+            font-size: 40px; cursor: pointer; color: #ccc;
         }
 
         .tester-input {
-            width: 100%;
+            width: 80%;
+            max-width: 700px;
             padding: 15px;
             font-size: 1.2rem;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
+            margin-bottom: 50px;
+            border: none;
+            border-bottom: 2px solid #eee;
+            text-align: center;
+            outline: none;
         }
 
         .tester-display {
-            min-height: 200px;
-            font-size: 3.5rem;
-            word-wrap: break-word;
+            width: 90%;
             text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #f0f0f0;
-            border-radius: 10px;
-            padding: 20px;
+            font-size: clamp(2rem, 10vw, 6rem);
+            word-wrap: break-word;
         }
 
         @media (max-width: 600px) {
-            .font-info { flex-direction: column; }
-            .price-tag { text-align: left; margin-top: 10px; width: 100%; }
+            .container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-placeholder">Logo 1:1</div>
+    <div class="logo-container">
+        <img src="IPCB5121.PNG" alt="ThitipraStudio Logo">
+    </div>
     <h1>ThitipraStudio</h1>
-    <p>เริ่มเปิดขายฟอนต์ลายมือครั้งแรกวันที่ 15 May 2023
-สไตล์ฟอนต์ประจำร้านแนวลายมือน่ารัก สดใสปุ๊กปิ๊กที่สุดในสามโลก แนวลายมือทางการเรียบร้อย</p>
+    <p style="max-width: 600px; margin: 0 auto; line-height: 1.6; color: #666;">
+        เริ่มเปิดขายฟอนต์ลายมือครั้งแรกวันที่ 15 May 2023<br>
+        สไตล์ฟอนต์ประจำร้านแนวลายมือน่ารัก สดใสปุ๊กปิ๊กที่สุดในสามโลก
+    </p>
 </header>
 
 <div class="container" id="fontList">
     </div>
 
 <div class="modal" id="fontModal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <h2 id="modalFontName">ชื่อฟอนต์</h2>
-        <input type="text" class="tester-input" id="testerInput" placeholder="พิมพ์ข้อความที่นี่เพื่อทดสอบ..." oninput="updatePreview(this.value)">
-        <div class="tester-display" id="testerDisplay">hello สวัสดี</div>
-    </div>
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2 id="modalFontName">ชื่อฟอนต์</h2>
+    <p id="modalFontEn" style="color: #888; margin-bottom: 30px;">Font Name</p>
+    
+    <input type="text" class="tester-input" id="testerInput" placeholder="พิมพ์ข้อความทดสอบที่นี่..." oninput="updatePreview(this.value)">
+    <div class="tester-display" id="testerDisplay">hello สวัสดี</div>
 </div>
 
 <script>
-    // ข้อมูลฟอนต์ (สมมติ)
-    // หมายเหตุ: ในการใช้งานจริง คุณต้องเพิ่ม @font-face ใน CSS เพื่อดึงไฟล์ฟอนต์มาใช้
+    // รายชื่อฟอนต์ (คุณสามารถก๊อปปี้บรรทัดเพิ่มได้เรื่อยๆ จนครบ 50 ตัว)
     const fonts = [
-        {
-            nameTh: "สเตฟานี่",
-            nameEn: "Stephanie",
-            personalPrice: "79.-",
-            commercialPrice: "169.-",
-            family: "'Courier New', Courier, monospace" // แทนที่ด้วยชื่อ Font Family จริงของคุณ
-            src: url('Stephanie.ttf') format('truetype')
-        },
-        {
-            nameTh: "แอนโทนี่",
-            nameEn: "Anthony",
-            personalPrice: "79.-",
-            commercialPrice: "169.-",
-            family: "cursive"
-            src: url('Anthony.ttf') format('truetype')
-        },
-        {
-            nameTh: "ลิลลี่",
-            nameEn: "Lily",
-            personalPrice: "79.-",
-            commercialPrice: "169.-",
-            family: "serif"
-            src: url('BRLily.ttf') format('truetype')
-        }
+        { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", file: "Stephanie.ttf" },
+        { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", file: "Anthony.ttf" },
+        { th: "ลิลลี่", en: "Lily", p: "79.-", c: "169.-", file: "BRLily.ttf" },
+        // เพิ่มฟอนต์ที่ 4, 5, 6... ตรงนี้
     ];
 
-    const fontListContainer = document.getElementById('fontList');
+    const list = document.getElementById('fontList');
     const modal = document.getElementById('fontModal');
-    const testerDisplay = document.getElementById('testerDisplay');
-    const modalFontName = document.getElementById('modalFontName');
+    const display = document.getElementById('testerDisplay');
 
-    // สร้าง Card ฟอนต์
-    fonts.forEach(font => {
-        const card = document.createElement('div');
-        card.className = 'font-card';
-        card.innerHTML = `
+    // ฟังก์ชันโหลดฟอนต์เข้าเว็บไซต์
+    async function loadFonts() {
+        for (const font of fonts) {
+            try {
+                const f = new FontFace(font.en, `url(${font.file})`);
+                await f.load();
+                document.fonts.add(f);
+                renderCard(font);
+            } catch (e) {
+                console.error("โหลดฟอนต์ไม่สำเร็จ:", font.file);
+                renderCard(font); // แสดงการ์ดแม้ฟอนต์จะโหลดไม่ขึ้น
+            }
+        }
+    }
+
+    function renderCard(font) {
+        const div = document.createElement('div');
+        div.className = 'font-card';
+        div.innerHTML = `
             <div class="font-info">
                 <div class="font-names">
-                    <h3>${font.nameTh}</h3>
-                    <p>${font.nameEn}</p>
+                    <h3>${font.th}</h3>
+                    <p>${font.en}</p>
                 </div>
                 <div class="price-tag">
-                    ส่วนตัว: ${font.personalPrice}<br>
-                    เชิงพาณิชย์: ${font.commercialPrice}
+                    ส่วนตัว: ${font.p}<br>
+                    เชิงพาณิชย์: ${font.c}
                 </div>
             </div>
-            <div class="preview-text" style="font-family: ${font.family}">
+            <div class="preview-text" style="font-family: '${font.en}', sans-serif">
                 hello สวัสดี
             </div>
         `;
-        card.onclick = () => openModal(font);
-        fontListContainer.appendChild(card);
-    });
+        div.onclick = () => openModal(font);
+        list.appendChild(div);
+    }
 
     function openModal(font) {
         modal.style.display = 'flex';
-        modalFontName.innerText = `${font.nameTh} (${font.nameEn})`;
-        testerDisplay.style.fontFamily = font.family;
+        document.getElementById('modalFontName').innerText = font.th;
+        document.getElementById('modalFontEn').innerText = font.en;
+        display.style.fontFamily = `'${font.en}', sans-serif`;
+        display.innerText = "hello สวัสดี";
         document.getElementById('testerInput').value = "";
-        testerDisplay.innerText = "hello สวัสดี";
     }
 
-    function closeModal() {
-        modal.style.display = 'none';
-    }
+    function closeModal() { modal.style.display = 'none'; }
+    function updatePreview(val) { display.innerText = val || "hello สวัสดี"; }
 
-    function updatePreview(text) {
-        testerDisplay.innerText = text || "hello สวัสดี";
-    }
+    window.onclick = (e) => { if (e.target == modal) closeModal(); }
 
-    // ปิด Modal เมื่อคลิกข้างนอก
-    window.onclick = (event) => {
-        if (event.target == modal) closeModal();
-    }
+    // เริ่มทำงาน
+    loadFonts();
 </script>
 
 </body>
