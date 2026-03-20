@@ -9,146 +9,85 @@
             --primary-color: #333;
             --accent-color: #d4af37; 
             --bg-color: #fdfdfd;
+            --max-w: 800px; /* ความกว้างหน้าแรกแบบ Compact */
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--primary-color);
+            margin: 0; background-color: var(--bg-color); color: var(--primary-color);
         }
 
         /* --- Header --- */
         header {
-            text-align: center;
-            padding: 50px 20px;
-            background: white;
-            border-bottom: 1px solid #eee;
+            text-align: center; padding: 50px 20px; background: white; border-bottom: 1px solid #eee;
         }
 
         .logo-container {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid #eee;
-            background: #fff;
+            width: 100px; height: 100px; margin: 0 auto 15px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px; overflow: hidden; border: 1px solid #eee;
         }
         
-        .logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- Font Grid --- */
+        /* --- Main Page (Compact Grid) --- */
         .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
+            max-width: var(--max-w);
+            margin: 30px auto; padding: 0 20px;
+            display: flex; flex-direction: column; gap: 15px;
         }
 
         .font-card {
-            background: white;
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid #eee;
+            background: white; border-radius: 12px; padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: 0.3s; cursor: pointer; border: 1px solid #eee;
         }
 
-        .font-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent-color);
-        }
+        .font-card:hover { border-color: var(--accent-color); transform: translateY(-2px); }
 
-        .font-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .price-tag {
-            text-align: right;
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            font-weight: bold;
-        }
+        .font-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .font-names h3 { margin: 0; font-size: 1rem; }
+        .font-names p { margin: 2px 0; color: #888; font-size: 0.8rem; }
+        .price-tag { text-align: right; font-size: 0.75rem; color: var(--accent-color); font-weight: bold; }
 
         .preview-text {
-            font-size: 2.2rem;
-            border-top: 1px solid #f9f9f9;
-            padding-top: 20px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 1.8rem; border-top: 1px solid #fafafa; padding-top: 10px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
-        /* --- Modal (เลื่อนขึ้นลงได้) --- */
+        /* --- Modal System (Scrollable) --- */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: white;
-            z-index: 1000;
-            overflow-y: auto; /* ทำให้ Modal เลื่อนขึ้นลงได้ถ้าเนื้อหายาว */
-            flex-direction: column;
-            align-items: center;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 1000; overflow-y: auto;
         }
 
         .modal-content {
-            width: 90%;
-            max-width: 900px;
-            padding: 60px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh; /* ให้เนื้อหาครอบคลุมความสูงหน้าจอ */
+            width: 90%; max-width: 700px; margin: 0 auto;
+            padding: 80px 10px; display: flex; flex-direction: column; align-items: center;
         }
 
         .close-btn {
-            position: fixed; /* ให้อยู่กับที่แม้เลื่อนหน้าจอ */
-            top: 20px; right: 30px;
-            font-size: 40px; cursor: pointer; color: #ccc;
-            z-index: 1001;
+            position: fixed; top: 20px; right: 25px; font-size: 35px;
+            cursor: pointer; color: #ccc; z-index: 1001;
         }
 
         .tester-input {
-            width: 100%;
-            max-width: 600px;
-            padding: 15px;
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            border: none;
-            border-bottom: 2px solid #eee;
-            text-align: center;
-            outline: none;
-            background: transparent;
+            width: 100%; max-width: 500px; padding: 12px; font-size: 1.1rem;
+            margin-bottom: 40px; border: none; border-bottom: 2px solid #eee;
+            text-align: center; outline: none; background: white;
+            position: sticky; top: 0; z-index: 10;
         }
 
+        /* พื้นที่แสดงฟอนต์ที่ปรับขนาดอัตโนมัติ */
         .tester-display {
-            width: 100%;
-            text-align: center;
-            /* clamp(ขนาดเล็กสุด, ขนาดที่แปรผัน, ขนาดใหญ่สุด) */
-            font-size: clamp(1.5rem, 8vw, 5rem); 
-            word-wrap: break-word; /* ให้ตัดคำลงบรรทัดใหม่เมื่อยาวเกิน */
-            line-height: 1.3;
-            color: #111;
-            padding-bottom: 50px;
+            width: 100%; text-align: left; /* ปรับชิดซ้ายให้อ่านง่ายแบบในรูป */
+            word-wrap: break-word; line-height: 1.6; color: #111;
+            transition: font-size 0.2s ease;
+            white-space: pre-wrap; /* รักษาการเว้นวรรคและการขึ้นบรรทัดใหม่ */
         }
 
         @media (max-width: 600px) {
-            .container { grid-template-columns: 1fr; }
-            .tester-display { font-size: clamp(1.2rem, 10vw, 3.5rem); }
+            .preview-text { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -159,8 +98,7 @@
         <img src="IPCB5121.PNG" alt="ThitipraStudio Logo">
     </div>
     <h1>ThitipraStudio</h1>
-    <p>เริ่มเปิดขายฟอนต์ลายมือครั้งแรกวันที่ 15 May 2023 </p>
-    <p>สไตล์ฟอนต์ประจำร้านแนวลายมือน่ารัก สดใสปุ๊กปิ๊กที่สุดในสามโลก แนวลายมือทางการเรียบร้อย</p>
+    <p style="font-size: 0.9rem; color: #888;">ฟอนต์ลายมือน่ารัก สดใสปุ๊กปิ๊กที่สุดในสามโลก</p>
 </header>
 
 <div class="container" id="fontList"></div>
@@ -168,16 +106,17 @@
 <div class="modal" id="fontModal">
     <span class="close-btn" onclick="closeModal()">&times;</span>
     <div class="modal-content">
-        <h2 id="modalFontName" style="margin: 0;">ชื่อฟอนต์</h2>
-        <p id="modalFontEn" style="color: #888; margin: 5px 0 40px 0;">Font Name</p>
+        <h2 id="modalFontName" style="margin: 0; font-size: 1.2rem;">ชื่อฟอนต์</h2>
+        <p id="modalFontEn" style="color: #bbb; margin: 5px 0 30px 0; font-size: 0.9rem;">Font Name</p>
         
-        <input type="text" class="tester-input" id="testerInput" placeholder="พิมพ์ลองฟอนต์ยาวๆ ได้ที่นี่..." oninput="updatePreview(this.value)">
+        <input type="text" class="tester-input" id="testerInput" placeholder="ลองพิมพ์ทดสอบยาวๆ ได้ที่นี่..." oninput="updatePreview(this.value)">
         
         <div class="tester-display" id="testerDisplay">hello สวัสดี</div>
     </div>
 </div>
 
 <script>
+    // รายชื่อฟอนต์ (เพิ่มต่อได้เลย)
     const fonts = [
         { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", file: "Stephanie.ttf" },
         { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", file: "Anthony.ttf" },
@@ -195,9 +134,7 @@
                 await f.load();
                 document.fonts.add(f);
                 renderCard(font);
-            } catch (e) {
-                renderCard(font);
-            }
+            } catch (e) { renderCard(font); }
         }
     }
 
@@ -210,31 +147,49 @@
                     <h3>${font.th}</h3>
                     <p>${font.en}</p>
                 </div>
-                <div class="price-tag">ส่วนตัว: ${font.p}<br>เชิงพาณิชย์: ${font.c}</div>
+                <div class="price-tag">ส่วนตัว: ${font.p} | พาณิชย์: ${font.c}</div>
             </div>
-            <div class="preview-text" style="font-family: '${font.en}', sans-serif">hello สวัสดี</div>
+            <div class="preview-text" style="font-family: '${font.en}', sans-serif">สวัสดี hello</div>
         `;
         div.onclick = () => openModal(font);
         list.appendChild(div);
     }
 
     function openModal(font) {
-        modal.style.display = 'flex';
+        modal.style.display = 'block';
         document.getElementById('modalFontName').innerText = font.th;
         document.getElementById('modalFontEn').innerText = font.en;
         display.style.fontFamily = `'${font.en}', sans-serif`;
+        display.style.fontSize = "40px"; // Reset ขนาด
         display.innerText = "hello สวัสดี";
         document.getElementById('testerInput').value = "";
-        document.body.style.overflow = 'hidden'; // ล็อคหน้าหลักไม่ให้เลื่อน
+        document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
         modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // คืนค่าหน้าหลักให้เลื่อนได้
+        document.body.style.overflow = 'auto';
     }
 
     function updatePreview(val) {
-        display.innerText = val || "hello สวัสดี";
+        const text = val || "hello สวัสดี";
+        display.innerText = text;
+
+        // --- ระบบคำนวณขนาดฟอนต์ตามจำนวนตัวอักษร ---
+        let fontSize = 40; 
+        const len = text.length;
+
+        if (len > 250) {
+            fontSize = 18; // พิมพ์เยอะมาก (แบบในรูปตัวอย่าง)
+        } else if (len > 150) {
+            fontSize = 20;
+        } else if (len > 50) {
+            fontSize = 30;
+        } else {
+            fontSize = 40; // พิมพ์น้อย
+        }
+
+        display.style.fontSize = fontSize + "px";
     }
 
     window.onclick = (e) => { if (e.target == modal) closeModal(); }
