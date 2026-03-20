@@ -171,27 +171,32 @@
         document.body.style.overflow = 'auto';
     }
 
+   จัดไปครับ! ถ้าอยากให้ "ใหญ่สะใจ" สำหรับคนชอบดูรายละเอียดลายเส้นชัดๆ ผมปรับแก้สเกลใหม่ให้เริ่มที่ 80px แล้วค่อยๆ ไล่ระดับลงมาจนจบที่ 30px (ซึ่งยังถือว่าใหญ่อ่านง่ายอยู่) เมื่อพิมพ์ข้อความยาวมากๆ ครับ
+
+โค้ดส่วน JavaScript ที่แก้ไขใหม่:
+ก๊อปปี้ส่วนนี้ไปวางทับฟังก์ชัน updatePreview เดิมได้เลยครับ:
+
+JavaScript
     function updatePreview(val) {
         const text = val || "hello สวัสดี";
         display.innerText = text;
 
-        // --- ระบบคำนวณขนาดฟอนต์ตามจำนวนตัวอักษร ---
-        let fontSize = 40; 
+        // --- ระบบสเกลขนาดใหญ่พิเศษ ---
+        let fontSize = 80; 
         const len = text.length;
 
-        if (len > 250) {
-            fontSize = 18; // พิมพ์เยอะมาก (แบบในรูปตัวอย่าง)
+        if (len > 300) {
+            fontSize = 30; // พิมพ์ยาวเหยียด (เกิน 300 ตัว) ยังคงไว้ที่ 30px ให้อ่านง่าย
         } else if (len > 150) {
-            fontSize = 20;
+            fontSize = 40; // พิมพ์ประมาณ 3-4 บรรทัด
         } else if (len > 50) {
-            fontSize = 30;
+            fontSize = 60; // พิมพ์ประโยคสั้นๆ
         } else {
-            fontSize = 40; // พิมพ์น้อย
+            fontSize = 80; // พิมพ์คำเดียว หรือไม่กี่คำ (ใหญ่สะใจ)
         }
 
         display.style.fontSize = fontSize + "px";
     }
-
     window.onclick = (e) => { if (e.target == modal) closeModal(); }
 
     loadFonts();
