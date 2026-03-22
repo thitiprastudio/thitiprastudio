@@ -65,7 +65,7 @@
 </header>
 
 <div class="top-controls">
-    <button class="vs-open-btn" onclick="openVS()">⚡ โหมดเปรียบเทียบฟอนต์ (VS Mode)</button>
+    <button class="vs-open-btn" onclick="openVS()">❤️โหมดเปรียบเทียบฟอนต์(VS Mode)🎶</button>
     <input type="text" id="fontSearch" class="search-input" placeholder="ค้นหาชื่อฟอนต์..." oninput="filterFonts()">
 </div>
 
@@ -81,7 +81,7 @@
             <span id="sizeLabel" style="font-weight:bold; color:var(--accent-color); font-size: 0.9rem;">70px</span>
         </div>
         <div id="testerDisplay" class="vs-display" style="font-size: 70px;">สวัสดี hello</div>
-        <button class="back-btn-frame" onclick="closeModal('fontModal')">← กลับหน้าพรีวิว</button>
+        <button class="back-btn-frame" onclick="closeModal('fontModal')">← กลับหน้าพรีวิวรวม</button>
     </div>
 </div>
 
@@ -186,8 +186,8 @@
         const rF = document.getElementById('selectRight').value;
         const dataL = fonts.find(f => f.en === lF);
         const dataR = fonts.find(f => f.en === rF);
-        document.getElementById('priceLeft').innerText = `Personal: ${dataL.p} | Commercial: ${dataL.c}`;
-        document.getElementById('priceRight').innerText = `Personal: ${dataR.p} | Commercial: ${dataR.c}`;
+        document.getElementById('priceLeft').innerText = `ส่วนตัว/Personal: ${dataL.p} | เชิงพาณิชย์/Commercial: ${dataL.c}`;
+        document.getElementById('priceRight').innerText = `ส่วนตัว/Personal: ${dataR.p} | เชิงพาณิชย์/Commercial: ${dataR.c}`;
         const dL = document.getElementById('displayLeft'); const dR = document.getElementById('displayRight');
         dL.innerText = dR.innerText = val;
         dL.style.fontFamily = lF; dR.style.fontFamily = rF;
