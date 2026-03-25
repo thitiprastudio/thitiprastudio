@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThitipraStudio - Font Preview & VS Mode</title>
     <style>
-        /* --- 🎨 ตั้งค่าสีมงคล (Color Palette) --- */
+        /* --- 🎨 กำหนด Palette สีเรียกเงินตามสูตร --- */
         :root {
-            --primary-pink: #FF9AA2;    /* ชมพูพีช (เรียกลูกค้า) */
-            --soft-pink: #FFC1CC;       /* ชมพูหวาน (อยากซื้อ) */
-            --gold-accent: #F6D365;     /* ทองพาสเทล (เงินเข้า) */
-            --price-gold: #D4AF37;      /* สีทอง (ดูมีมูลค่า) */
-            --bg-cream: #FFF8F5;        /* ขาวครีม (ดูแพง) */
+            --peach-main: #FF9AA2;    /* ชมพูพีช (ปุ่ม/ไฮไลต์) */
+            --gold-income: #F6D365;   /* ทองพาสเทล (เสริมรายได้) */
+            --bg-cream: #FFF8F5;      /* ขาวครีม (พื้นหลังดูแพง) */
+            --lavender-soft: #E6CCFF; /* ม่วงลาเวนเดอร์ (สีเสริม) */
             --danger: #FF4D4D;
             --max-w: 1000px;
         }
@@ -19,7 +18,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0; 
-            background-color: var(--bg-cream); /* พื้นหลังขาวครีม */
+            background-color: var(--bg-cream); 
             color: #4A4A4A;
         }
 
@@ -28,13 +27,13 @@
             text-align: center; 
             padding: 50px 20px; 
             background: white; 
-            border-bottom: 2px solid var(--soft-pink); 
+            border-bottom: 3px solid var(--lavender-soft); 
         }
         .logo-container { 
             width: 90px; height: 90px; margin: 0 auto 15px; 
             border-radius: 20px; overflow: hidden; 
-            border: 2px solid var(--soft-pink);
-            box-shadow: 0 4px 10px rgba(255, 154, 162, 0.2);
+            border: 2px solid var(--peach-main);
+            box-shadow: 0 4px 10px rgba(255, 154, 162, 0.3);
         }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -42,32 +41,32 @@
         .top-controls { max-width: var(--max-w); margin: 20px auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         
         .vs-open-btn { 
-            background: var(--primary-pink); /* ปุ่มชมพูเรียกลูกค้า */
+            background: var(--peach-main); 
             color: white; border: none; padding: 12px 25px; 
             border-radius: 25px; cursor: pointer; font-weight: bold; 
             box-shadow: 0 4px 15px rgba(255, 154, 162, 0.4);
             transition: 0.3s;
         }
-        .vs-open-btn:hover { background: #FF858F; transform: scale(1.05); }
+        .vs-open-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
 
         .search-input { 
             width: 100%; max-width: 450px; padding: 12px 20px; 
-            border-radius: 25px; border: 1.5px solid var(--soft-pink); 
+            border-radius: 25px; border: 2px solid var(--lavender-soft); 
             outline: none; background: white;
         }
 
-        /* --- การ์ดฟอนต์ (Grid) --- */
+        /* --- การ์ดฟอนต์หน้าแรก --- */
         .container { max-width: var(--max-w); margin: 0 auto 50px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
         
         .font-card { 
             background: white; border-radius: 15px; padding: 20px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02); 
             transition: 0.3s; cursor: pointer; 
             border: 1px solid #EEE;
         }
         .font-card:hover { 
-            border-color: var(--primary-pink); 
-            background-color: #FFF0F1; /* ไฮไลต์ชมพูอ่อนเวลาเลือก */
+            border-color: var(--peach-main); 
+            background-color: #FFF0F1; /* ไฮไลต์ชมพูอ่อน */
             transform: translateY(-5px);
         }
 
@@ -75,53 +74,53 @@
         .font-names h3 { margin: 0; font-size: 1.1rem; color: #333; }
         .font-names p { margin: 2px 0 0 0; color: #B0B0B0; font-size: 0.8rem; }
         
-        /* ราคาตัวหนาสีทอง */
+        /* ราคาชมพูพีชตัวหนา */
         .price-tag { 
-            text-align: right; font-size: 0.85rem; 
-            color: var(--price-gold); font-weight: 800; 
-            line-height: 1.4; 
+            text-align: right; font-size: 0.75rem; 
+            color: var(--peach-main); font-weight: 800; 
+            line-height: 1.5; 
         }
 
         .preview-text { 
-            font-size: 1.8rem; border-top: 1px solid #FDF0F0; 
+            font-size: 1.8rem; border-top: 1px solid var(--lavender-soft); 
             margin-top: 15px; padding-top: 15px; text-align: center; 
             color: #222; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; 
         }
 
-        /* --- Pop-up (Modal) --- */
+        /* --- Modal Pop-up --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; }
         .modal-content { width: 95%; max-width: 1000px; margin: 0 auto; padding: 60px 10px; display: flex; flex-direction: column; align-items: center; }
         .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; background: var(--danger); color: white; font-size: 25px; border-radius: 50%; cursor: pointer; z-index: 1001; border: none; }
 
-        .modal-select { padding: 10px 15px; border-radius: 12px; border: 2px solid var(--soft-pink); margin-bottom: 20px; outline: none; cursor: pointer; font-family: inherit; }
+        .modal-select { padding: 10px 15px; border-radius: 12px; border: 2px solid var(--peach-main); margin-bottom: 20px; outline: none; cursor: pointer; font-family: inherit; }
 
         .vs-shortcut-btn { 
-            background: #FFF; color: var(--primary-pink); 
-            border: 2px solid var(--primary-pink); padding: 8px 18px; 
+            background: #FFF; color: var(--peach-main); 
+            border: 2px solid var(--peach-main); padding: 8px 18px; 
             border-radius: 20px; cursor: pointer; font-weight: bold; 
             margin-bottom: 25px; transition: 0.3s; 
         }
-        .vs-shortcut-btn:hover { background: var(--primary-pink); color: white; }
+        .vs-shortcut-btn:hover { background: var(--peach-main); color: white; }
 
         /* --- VS Mode Layout --- */
         .vs-layout { display: flex; width: 100%; gap: 15px; margin-top: 25px; }
         .vs-column { 
             flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; 
-            padding: 20px; border: 2px solid var(--soft-pink); 
+            padding: 20px; border: 2px solid var(--lavender-soft); 
             border-radius: 15px; background: white; 
         }
         .vs-display { width: 100%; text-align: center; word-wrap: break-word; line-height: 1.5; min-height: 120px; white-space: pre-wrap; overflow-x: hidden; color: #111; }
 
-        /* ปุ่ม Home สีทองพาสเทล */
+        /* ปุ่มกลับหน้าหลัก (สีทองเสริมบารมี) */
         .back-btn-frame { 
             margin-top: 50px; padding: 12px 35px; 
-            border: 2px solid var(--gold-accent); color: #8B7355; 
+            border: 2px solid var(--gold-income); color: #8B7355; 
             border-radius: 10px; cursor: pointer; font-weight: bold; 
             background: white; transition: 0.3s; 
         }
-        .back-btn-frame:hover { background: var(--gold-accent); color: white; }
+        .back-btn-frame:hover { background: var(--gold-income); color: white; }
 
-        input[type=range] { accent-color: var(--primary-pink); }
+        input[type=range] { accent-color: var(--peach-main); }
 
         @media (max-width: 600px) { .vs-layout { flex-direction: column; } .container { grid-template-columns: 1fr; } }
     </style>
@@ -130,14 +129,14 @@
 
 <header>
     <div class="logo-container"><img src="IPCB5121.PNG" alt="Logo"></div>
-    <h1 style="font-size: 1.8rem; margin: 0; color: #333;">ThitipraStudio</h1>
-    <p style="font-size: 0.85rem; color: #888; margin-top: 5px;">🍷เว็บเครือ BR&PRH สำหรับทดลองและเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ💖</p>
+    <h1 style="font-size: 1.8rem; margin: 0;">ThitipraStudio</h1>
+    <p style="font-size: 0.85rem; color: #888; margin-top: 5px;">🎨 เว็บเครือ BR&PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ ✨</p>
     <p style="font-size: 0.85rem; color: #888; margin-top: 5px;">รอเว็บโหลดสักครู่นะคะ🗯️🏡</p>
 </header>
 
 <div class="top-controls">
     <button class="vs-open-btn" onclick="openVS()">💗 เปิดโหมดเปรียบเทียบฟอนต์ (VS Mode) 🎶</button>
-    <input type="text" id="fontSearch" class="search-input" placeholder="🔍 ค้นหาชื่อฟอนต์ที่ต้องการ..." oninput="filterFonts()">
+    <input type="text" id="fontSearch" class="search-input" placeholder="🔍 ค้นหาชื่อฟอนต์..." oninput="filterFonts()">
 </div>
 
 <div class="container" id="fontList"></div>
@@ -145,47 +144,46 @@
 <div class="modal" id="fontModal">
     <button class="close-btn" onclick="closeModal('fontModal')">&times;</button>
     <div class="modal-content">
-        <button class="vs-shortcut-btn" onclick="shortcutToVS()">🍋 เทียบกับฟอนต์อื่น (VS Mode)</button>
+        <button class="vs-shortcut-btn" onclick="shortcutToVS()">🍋เปรียบเทียบกับฟอนต์อื่น (VS Mode)</button>
         <select id="singleFontSelect" class="modal-select" onchange="changeSingleFont(this.value)"></select>
-        <h2 id="modalFontName" style="color: var(--primary-pink);">ชื่อฟอนต์</h2>
+        <h2 id="modalFontName" style="color: var(--peach-main);">ชื่อฟอนต์</h2>
         <input type="text" id="testerInput" class="search-input" placeholder="ลองพิมพ์ที่นี่..." oninput="refreshDisplay()">
-        <div style="margin: 20px 0; color: #888; font-size: 0.9rem;">
-            ปรับขนาด: 
+        <div style="margin: 20px 0;">
             <input type="range" id="sizeRange" min="20" max="150" value="70" oninput="refreshDisplay()">
-            <span id="sizeLabel" style="font-weight:bold; color:var(--primary-pink);">70px</span>
+            <span id="sizeLabel" style="font-weight:bold; color:var(--peach-main);">70px</span>
         </div>
         <div id="testerDisplay" class="vs-display" style="font-size: 70px;">สวัสดี hello</div>
-        <button class="back-btn-frame" onclick="closeModal('fontModal')">← Home</button>
+        <button class="back-btn-frame" onclick="closeModal('fontModal')">← กลับหน้าพรีวิวรวม</button>
     </div>
 </div>
 
 <div class="modal" id="vsModal">
     <button class="close-btn" onclick="closeModal('vsModal')">&times;</button>
     <div class="modal-content">
-        <h2 style="color:var(--primary-pink);">Font Comparison (VS)</h2>
-        <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความสำหรับเปรียบเทียบ..." oninput="refreshVS()">
-        <div style="margin: 15px 0; color: #888;">
-            ขนาดฟอนต์: 
+        <h2 style="color:var(--peach-main);">Font Comparison (VS)</h2>
+        <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
+        <div style="margin: 15px 0;">
             <input type="range" id="vsSizeRange" min="20" max="100" value="45" oninput="refreshVS()">
-            <span id="vsSizeLabel" style="font-weight:bold; color:var(--primary-pink);">45px</span>
+            <span id="vsSizeLabel" style="font-weight:bold; color:var(--peach-main);">45px</span>
         </div>
         <div class="vs-layout">
             <div class="vs-column">
                 <select id="selectLeft" class="modal-select" style="width:100%;" onchange="refreshVS()"></select>
-                <div id="priceLeft" style="font-size:0.75rem; color:var(--price-gold); font-weight:bold; margin-bottom:10px;"></div>
+                <div id="priceLeft" style="font-size:0.75rem; color:var(--gold-income); font-weight:bold; background:#fff9e6; padding:5px; border-radius:5px; margin-bottom:10px;"></div>
                 <div id="displayLeft" class="vs-display">สวัสดี hello</div>
             </div>
             <div class="vs-column">
                 <select id="selectRight" class="modal-select" style="width:100%;" onchange="refreshVS()"></select>
-                <div id="priceRight" style="font-size:0.75rem; color:var(--price-gold); font-weight:bold; margin-bottom:10px;"></div>
+                <div id="priceRight" style="font-size:0.75rem; color:var(--gold-income); font-weight:bold; background:#fff9e6; padding:5px; border-radius:5px; margin-bottom:10px;"></div>
                 <div id="displayRight" class="vs-display">สวัสดี hello</div>
             </div>
         </div>
-        <button class="back-btn-frame" onclick="closeModal('vsModal')">← Home</button>
+        <button class="back-btn-frame" onclick="closeModal('vsModal')">← กลับหน้าพรีวิวรวม</button>
     </div>
 </div>
 
 <script>
+    // --- 1. ข้อมูลฟอนต์ (กำหนดราคา p และ c ได้ที่นี่) ---
     const fonts = [
         { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", file: "Stephanie.ttf" },
         { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", file: "Anthony.ttf" },
@@ -245,7 +243,7 @@
                         <h3>${(i+1).toString().padStart(2,'0')}. ${f.th}</h3>
                         <p>${f.en}</p>
                     </div>
-                    <div class="price-tag">Personal: ${f.p}<br>Commercial: ${f.c}</div>
+                    <div class="price-tag">ส่วนตัว / Personal: ${f.p}<br>เชิงพาณิชย์ / Commercial: ${f.c}</div>
                 </div>
                 <div class="preview-text" style="font-family:'${f.en}'">สวัสดี hello</div>
             `;
@@ -296,8 +294,11 @@
         const rF = document.getElementById('selectRight').value;
         const dataL = fonts.find(f => f.en === lF);
         const dataR = fonts.find(f => f.en === rF);
-        document.getElementById('priceLeft').innerText = `ส่วนตัว/Personal: ${dataL.p} | เชิงพาณิชย์/Commercial: ${dataL.c}`;
-        document.getElementById('priceRight').innerText = `ส่วนตัว/Personal: ${dataR.p}  เชิงพาณิชย์/Commercial: ${dataR.c}`;
+        
+        // อัปเดตราคาสีทองในหน้า VS
+        document.getElementById('priceLeft').innerText = `ส่วนตัว / Personal: ${dataL.p} | เชิงพาณิชย์ / Commercial: ${dataL.c}`;
+        document.getElementById('priceRight').innerText = `ส่วนตัว / Personal: ${dataR.p} | เชิงพาณิชย์ / Commercial: ${dataR.c}`;
+        
         const dL = document.getElementById('displayLeft'); const dR = document.getElementById('displayRight');
         dL.innerText = dR.innerText = val;
         dL.style.fontFamily = lF; dR.style.fontFamily = rF;
