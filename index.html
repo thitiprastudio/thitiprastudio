@@ -30,26 +30,36 @@
         /* --- Layout Main --- */
         .main-wrapper { display: flex; flex: 1; overflow: hidden; }
 
-        /* --- Sidebar ด้านซ้ายมือ --- */
+        /* --- Sidebar ด้านซ้าย (ปรับขนาดได้) --- */
         .sidebar {
-            width: 300px; background: white; border-right: 2px solid var(--lavender);
-            display: flex; flex-direction: column; padding: 20px; overflow-y: auto; flex-shrink: 0;
+            width: 300px; min-width: 200px; max-width: 500px;
+            background: white; border-right: 2px solid var(--lavender);
+            display: flex; flex-direction: column; padding: 20px; overflow-y: auto; 
+            flex-shrink: 0; position: relative;
+            resize: horizontal; overflow: auto; /* เปิดให้เบราว์เซอร์ปรับขนาดได้ */
         }
         .sidebar-title { font-weight: bold; margin-bottom: 10px; color: var(--peach-main); border-bottom: 1px solid var(--lavender); padding-bottom: 5px; }
         
-        .price-range-container { margin: 20px 0; }
-        .price-slider { width: 100%; accent-color: var(--peach-main); }
+        /* ช่องค้นหาใน Sidebar */
+        .sidebar-search { width: 100%; padding: 10px; border-radius: 15px; border: 1.5px solid var(--lavender); outline: none; margin-bottom: 20px; box-sizing: border-box; }
 
-        .font-list-sidebar { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+        /* ช่วงราคา 29-399 */
+        .price-filter-container { margin-bottom: 25px; }
+        .price-slider { width: 100%; accent-color: var(--peach-main); cursor: pointer; }
+        .price-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 5px; font-weight: bold; }
+
+        /* รายชื่อฟอนต์แนวยาว */
+        .font-list-sidebar { display: flex; flex-direction: column; gap: 5px; }
         .sidebar-font-item { 
-            padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; border: 1px solid transparent;
+            padding: 10px 15px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; 
+            transition: 0.3s; border-bottom: 1px solid #f9f9f9;
         }
-        .sidebar-font-item:hover { background: var(--bg-cream); border-color: var(--peach-main); }
+        .sidebar-font-item:hover { background: var(--bg-cream); color: var(--peach-main); }
 
         /* --- Content Area --- */
         .content-area { flex: 1; overflow-y: auto; padding: 20px; }
 
-        .top-controls { max-width: var(--max-w); margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .top-controls { max-width: var(--max-w); margin: 0 auto 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .filter-group { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
         .filter-btn { 
             padding: 10px 20px; border-radius: 20px; border: 2px solid var(--peach-main);
@@ -59,8 +69,7 @@
         .filter-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255, 154, 162, 0.2); }
 
         .vs-open-btn { background: var(--lavender); color: #555; border: none; padding: 10px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; margin-bottom: 5px; }
-
-        .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 2.5px solid var(--lavender); outline: none; background: white; box-sizing: border-box; }
+        .search-input-main { width: 100%; max-width: 450px; padding: 12px 20px; border-radius: 25px; border: 2.5px solid var(--lavender); outline: none; }
 
         /* --- 📋 รายการฟอนต์ --- */
         .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
@@ -86,15 +95,13 @@
         .modal-select { padding: 10px 15px; border-radius: 12px; border: 2.5px solid var(--peach-main); margin-bottom: 15px; outline: none; cursor: pointer; width: 250px; text-align: center; font-family: inherit; }
         .back-btn-frame { margin-top: 20px; padding: 12px 35px; border: 2.5px solid var(--gold-pastel); color: #8B7355; border-radius: 12px; cursor: pointer; font-weight: bold; background: white; transition: 0.3s; }
         .back-btn-frame:hover { background-color: var(--gold-pastel); color: white; }
-
         .vs-btn-modal { background: var(--peach-main); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 15px; transition: 0.3s; }
-        .vs-btn-modal:hover { transform: scale(1.05); }
 
         input[type=range] { accent-color: var(--peach-main); }
 
         @media (max-width: 900px) {
             .main-wrapper { flex-direction: column; }
-            .sidebar { width: 100%; border-right: none; border-bottom: 2px solid var(--lavender); height: auto; }
+            .sidebar { width: 100%; max-width: none; border-right: none; border-bottom: 2px solid var(--lavender); height: auto; resize: none; }
             .container { grid-template-columns: 1fr; }
         }
     </style>
@@ -105,25 +112,27 @@
     <div class="logo-container"><img src="IPCB5121.PNG" alt="Logo"></div>
     <h1 style="font-size: 1.5rem; margin: 0; color: #333;">ThitipraStudio</h1>
     <p style="font-size: 0.8rem; color: #888;">🎨 เว็บเครือ BR&PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ ✨</p>
+    <p style="font-size: 0.8rem; color: #888;">กด... และเปิดในเบราว์เวอร์🥡</p>
     <p style="font-size: 0.8rem; color: #888;">🍷ลูกค้ารอเว็บโหลดสักครู่นะคะ🏡💖</p>
 </header>
 
 <div class="main-wrapper">
-    <div class="sidebar">
+    <div class="sidebar" id="resizableSidebar">
         <div class="sidebar-title">🔍 ค้นหาฟอนต์</div>
-        <input type="text" id="fontSearchSidebar" class="search-input" placeholder="พิมพ์ชื่อฟอนต์..." oninput="syncSearch(this.value)">
-        
-        <div class="price-range-container">
-            <div class="sidebar-title">💰 ช่วงราคา (Personal)</div>
+        <input type="text" id="sidebarSearch" class="sidebar-search" placeholder="พิมพ์ชื่อฟอนต์..." oninput="syncSearch(this.value)">
+
+        <div class="price-filter-container">
+            <div class="sidebar-title">💰 ช่วงราคา (29 - 399 บาท)</div>
             <input type="range" id="priceRange" class="price-slider" min="29" max="399" value="399" oninput="filterFonts()">
-            <div style="display:flex; justify-content: space-between; font-size: 0.8rem; margin-top:5px;">
+            <div class="price-label">
                 <span>29.-</span>
-                <span id="priceValDisplay" style="font-weight:bold; color:var(--peach-main)">399.-</span>
+                <span id="maxPriceDisplay" style="color: var(--peach-main);">399.-</span>
             </div>
         </div>
 
         <div class="sidebar-title">📋 รายชื่อฟอนต์ทั้งหมด</div>
-        <div class="font-list-sidebar" id="fontSidebarList"></div>
+        <div class="font-list-sidebar" id="sidebarFontList">
+            </div>
     </div>
 
     <div class="content-area">
@@ -135,6 +144,8 @@
                 <button id="btn-single" class="filter-btn" onclick="setPriceFilter('single')">ราคาเดียว (ส่วนตัว & เชิงพาณิชย์)</button>
                 <button id="btn-split" class="filter-btn" onclick="setPriceFilter('split')">ราคาแยก (ส่วนตัว & เชิงพาณิชย์)</button>
             </div>
+            
+            <input type="text" id="fontSearchMain" class="search-input-main" placeholder="🔍 ค้นหาในพื้นที่แสดงผล..." oninput="syncSearch(this.value)">
         </div>
 
         <div class="container" id="fontList"></div>
@@ -147,7 +158,7 @@
         <button class="vs-btn-modal" onclick="openVSFromModal()">❤️โหมดเปรียบเทียบฟอนต์(VS Mode)🎶</button>
         <select id="singleFontSelect" class="modal-select" onchange="changeSingleFont(this.value)"></select>
         <h2 id="modalFontName" style="color: var(--peach-main);">ชื่อฟอนต์</h2>
-        <input type="text" id="testerInput" class="search-input" placeholder="ลองพิมพ์ที่นี่..." oninput="refreshDisplay()">
+        <input type="text" id="testerInput" class="search-input-main" placeholder="ลองพิมพ์ที่นี่..." oninput="refreshDisplay()">
         <div style="margin: 20px 0;">
             <input type="range" id="sizeRange" min="20" max="150" value="70" oninput="refreshDisplay()">
             <span id="sizeLabel" style="font-weight:bold; color:var(--peach-main);">70px</span>
@@ -161,7 +172,7 @@
     <button class="close-btn" onclick="closeModal('vsModal')">&times;</button>
     <div class="modal-content">
         <h2 style="color:var(--peach-main);">Font Comparison (VS)</h2>
-        <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
+        <input type="text" id="vsInput" class="search-input-main" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
         <div style="margin: 15px 0;"><input type="range" id="vsSizeRange" min="20" max="120" value="50" oninput="refreshVS()"> <span id="vsSizeLabel">50px</span></div>
         <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
             <div style="flex:1; min-width:300px; border:2px solid var(--lavender); padding:20px; border-radius:15px;">
@@ -217,30 +228,34 @@
     let priceFilter = 'all';
 
     async function loadFonts() {
+        const sidebarFontList = document.getElementById('sidebarFontList');
         for (const f of fonts) {
             const font = new FontFace(f.en, `url(${f.file})`, { display: 'swap' });
             await font.load().then(loaded => document.fonts.add(loaded)).catch(e => console.log(e));
+            
+            // เพิ่มรายชื่อใน Sidebar
+            const sideItem = document.createElement('div');
+            sideItem.className = 'sidebar-font-item';
+            sideItem.innerText = f.th;
+            sideItem.onclick = () => openSingleModal(f);
+            sidebarFontList.appendChild(sideItem);
         }
         filterFonts();
         const sL = document.getElementById('selectLeft');
         const sR = document.getElementById('selectRight');
         const sS = document.getElementById('singleFontSelect');
-        const sidebarList = document.getElementById('fontSidebarList');
-
         fonts.forEach(f => {
             const opt = `<option value="${f.en}">${f.th}</option>`;
             sL.innerHTML += opt; sR.innerHTML += opt; sS.innerHTML += opt;
-            
-            const sideItem = document.createElement('div');
-            sideItem.className = 'sidebar-font-item';
-            sideItem.innerText = f.th;
-            sideItem.onclick = () => openSingleModal(f);
-            sidebarList.appendChild(sideItem);
         });
         sR.selectedIndex = 1;
     }
 
-    function syncSearch(val) { filterFonts(val); }
+    function syncSearch(val) {
+        document.getElementById('sidebarSearch').value = val;
+        document.getElementById('fontSearchMain').value = val;
+        filterFonts();
+    }
 
     function setPriceFilter(type) {
         priceFilter = type;
@@ -249,17 +264,18 @@
         filterFonts();
     }
 
-    function filterFonts(termVal = "") {
-        const term = (termVal || document.getElementById('fontSearchSidebar').value).toLowerCase();
-        const list = document.getElementById('fontList');
+    function filterFonts() {
+        const term = document.getElementById('sidebarSearch').value.toLowerCase();
         const maxPrice = parseInt(document.getElementById('priceRange').value);
-        document.getElementById('priceValDisplay').innerText = maxPrice + ".-";
+        document.getElementById('maxPriceDisplay').innerText = maxPrice + ".-";
+        
+        const list = document.getElementById('fontList');
         list.innerHTML = "";
         
         fonts.filter(f => {
             const matchesSearch = f.th.includes(term) || f.en.toLowerCase().includes(term);
             const isSamePrice = (f.p === f.c);
-            const pVal = parseInt(f.p.replace(/[^\d]/g, ''));
+            const pVal = parseInt(f.p); // ดึงตัวเลขจากราคา p
             const priceMatch = pVal <= maxPrice;
 
             if (priceFilter === 'single') return matchesSearch && isSamePrice && priceMatch;
