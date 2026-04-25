@@ -5,57 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThitipraStudio - Font Preview & VS Mode</title>
     <style>
-        /* --- Font Faces --- */
-        @font-face { font-family: 'MainBodyFont'; src: url('BRSanji.ttf'); }
-        @font-face { font-family: 'HeadlineFont'; src: url('BRCasey.ttf'); }
+        /* --- ประกาศ Font ที่กำหนด --- */
+        @font-face {
+            font-family: 'MainBodyFont';
+            src: url('BRJellybear.ttf');
+        }
+        @font-face {
+            font-family: 'HeadlineFont';
+            src: url('BRCasey.ttf');
+        }
 
+        /* --- 🎨 โทนสีมงคลเรียกทรัพย์ --- */
         :root {
             --peach-main: #FF9AA2;
+            --soft-pink: #FFC1CC;
+            --gold-pastel: #F6D365;
+            --gold-cream: #FFF3B0;
             --bg-cream: #FFF8F5;
             --lavender: #E6CCFF;
-            --gold-pastel: #F6D365;
+            --danger: #FF4D4D;
             --max-w: 1100px;
         }
 
         body {
-            font-family: 'MainBodyFont', sans-serif;
+            font-family: 'MainBodyFont', 'Segoe UI', Tahoma, sans-serif;
             margin: 0; background-color: var(--bg-cream); color: #4A4A4A;
             position: relative;
         }
 
-        /* --- ลายน้ำหน้าหลัก --- */
+        /* --- 🎨 ลายน้ำพื้นหลังหน้าหลัก --- */
         body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('IPCB5121.PNG') no-repeat center; background-size: 50%;
-            opacity: 0.05; z-index: -1; pointer-events: none;
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('IPCB5121.PNG'); 
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%;
+            opacity: 0.05;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        header { text-align: center; padding: 40px 20px; border-bottom: 3px solid var(--lavender); background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); }
-        header h1 { font-family: 'HeadlineFont', sans-serif; font-size: 2.5rem; margin: 0; color: #333; }
+        header { text-align: center; padding: 40px 20px; background: rgba(255, 255, 255, 0.8); border-bottom: 3px solid var(--lavender); backdrop-filter: blur(5px); }
+        header h1 { 
+            font-family: 'HeadlineFont', sans-serif; 
+            font-size: 2.5rem;
+            margin: 0; 
+            color: #333; 
+        }
 
         .logo-container { width: 80px; height: 80px; margin: 0 auto 10px; border-radius: 20px; overflow: hidden; border: 2px solid var(--peach-main); }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- UI ส่วนควบคุม --- */
-        .top-controls { max-width: var(--max-w); margin: 20px auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .search-input { width: 100%; max-width: 450px; padding: 12px 20px; border-radius: 25px; border: 2.5px solid var(--lavender); outline: none; background: rgba(255, 255, 255, 0.9); font-family: inherit; }
-
-        /* --- รายการฟอนต์หน้าหลัก --- */
         .container { max-width: var(--max-w); margin: 0 auto 50px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .font-card { background: white; border-radius: 15px; border: 1px solid #EEE; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
-        .font-card:hover { border-color: var(--peach-main); transform: translateY(-5px); }
+        .font-card { background: rgba(255, 255, 255, 0.9); border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); transition: 0.3s; cursor: pointer; border: 1px solid #EEE; display: flex; flex-direction: column; overflow: hidden; }
+        .font-card:hover { border-color: var(--peach-main); transform: translateY(-5px); background: white; }
 
-        .preview-area-card { padding: 20px; text-align: center; color: #222; overflow: hidden; white-space: nowrap; min-height: 60px; font-size: 1.5rem; }
-        .price-footer { background-color: #FFF3B0; padding: 12px 20px; border-top: 1.5px solid var(--gold-pastel); text-align: right; font-size: 0.7rem; }
+        .preview-area { padding: 20px; font-size: 1.8rem; text-align: center; color: #222; overflow: hidden; white-space: nowrap; min-height: 60px; }
+        .price-footer { background-color: var(--gold-cream); padding: 12px 20px; border-top: 1.5px solid var(--gold-pastel); text-align: right; font-size: 0.7rem; }
 
-        /* --- 🎈 ป๊อปอัพ Modal --- */
+        /* --- 🎈 ป๊อปอัพ & ลายน้ำใน Modal --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; }
-        .modal-content { width: 95%; max-width: 1000px; margin: 0 auto; padding: 40px 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
-
-        /* --- กรอบทดลองฟอนต์ (Tester Container) --- */
+        .modal-content { width: 95%; max-width: 1000px; margin: 0 auto; padding: 60px 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
+        
         .tester-container {
             width: 100%;
-            background: white;
+            background: rgba(255, 255, 255, 0.7);
             border: 2px dashed var(--peach-main);
             border-radius: 20px;
             position: relative;
@@ -63,10 +79,25 @@
             overflow: hidden;
             min-height: 250px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
         }
+
+        .shop-watermark {
+            position: absolute;
+            font-size: 0.65rem;
+            color: var(--peach-main);
+            opacity: 0.6;
+            font-weight: bold;
+            border: 1px solid var(--peach-main);
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: white;
+            z-index: 10;
+            font-family: 'MainBodyFont', sans-serif;
+        }
+        .wm-right { top: 10px; right: 15px; }
+        .wm-left { top: 10px; left: 15px; }
 
         .tester-bg-watermark {
             position: absolute;
@@ -78,29 +109,15 @@
             pointer-events: none;
         }
 
-        .shop-watermark {
-            position: absolute; font-size: 0.65rem; color: var(--peach-main);
-            opacity: 0.6; font-weight: bold; border: 1px solid var(--peach-main);
-            padding: 2px 8px; border-radius: 10px; background: white; z-index: 10;
-        }
-        .wm-right { top: 10px; right: 15px; }
-        .wm-left { top: 10px; left: 15px; }
-
         .tester-price-tag {
             position: absolute; bottom: 10px; width: 90%;
             text-align: center; font-size: 0.8rem; color: #8B7355;
-            background: rgba(255, 243, 176, 0.8);
-            padding: 8px 0; border-radius: 10px; z-index: 10;
+            background: rgba(255, 243, 176, 0.7);
+            padding: 5px 0; border-radius: 10px; z-index: 10;
             font-weight: bold;
         }
 
-        .preview-area-modal { 
-            position: relative; z-index: 5; 
-            padding: 40px 20px; text-align: center; width: 100%; 
-            word-wrap: break-word;
-        }
-
-        .close-btn { margin-top: 20px; padding: 10px 30px; border-radius: 12px; border: 1.5px solid #DDD; cursor: pointer; background: white; font-family: inherit; }
+        .search-input { width: 100%; max-width: 450px; padding: 12px 20px; border-radius: 25px; border: 2.5px solid var(--lavender); outline: none; background: rgba(255, 255, 255, 0.9); font-family: inherit; }
 
         @media (max-width: 700px) { .container { grid-template-columns: 1fr; } }
     </style>
@@ -110,32 +127,26 @@
 <header>
     <div class="logo-container"><img src="IPCB5121.PNG" alt="Logo"></div>
     <h1>ThitipraStudio</h1>
-    <p style="font-size: 0.8rem; color: #888;">🎨 เว็บเครือ BR&PRH House ทดลองพิมพ์ก่อนสั่งซื้อค่ะ ✨</p>
+    <p style="font-size: 0.8rem; color: #888;">🎨 เว็บเครือ BR&PRH House ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ ✨</p>
 </header>
-
-<div class="top-controls">
-    <input type="text" id="fontSearch" class="search-input" placeholder="🔍 ค้นหาชื่อฟอนต์ที่ต้องการ..." oninput="filterFonts()">
-</div>
 
 <div class="container" id="fontList"></div>
 
 <div class="modal" id="fontModal">
     <div class="modal-content">
-        <select id="singleFontSelect" class="search-input" onchange="changeSingleFont(this.value)" style="margin-bottom:20px;"></select>
-        <h2 id="modalFontName" style="color: var(--peach-main); margin-bottom: 10px;"></h2>
+        <select id="singleFontSelect" class="search-input" onchange="changeSingleFont(this.value)" style="margin-bottom:20px; font-family: inherit;"></select>
+        <h2 id="modalFontName" style="color: var(--peach-main); margin-bottom: 5px;">ชื่อฟอนต์</h2>
         <input type="text" id="testerInput" class="search-input" placeholder="ลองพิมพ์ที่นี่..." oninput="refreshDisplay()">
         
         <div class="tester-container">
             <div class="shop-watermark wm-right">THITIPRA STUDIO</div>
             <div class="shop-watermark wm-left">BR&PRH House</div>
             <div class="tester-bg-watermark"></div>
-            
-            <div id="testerDisplay" class="preview-area-modal">สวัสดี hello</div>
-            
+            <div id="testerDisplay" class="preview-area" style="font-size: 70px; width: 100%; white-space: normal; position: relative; z-index: 5;">สวัสดี hello</div>
             <div id="modalPriceDisplay" class="tester-price-tag"></div>
         </div>
 
-        <button class="close-btn" onclick="closeModal('fontModal')">← Home</button>
+        <button onclick="closeModal('fontModal')" style="margin-top:20px; padding: 10px 30px; border-radius: 10px; cursor: pointer; border: 1px solid #ddd; background: white; font-family: inherit;">← Home</button>
     </div>
 </div>
 
@@ -176,34 +187,29 @@
     let currentFontObj = null;
 
     async function loadFonts() {
+        const list = document.getElementById('fontList');
         const select = document.getElementById('singleFontSelect');
+        
         for (const f of fonts) {
             const font = new FontFace(f.en, `url(${f.file})`);
-            await font.load().then(loaded => document.fonts.add(loaded)).catch(e => console.log("Load error:", f.en));
-            select.innerHTML += `<option value="${f.en}">${f.th}</option>`;
-        }
-        filterFonts();
-    }
-
-    function filterFonts() {
-        const term = document.getElementById('fontSearch').value.toLowerCase();
-        const list = document.getElementById('fontList');
-        list.innerHTML = "";
-
-        fonts.filter(f => f.th.includes(term) || f.en.toLowerCase().includes(term))
-        .forEach((f) => {
+            await font.load().then(loaded => document.fonts.add(loaded));
+            
+            // สร้างการ์ดหน้าหลัก - ใช้ฟอนต์ตัวเองโชว์ชื่อ
             const card = document.createElement('div');
             card.className = 'font-card';
-            const priceHtml = (f.p === f.c) ? `ราคาเดียว: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
-            
             card.innerHTML = `
-                <div style="padding:15px; font-family:'${f.en}'; font-weight:bold;">${f.th} <small style="color:#AAA">${f.en}</small></div>
-                <div class="preview-area-card" style="font-family:'${f.en}'">สวัสดี hello</div>
-                <div class="price-footer">${priceHtml}</div>
+                <div style="padding:15px; font-family:'${f.en}'; font-weight: bold;">${f.th}</div>
+                <div style="padding:20px; text-align:center; font-family:'${f.en}'; font-size:1.8rem;">สวัสดี hello</div>
+                <div class="price-footer">
+                    ${f.p === f.c ? `ราคาเดียว: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`}
+                </div>
             `;
             card.onclick = () => openSingleModal(f);
             list.appendChild(card);
-        });
+
+            // เพิ่มลงใน Select
+            select.innerHTML += `<option value="${f.en}">${f.th}</option>`;
+        }
     }
 
     function openSingleModal(f) {
@@ -216,16 +222,15 @@
 
     function changeSingleFont(fontEn) {
         currentFontObj = fonts.find(f => f.en === fontEn);
-        const nameTitle = document.getElementById('modalFontName');
-        nameTitle.innerText = currentFontObj.th;
-        nameTitle.style.fontFamily = fontEn;
-
-        // อัปเดตราคาในกรอบทดลอง
-        const priceTag = document.getElementById('modalPriceDisplay');
-        priceTag.innerText = (currentFontObj.p === currentFontObj.c) 
+        const modalName = document.getElementById('modalFontName');
+        modalName.innerText = currentFontObj.th;
+        modalName.style.fontFamily = fontEn; // ชื่อใน Modal ก็ใช้ฟอนต์ตัวเอง
+        
+        const priceText = (currentFontObj.p === currentFontObj.c) 
             ? `ราคาเดียว (ส่วนตัว&เชิงพาณิชย์): ${currentFontObj.p}` 
             : `ราคา ส่วนตัว: ${currentFontObj.p} | เชิงพาณิชย์: ${currentFontObj.c}`;
-
+        document.getElementById('modalPriceDisplay').innerText = priceText;
+        
         refreshDisplay();
     }
 
@@ -234,7 +239,6 @@
         const d = document.getElementById('testerDisplay');
         d.innerText = val;
         d.style.fontFamily = currentFontObj.en;
-        d.style.fontSize = "70px";
     }
 
     function closeModal(id) { 
