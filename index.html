@@ -19,35 +19,24 @@
             --max-w: 1200px;
         }
 
-        body {
-            font-family: 'MainBodyFont', sans-serif;
-            margin: 0; background-color: var(--bg-cream); color: #4A4A4A;
-        }
+        body { font-family: 'MainBodyFont', sans-serif; margin: 0; background-color: var(--bg-cream); color: #4A4A4A; }
 
         /* ลายน้ำพื้นหลัง */
-        body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('IPCB5121.PNG') no-repeat center; background-size: 50%;
-            opacity: 0.05; z-index: -1; pointer-events: none;
-        }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('IPCB5121.PNG') no-repeat center; background-size: 50%; opacity: 0.05; z-index: -1; pointer-events: none; }
 
         header { text-align: center; padding: 30px 20px; background: rgba(255, 255, 255, 0.8); border-bottom: 3px solid var(--lavender); }
         header h1 { font-family: 'HeadlineFont', sans-serif; font-size: 2.5rem; margin: 0; color: #333; }
-
         .logo-container { width: 70px; height: 70px; margin: 0 auto 10px; border-radius: 15px; overflow: hidden; border: 2px solid var(--peach-main); }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
         /* Controls */
         .top-controls { max-width: var(--max-w); margin: 20px auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .vs-open-btn { background: var(--lavender); color: #555; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; font-family: inherit; margin-bottom: 5px; transition: 0.3s; }
-        .vs-open-btn:hover { background: #dcc2f7; transform: scale(1.05); }
-
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
         .filter-btn { padding: 8px 20px; border-radius: 20px; border: 2px solid var(--peach-main); background: white; color: var(--peach-main); cursor: pointer; font-weight: bold; font-family: inherit; }
         .filter-btn.active { background: var(--peach-main); color: white; }
         .search-input { width: 100%; max-width: 400px; padding: 12px 20px; border-radius: 25px; border: 2.5px solid var(--lavender); outline: none; font-family: inherit; }
 
-        /* Font Grid */
+        /* Grid */
         .container { max-width: var(--max-w); margin: 0 auto 50px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .font-card { background: white; border-radius: 15px; border: 1px solid #EEE; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
         .font-card:hover { border-color: var(--peach-main); transform: translateY(-3px); }
@@ -55,10 +44,25 @@
         .preview-area-card { padding: 30px 15px; text-align: center; font-size: 2rem; min-height: 70px; overflow: hidden; white-space: nowrap; }
         .price-footer { background-color: var(--gold-cream); padding: 12px 15px; border-top: 1.5px solid var(--gold-pastel); text-align: center; font-size: 0.85rem; color: #8B7355; font-weight: bold; }
 
-        /* Modal */
+        /* --- Modal & Tester --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; }
-        .modal-content { width: 90%; max-width: 1000px; margin: 0 auto; padding: 50px 10px; display: flex; flex-direction: column; align-items: center; }
-        .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; background: var(--danger); color: white; border-radius: 50%; border: none; font-size: 25px; cursor: pointer; z-index: 1001; }
+        .modal-content { width: 95%; max-width: 900px; margin: 0 auto; padding: 60px 10px; display: flex; flex-direction: column; align-items: center; }
+        .close-btn { position: fixed; top: 15px; right: 15px; width: 40px; height: 40px; background: var(--danger); color: white; border-radius: 50%; border: none; font-size: 25px; cursor: pointer; z-index: 1001; }
+
+        /* ส่วนพรีวิวตัวอักษรทั้งหมด (เพิ่มใหม่) */
+        .char-preview-box {
+            width: 100%;
+            background: rgba(255, 154, 162, 0.05);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 22px; /* ขนาดประมาณ 20-25 ตามสั่ง */
+            line-height: 1.6;
+            color: #555;
+            border: 1px solid var(--peach-main);
+            word-wrap: break-word;
+        }
 
         .tester-container {
             width: 100%; background: white; border: 2px dashed var(--peach-main); border-radius: 20px;
@@ -66,17 +70,17 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         .tester-bg-watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('IMG_5814.png') no-repeat center; background-size: contain; opacity: 0.15; z-index: 1; pointer-events: none; }
-        
-        /* ป้ายกำกับร้านในกรอบ */
         .tag-watermark { position: absolute; top: 15px; font-size: 0.65rem; color: var(--peach-main); font-weight: bold; border: 1px solid var(--peach-main); padding: 3px 10px; border-radius: 10px; background: white; z-index: 10; opacity: 0.7; }
         .tag-left { left: 15px; }
         .tag-right { right: 15px; }
-
-        .tester-price-tag { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 0.9rem; color: #8B7355; background: rgba(255, 243, 176, 0.95); padding: 12px 0; z-index: 10; font-weight: bold; border-top: 1px solid var(--gold-pastel); }
+        .tester-price-tag { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 0.9rem; color: #8B7355; background: rgba(255, 243, 176, 0.95); padding: 12px 0; z-index: 10; font-weight: bold; }
 
         input[type=range] { width: 220px; accent-color: var(--peach-main); margin: 10px 0; }
         
-        @media (max-width: 600px) { .container { grid-template-columns: 1fr; } .tag-watermark { font-size: 0.5rem; } }
+        @media (max-width: 600px) { 
+            .container { grid-template-columns: 1fr; } 
+            .char-preview-box { font-size: 18px; padding: 10px; } /* ปรับขนาดตัวอักษรพรีวิวในมือถือ */
+        }
     </style>
 </head>
 <body>
@@ -90,8 +94,6 @@
 </header>
 
 <div class="top-controls">
-    <button class="vs-open-btn" onclick="openVS()">❤️โหมดเปรียบเทียบฟอนต์ (VS Mode)🎶</button>
-    
     <div class="filter-group">
         <button id="btn-all" class="filter-btn active" onclick="setPriceFilter('all')">ทั้งหมด</button>
         <button id="btn-single" class="filter-btn" onclick="setPriceFilter('single')">ราคาเดียว</button>
@@ -103,16 +105,20 @@
 <div class="container" id="fontList"></div>
 
 <div class="modal" id="fontModal">
-    <button class="close-btn" onclick="closeModal('fontModal')">&times;</button>
+    <button class="close-btn" onclick="closeModal()">&times;</button>
     <div class="modal-content">
-        <button class="vs-open-btn" onclick="openVSFromModal()" style="font-size: 0.8rem; padding: 8px 20px;">❤️เปิดโหมดเปรียบเทียบฟอนต์</button>
-        <select id="singleFontSelect" class="search-input" onchange="changeSingleFont(this.value)" style="margin-bottom:20px;"></select>
         <h2 id="modalFontName" style="color: var(--peach-main); margin-bottom: 20px; text-align: center;"></h2>
         
+        <div class="char-preview-box" id="fullCharPreview">
+            ก ข ฃ ค ฅ ฆ ง จ ฉ ช ซ ฌ ญ ฎ ฏ ฐ ฑ ฒ ณ ด ต ถ ท ธ น บ ป ผ ฝ พ ฟ ภ ม ย ร ล ว ศ ษ ส ห ฬ อ ฮ<br><br>
+            aA bB cC dD eE fF gG hH iI jJ kK lL mM nN oO pP qQ rR sS tT uU vV wW xX yY zZ<br><br>
+            1 2 3 4 5 6 7 8 9 0 ๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙ ๐
+        </div>
+
         <input type="text" id="testerInput" class="search-input" placeholder="พิมพ์ข้อความที่นี่..." oninput="refreshDisplay()">
         
         <div style="margin: 15px 0;">
-            <label style="font-size: 0.8rem;">ขนาด:</label>
+            <label style="font-size: 0.8rem;">ขนาดฟอนต์:</label>
             <input type="range" id="sizeSlider" min="30" max="180" value="80" oninput="refreshDisplay()">
             <span id="sizeLabel" style="font-weight: bold; color: var(--peach-main);">80px</span>
         </div>
@@ -124,41 +130,7 @@
             <div id="testerDisplay" style="position: relative; z-index: 5; text-align: center; width: 100%; word-wrap: break-word; padding: 20px;">สวัสดี hello</div>
             <div id="modalPriceDisplay" class="tester-price-tag"></div>
         </div>
-        <button onclick="closeModal('fontModal')" style="margin-top:20px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
-    </div>
-</div>
-
-<div class="modal" id="vsModal">
-    <button class="close-btn" onclick="closeModal('vsModal')">&times;</button>
-    <div class="modal-content">
-        <h2 style="color:var(--peach-main); font-family:'HeadlineFont'; font-size: 2rem;">Font Comparison (VS)</h2>
-        <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
-        
-        <div style="margin: 15px 0;">
-            <label style="font-size: 0.8rem;">ปรับขนาดพร้อมกัน:</label>
-            <input type="range" id="vsSizeSlider" min="20" max="150" value="55" oninput="refreshVS()">
-            <span id="vsSizeLabel" style="font-weight: bold; color: var(--peach-main);">55px</span>
-        </div>
-
-        <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
-            <div class="tester-container" style="flex:1; min-width:300px;">
-                <div class="tag-watermark tag-left">thitipra studio</div>
-                <div class="tag-watermark tag-right">BR&PRH House</div>
-                <div class="tester-bg-watermark"></div>
-                <select id="selectLeft" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
-                <div id="displayLeft" style="position: relative; z-index: 5; text-align: center; padding: 80px 15px 40px;">สวัสดี</div>
-                <div id="priceLeft" class="tester-price-tag"></div>
-            </div>
-            <div class="tester-container" style="flex:1; min-width:300px;">
-                <div class="tag-watermark tag-left">thitipra studio</div>
-                <div class="tag-watermark tag-right">BR&PRH House</div>
-                <div class="tester-bg-watermark"></div>
-                <select id="selectRight" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
-                <div id="displayRight" style="position: relative; z-index: 5; text-align: center; padding: 80px 15px 40px;">สวัสดี</div>
-                <div id="priceRight" class="tester-price-tag"></div>
-            </div>
-        </div>
-        <button onclick="closeModal('vsModal')" style="margin-top:25px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
+        <button onclick="closeModal()" style="margin-top:20px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
     </div>
 </div>
 
@@ -200,17 +172,10 @@
     let priceFilter = 'all';
 
     async function init() {
-        const select = document.getElementById('singleFontSelect');
-        const sL = document.getElementById('selectLeft');
-        const sR = document.getElementById('selectRight');
-        
         for (const f of fonts) {
             const font = new FontFace(f.en, `url(${f.file})`);
             await font.load().then(l => document.fonts.add(l));
-            const opt = `<option value="${f.en}">${f.th} (${f.en})</option>`;
-            select.innerHTML += opt; sL.innerHTML += opt; sR.innerHTML += opt;
         }
-        sR.selectedIndex = 1;
         filterFonts();
     }
 
@@ -235,11 +200,8 @@
             const card = document.createElement('div');
             card.className = 'font-card';
             const priceTxt = (f.p === f.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
-            
             card.innerHTML = `
-                <div class="font-card-header" style="font-family:'${f.en}'">
-                    ${(i+1).toString().padStart(2, '0')}. ${f.th} (${f.en})
-                </div>
+                <div class="font-card-header" style="font-family:'${f.en}'">${(i+1).toString().padStart(2, '0')}. ${f.th} (${f.en})</div>
                 <div class="preview-area-card" style="font-family:'${f.en}'">สวัสดี hello</div>
                 <div class="price-footer">${priceTxt}</div>
             `;
@@ -251,17 +213,13 @@
     function openModal(f) {
         currentFont = f;
         document.getElementById('fontModal').style.display = 'block';
-        document.getElementById('singleFontSelect').value = f.en;
         document.getElementById('modalFontName').innerText = `${f.th} (${f.en})`;
         document.getElementById('modalFontName').style.fontFamily = f.en;
+        // เปลี่ยนฟอนต์ในส่วนพรีวิวตัวอักษรทั้งหมดด้วย
+        document.getElementById('fullCharPreview').style.fontFamily = f.en;
         document.getElementById('modalPriceDisplay').innerText = (f.p === f.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
         refreshDisplay();
         document.body.style.overflow = 'hidden';
-    }
-
-    function changeSingleFont(fontEn) {
-        const f = fonts.find(i => i.en === fontEn);
-        openModal(f);
     }
 
     function refreshDisplay() {
@@ -274,41 +232,9 @@
         document.getElementById('sizeLabel').innerText = size + "px";
     }
 
-    function openVS() { document.getElementById('vsModal').style.display = 'block'; document.body.style.overflow = 'hidden'; refreshVS(); }
-
-    function openVSFromModal() {
-        const txt = document.getElementById('testerInput').value;
-        const currentEn = currentFont.en;
-        closeModal('fontModal');
-        openVS();
-        document.getElementById('selectLeft').value = currentEn;
-        if(txt) document.getElementById('vsInput').value = txt;
-        refreshVS();
-    }
-
-    function refreshVS() {
-        const val = document.getElementById('vsInput').value || "สวัสดี hello";
-        const size = document.getElementById('vsSizeSlider').value;
-        const lF = document.getElementById('selectLeft').value;
-        const rF = document.getElementById('selectRight').value;
-        const dataL = fonts.find(f => f.en === lF);
-        const dataR = fonts.find(f => f.en === rF);
-
-        const dL = document.getElementById('displayLeft');
-        const dR = document.getElementById('displayRight');
-        dL.innerText = dR.innerText = val;
-        dL.style.fontFamily = lF; dR.style.fontFamily = rF;
-        dL.style.fontSize = dR.style.fontSize = size + "px";
-        document.getElementById('vsSizeLabel').innerText = size + "px";
-        
-        document.getElementById('priceLeft').innerText = (dataL.p === dataL.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | เชิงพาณิชย์: ${dataL.c}`;
-        document.getElementById('priceRight').innerText = (dataR.p === dataR.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | เชิงพาณิชย์: ${dataR.c}`;
-    }
-
-    function closeModal(id) { 
-        const target = id || 'fontModal'; 
-        document.getElementById(target).style.display = 'none'; 
-        document.body.style.overflow = 'auto'; 
+    function closeModal() {
+        document.getElementById('fontModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
 
     init();
