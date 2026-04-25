@@ -16,6 +16,7 @@
             --bg-cream: #FFF8F5;
             --lavender: #E6CCFF;
             --danger: #FF4D4D;
+            --line-green: #06C755; /* สีเขียว Line */
             --max-w: 1200px;
         }
 
@@ -53,7 +54,11 @@
         .font-card:hover { border-color: var(--peach-main); transform: translateY(-3px); }
         .font-card-header { padding: 15px 20px; font-size: 1.2rem; font-weight: bold; color: #333; }
         .preview-area-card { padding: 30px 15px; text-align: center; font-size: 2rem; min-height: 70px; overflow: hidden; white-space: nowrap; }
+        
+        /* ราคาและปุ่มสั่งซื้อในการ์ด */
         .price-footer { background-color: var(--gold-cream); padding: 12px 15px; border-top: 1.5px solid var(--gold-pastel); text-align: center; font-size: 0.85rem; color: #8B7355; font-weight: bold; }
+        .line-card-btn { display: inline-block; background: var(--line-green); color: white; text-decoration: none; padding: 4px 15px; border-radius: 12px; font-size: 0.75rem; margin-top: 5px; transition: 0.2s; }
+        .line-card-btn:hover { background: #05b14c; }
 
         /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; }
@@ -67,12 +72,17 @@
         }
         .tester-bg-watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('IMG_5814.png') no-repeat center; background-size: contain; opacity: 0.15; z-index: 1; pointer-events: none; }
         
-        /* ป้ายกำกับร้านในกรอบ */
         .tag-watermark { position: absolute; top: 15px; font-size: 0.65rem; color: var(--peach-main); font-weight: bold; border: 1px solid var(--peach-main); padding: 3px 10px; border-radius: 10px; background: white; z-index: 10; opacity: 0.7; }
         .tag-left { left: 15px; }
         .tag-right { right: 15px; }
 
         .tester-price-tag { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 0.9rem; color: #8B7355; background: rgba(255, 243, 176, 0.95); padding: 12px 0; z-index: 10; font-weight: bold; border-top: 1px solid var(--gold-pastel); }
+
+        /* ปุ่มสั่งซื้อ Line ใน Modal */
+        .line-section { width: 100%; max-width: 500px; margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
+        .line-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--line-green); color: white; text-decoration: none; padding: 12px; border-radius: 15px; font-weight: bold; transition: 0.3s; border: 2px solid transparent; }
+        .line-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(6,199,85,0.3); }
+        .line-btn.myshop { background: white; color: var(--line-green); border: 2px solid var(--line-green); }
 
         input[type=range] { width: 220px; accent-color: var(--peach-main); margin: 10px 0; }
         
@@ -124,6 +134,16 @@
             <div id="testerDisplay" style="position: relative; z-index: 5; text-align: center; width: 100%; word-wrap: break-word; padding: 20px;">สวัสดี hello</div>
             <div id="modalPriceDisplay" class="tester-price-tag"></div>
         </div>
+
+        <div class="line-section">
+            <a href="https://shop.line.me/@wbk2012r" target="_blank" class="line-btn myshop">
+                🛒 สั่งซื้อผ่าน MyShop (ส่งอัตโนมัติใน 24 ชม.)
+            </a>
+            <a href="https://lin.ee/W3641fA" target="_blank" class="line-btn">
+                💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน
+            </a>
+        </div>
+
         <button onclick="closeModal('fontModal')" style="margin-top:20px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
     </div>
 </div>
@@ -143,14 +163,12 @@
         <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
             <div class="tester-container" style="flex:1; min-width:300px;">
                 <div class="tag-watermark tag-left">thitipra studio</div>
-                <div class="tag-watermark tag-right">BR&PRH House</div>
                 <div class="tester-bg-watermark"></div>
                 <select id="selectLeft" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
                 <div id="displayLeft" style="position: relative; z-index: 5; text-align: center; padding: 80px 15px 40px;">สวัสดี</div>
                 <div id="priceLeft" class="tester-price-tag"></div>
             </div>
             <div class="tester-container" style="flex:1; min-width:300px;">
-                <div class="tag-watermark tag-left">thitipra studio</div>
                 <div class="tag-watermark tag-right">BR&PRH House</div>
                 <div class="tester-bg-watermark"></div>
                 <select id="selectRight" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
@@ -158,6 +176,11 @@
                 <div id="priceRight" class="tester-price-tag"></div>
             </div>
         </div>
+        
+        <div class="line-section">
+            <a href="https://shop.line.me/@wbk2012r" target="_blank" class="line-btn myshop">🛒 ไปที่หน้าร้าน MyShop</a>
+        </div>
+
         <button onclick="closeModal('vsModal')" style="margin-top:25px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
     </div>
 </div>
@@ -203,7 +226,6 @@
         const select = document.getElementById('singleFontSelect');
         const sL = document.getElementById('selectLeft');
         const sR = document.getElementById('selectRight');
-        
         for (const f of fonts) {
             const font = new FontFace(f.en, `url(${f.file})`);
             await font.load().then(l => document.fonts.add(l));
@@ -225,7 +247,6 @@
         const term = document.getElementById('fontSearch').value.toLowerCase();
         const list = document.getElementById('fontList');
         list.innerHTML = "";
-
         fonts.filter(f => {
             const match = f.th.includes(term) || f.en.toLowerCase().includes(term);
             if (priceFilter === 'single') return match && (f.p === f.c);
@@ -235,15 +256,15 @@
             const card = document.createElement('div');
             card.className = 'font-card';
             const priceTxt = (f.p === f.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
-            
             card.innerHTML = `
-                <div class="font-card-header" style="font-family:'${f.en}'">
-                    ${(i+1).toString().padStart(2, '0')}. ${f.th} (${f.en})
-                </div>
+                <div class="font-card-header" style="font-family:'${f.en}'">${(i+1).toString().padStart(2, '0')}. ${f.th} (${f.en})</div>
                 <div class="preview-area-card" style="font-family:'${f.en}'">สวัสดี hello</div>
-                <div class="price-footer">${priceTxt}</div>
+                <div class="price-footer">
+                    <div>${priceTxt}</div>
+                    <a href="https://shop.line.me/@wbk2012r" target="_blank" class="line-card-btn">🛒 สั่งซื้อทันที</a>
+                </div>
             `;
-            card.onclick = () => openModal(f);
+            card.onclick = (e) => { if(e.target.tagName !== 'A') openModal(f); };
             list.appendChild(card);
         });
     }
@@ -293,23 +314,17 @@
         const rF = document.getElementById('selectRight').value;
         const dataL = fonts.find(f => f.en === lF);
         const dataR = fonts.find(f => f.en === rF);
-
         const dL = document.getElementById('displayLeft');
         const dR = document.getElementById('displayRight');
         dL.innerText = dR.innerText = val;
         dL.style.fontFamily = lF; dR.style.fontFamily = rF;
         dL.style.fontSize = dR.style.fontSize = size + "px";
         document.getElementById('vsSizeLabel').innerText = size + "px";
-        
         document.getElementById('priceLeft').innerText = (dataL.p === dataL.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | เชิงพาณิชย์: ${dataL.c}`;
         document.getElementById('priceRight').innerText = (dataR.p === dataR.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | เชิงพาณิชย์: ${dataR.c}`;
     }
 
-    function closeModal(id) { 
-        const target = id || 'fontModal'; 
-        document.getElementById(target).style.display = 'none'; 
-        document.body.style.overflow = 'auto'; 
-    }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
 
     init();
 </script>
