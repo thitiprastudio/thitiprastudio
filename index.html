@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThitipraStudio - Font Preview & VS Mode</title>
     <style>
-        /* ---  deklarasi Font ที่กำหนด --- */
+        /* --- ประกาศ Font ที่กำหนด --- */
         @font-face {
             font-family: 'MainBodyFont';
-            src: url('BRJellybear.ttf');
+            src: url('BRSanji.ttf');
         }
         @font-face {
             font-family: 'HeadlineFont';
@@ -17,24 +17,23 @@
 
         /* --- 🎨 โทนสีมงคลเรียกทรัพย์ --- */
         :root {
-            --peach-main: #FF9AA2;    /* ชมพูพีช */
-            --soft-pink: #FFC1CC;     /* ชมพูหวาน */
-            --gold-pastel: #F6D365;   /* ทองพาสเทล */
-            --gold-cream: #FFF3B0;    /* ครีมทอง */
-            --bg-cream: #FFF8F5;      /* ขาวครีม */
-            --lavender: #E6CCFF;      /* ม่วงลาเวนเดอร์ */
+            --peach-main: #FF9AA2;
+            --soft-pink: #FFC1CC;
+            --gold-pastel: #F6D365;
+            --gold-cream: #FFF3B0;
+            --bg-cream: #FFF8F5;
+            --lavender: #E6CCFF;
             --danger: #FF4D4D;
             --max-w: 1100px;
         }
 
         body {
-            /* ปรับฟอนต์โดยรวมเป็น BRSanji */
             font-family: 'MainBodyFont', 'Segoe UI', Tahoma, sans-serif;
             margin: 0; background-color: var(--bg-cream); color: #4A4A4A;
             position: relative;
         }
 
-        /* --- 🎨 เพิ่มลายน้ำพื้นหลังหน้าหลัก (Watermark) --- */
+        /* --- 🎨 ลายน้ำพื้นหลังหน้าหลัก --- */
         body::before {
             content: "";
             position: fixed;
@@ -49,11 +48,9 @@
         }
 
         header { text-align: center; padding: 40px 20px; background: rgba(255, 255, 255, 0.8); border-bottom: 3px solid var(--lavender); backdrop-filter: blur(5px); }
-        
-        /* ปรับหัวข้อใหญ่เป็น BRCasey */
         header h1 { 
             font-family: 'HeadlineFont', sans-serif; 
-            font-size: 2.5rem; /* ขยายขนาดเพื่อให้เห็นเอกลักษณ์ฟอนต์ชัดขึ้น */
+            font-size: 2.5rem;
             margin: 0; 
             color: #333; 
         }
@@ -63,8 +60,6 @@
 
         .top-controls { max-width: var(--max-w); margin: 20px auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .filter-group { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-        
-        /* ปุ่มและ Input ใช้ BRSanji โดยอัตโนมัติจาก body */
         .filter-btn { padding: 10px 20px; border-radius: 20px; border: 2px solid var(--peach-main); background: white; color: var(--peach-main); cursor: pointer; font-weight: bold; transition: 0.3s; font-family: inherit; }
         .filter-btn.active { background: var(--peach-main); color: white; }
         .vs-open-btn { background: var(--lavender); color: #555; border: none; padding: 10px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; margin-bottom: 5px; font-family: inherit; }
@@ -76,12 +71,12 @@
 
         .font-header { padding: 15px 20px 5px; }
         .font-title-row { display: flex; align-items: baseline; gap: 8px; }
-        .font-num { color: var(--peach-main); font-weight: bold; font-size: 1rem; }
+        .font-num { color: var(--peach-main); font-weight: bold; font-size: 1rem; font-family: 'MainBodyFont', sans-serif; } /* เลขลำดับใช้ฟอนต์เมนเพื่อให้ดูง่าย */
         .font-th { font-size: 1.1rem; font-weight: bold; color: #333; }
-        .font-en { font-size: 0.75rem; color: #AAA; text-transform: uppercase; }
+        .font-en { font-size: 0.75rem; color: #AAA; text-transform: uppercase; opacity: 0.7; }
 
         .preview-area { padding: 20px; font-size: 1.8rem; text-align: center; color: #222; overflow: hidden; white-space: nowrap; min-height: 60px; }
-        .price-footer { background-color: var(--gold-cream); padding: 12px 20px; border-top: 1.5px solid var(--gold-pastel); text-align: right; }
+        .price-footer { background-color: var(--gold-cream); padding: 12px 20px; border-top: 1.5px solid var(--gold-pastel); text-align: right; font-family: 'MainBodyFont', sans-serif; } /* ราคาใช้ฟอนต์เมนเพื่อความอ่านง่าย */
         .price-val { color: #D4AF37; font-size: 0.8rem; font-weight: 800; }
 
         /* --- 🎈 ป๊อปอัพ & ลายน้ำใน Modal --- */
@@ -210,7 +205,6 @@
 </div>
 
 <script>
-    /* ส่วนของ JavaScript คงเดิม */
     const fonts = [
         { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", file: "Stephanie.ttf" },
         { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", file: "Anthony.ttf" },
@@ -270,6 +264,7 @@
         filterFonts();
     }
 
+    // --- ส่วนที่ปรับปรุง: ให้หัวการ์ดใช้ฟอนต์ตัวมันเอง ---
     function filterFonts() {
         const term = document.getElementById('fontSearch').value.toLowerCase();
         const list = document.getElementById('fontList');
@@ -284,11 +279,11 @@
             const div = document.createElement('div');
             div.className = 'font-card';
             const priceHtml = (f.p === f.c)
-                ? `<div class="price-line">ราคาเดียวใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: <span class="price-val">${f.p}</span></div>`
-                : `<div class="price-line">ส่วนตัว: <span class="price-val">${f.p}</span> | เชิงพาณิชย์: <span class="price-val">${f.c}</span></div>`;
+                ? `ราคาเดียวใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: <span class="price-val">${f.p}</span>`
+                : `ส่วนตัว: <span class="price-val">${f.p}</span> | เชิงพาณิชย์: <span class="price-val">${f.c}</span>`;
 
             div.innerHTML = `
-                <div class="font-header">
+                <div class="font-header" style="font-family:'${f.en}'">
                     <div class="font-title-row">
                         <span class="font-num">${(i+1).toString().padStart(2,'0')}.</span>
                         <span class="font-th">${f.th}</span>
@@ -315,6 +310,7 @@
     function changeSingleFont(fontEn) {
         currentSingleFont = fontEn;
         document.getElementById('modalFontName').innerText = fonts.find(f => f.en === fontEn).th;
+        document.getElementById('modalFontName').style.fontFamily = fontEn; // ชื่อใน Modal ก็ใช้ฟอนต์มันเอง
         refreshDisplay();
     }
 
