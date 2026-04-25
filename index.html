@@ -20,15 +20,33 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0; background-color: var(--bg-cream); color: #4A4A4A;
+            position: relative;
         }
 
-        header { text-align: center; padding: 40px 20px; background: white; border-bottom: 3px solid var(--lavender); }
+        /* --- 🎨 เพิ่มลายน้ำพื้นหลัง (Watermark) --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('IPCB5121.PNG'); /* ใช้รูปโลโก้ของคุณ */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%; /* ปรับขนาดลายน้ำ (40-60% กำลังสวย) */
+            opacity: 0.05; /* ปรับความจาง (0.05 คือ 5%) */
+            z-index: -1; /* ให้อยู่หลังสุด */
+            pointer-events: none; /* ป้องกันการคลิกโดนลายน้ำ */
+        }
+
+        header { text-align: center; padding: 40px 20px; background: rgba(255, 255, 255, 0.8); border-bottom: 3px solid var(--lavender); backdrop-filter: blur(5px); }
         .logo-container { width: 80px; height: 80px; margin: 0 auto 10px; border-radius: 20px; overflow: hidden; border: 2px solid var(--peach-main); }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
         /* --- ส่วนควบคุมปุ่มแยกประเภทราคา --- */
         .top-controls { max-width: var(--max-w); margin: 20px auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-       
+        
         .filter-group { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
         .filter-btn {
             padding: 10px 20px; border-radius: 20px; border: 2px solid var(--peach-main);
@@ -39,12 +57,12 @@
 
         .vs-open-btn { background: var(--lavender); color: #555; border: none; padding: 10px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; margin-bottom: 5px; }
 
-        .search-input { width: 100%; max-width: 450px; padding: 12px 20px; border-radius: 25px; border: 2.5px solid var(--lavender); outline: none; }
+        .search-input { width: 100%; max-width: 450px; padding: 12px 20px; border-radius: 25px; border: 2.5px solid var(--lavender); outline: none; background: rgba(255, 255, 255, 0.9); }
 
         /* --- 📋 รายการฟอนต์ --- */
         .container { max-width: var(--max-w); margin: 0 auto 50px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .font-card { background: white; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); transition: 0.3s; cursor: pointer; border: 1px solid #EEE; display: flex; flex-direction: column; overflow: hidden; }
-        .font-card:hover { border-color: var(--peach-main); transform: translateY(-5px); }
+        .font-card { background: rgba(255, 255, 255, 0.9); border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); transition: 0.3s; cursor: pointer; border: 1px solid #EEE; display: flex; flex-direction: column; overflow: hidden; }
+        .font-card:hover { border-color: var(--peach-main); transform: translateY(-5px); background: white; }
 
         .font-header { padding: 15px 20px 5px; }
         .font-title-row { display: flex; align-items: baseline; gap: 8px; }
@@ -86,7 +104,7 @@
 
 <div class="top-controls">
     <button class="vs-open-btn" onclick="openVS()">❤️โหมดเปรียบเทียบฟอนต์(VS Mode)🎶</button>
-   
+    
     <div class="filter-group">
         <button id="btn-all" class="filter-btn active" onclick="setPriceFilter('all')">ทั้งหมด</button>
         <button id="btn-single" class="filter-btn" onclick="setPriceFilter('single')">ราคาเดียว (ส่วนตัว & เชิงพาณิชย์)</button>
@@ -121,12 +139,12 @@
         <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
         <div style="margin: 15px 0;"><input type="range" id="vsSizeRange" min="20" max="120" value="50" oninput="refreshVS()"> <span id="vsSizeLabel">50px</span></div>
         <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
-            <div style="flex:1; min-width:300px; border:2px solid var(--lavender); padding:20px; border-radius:15px;">
+            <div style="flex:1; min-width:300px; border:2px solid var(--lavender); padding:20px; border-radius:15px; background: rgba(255,255,255,0.8);">
                 <select id="selectLeft" class="modal-select" style="width:100%" onchange="refreshVS()"></select>
                 <div id="priceLeft" class="price-line"></div>
                 <div id="displayLeft" style="text-align:center; min-height:100px;"></div>
             </div>
-            <div style="flex:1; min-width:300px; border:2px solid var(--lavender); padding:20px; border-radius:15px;">
+            <div style="flex:1; min-width:300px; border:2px solid var(--lavender); padding:20px; border-radius:15px; background: rgba(255,255,255,0.8);">
                 <select id="selectRight" class="modal-select" style="width:100%" onchange="refreshVS()"></select>
                 <div id="priceRight" class="price-line"></div>
                 <div id="displayRight" style="text-align:center; min-height:100px;"></div>
@@ -137,6 +155,7 @@
 </div>
 
 <script>
+    // ส่วนของ JavaScript (คงเดิมตามไฟล์ของคุณ)
     const fonts = [
         { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", file: "Stephanie.ttf" },
         { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", file: "Anthony.ttf" },
@@ -200,7 +219,7 @@
         const term = document.getElementById('fontSearch').value.toLowerCase();
         const list = document.getElementById('fontList');
         list.innerHTML = "";
-       
+        
         fonts.filter(f => {
             const matchesSearch = f.th.includes(term) || f.en.toLowerCase().includes(term);
             const isSamePrice = (f.p === f.c);
@@ -272,10 +291,10 @@
         const rF = document.getElementById('selectRight').value;
         const dataL = fonts.find(f => f.en === lF);
         const dataR = fonts.find(f => f.en === rF);
-       
-        document.getElementById('priceLeft').innerText = (dataL.p === dataL.c) ? `ราคาเดียว: ${dataL.p}` : `ส่วนตัว / Personal: ${dataL.p} |เชิงพาณิชย์ / Commercial: ${dataL.c}`;
-        document.getElementById('priceRight').innerText = (dataR.p === dataR.c) ? `ราคาเดียว: ${dataR.p}` : `ส่วนตัว / Personal: ${dataR.p} |เชิงพาณิชย์ / Commercial: ${dataR.c}`;
-       
+        
+        document.getElementById('priceLeft').innerText = (dataL.p === dataL.p) ? `ราคาเดียว: ${dataL.p}` : `ส่วนตัว / Personal: ${dataL.p} |เชิงพาณิชย์ / Commercial: ${dataL.c}`;
+        document.getElementById('priceRight').innerText = (dataR.p === dataR.p) ? `ราคาเดียว: ${dataR.p}` : `ส่วนตัว / Personal: ${dataR.p} |เชิงพาณิชย์ / Commercial: ${dataR.c}`;
+        
         document.getElementById('displayLeft').innerText = document.getElementById('displayRight').innerText = val;
         document.getElementById('displayLeft').style.fontFamily = lF;
         document.getElementById('displayRight').style.fontFamily = rF;
