@@ -27,10 +27,7 @@
         body::before {
             content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('IPCB5121.PNG'); 
             background-repeat: no-repeat;
             background-position: center;
@@ -63,13 +60,10 @@
 
         .preview-area { padding: 20px; font-size: 1.8rem; text-align: center; color: #222; overflow: hidden; white-space: nowrap; min-height: 60px; }
         .price-footer { background-color: var(--gold-cream); padding: 12px 20px; border-top: 1.5px solid var(--gold-pastel); text-align: right; }
-        .price-line { font-size: 0.75rem; font-weight: bold; line-height: 1.5; color: #8B7355; }
         .price-val { color: #D4AF37; font-size: 0.8rem; font-weight: 800; }
 
-        /* --- 🎈 ป๊อปอัพ & ลายน้ำใหม่ --- */
+        /* --- 🎈 ป๊อปอัพ & ลายน้ำใน Modal --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; }
-        
-        /* ใส่ลายน้ำพื้นหลังใน Modal */
         .modal::before {
             content: "";
             position: fixed;
@@ -85,10 +79,9 @@
 
         .modal-content { width: 95%; max-width: 1000px; margin: 0 auto; padding: 60px 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
         
-        /* กรอบแสดงผลแบบมีลายน้ำมุมขวาบน */
         .tester-container {
             width: 100%;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.7);
             border: 2px dashed var(--peach-main);
             border-radius: 20px;
             position: relative;
@@ -102,26 +95,23 @@
 
         .shop-watermark {
             position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--peach-main);
             opacity: 0.6;
             font-weight: bold;
             border: 1px solid var(--peach-main);
             padding: 2px 8px;
             border-radius: 10px;
-            pointer-events: none;
-            letter-spacing: 1px;
             background: white;
+            z-index: 10;
         }
+        .wm-right { top: 10px; right: 15px; }
+        .wm-left { top: 10px; left: 15px; }
 
         .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; background: var(--danger); color: white; font-size: 25px; border-radius: 50%; cursor: pointer; z-index: 1001; border: none; font-weight: bold; }
-        .modal-select { padding: 10px 15px; border-radius: 12px; border: 2.5px solid var(--peach-main); margin-bottom: 15px; outline: none; cursor: pointer; width: 250px; text-align: center; font-family: inherit; }
+        .modal-select { padding: 10px 15px; border-radius: 12px; border: 2.5px solid var(--peach-main); margin-bottom: 15px; outline: none; width: 250px; text-align: center; }
         .back-btn-frame { margin-top: 20px; padding: 12px 35px; border: 2.5px solid var(--gold-pastel); color: #8B7355; border-radius: 12px; cursor: pointer; font-weight: bold; background: white; transition: 0.3s; }
-        .vs-btn-modal { background: var(--peach-main); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 15px; transition: 0.3s; }
-
-        input[type=range] { accent-color: var(--peach-main); width: 200px; }
+        .vs-btn-modal { background: var(--peach-main); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
 
         @media (max-width: 700px) { .container { grid-template-columns: 1fr; } }
     </style>
@@ -132,8 +122,8 @@
     <div class="logo-container"><img src="IPCB5121.PNG" alt="Logo"></div>
     <h1 style="font-size: 1.5rem; margin: 0; color: #333;">ThitipraStudio</h1>
     <p style="font-size: 0.8rem; color: #888;">🎨 เว็บเครือ BR&PRH House ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ ✨</p>
-    <p style="font-size: 0.8rem; color: #888;">กด... และเปิดในเบราว์เวอร์🥡</p>
-    <p style="font-size: 0.8rem; color: #888;">🍷ลูกค้ารอเว็บโหลดสักครู่นะคะ🏡💖</p>
+    <p style="font-size: 0.7rem; color: #AAA;"> กด... และเปิดในเบราว์เวอร์🥡</p>
+        <p style="font-size: 0.7rem; color: #AAA;">🍷ลูกค้ารอเว็บโหลดสักครู่นะคะ🏡💖</p>
 </header>
 
 <div class="top-controls">
@@ -153,7 +143,7 @@
     <div class="modal-content">
         <button class="vs-btn-modal" onclick="openVSFromModal()">❤️โหมดเปรียบเทียบฟอนต์(VS Mode)🎶</button>
         <select id="singleFontSelect" class="modal-select" onchange="changeSingleFont(this.value)"></select>
-        <h2 id="modalFontName" style="color: var(--peach-main);">ชื่อฟอนต์</h2>
+        <h2 id="modalFontName" style="color: var(--peach-main); margin-bottom: 5px;">ชื่อฟอนต์</h2>
         <input type="text" id="testerInput" class="search-input" placeholder="ลองพิมพ์ที่นี่..." oninput="refreshDisplay()">
         
         <div style="margin: 20px 0;">
@@ -162,8 +152,8 @@
         </div>
 
         <div class="tester-container">
-            <div class="shop-watermark">THITIPRA STUDIO</div>
-            <div class="shop-watermark">BR&PRH House</div>
+            <div class="shop-watermark wm-right">THITIPRA STUDIO</div>
+            <div class="shop-watermark wm-left">BR&PRH House</div>
             <div id="testerDisplay" class="preview-area" style="font-size: 70px; width: 100%; white-space: normal;">สวัสดี hello</div>
         </div>
 
@@ -177,17 +167,18 @@
         <h2 style="color:var(--peach-main);">Font Comparison (VS)</h2>
         <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
         <div style="margin: 15px 0;"><input type="range" id="vsSizeRange" min="20" max="120" value="50" oninput="refreshVS()"> <span id="vsSizeLabel">50px</span></div>
+        
         <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
             <div style="flex:1; min-width:300px; border:2px solid var(--lavender); padding:20px; border-radius:15px; background: rgba(255,255,255,0.8); position: relative;">
-                <div class="shop-watermark">THITIPRA</div>
+                <div class="shop-watermark wm-right" style="font-size:0.5rem">THITIPRA</div>
                 <select id="selectLeft" class="modal-select" style="width:100%" onchange="refreshVS()"></select>
-                <div id="priceLeft" class="price-line"></div>
+                <div id="priceLeft" class="price-line" style="font-size:0.75rem; color:#8B7355; font-weight:bold; margin-bottom:10px;"></div>
                 <div id="displayLeft" style="text-align:center; min-height:100px;"></div>
             </div>
             <div style="flex:1; min-width:300px; border:2px solid var(--lavender); padding:20px; border-radius:15px; background: rgba(255,255,255,0.8); position: relative;">
-                <div class="shop-watermark">THITIPRA</div>
+                <div class="shop-watermark wm-right" style="font-size:0.5rem">THITIPRA</div>
                 <select id="selectRight" class="modal-select" style="width:100%" onchange="refreshVS()"></select>
-                <div id="priceRight" class="price-line"></div>
+                <div id="priceRight" class="price-line" style="font-size:0.75rem; color:#8B7355; font-weight:bold; margin-bottom:10px;"></div>
                 <div id="displayRight" style="text-align:center; min-height:100px;"></div>
             </div>
         </div>
@@ -268,8 +259,21 @@
         }).forEach((f, i) => {
             const div = document.createElement('div');
             div.className = 'font-card';
-            const priceHtml = (f.p === f.c) ? `${f.p}` : `${f.p} | ${f.c}`;
-            div.innerHTML = `<div class="font-header"><div class="font-title-row"><span class="font-num">${(i+1).toString().padStart(2,'0')}.</span><span class="font-th">${f.th}</span></div></div><div class="preview-area" style="font-family:'${f.en}'">สวัสดี hello</div><div class="price-footer"><span class="price-line">${priceHtml}</span></div>`;
+            const priceHtml = (f.p === f.c)
+                ? `<div class="price-line">ราคาเดียวใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: <span class="price-val">${f.p}</span></div>`
+                : `<div class="price-line">ส่วนตัว: <span class="price-val">${f.p}</span> | เชิงพาณิชย์: <span class="price-val">${f.c}</span></div>`;
+
+            div.innerHTML = `
+                <div class="font-header">
+                    <div class="font-title-row">
+                        <span class="font-num">${(i+1).toString().padStart(2,'0')}.</span>
+                        <span class="font-th">${f.th}</span>
+                        <span class="font-en">${f.en}</span>
+                    </div>
+                </div>
+                <div class="preview-area" style="font-family:'${f.en}'">สวัสดี hello</div>
+                <div class="price-footer">${priceHtml}</div>
+            `;
             div.onclick = () => openSingleModal(f);
             list.appendChild(div);
         });
@@ -317,8 +321,10 @@
         const rF = document.getElementById('selectRight').value;
         const dataL = fonts.find(f => f.en === lF);
         const dataR = fonts.find(f => f.en === rF);
+        
         document.getElementById('priceLeft').innerText = (dataL.p === dataL.c) ? `ราคาเดียว: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | เชิงพาณิชย์: ${dataL.c}`;
         document.getElementById('priceRight').innerText = (dataR.p === dataR.c) ? `ราคาเดียว: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | เชิงพาณิชย์: ${dataR.c}`;
+        
         document.getElementById('displayLeft').innerText = document.getElementById('displayRight').innerText = val;
         document.getElementById('displayLeft').style.fontFamily = lF;
         document.getElementById('displayRight').style.fontFamily = rF;
