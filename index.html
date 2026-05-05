@@ -197,26 +197,30 @@
             <span id="vsSizeLabel" style="color: var(--peach-main);">55px</span>
         </div>
         <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
-            <!-- ฝั่งซ้าย -->
+            <!-- ฝั่งบน/ซ้าย -->
             <div class="tester-container" style="flex:1; min-width:300px;">
-                <div class="tag-watermark" style="left: 15px;">Thitipra Studio</div>
                 <div class="tester-bg-watermark"></div>
-                <select id="selectLeft" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
+                <div class="vs-select-wrapper">
+                    <select id="selectLeft" class="vs-select-input" onchange="refreshVS()"></select>
+                    <button class="go-single-btn" onclick="jumpToSingle('selectLeft')"><i class="fas fa-arrow-right"></i></button>
+                </div>
                 <div id="displayLeft">สวัสดี</div>
                 <div id="priceLeft" class="tester-price-tag"></div>
             </div>
-            <!-- ฝั่งขวา -->
+            <!-- ฝั่งล่าง/ขวา -->
             <div class="tester-container" style="flex:1; min-width:300px;">
-                <div class="tag-watermark" style="right: 15px;">BR&PRH House</div>
                 <div class="tester-bg-watermark"></div>
-                <select id="selectRight" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
+                <div class="vs-select-wrapper">
+                    <select id="selectRight" class="vs-select-input" onchange="refreshVS()"></select>
+                    <button class="go-single-btn" onclick="jumpToSingle('selectRight')"><i class="fas fa-arrow-right"></i></button>
+                </div>
                 <div id="displayRight">สวัสดี</div>
                 <div id="priceRight" class="tester-price-tag"></div>
             </div>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:500px; margin-top:25px;">
             <a href="https://shop.line.me/@wbk2012r" target="_blank" style="background:var(--line-green); color:white; text-decoration:none; padding:12px; border-radius:15px; text-align:center;">🛒 สั่งซื้อผ่าน MyShop</a>
-            <a href="https://lin.ee/8k1sAhb" target="_blank" style="background:#fff; color:var(--line-green); border:2px solid var(--line-green); text-decoration:none; padding:12px; border-radius:15px; text-align:center;">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
+            <a href="https://lin.ee/8k1sAhb" target="_blank" style="background:#fff; color:var(--line-green); border:2px solid var(--line-green); text-decoration:none; padding:12px; border-radius:15px; text-align:center;">💬 สั่งซื้อผ่านแอดมิน</a>
         </div>
         <button onclick="closeModal('vsModal')" style="margin-top:25px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
     </div>
