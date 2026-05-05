@@ -384,8 +384,8 @@
         dL.style.fontSize = dR.style.fontSize = size + "px";
         document.getElementById('vsSizeLabel').innerText = size + "px";
         
-        document.getElementById('priceLeft').innerText = (dataL.p === dataL.c) ? `Personal&Comm: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | พาณิชย์: ${dataL.c}`;
-        document.getElementById('priceRight').innerText = (dataR.p === dataR.c) ? `Personal&Comm: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | พาณิชย์: ${dataR.c}`;
+        document.getElementById('priceLeft').innerText = (dataL.p === dataL.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | เชิงพาณิชย์: ${dataL.c}`;
+        document.getElementById('priceRight').innerText = (dataR.p === dataR.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | เชิงพาณิชย์: ${dataR.c}`;
     }
 
     function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
