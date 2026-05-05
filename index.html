@@ -172,19 +172,17 @@
             <label style="font-size: 0.8rem;">ขนาด:</label>
             <input type="range" id="sizeSlider" min="10" max="150" value="80" oninput="refreshDisplay()">
             <span id="sizeLabel" style="color: var(--peach-main);">80px</span>
-        </div>
+  </div>
         <div class="tester-container">
-            <div class="tester-bg-watermark"></div>
-            <div class="tester-container">
             <div class="tag-watermark" style="left: 15px;">Thitipra Studio</div>
             <div class="tag-watermark" style="right: 15px;">BR&PRH House</div>
             <div class="tester-bg-watermark"></div>
-            <div id="testerDisplay">ฐิติประสตูดิโอ ThitipraStudio</div>
+            <div id="testerDisplay" style="position: relative; z-index: 5; text-align: center; width: 100%; word-wrap: break-word; padding: 20px;">สวัสดี hello</div>
             <div id="modalPriceDisplay" class="tester-price-tag"></div>
         </div>
-        <div class="line-section">
-            <a href="https://shop.line.me/@wbk2012r" target="_blank" class="line-btn-full">🛒 สั่งซื้อผ่าน MyShop (รอจัดส่งภายใน 24ชม.)</a>
-            <a href="https://lin.ee/8k1sAhb" target="_blank" class="line-btn-outline">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
+        <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:500px; margin-top:25px;">
+            <a href="https://shop.line.me/@wbk2012r" target="_blank" style="background:var(--line-green); color:white; text-decoration:none; padding:12px; border-radius:15px; text-align:center;">🛒 สั่งซื้อผ่าน MyShop (รอจัดส่งภายใน 24ชม.)</a>
+            <a href="https://lin.ee/W3641fA" target="_blank" style="background:#fff; color:var(--line-green); border:2px solid var(--line-green); text-decoration:none; padding:12px; border-radius:15px; text-align:center;">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
         </div>
         <button onclick="closeModal('fontModal')" style="margin-top:20px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
     </div>
