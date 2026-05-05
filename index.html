@@ -49,31 +49,44 @@
         .font-card-header { padding: 15px 20px; font-size: 1.2rem; color: #333; }
         .preview-area-card { padding: 30px 15px; text-align: center; font-size: 2rem; min-height: 70px; overflow: hidden; white-space: nowrap; }
 
-        /* สีแถบราคา */
+        /* แถบราคาหน้าหลัก */
         .price-footer { padding: 12px 15px; text-align: center; font-size: 0.85rem; }
         .price-split-style { background-color: var(--gold-cream) !important; border-top: 1.5px solid var(--gold-pastel) !important; color: #8B7355 !important; }
         .price-single-style { background-color: var(--success-bg) !important; border-top: 1.5px solid var(--success-border) !important; color: var(--success-text) !important; }
+
+        /* ปุ่มสั่งซื้อในการ์ดหน้าหลัก - กรอบเขียว */
+        .line-card-btn { 
+            display: inline-block; 
+            background: white; 
+            color: var(--line-green); 
+            text-decoration: none; 
+            padding: 5px 15px; 
+            border-radius: 15px; 
+            font-size: 0.8rem; 
+            margin-top: 8px; 
+            transition: 0.3s; 
+            font-weight: normal;
+            border: 1.5px solid var(--line-green); 
+        }
+        .line-card-btn:hover { background: var(--line-green); color: white; }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; }
         .modal-content { width: 90%; max-width: 1000px; margin: 0 auto; padding: 50px 10px; display: flex; flex-direction: column; align-items: center; }
         .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; background: var(--danger); color: white; border-radius: 50%; border: none; font-size: 25px; cursor: pointer; z-index: 1001; }
 
-        /* กรอบโหมดเปรียบเทียบที่สวยงาม */
         .tester-container { width: 100%; background: white; border: 2px dashed var(--peach-main); border-radius: 20px; position: relative; margin-top: 20px; overflow: hidden; min-height: 380px; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .tester-bg-watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('IMG_5814.png') no-repeat center; background-size: contain; opacity: 0.15; z-index: 1; pointer-events: none; }
         
-        /* พื้นที่พิมพ์ข้อความพร้อม Scroll */
         #testerDisplay, #displayLeft, #displayRight { position: relative; z-index: 5; text-align: center; width: 100%; word-wrap: break-word; padding: 100px 20px 80px; flex-grow: 1; max-height: 450px; overflow-y: auto; box-sizing: border-box; }
         .tester-price-tag { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 1rem; padding: 15px 0; z-index: 10; border-top: 1px solid transparent; transition: 0.3s; }
 
-        /* ช่องเลือกฟอนต์จัดวางกลางกรอบและปุ่มลูกศร */
+        /* VS Mode Select จัดกวางกลางกรอบและปุ่มลูกศร */
         .vs-select-center { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); z-index: 50; width: 90%; display: flex; justify-content: center; align-items: center; gap: 8px; }
-        .vs-select-box { padding: 8px 15px; border-radius: 20px; border: 1.5px solid var(--lavender); font-family: inherit; font-size: 0.9rem; text-align: center; outline: none; background: rgba(255,255,255,0.95); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .vs-select-box { padding: 8px 15px; border-radius: 20px; border: 1.5px solid var(--lavender); font-family: inherit; font-size: 0.9rem; text-align: center; outline: none; background: rgba(255,255,255,0.95); }
         .jump-btn { background: var(--peach-main); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; flex-shrink: 0; }
-        .jump-btn:hover { transform: scale(1.1); background: #ff7b88; }
 
         .line-section { display:flex; flex-direction:column; gap:10px; width:100%; max-width:500px; margin-top:30px; }
-        .line-btn-full { background:var(--line-green); color:white; text-decoration:none; padding:12px; border-radius:15px; text-align:center; transition: 0.3s; border: 2px solid transparent; }
+        .line-btn-full { background:var(--line-green); color:white; text-decoration:none; padding:12px; border-radius:15px; text-align:center; transition: 0.3s; }
         .line-btn-outline { background:#fff; color:var(--line-green); border:2px solid var(--line-green); text-decoration:none; padding:12px; border-radius:15px; text-align:center; transition: 0.3s; }
 
         .rules-list { text-align: left; width: 100%; max-width: 800px; padding: 0; list-style: none; }
@@ -86,9 +99,6 @@
     <div class="logo-container"><img src="IPCB5121.PNG" alt="Logo"></div>
     <h1>ThitipraStudio</h1>
     <p style="font-size: 0.95rem; color: #888; margin: 10px 0 5px;">🎨 เว็บเครือ BR&PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ </p>
-    <p style="font-size: 0.95rem; color: #888; margin: 5px 0;">กด... และเปิดในเบราว์เวอร์🥡</p>
-    <p style="font-size: 0.8rem; color: #888; margin: 5px 0;">🍷ลูกค้ารอเว็บโหลดสักครู่นะคะ🏡💖</p>
-
     <div class="nav-buttons">
         <button class="nav-btn" onclick="openModal('infoModal')"><i class="fas fa-id-card"></i> รู้จักเรา</button>
         <button class="nav-btn" onclick="openModal('rulesModal')"><i class="fas fa-shield-halved"></i> กฎการใช้งาน</button>
@@ -106,7 +116,6 @@
 </div>
 
 <div class="container" id="fontList"></div>
-
 <!-- Modal: กฎการใช้งาน -->
 <div class="modal" id="rulesModal">
     <button class="close-btn" onclick="closeModal('rulesModal')">&times;</button>
@@ -141,21 +150,15 @@
     </div>
 </div>
 
-
-
 <div class="modal" id="infoModal">
     <button class="close-btn" onclick="closeModal('infoModal')">&times;</button>
     <div class="modal-content" style="text-align: center;">
         <img src="IPCB5121.PNG" style="width: 120px; border-radius: 20px; margin-bottom: 20px;">
         <h2 style="color: var(--peach-main);">Welcome to Thitiprastudio</h2>
         <p>เจ้าของเครือฟอนต์ <b>BR & PRH Font</b></p>
-        <div style="background: #fff8f9; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #ffe4e6;">
-            <p>สไตล์: ลายมือน่ารัก สดใส และแนวทางการเรียบร้อย</p>
-        </div>
     </div>
 </div>
 
-<!-- Modal: ทดลองพิมพ์ฟอนต์เดียว -->
 <div class="modal" id="fontModal">
     <button class="close-btn" onclick="closeModal('fontModal')">&times;</button>
     <div class="modal-content">
@@ -174,14 +177,13 @@
             <div id="modalPriceDisplay" class="tester-price-tag"></div>
         </div>
         <div class="line-section">
-            <a href="https://shop.line.me/@wbk2012r" target="_blank" class="line-btn-full">🛒 สั่งซื้อผ่าน MyShop</a>
-            <a href="https://lin.ee/8k1sAhb" target="_blank" class="line-btn-outline">💬 สั่งซื้อผ่านแอดมิน</a>
+            <a href="https://shop.line.me/@wbk2012r" target="_blank" class="line-btn-full">🛒 สั่งซื้อผ่าน MyShop (รอจัดส่งภายใน 24ชม.)</a>
+            <a href="https://lin.ee/8k1sAhb" target="_blank" class="line-btn-outline">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
         </div>
         <button onclick="closeModal('fontModal')" style="margin-top:20px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
     </div>
 </div>
 
-<!-- Modal: VS Mode -->
 <div class="modal" id="vsModal">
     <button class="close-btn" onclick="closeModal('vsModal')">&times;</button>
     <div class="modal-content">
@@ -193,7 +195,6 @@
             <span id="vsSizeLabel" style="color: var(--peach-main);">55px</span>
         </div>
         <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
-            <!-- ฝั่งซ้าย -->
             <div class="tester-container" style="flex:1; min-width:300px;">
                 <div class="tester-bg-watermark"></div>
                 <div class="vs-select-center">
@@ -203,7 +204,6 @@
                 <div id="displayLeft">สวัสดี hello</div>
                 <div id="priceLeft" class="tester-price-tag"></div>
             </div>
-            <!-- ฝั่งขวา -->
             <div class="tester-container" style="flex:1; min-width:300px;">
                 <div class="tester-bg-watermark"></div>
                 <div class="vs-select-center">
@@ -215,8 +215,8 @@
             </div>
         </div>
         <div class="line-section">
-            <a href="https://shop.line.me/@wbk2012r" target="_blank" class="line-btn-full">🛒 สั่งซื้อผ่าน MyShop</a>
-            <a href="https://lin.ee/8k1sAhb" target="_blank" class="line-btn-outline">💬 สั่งซื้อผ่านแอดมิน</a>
+            <a href="https://shop.line.me/@wbk2012r" target="_blank" class="line-btn-full">🛒 สั่งซื้อผ่าน MyShop (รอจัดส่งภายใน 24ชม.)</a>
+            <a href="https://lin.ee/8k1sAhb" target="_blank" class="line-btn-outline">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
         </div>
         <button onclick="closeModal('vsModal')" style="margin-top:25px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
     </div>
@@ -305,6 +305,8 @@
             const isSinglePrice = (f.p === f.c);
             const priceClass = isSinglePrice ? 'price-single-style' : 'price-split-style';
             const priceTxt = isSinglePrice ? `ใช้งานทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
+            
+            // ใช้คลาส .line-card-btn (กรอบเขียว) ที่นี่
             card.innerHTML = `<div class="font-card-header" style="font-family:'${f.en}'">${(i+1).toString().padStart(2, '0')}. ${f.th} (${f.en})</div><div class="preview-area-card" style="font-family:'${f.en}'">สวัสดี hello</div><div class="price-footer ${priceClass}"><div>${priceTxt}</div><a href="https://lin.ee/8k1sAhb" target="_blank" class="line-card-btn">🛒 สั่งซื้อกับแอดมิน</a></div>`;
             card.onclick = (e) => { if(e.target.tagName !== 'A') openModal(f); };
             list.appendChild(card);
@@ -364,11 +366,10 @@
         dL.style.fontSize = dR.style.fontSize = size + "px";
         document.getElementById('vsSizeLabel').innerText = size + "px";
         
-        // อัปเดตสีแถบราคาในโหมด VS
         const pL = document.getElementById('priceLeft');
         const isSingleL = (dataL.p === dataL.c);
         pL.className = `tester-price-tag ${isSingleL ? 'price-single-style' : 'price-split-style'}`;
-        pL.innerText = isSingleL ? `ส่วนตัว&เชิงพาณิชย์: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | เชิงพาณิชย์: ${dataL.c}`;
+        pL.innerText = isSingleL ? `ใช้งานทั้งส่วนตัว&เชิงพาณิชย์: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | เชิงพาณิชย์: ${dataL.c}`;
 
         const pR = document.getElementById('priceRight');
         const isSingleR = (dataR.p === dataR.c);
@@ -376,7 +377,6 @@
         pR.innerText = isSingleR ? `ใช้งานทั้งส่วนตัว&เชิงพาณิชย์: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | เชิงพาณิชย์: ${dataR.c}`;
     }
 
-    // ฟังก์ชันลูกศรกดไปหน้าฟอนต์เดี่ยว
     function jumpToSingle(selectId) {
         const fontEn = document.getElementById(selectId).value;
         const fontData = fonts.find(f => f.en === fontEn);
