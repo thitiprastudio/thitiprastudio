@@ -160,7 +160,7 @@
         <p>เจ้าของเครือฟอนต์ <b>BR & PRH Font</b></p>
     </div>
 </div>
-
+<!-- Modal: ทดลองพิมพ์ -->
 <div class="modal" id="fontModal">
     <button class="close-btn" onclick="closeModal('fontModal')">&times;</button>
     <div class="modal-content">
@@ -168,18 +168,28 @@
         <select id="singleFontSelect" class="search-input" onchange="changeSingleFont(this.value)" style="margin-bottom:20px;"></select>
         <h2 id="modalFontName" style="color: var(--peach-main); margin-bottom: 20px; text-align: center;"></h2>
         <input type="text" id="testerInput" class="search-input" placeholder="พิมพ์ข้อความที่นี่..." oninput="refreshDisplay()">
+        
         <div style="margin: 15px 0;">
             <label style="font-size: 0.8rem;">ขนาด:</label>
             <input type="range" id="sizeSlider" min="10" max="150" value="80" oninput="refreshDisplay()">
             <span id="sizeLabel" style="color: var(--peach-main);">80px</span>
-  </div>
-        <div class="tester-container">
-            <div class="tag-watermark" style="left: 15px;">Thitipra Studio</div>
-            <div class="tag-watermark" style="right: 15px;">BR&PRH House</div>
+        </div>
+
+        <!-- กรอบทดสอบฟอนต์ -->
+        <div class="tester-container" style="position: relative; overflow: hidden; min-height: 350px;">
+            <!-- ป้าย Tag Watermark มุมซ้ายและขวาบนแบบมีกรอบเล็กๆ -->
+            <div class="tag-watermark" style="position: absolute; top: 10px; left: 10px; border: 1px solid var(--peach-main); padding: 2px 8px; border-radius: 8px; font-size: 0.65rem; background: rgba(255,255,255,0.8); z-index: 10; color: var(--peach-main);">Thitipra Studio</div>
+            <div class="tag-watermark" style="position: absolute; top: 10px; right: 10px; border: 1px solid var(--peach-main); padding: 2px 8px; border-radius: 8px; font-size: 0.65rem; background: rgba(255,255,255,0.8); z-index: 10; color: var(--peach-main);">BR&PRH House</div>
+            
             <div class="tester-bg-watermark"></div>
-            <div id="testerDisplay" style="position: relative; z-index: 5; text-align: center; width: 100%; word-wrap: break-word; padding: 20px;">สวัสดี hello</div>
+            
+            <!-- พื้นที่แสดงข้อความ (รองรับ Scroll หากพิมพ์ยาว) -->
+            <div id="testerDisplay" style="position: relative; z-index: 5; text-align: center; width: 100%; word-wrap: break-word; padding: 80px 20px 80px; flex-grow: 1; max-height: 450px; overflow-y: auto; box-sizing: border-box;">ฐิติประสตูดิโอ ThitipraStudio</div>
+            
+            <!-- แถบราคาด้านล่าง -->
             <div id="modalPriceDisplay" class="tester-price-tag"></div>
         </div>
+
         <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:500px; margin-top:25px;">
             <a href="https://shop.line.me/@wbk2012r" target="_blank" style="background:var(--line-green); color:white; text-decoration:none; padding:12px; border-radius:15px; text-align:center;">🛒 สั่งซื้อผ่าน MyShop (รอจัดส่งภายใน 24ชม.)</a>
             <a href="https://lin.ee/W3641fA" target="_blank" style="background:#fff; color:var(--line-green); border:2px solid var(--line-green); text-decoration:none; padding:12px; border-radius:15px; text-align:center;">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
