@@ -130,18 +130,32 @@
     <button class="close-btn" onclick="closeModal('rulesModal')">&times;</button>
     <div class="modal-content">
         <h2 style="color: var(--danger); margin-bottom: 20px; text-align: center;">ข้อห้ามการใช้งานทุกเงื่อนไข</h2>
+        
+        <!-- ปุ่มลิงก์ไปยัง Canva -->
         <a href="https://rule-brprh.my.canva.site/" target="_blank" style="display: inline-block; background: var(--peach-main); color: white; text-decoration: none; padding: 10px 25px; border-radius: 20px; margin-bottom: 25px; font-size: 0.9rem; font-weight: normal; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-            <i class="fas fa-external-link-alt"></i> อ่านกฎการใช้งาน (เพิ่มเติม)</a>
-        <ul class="rules-list">
-            <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกไฟล์เป็นงานสำเร็จเท่านั้น</li>
-            <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษรเพื่อทำสติ๊กเกอร์ขาย (ต้องมีการใช้การ์ตูนร่วมด้วย)</li>
-            <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำอิโมจิไลน์เด็ดขาด</li>
-            <li>4. ห้ามคัดลอก ดัดแปลง ดราฟ หรือขายไฟล์ต่อ</li>
-            <li>5. ห้ามนำไปลงกลุ่ม หรือขายสิทธิ์ขาดโดยไม่ได้รับอนุญาต</li>
-            <li>6. ห้ามอัปโหลดไฟล์ให้บุคคลอื่น</li>
-            <li>7. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเลียนแบบฟอนต์นี้</li>
+            <i class="fas fa-external-link-alt"></i> อ่านกฎการใช้งานตามเงื่อนไขก่อนสั่งซื้อ(เพิ่มเติม)ครบทุกเงื่อนไข</a>
+
+        <!-- รายการข้อห้ามแบบสีแดง พื้นหลังครีม ชิดซ้าย[cite: 1] -->
+        <ul style="text-align: left; width: 100%; max-width: 800px; padding: 0; list-style: none;">
+            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
+                1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกไฟล์เป็นงานสำเร็จ หรือ Create outline ทำให้ฟอนต์เป็นวัตถุเท่านั้น ex.png pdf jpeg</li>
+            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
+                2. ห้ามนำฟอนต์ไปแยกตัวอักษร/เติมสี เพื่อทำสติ๊กเกอร์ไลน์ อิโมจิไลน์ หรือปริ้นสติ๊กเกอร์ขาย (ต้องเป็นการตกแต่งมีการใช้การ์ตูนเท่านั้น)</li>
+            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
+                3. ฟอนต์อิโมจิ ห้ามนำไปทำ อิโมจิไลน์เด็ดขาด</li>
+            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
+                4. ห้ามคัดลอก ห้ามดัดแปลง ห้ามดราฟ ห้ามขาย ห้ามส่งต่อ ห้ามแจก ห้ามแถม ห้ามเปลี่ยนชื่อไฟล์ฟอนต์</li>
+            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
+                5. ห้ามนำไปลงกลุ่ม หรือขายไฟล์สิทธิ์ขาด ห้ามนำไฟล์ไปลงเว็บ</li>
+            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
+                6. ห้ามอัปโหลด หรือเผยแพร่ไฟล์ฟอนต์ให้บุคคลอื่นโดยไม่ได้รับอนุญาต</li>
+            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
+                7. ห้ามใช้ระบบปัญญาประดิษฐ์ (AI) เพื่อสร้าง ดัดแปลง หรือทำให้เกิดผลงานตัวอักษรหรือฟอนต์ที่มีลักษณะเหมือน คล้าย คลึง หรืออาจก่อให้เกิดความสับสนกับฟอนต์นี้ ไม่ว่าทางตรงหรือทางอ้อม แม้มิได้มีการนำไฟล์ฟอนต์ไปใช้เป็นข้อมูลนำเข้า (input) ก็ตาม การกระทำดังกล่าวให้ถือเป็นการละเมิดสิทธิ์ตามสัญญาอนุญาตและกฎหมายที่เกี่ยวข้อง ผู้ละเมิดต้องรับผิดชอบต่อความเสียหายและอาจถูกดำเนินคดีตามกฎหมายสูงสุดที่บังคับใช้</li>
         </ul>
-        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px; text-align: center;">หากพบการใช้งานผิดเงื่อนไข ปรับ 10,000 บาท / 1 ไฟล์</p>
+        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">ใช้ตามเงื่อนไขที่สั่งซื้อ ทางร้านเก็บข้อมูลการสั่งซื้อทั้งหมดหากตรวจพบว่ามีการใช้งานผิดเงื่อนไขปรับนะคะ</p>
+        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">หากพบหรือมีเหตุอันควรสงสัยว่ามีการใช้งานฟอนต์อันเป็นการฝ่าฝืนข้อกำหนด ผู้อนุญาต/เจ้าของฟอนต์
+มีสิทธิ์เรียกขอเอกสารยืนยันสิทธิ์การใช้งาน รวมถึงใบอนุญาต ใบเสร็จรับเงิน และประวัติการสั่งซื้อ เพื่อตรวจสอบความถูกต้องได้ตามสมควร</p>
+        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">ถ้ามีข้อสงสัยเพิ่มเติมให้สอบถาม หากพบว่าผิดกฎ ปรับ 10,000บาท / 1ไฟล์</p>
     </div>
 </div>
 
