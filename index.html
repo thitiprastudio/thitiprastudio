@@ -19,12 +19,15 @@
             --danger: #FF4D4D;
             --line-green: #06C755;
             --max-w: 1200px;
+            --success-bg: #D4EDDA; /* สีเขียวพาสเทลสำหรับราคาเดียว */
+            --success-border: #C3E6CB;
+            --success-text: #155724;
         }
 
         body {
             font-family: 'MainBodyFont', sans-serif;
             margin: 0; background-color: var(--bg-cream); color: #4A4A4A;
-            font-weight: normal !important; /* ไม่เอาตัวหนา[cite: 1] */
+            font-weight: normal !important;
         }
 
         body::before {
@@ -39,7 +42,6 @@
         .logo-container { width: 70px; height: 70px; margin: 0 auto 10px; border-radius: 15px; overflow: hidden; border: 2px solid var(--peach-main); }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Navigation Buttons */
         .nav-buttons { display: flex; justify-content: center; gap: 10px; margin: 15px 0; flex-wrap: wrap; }
         .nav-btn { background: white; color: var(--peach-main); border: 2px solid var(--peach-main); padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: inherit; transition: 0.3s; font-weight: normal; }
         .nav-btn:hover { background: var(--peach-main); color: white; }
@@ -47,7 +49,6 @@
         .top-controls { max-width: var(--max-w); margin: 20px auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .vs-open-btn { background: var(--lavender); color: #555; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-family: inherit; margin-bottom: 5px; transition: 0.3s; }
 
-        /* Filter System[cite: 1] */
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
         .filter-btn { padding: 8px 20px; border-radius: 20px; border: 2px solid var(--peach-main); background: white; color: var(--peach-main); cursor: pointer; font-family: inherit; font-weight: normal; }
         .filter-btn.active { background: var(--peach-main); color: white; }
@@ -57,11 +58,14 @@
         .font-card { background: white; border-radius: 15px; border: 1px solid #EEE; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
         .font-card:hover { border-color: var(--peach-main); transform: translateY(-3px); }
         
-        /* เปลี่ยนฟอนต์ เลข ชื่อ ให้เป็นฟอนต์นั้นๆ[cite: 1] */
         .font-card-header { padding: 15px 20px; font-size: 1.2rem; color: #333; font-weight: normal; }
         .preview-area-card { padding: 30px 15px; text-align: center; font-size: 2rem; min-height: 70px; overflow: hidden; white-space: nowrap; font-weight: normal; }
         
-        .price-footer { background-color: var(--gold-cream); padding: 12px 15px; border-top: 1.5px solid var(--gold-pastel); text-align: center; font-size: 0.85rem; color: #8B7355; font-weight: normal; }
+        /* สไตล์แถบราคา */
+        .price-footer { padding: 12px 15px; text-align: center; font-size: 0.85rem; font-weight: normal; }
+        .price-split-style { background-color: var(--gold-cream); border-top: 1.5px solid var(--gold-pastel); color: #8B7355; }
+        .price-single-style { background-color: var(--success-bg); border-top: 1.5px solid var(--success-border); color: var(--success-text); }
+
         .line-card-btn { display: inline-block; background: var(--line-green); color: white; text-decoration: none; padding: 4px 15px; border-radius: 12px; font-size: 0.75rem; margin-top: 5px; transition: 0.2s; font-weight: normal; }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; }
@@ -71,10 +75,13 @@
         .tester-container { width: 100%; background: white; border: 2px dashed var(--peach-main); border-radius: 20px; position: relative; margin-top: 20px; overflow: hidden; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .tester-bg-watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('IMG_5814.png') no-repeat center; background-size: contain; opacity: 0.15; z-index: 1; pointer-events: none; }
         .tag-watermark { position: absolute; top: 15px; font-size: 0.65rem; color: var(--peach-main); border: 1px solid var(--peach-main); padding: 3px 10px; border-radius: 10px; background: white; z-index: 10; opacity: 0.7; }
-        .tester-price-tag { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 1.1rem; color: #8B7355; background: rgba(255, 243, 176, 0.95); padding: 15px 0; z-index: 10; font-weight: normal; border-top: 1px solid var(--gold-pastel); }
+        
+        /* สไตล์ราคาใน Modal */
+        .tester-price-tag { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 1.1rem; padding: 15px 0; z-index: 10; font-weight: normal; }
 
-        .rules-list { text-align: left; width: 100%; max-width: 700px; line-height: 1.8; color: #555; }
-        .rules-list li { margin-bottom: 10px; padding: 10px; background: #fff8f8; border-left: 4px solid var(--danger); list-style: none; }
+        /* สไตล์กฎการใช้งาน */
+        .rules-list { text-align: left; width: 100%; max-width: 800px; padding: 0; list-style: none; }
+        .rules-list li { color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D; }
     </style>
 </head>
 <body>
@@ -85,7 +92,6 @@
     <p style="font-size: 0.95rem; color: #888; margin: 10px 0 5px;">🎨 เว็บเครือ BR&PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ </p>
     <p style="font-size: 0.95rem; color: #888; margin: 5px 0;">กด... และเปิดในเบราว์เวอร์🥡</p>
     <p style="font-size: 0.8rem; color: #888; margin: 5px 0;">🍷ลูกค้ารอเว็บโหลดสักครู่นะคะ🏡💖</p>
-</header>
     <div class="nav-buttons">
         <button class="nav-btn" onclick="openModal('infoModal')"><i class="fas fa-id-card"></i> รู้จักเรา</button>
         <button class="nav-btn" onclick="openModal('rulesModal')"><i class="fas fa-shield-halved"></i> กฎการใช้งาน</button>
@@ -104,41 +110,33 @@
 
 <div class="container" id="fontList"></div>
 
-<!-- Modal: กฎการใช้งาน -->
+<!-- Modal: กฎการใช้งาน[cite: 1] -->
 <div class="modal" id="rulesModal">
     <button class="close-btn" onclick="closeModal('rulesModal')">&times;</button>
     <div class="modal-content">
         <h2 style="color: var(--danger); margin-bottom: 20px; text-align: center;">ข้อห้ามการใช้งานทุกเงื่อนไข</h2>
         
-        <!-- ปุ่มลิงก์ไปยัง Canva -->
         <a href="https://rule-brprh.my.canva.site/" target="_blank" style="display: inline-block; background: var(--peach-main); color: white; text-decoration: none; padding: 10px 25px; border-radius: 20px; margin-bottom: 25px; font-size: 0.9rem; font-weight: normal; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-            <i class="fas fa-external-link-alt"></i> อ่านกฎการใช้งานตามเงื่อนไขก่อนสั่งซื้อ(เพิ่มเติม)ครบทุกเงื่อนไข</a>
+            <i class="fas fa-external-link-alt"></i> อ่านกฎการใช้งานตามเงื่อนไขก่อนสั่งซื้อ(เพิ่มเติม)ครบทุกเงื่อนไข
+        </a>
 
-        <!-- รายการข้อห้ามแบบสีแดง พื้นหลังครีม ชิดซ้าย[cite: 1] -->
-        <ul style="text-align: left; width: 100%; max-width: 800px; padding: 0; list-style: none;">
-            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
-                1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกไฟล์เป็นงานสำเร็จ หรือ Create outline ทำให้ฟอนต์เป็นวัตถุเท่านั้น ex.png pdf jpeg</li>
-            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
-                2. ห้ามนำฟอนต์ไปแยกตัวอักษร/เติมสี เพื่อทำสติ๊กเกอร์ไลน์ อิโมจิไลน์ หรือปริ้นสติ๊กเกอร์ขาย (ต้องเป็นการตกแต่งมีการใช้การ์ตูนเท่านั้น)</li>
-            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
-                3. ฟอนต์อิโมจิ ห้ามนำไปทำ อิโมจิไลน์เด็ดขาด</li>
-            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
-                4. ห้ามคัดลอก ห้ามดัดแปลง ห้ามดราฟ ห้ามขาย ห้ามส่งต่อ ห้ามแจก ห้ามแถม ห้ามเปลี่ยนชื่อไฟล์ฟอนต์</li>
-            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
-                5. ห้ามนำไปลงกลุ่ม หรือขายไฟล์สิทธิ์ขาด ห้ามนำไฟล์ไปลงเว็บ</li>
-            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
-                6. ห้ามอัปโหลด หรือเผยแพร่ไฟล์ฟอนต์ให้บุคคลอื่นโดยไม่ได้รับอนุญาต</li>
-            <li style="color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D;">
-                7. ห้ามใช้ระบบปัญญาประดิษฐ์ (AI) เพื่อสร้าง ดัดแปลง หรือทำให้เกิดผลงานตัวอักษรหรือฟอนต์ที่มีลักษณะเหมือน คล้าย คลึง หรืออาจก่อให้เกิดความสับสนกับฟอนต์นี้ ไม่ว่าทางตรงหรือทางอ้อม แม้มิได้มีการนำไฟล์ฟอนต์ไปใช้เป็นข้อมูลนำเข้า (input) ก็ตาม การกระทำดังกล่าวให้ถือเป็นการละเมิดสิทธิ์ตามสัญญาอนุญาตและกฎหมายที่เกี่ยวข้อง ผู้ละเมิดต้องรับผิดชอบต่อความเสียหายและอาจถูกดำเนินคดีตามกฎหมายสูงสุดที่บังคับใช้</li>
+        <ul class="rules-list">
+            <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกไฟล์เป็นงานสำเร็จ หรือ Create outline ทำให้ฟอนต์เป็นวัตถุเท่านั้น ex.png pdf jpeg</li>
+            <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษร/เติมสี เพื่อทำสติ๊กเกอร์ไลน์ อิโมจิไลน์ หรือปริ้นสติ๊กเกอร์ขาย (ต้องเป็นการตกแต่งมีการใช้การ์ตูนเท่านั้น)</li>
+            <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำ อิโมจิไลน์เด็ดขาด</li>
+            <li>4. ห้ามคัดลอก ห้ามดัดแปลง ห้ามดราฟ ห้ามขาย ห้ามส่งต่อ ห้ามแจก ห้ามแถม ห้ามเปลี่ยนชื่อไฟล์ฟอนต์</li>
+            <li>5. ห้ามนำไปลงกลุ่ม หรือขายไฟล์สิทธิ์ขาด ห้ามนำไฟล์ไปลงเว็บ</li>
+            <li>6. ห้ามอัปโหลด หรือเผยแพร่ไฟล์ฟอนต์ให้บุคคลอื่นโดยไม่ได้รับอนุญาต</li>
+            <li>7. ห้ามใช้ระบบปัญญาประดิษฐ์ (AI) เพื่อสร้าง ดัดแปลง หรือทำให้เกิดผลงานตัวอักษรหรือฟอนต์ที่มีลักษณะเหมือน คล้าย คลึง หรืออาจก่อให้เกิดความสับสนกับฟอนต์นี้ ไม่ว่าทางตรงหรือทางอ้อม</li>
         </ul>
-        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">ใช้ตามเงื่อนไขที่สั่งซื้อ ทางร้านเก็บข้อมูลการสั่งซื้อทั้งหมดหากตรวจพบว่ามีการใช้งานผิดเงื่อนไขปรับนะคะ</p>
-        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">หากพบหรือมีเหตุอันควรสงสัยว่ามีการใช้งานฟอนต์อันเป็นการฝ่าฝืนข้อกำหนด ผู้อนุญาต/เจ้าของฟอนต์
-มีสิทธิ์เรียกขอเอกสารยืนยันสิทธิ์การใช้งาน รวมถึงใบอนุญาต ใบเสร็จรับเงิน และประวัติการสั่งซื้อ เพื่อตรวจสอบความถูกต้องได้ตามสมควร</p>
-        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">ถ้ามีข้อสงสัยเพิ่มเติมให้สอบถาม หากพบว่าผิดกฎ ปรับ 10,000บาท / 1ไฟล์</p>
+        
+        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px; text-align: center;">
+            ใช้ตามเงื่อนไขที่สั่งซื้อ ทางร้านเก็บข้อมูลการสั่งซื้อทั้งหมด หากพบว่ามีการใช้งานผิดเงื่อนไข ปรับ 10,000 บาท / 1 ไฟล์
+        </p>
     </div>
 </div>
 
-<!-- Modal: รู้จักเรา[cite: 1] -->
+<!-- Modal: รู้จักเรา -->
 <div class="modal" id="infoModal">
     <button class="close-btn" onclick="closeModal('infoModal')">&times;</button>
     <div class="modal-content" style="text-align: center;">
@@ -174,12 +172,13 @@
         </div>
         <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:500px; margin-top:25px;">
             <a href="https://shop.line.me/@wbk2012r" target="_blank" style="background:var(--line-green); color:white; text-decoration:none; padding:12px; border-radius:15px; text-align:center;">🛒 สั่งซื้อผ่าน MyShop (รอจัดส่งภายใน 24ชม.)</a>
-            <a href="https://lin.ee/W3641fA" target="_blank" style="background:#fff; color:var(--line-green); border:2px solid var(--line-green); text-decoration:none; padding:12px; border-radius:15px; text-align:center;">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
+            <a href="https://lin.ee/8k1sAhb" target="_blank" style="background:#fff; color:var(--line-green); border:2px solid var(--line-green); text-decoration:none; padding:12px; border-radius:15px; text-align:center;">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
         </div>
         <button onclick="closeModal('fontModal')" style="margin-top:20px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
     </div>
 </div>
 
+<!-- Modal: VS Mode -->
 <div class="modal" id="vsModal">
     <button class="close-btn" onclick="closeModal('vsModal')">&times;</button>
     <div class="modal-content">
@@ -194,12 +193,12 @@
             <div class="tester-container" style="flex:1; min-width:300px;">
                 <select id="selectLeft" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
                 <div id="displayLeft" style="position: relative; z-index: 5; text-align: center; padding: 80px 15px 40px;">สวัสดี</div>
-                <div id="priceLeft" class="tester-price-tag" style="font-size:0.9rem;"></div>
+                <div id="priceLeft" class="tester-price-tag" style="font-size:0.9rem; border-top:1px solid #ccc; width:100%; bottom:0; background:rgba(255,255,255,0.8);"></div>
             </div>
             <div class="tester-container" style="flex:1; min-width:300px;">
                 <select id="selectRight" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
                 <div id="displayRight" style="position: relative; z-index: 5; text-align: center; padding: 80px 15px 40px;">สวัสดี</div>
-                <div id="priceRight" class="tester-price-tag" style="font-size:0.9rem;"></div>
+                <div id="priceRight" class="tester-price-tag" style="font-size:0.9rem; border-top:1px solid #ccc; width:100%; bottom:0; background:rgba(255,255,255,0.8);"></div>
             </div>
         </div>
         <button onclick="closeModal('vsModal')" style="margin-top:25px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
@@ -248,7 +247,6 @@
         { th: "สลีพ", en: "Sleep", p: "79.-", c: "79.-", file: "fonts/BRSleep-Regular.ttf" },
         { th: "โรม", en: "Roma", p: "79.-", c: "79.-", file: "fonts/BRRoma.ttf" },
         { th: "พริมโรส", en: "Primrose", p: "79.-", c: "169.-", file: "fonts/BRPrimrose.ttf" },
-        
     ];
 
     let currentFont = null;
@@ -287,11 +285,17 @@
         }).forEach((f, i) => {
             const card = document.createElement('div');
             card.className = 'font-card';
-            const priceTxt = (f.p === f.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
+            
+            const isSinglePrice = (f.p === f.c);
+            const priceClass = isSinglePrice ? 'price-single-style' : 'price-split-style';
+            const priceTxt = isSinglePrice 
+                ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` 
+                : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
+
             card.innerHTML = `
                 <div class="font-card-header" style="font-family:'${f.en}'">${(i+1).toString().padStart(2, '0')}. ${f.th} (${f.en})</div>
                 <div class="preview-area-card" style="font-family:'${f.en}'">สวัสดี hello</div>
-                <div class="price-footer">
+                <div class="price-footer ${priceClass}">
                     <div>${priceTxt}</div>
                     <a href="https://lin.ee/8k1sAhb" target="_blank" class="line-card-btn">🛒 สั่งซื้อกับแอดมิน</a>
                 </div>
@@ -308,11 +312,19 @@
             return;
         }
         currentFont = f;
-        document.getElementById('fontModal').style.display = 'block';
+        const modal = document.getElementById('fontModal');
+        modal.style.display = 'block';
         document.getElementById('singleFontSelect').value = f.en;
         document.getElementById('modalFontName').innerText = `${f.th} (${f.en})`;
         document.getElementById('modalFontName').style.fontFamily = f.en;
-        document.getElementById('modalPriceDisplay').innerText = (f.p === f.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
+        
+        const modalPriceArea = document.getElementById('modalPriceDisplay');
+        const isSinglePrice = (f.p === f.c);
+        modalPriceArea.className = `tester-price-tag ${isSinglePrice ? 'price-single-style' : 'price-split-style'}`;
+        modalPriceArea.innerText = isSinglePrice 
+            ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` 
+            : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
+
         refreshDisplay();
         document.body.style.overflow = 'hidden';
     }
@@ -355,9 +367,9 @@
         dL.innerText = dR.innerText = val;
         dL.style.fontFamily = lF; dR.style.fontFamily = rF;
         dL.style.fontSize = dR.style.fontSize = size + "px";
-        document.getElementById('vsSizeLabel').innerText = size + "px";
-        document.getElementById('priceLeft').innerText = (dataL.p === dataL.c) ? `ส่วนตัว&พาณิชย์: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | พาณิชย์: ${dataL.c}`;
-        document.getElementById('priceRight').innerText = (dataR.p === dataR.c) ? `ส่วนตัว&พาณิชย์: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | พาณิชย์: ${dataR.c}`;
+        
+        document.getElementById('priceLeft').innerText = (dataL.p === dataL.c) ? `Personal&Comm: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | พาณิชย์: ${dataL.c}`;
+        document.getElementById('priceRight').innerText = (dataR.p === dataR.c) ? `Personal&Comm: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | พาณิชย์: ${dataR.c}`;
     }
 
     function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
