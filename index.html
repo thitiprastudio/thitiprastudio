@@ -82,7 +82,10 @@
 <header>
     <div class="logo-container"><img src="IPCB5121.PNG" alt="Logo"></div>
     <h1>ThitipraStudio</h1>
-    <p style="font-size: 0.8rem; color: #888; margin: 10px 0 5px;">🎨 เว็บเครือ BR&PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ ✨[cite: 1]</p>
+    <p style="font-size: 0.8rem; color: #888; margin: 10px 0 5px;">🎨 เว็บเครือ BR&PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ </p>
+    <p style="font-size: 0.8rem; color: #888; margin: 5px 0;">กด... และเปิดในเบราว์เวอร์🥡</p>
+    <p style="font-size: 0.8rem; color: #888; margin: 5px 0;">🍷ลูกค้ารอเว็บโหลดสักครู่นะคะ🏡💖</p>
+</header>
     <div class="nav-buttons">
         <button class="nav-btn" onclick="openModal('infoModal')"><i class="fas fa-id-card"></i> รู้จักเรา</button>
         <button class="nav-btn" onclick="openModal('rulesModal')"><i class="fas fa-shield-halved"></i> กฎการใช้งาน</button>
@@ -101,21 +104,24 @@
 
 <div class="container" id="fontList"></div>
 
-<!-- Modal: กฎการใช้งาน[cite: 1] -->
+<!-- Modal: กฏการใช้งาน-->
 <div class="modal" id="rulesModal">
     <button class="close-btn" onclick="closeModal('rulesModal')">&times;</button>
     <div class="modal-content">
         <h2 style="color: var(--danger); margin-bottom: 20px;">ข้อห้ามการใช้งานทุกเงื่อนไข[cite: 1]</h2>
         <ul class="rules-list">
-            <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกเป็นไฟล์งานสำเร็จเท่านั้น[cite: 1]</li>
-            <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษรเพื่อทำสติ๊กเกอร์ขาย[cite: 1]</li>
-            <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำอิโมจิไลน์เด็ดขาด[cite: 1]</li>
-            <li>4. ห้ามคัดลอก ดัดแปลง หรือดราฟฟอนต์[cite: 1]</li>
-            <li>5. ห้ามนำไปลงกลุ่ม หรือขายไฟล์สิทธิ์ขาด ห้ามนำไฟล์ไปลงเว็บ[cite: 1]</li>
-            <li>6. ห้ามอัปโหลด หรือเผยแพร่ไฟล์ฟอนต์ให้บุคคลอื่น[cite: 1]</li>
-            <li>7. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเลียนแบบฟอนต์นี้[cite: 1]</li>
+            <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกไฟล์เป็นงานสำเร็จ หรือCreate outline ทำให้ฟอนต์เป็นวัตถุเท่านั้น ex.png pdf jpeg</li>
+            <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษร/เติมสี เพื่อทำสติ๊กเกอร์ไลน์ อิโมจิไลน์ หรือปริ้นสติ๊กเกอร์ขาย(ต้องเป็นการตกแต่งมีการใช้การ์ตูนเท่านั้น)</li>
+            <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำ อิโมจิไลน์เด็ดขาด</li>
+            <li>4. ห้ามคัดลอก ห้ามดัดแปลง ห้ามดราฟ ห้ามขาย ห้ามส่งต่อ ห้ามแจก ห้ามแถม ห้ามเปลี่ยนชื่อไฟล์ฟอนต์</li>
+            <li>5. ห้ามนำไปลงกลุ่ม หรือขายไฟล์สิทธิ์ขาด ห้ามนำไฟล์ไปลงเว็บ</li>
+            <li>6. ห้ามอัปโหลด หรือเผยแพร่ไฟล์ฟอนต์ให้บุคคลอื่นโดยไม่ได้รับอนุญาต</li>
+            <li>7. ห้ามใช้ระบบปัญญาประดิษฐ์ (AI) เพื่อสร้าง ดัดแปลง หรือทำให้เกิดผลงานตัวอักษรหรือฟอนต์ที่มีลักษณะเหมือน คล้าย คลึง หรืออาจก่อให้เกิดความสับสนกับฟอนต์นี้ ไม่ว่าทางตรงหรือทางอ้อม แม้มิได้มีการนำไฟล์ฟอนต์ไปใช้เป็นข้อมูลนำเข้า (input) ก็ตาม การกระทำดังกล่าวให้ถือเป็นการละเมิดสิทธิ์ตามสัญญาอนุญาตและกฎหมายที่เกี่ยวข้อง 
+ผู้ละเมิดต้องรับผิดชอบต่อความเสียหายและอาจถูกดำเนินคดีตามกฎหมายสูงสุดที่บังคับใช้</li>
         </ul>
-        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">หากพบการใช้งานผิดเงื่อนไข ปรับนะคะ[cite: 1]</p>
+        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">ใช้ตามเงื่อนไขที่สั่งซื้อ ทางร้านเก็บข้อมูลการสั่งซื้อทั้งหมดหากตรวจพบว่ามีการใช้งานผิดเงื่อนไขปรับนะคะ</p>
+        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">หากพบเจอการกระทำที่ผิดกฏการใช้งานทางร้านมีสิทธิ์ขอดูใบรับรอง และประวัติการสั่งซื้อฟอนต์เพื่อยืนยัน</p>
+        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">ถ้ามีข้อสงสัยเพิ่มเติมให้สอบถาม หากพบว่าผิดกฎ ปรับ 10,000บาท / 1ไฟล์</p>
     </div>
 </div>
 
@@ -125,10 +131,10 @@
     <div class="modal-content" style="text-align: center;">
         <img src="IPCB5121.PNG" style="width: 120px; border-radius: 20px; margin-bottom: 20px;">
         <h2 style="color: var(--peach-main);">Welcome to Thitiprastudio[cite: 1]</h2>
-        <p>เจ้าของเครือฟอนต์ <b>BR & PRH Font</b>[cite: 1]</p>
-        <p>เริ่มเปิดขายครั้งแรกวันที่ 15 May 2023[cite: 1]</p>
+        <p>เจ้าของเครือฟอนต์ <b>BR & PRH Font</b></p>
+        <p>เริ่มเปิดขายครั้งแรกวันที่ 15 May 2023</p>
         <div style="background: #fff8f9; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #ffe4e6;">
-            <p>สไตล์: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย[cite: 1]</p>
+            <p>สไตล์: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย</p>
         </div>
     </div>
 </div>
