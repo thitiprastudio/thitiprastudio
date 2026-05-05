@@ -25,6 +25,7 @@
             font-family: 'MainBodyFont', sans-serif;
             margin: 0; background-color: var(--bg-cream); color: #4A4A4A;
             padding-bottom: 50px;
+            font-weight: normal;
         }
 
         body::before {
@@ -39,10 +40,15 @@
         .logo-container { width: 75px; height: 75px; margin: 0 auto 10px; border-radius: 20px; overflow: hidden; border: 3px solid var(--peach-main); }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
+        /* Navigation */
+        .nav-buttons { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+        .nav-btn { background: white; color: var(--peach-main); border: 2px solid var(--peach-main); padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: inherit; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold; }
+        .nav-btn:hover { background: var(--peach-main); color: white; transform: translateY(-2px); }
+
         /* Controls */
         .top-controls { max-width: var(--max-w); margin: 20px auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .vs-open-btn { background: var(--peach-main); color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; font-family: inherit; transition: 0.3s; box-shadow: 0 4px 10px rgba(255,154,162,0.3); }
-        .vs-open-btn:hover { transform: scale(1.05); background: #ff808d; }
+        .vs-open-btn:hover { background: #ff808d; }
 
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
         .filter-btn { padding: 8px 20px; border-radius: 20px; border: 2px solid var(--peach-main); background: white; color: var(--peach-main); cursor: pointer; font-weight: bold; font-family: inherit; }
@@ -52,28 +58,33 @@
         /* Font Grid */
         .container { max-width: var(--max-w); margin: 0 auto 50px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .font-card { background: white; border-radius: 20px; border: 1.5px solid #EEE; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
-        .font-card:hover { border-color: var(--peach-main); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .font-card-header { padding: 15px 20px; font-size: 1.1rem; color: #333; }
+        .font-card:hover { border-color: var(--peach-main); transform: translateY(-3px); }
+        .font-card-header { padding: 15px 20px; font-size: 1.1rem; color: #444; }
         .preview-area-card { padding: 40px 15px; text-align: center; font-size: 2.2rem; min-height: 80px; }
         
-        /* Price Footer with Order Button */
         .price-footer { background-color: var(--gold-cream); padding: 15px; border-top: 2px solid var(--gold-pastel); text-align: center; font-size: 0.9rem; color: #8B7355; font-weight: bold; }
-        .line-card-btn { display: inline-block; background: var(--line-green); color: white; text-decoration: none; padding: 6px 20px; border-radius: 20px; font-size: 0.8rem; margin-top: 10px; transition: 0.2s; border: none; cursor: pointer; }
-        .line-card-btn:hover { background: #05b14c; transform: scale(1.05); }
+        .line-card-btn { display: inline-block; background: var(--line-green); color: white; text-decoration: none; padding: 6px 20px; border-radius: 20px; font-size: 0.8rem; margin-top: 10px; transition: 0.2s; }
 
         /* Modals */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 3000; overflow-y: auto; }
-        .modal-content { width: 92%; max-width: 900px; margin: 0 auto; padding: 50px 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
+        .modal-inner { width: 92%; max-width: 900px; margin: 0 auto; padding: 60px 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
+        .rules-modal-bg { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+        .popup-box { background: white; padding: 40px 25px; border-radius: 35px; width: 92%; max-width: 800px; margin: 50px auto; position: relative; }
+        
         .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; background: var(--danger); color: white; border-radius: 50%; border: none; font-size: 25px; cursor: pointer; z-index: 4000; display: flex; align-items: center; justify-content: center; }
 
+        /* Rules Details[cite: 1] */
+        .rules-title { color: var(--danger); font-size: 1.6rem; margin-bottom: 20px; text-align: center; font-weight: bold; }
+        .rules-list { text-align: left; padding: 0; width: 100%; }
+        .rules-list li { margin-bottom: 12px; list-style: none; padding: 12px 18px; background: #fff8f8; border-left: 4px solid var(--danger); border-radius: 8px; font-size: 0.95rem; line-height: 1.6; }
+
         /* Tester Area */
-        .tester-container { width: 100%; background: white; border: 2.5px dashed var(--peach-main); border-radius: 25px; position: relative; margin-top: 20px; overflow: hidden; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .tester-container { width: 100%; background: white; border: 2.5px dashed var(--peach-main); border-radius: 25px; position: relative; margin-top: 20px; overflow: hidden; min-height: 300px; display: flex; align-items: center; justify-content: center; }
         .tester-bg-watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('IMG_5814.png') no-repeat center; background-size: contain; opacity: 0.12; pointer-events: none; }
         .tag-watermark { position: absolute; top: 12px; font-size: 0.65rem; color: var(--peach-main); border: 1.5px solid var(--peach-main); padding: 3px 12px; border-radius: 12px; background: white; z-index: 10; font-weight: bold; }
+        .big-price-tag { width: 100%; background: var(--gold-cream); padding: 20px 0; font-size: 1.3rem; color: #8B7355; text-align: center; border-top: 2px solid var(--gold-pastel); font-weight: bold; margin-top: auto; }
 
-        .big-price-tag { width: 100%; background: var(--gold-cream); padding: 18px 0; font-size: 1.2rem; color: #8B7355; text-align: center; border-top: 2px solid var(--gold-pastel); font-weight: bold; margin-top: auto; }
-
-        @media (max-width: 600px) { .container { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { header h1 { font-size: 2rem; } .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -81,15 +92,13 @@
 <header>
     <div class="logo-container"><img src="IPCB5121.PNG" alt="Logo"></div>
     <h1>ThitipraStudio</h1>
-    <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">🎨 เว็บเครือ BR&PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ </p>
-    <p style="font-size: 0.8rem; color: #888; margin: 5px 0;">กด... และเปิดในเบราว์เวอร์🥡</p>
-    <p style="font-size: 0.8rem; color: #888; margin: 5px 0;">🍷ลูกค้ารอเว็บโหลดสักครู่นะคะ🏡💖</p>
-</header>
-
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="openPopup('infoModal')"><i class="fas fa-id-card"></i> รู้จักเรา</button>
+        <button class="nav-btn" onclick="openPopup('rulesModal')"><i class="fas fa-shield-halved"></i> กฎการใช้งาน</button>
+    </div>
 </header>
 
 <div class="top-controls">
-    <!-- ปุ่มโหมดเปรียบเทียบที่หน้าหลัก -->
     <button class="vs-open-btn" onclick="openVS()">❤️เปิดโหมดเปรียบเทียบฟอนต์🎶</button>
     
     <div class="filter-group">
@@ -102,17 +111,15 @@
 
 <div class="container" id="fontList"></div>
 
-<!-- Modal: หน้าทดลองพิมพ์ (Font Tester) -->
+<!-- Modal: ทดลองพิมพ์ -->
 <div class="modal" id="fontModal">
     <button class="close-btn" onclick="closeModal('fontModal')">&times;</button>
-    <div class="modal-content">
-        <!-- ปุ่มเปรียบเทียบในหน้าทดลอง -->
-        <button class="vs-open-btn" onclick="openVSFromModal()" style="font-size: 0.85rem; margin-bottom: 20px;">❤️ เปิดโหมดเปรียบเทียบฟอนต์</button>
+    <div class="modal-inner">
+        <button class="nav-btn" onclick="openVSFromModal()" style="margin-bottom: 20px; background: var(--lavender); border-color: #dcc2f7;"><i class="fas fa-shuffle"></i> เปรียบเทียบฟอนต์นี้</button>
         
-        <!-- เมนูเปลี่ยนฟอนต์ในหน้าทดลอง -->
-        <select id="singleFontSelect" class="search-input" style="margin-bottom: 20px; width: 100%; max-width: 450px;" onchange="changeTesterFont(this.value)"></select>
+        <select id="singleFontSelect" class="search-input" style="margin-bottom: 15px; width: 100%; max-width: 450px;" onchange="changeTesterFont(this.value)"></select>
 
-        <h2 id="modalFontName" style="color: var(--peach-main); margin-bottom: 15px; font-weight: normal;"></h2>
+        <h2 id="modalFontName" style="color: var(--peach-main); margin-bottom: 10px; font-weight: normal;"></h2>
         <input type="text" id="testerInput" class="search-input" placeholder="พิมพ์ข้อความที่นี่..." oninput="refreshDisplay()">
         
         <div style="margin: 15px 0; display:flex; align-items:center; gap:10px;">
@@ -132,17 +139,17 @@
         <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:500px; margin-top:25px;">
             <a href="https://shop.line.me/@wbk2012r" target="_blank" style="background:var(--line-green); color:white; text-decoration:none; padding:15px; border-radius:15px; text-align:center; font-weight:bold;">🛒 สั่งซื้อผ่าน MyShop (รอจัดส่งภายใน 24ชม.)</a>
             <a href="https://lin.ee/W3641fA" target="_blank" style="background:#fff; color:var(--line-green); border:2px solid var(--line-green); text-decoration:none; padding:15px; border-radius:15px; text-align:center; font-weight:bold;">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
-            <button onclick="closeModal('fontModal')" style="margin-top:10px; padding:12px; border-radius:10px; border: 1px solid #ccc; background:white; cursor:pointer; font-family:inherit;">กลับหน้าหลัก</button>
+            <button onclick="closeModal('fontModal')" style="padding:10px; border-radius:10px; border:1px solid #ccc; background:white; cursor:pointer; font-family:inherit;">กลับหน้าหลัก</button>
         </div>
     </div>
 </div>
 
-<!-- Modal: โหมด VS (Comparison) -->
+<!-- Modal: โหมด VS -->
 <div class="modal" id="vsModal">
     <button class="close-btn" onclick="closeModal('vsModal')">&times;</button>
-    <div class="modal-content">
-        <h2 style="color:var(--peach-main); font-size: 2.2rem; margin-bottom: 20px; font-weight: normal;">Font Comparison (VS)</h2>
-        <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
+    <div class="modal-inner">
+        <h2 style="color:var(--peach-main); font-size: 2.2rem; font-weight: normal;">Font Comparison (VS)</h2>
+        <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความเปรียบเทียบ..." oninput="refreshVS()">
         
         <div style="margin: 15px 0; display:flex; align-items:center; gap:10px;">
             <label>ปรับขนาดพร้อมกัน:</label>
@@ -150,7 +157,7 @@
             <span id="vsSizeLabel" style="color: var(--peach-main); font-weight:bold;">55px</span>
         </div>
 
-        <div style="display:flex; width:100%; gap:15px; flex-wrap:wrap; margin-top:25px;">
+        <div style="display:flex; width:100%; gap:20px; flex-wrap:wrap; margin-top:20px;">
             <div style="flex:1; min-width:300px;">
                 <select id="selectLeft" class="search-input" style="width:100%; margin-bottom:10px;" onchange="refreshVS()"></select>
                 <div class="tester-container">
@@ -166,10 +173,37 @@
                 </div>
             </div>
         </div>
-        
-        <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:500px; margin-top:30px;">
-            <a href="https://shop.line.me/@wbk2012r" target="_blank" style="background:var(--line-green); color:white; text-decoration:none; padding:12px; border-radius:15px; text-align:center; font-weight:bold;">🛒 ไปที่หน้าร้าน MyShop</a>
-            <button onclick="closeModal('vsModal')" style="padding:10px; border-radius:10px; border: 1px solid #ccc; background:white; cursor:pointer; font-family:inherit;">กลับหน้าหลัก</button>
+    </div>
+</div>
+
+<!-- Modal: กฎกติกา[cite: 1] -->
+<div class="modal rules-modal-bg" id="rulesModal">
+    <div class="popup-box">
+        <button class="close-btn" style="position:absolute; top:15px; right:15px;" onclick="closeModal('rulesModal')">&times;</button>
+        <div class="rules-title"><i class="fas fa-triangle-exclamation"></i> ข้อห้ามการใช้งานทุกเงื่อนไข[cite: 1]</div>
+        <ul class="rules-list">
+            <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกเป็นไฟล์งานสำเร็จ (PNG, PDF, JPEG) หรือ Create Outline เท่านั้น[cite: 1]</li>
+            <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษรเพื่อทำสติ๊กเกอร์ไลน์ อิโมจิไลน์ หรือปริ้นขาย[cite: 1]</li>
+            <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำ อิโมจิไลน์เด็ดขาด[cite: 1]</li>
+            <li>4. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์[cite: 1]</li>
+            <li>5. ห้ามนำไปลงกลุ่ม หรือขายไฟล์สิทธิ์ขาด ห้ามนำไฟล์ไปลงเว็บ[cite: 1]</li>
+            <li>6. ห้ามอัปโหลด หรือเผยแพร่ไฟล์ฟอนต์ให้บุคคลอื่นโดยไม่ได้รับอนุญาต[cite: 1]</li>
+            <li>7. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเลียนแบบฟอนต์นี้[cite: 1]</li>
+        </ul>
+        <div style="background:var(--gold-cream); padding:10px; border-radius:10px; text-align:center; font-weight:bold; color:#8B7355;">หากพบการใช้งานผิดเงื่อนไข จะมีการปรับนะคะ[cite: 1]</div>
+    </div>
+</div>
+
+<!-- Modal: ประวัติร้าน[cite: 1] -->
+<div class="modal rules-modal-bg" id="infoModal">
+    <div class="popup-box" style="text-align: center;">
+        <button class="close-btn" style="position:absolute; top:15px; right:15px;" onclick="closeModal('infoModal')">&times;</button>
+        <img src="IPCB5121.PNG" style="width: 120px; border-radius: 20px; margin-bottom: 20px; border: 4px solid var(--peach-main);">
+        <h2 style="color: var(--peach-main);">Welcome to Thitiprastudio[cite: 1]</h2>
+        <p>เจ้าของเครือฟอนต์ <b>BR & PRH Font</b>[cite: 1]</p>
+        <p style="font-size: 0.9rem; color: #888;">เปิดขายฟอนต์ลายมือครั้งแรกวันที่ 15 May 2023[cite: 1]</p>
+        <div style="background: #fff8f9; padding: 15px; border-radius: 20px; margin-top: 20px;">
+            <p>สไตล์: ลายมือน่ารัก สดใส ปุ๊กปิ๊ก และแบบทางการเรียบร้อย[cite: 1]</p>
         </div>
     </div>
 </div>
@@ -255,7 +289,6 @@
                     <a href="https://lin.ee/W3641fA" target="_blank" class="line-card-btn">🛒 สั่งซื้อกับแอดมิน</a>
                 </div>
             `;
-            // ให้คลิกที่การ์ดแล้วเปิดหน้าทดลอง (ยกเว้นคลิกที่ปุ่มสั่งซื้อ)
             card.onclick = (e) => { if(e.target.tagName !== 'A') openFontTester(f); };
             list.appendChild(card);
         });
@@ -288,11 +321,11 @@
     }
 
     function openVS() { openModal('vsModal'); refreshVS(); }
-    
+
     function openVSFromModal() {
         const txt = document.getElementById('testerInput').value;
         closeModal('fontModal');
-        openVS();
+        openModal('vsModal');
         document.getElementById('selectLeft').value = currentFont.en;
         if(txt) document.getElementById('vsInput').value = txt;
         refreshVS();
@@ -303,19 +336,19 @@
         const size = document.getElementById('vsSizeSlider').value;
         const lF = document.getElementById('selectLeft').value;
         const rF = document.getElementById('selectRight').value;
+        const dataL = fonts.find(f => f.en === lF);
+        const dataR = fonts.find(f => f.en === rF);
         const dL = document.getElementById('displayLeft');
         const dR = document.getElementById('displayRight');
         dL.innerText = dR.innerText = val;
         dL.style.fontFamily = lF; dR.style.fontFamily = rF;
         dL.style.fontSize = dR.style.fontSize = size + "px";
         document.getElementById('vsSizeLabel').innerText = size + "px";
-        
-        const dataL = fonts.find(f => f.en === lF);
-        const dataR = fonts.find(f => f.en === rF);
-        document.getElementById('priceLeft').innerText = (dataL.p === dataL.c) ? `ส่วนตัว&พาณิชย์: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | พาณิชย์: ${dataL.c}`;
-        document.getElementById('priceRight').innerText = (dataR.p === dataR.c) ? `ส่วนตัว&พาณิชย์: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | พาณิชย์: ${dataR.c}`;
+        document.getElementById('priceLeft').innerText = `ส่วนตัว: ${dataL.p} | พาณิชย์: ${dataL.c}`;
+        document.getElementById('priceRight').innerText = `ส่วนตัว: ${dataR.p} | พาณิชย์: ${dataR.c}`;
     }
 
+    function openPopup(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
     function openModal(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
 
