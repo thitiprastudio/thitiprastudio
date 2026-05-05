@@ -19,7 +19,7 @@
             --danger: #FF4D4D;
             --line-green: #06C755;
             --max-w: 1200px;
-            --success-bg: #D4EDDA; /* สีเขียวพาสเทลสำหรับราคาเดียว */
+            --success-bg: #D4EDDA;
             --success-border: #C3E6CB;
             --success-text: #155724;
         }
@@ -27,7 +27,7 @@
         body {
             font-family: 'MainBodyFont', sans-serif;
             margin: 0; background-color: var(--bg-cream); color: #4A4A4A;
-            font-weight: normal !important; /* ไม่เอาตัวหนา */
+            font-weight: normal !important;
         }
 
         body::before {
@@ -47,7 +47,7 @@
         .nav-btn:hover { background: var(--peach-main); color: white; }
 
         .top-controls { max-width: var(--max-w); margin: 20px auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .vs-open-btn { background: var(--lavender); color: #555; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; font-family: inherit; margin-bottom: 5px; transition: 0.3s; }
+        .vs-open-btn { background: var(--lavender); color: #555; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-family: inherit; transition: 0.3s; }
 
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
         .filter-btn { padding: 8px 20px; border-radius: 20px; border: 2px solid var(--peach-main); background: white; color: var(--peach-main); cursor: pointer; font-family: inherit; font-weight: normal; }
@@ -72,15 +72,30 @@
         .modal-content { width: 90%; max-width: 1000px; margin: 0 auto; padding: 50px 10px; display: flex; flex-direction: column; align-items: center; }
         .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; background: var(--danger); color: white; border-radius: 50%; border: none; font-size: 25px; cursor: pointer; z-index: 1001; }
 
-        /* ปรับปรุงกรอบทดลองพิมพ์ให้มี Scroll */
-        .tester-container { width: 100%; background: white; border: 2px dashed var(--peach-main); border-radius: 20px; position: relative; margin-top: 20px; overflow: hidden; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .tester-bg-watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('IMG_5814.png') no-repeat center; background-size: contain; opacity: 0.15; z-index: 1; pointer-events: none; }
+        /* ปรับปรุงกรอบรองรับข้อความเยอะ (Scroll) */
+        .tester-container { 
+            width: 100%; background: white; border: 2px dashed var(--peach-main); border-radius: 20px; 
+            position: relative; margin-top: 20px; overflow: hidden; min-height: 350px; 
+            display: flex; flex-direction: column; 
+        }
+        .tester-bg-watermark { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: url('IMG_5814.png') no-repeat center; background-size: contain; 
+            opacity: 0.15; z-index: 1; pointer-events: none; 
+        }
         .tag-watermark { position: absolute; top: 15px; font-size: 0.65rem; color: var(--peach-main); border: 1px solid var(--peach-main); padding: 3px 10px; border-radius: 10px; background: white; z-index: 10; opacity: 0.7; }
         
-        /* ส่วนแสดงผลข้อความรองรับ Scroll เมื่อพิมพ์เยอะ */
-        #testerDisplay, #displayLeft, #displayRight { position: relative; z-index: 5; text-align: center; width: 100%; word-wrap: break-word; padding: 60px 20px 80px; max-height: 400px; overflow-y: auto; }
+        /* พื้นที่แสดงฟอนต์พร้อม Scroll */
+        #testerDisplay, #displayLeft, #displayRight { 
+            position: relative; z-index: 5; text-align: center; width: 100%; 
+            word-wrap: break-word; padding: 80px 20px 80px; flex-grow: 1; 
+            max-height: 450px; overflow-y: auto; 
+        }
 
-        .tester-price-tag { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 1.1rem; padding: 15px 0; z-index: 10; font-weight: normal; }
+        .tester-price-tag { 
+            position: absolute; bottom: 0; width: 100%; text-align: center; 
+            font-size: 1.1rem; padding: 15px 0; z-index: 10; font-weight: normal; 
+        }
 
         .rules-list { text-align: left; width: 100%; max-width: 800px; padding: 0; list-style: none; }
         .rules-list li { color: #FF4D4D; background: #FFF3B0; padding: 15px; margin-bottom: 10px; border-radius: 10px; line-height: 1.6; border-left: 5px solid #FF4D4D; }
@@ -92,8 +107,6 @@
     <div class="logo-container"><img src="IPCB5121.PNG" alt="Logo"></div>
     <h1>ThitipraStudio</h1>
     <p style="font-size: 0.95rem; color: #888; margin: 10px 0 5px;">🎨 เว็บเครือ BR&PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือก่อนสั่งซื้อค่ะ </p>
-    <p style="font-size: 0.95rem; color: #888; margin: 5px 0;">กด... และเปิดในเบราว์เวอร์🥡</p>
-    <p style="font-size: 0.8rem; color: #888; margin: 5px 0;">🍷ลูกค้ารอเว็บโหลดสักครู่นะคะ🏡💖</p>
     <div class="nav-buttons">
         <button class="nav-btn" onclick="openModal('infoModal')"><i class="fas fa-id-card"></i> รู้จักเรา</button>
         <button class="nav-btn" onclick="openModal('rulesModal')"><i class="fas fa-shield-halved"></i> กฎการใช้งาน</button>
@@ -112,24 +125,23 @@
 
 <div class="container" id="fontList"></div>
 
+<!-- Modal: กฎการใช้งาน -->
 <div class="modal" id="rulesModal">
     <button class="close-btn" onclick="closeModal('rulesModal')">&times;</button>
     <div class="modal-content">
         <h2 style="color: var(--danger); margin-bottom: 20px; text-align: center;">ข้อห้ามการใช้งานทุกเงื่อนไข</h2>
         <a href="https://rule-brprh.my.canva.site/" target="_blank" style="display: inline-block; background: var(--peach-main); color: white; text-decoration: none; padding: 10px 25px; border-radius: 20px; margin-bottom: 25px; font-size: 0.9rem; font-weight: normal; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-            <i class="fas fa-external-link-alt"></i> อ่านกฎการใช้งานตามเงื่อนไขก่อนสั่งซื้อ(เพิ่มเติม)ครบทุกเงื่อนไข</a>
+            <i class="fas fa-external-link-alt"></i> อ่านกฎการใช้งาน (เพิ่มเติม)</a>
         <ul class="rules-list">
-            <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกไฟล์เป็นงานสำเร็จ หรือ Create outline ทำให้ฟอนต์เป็นวัตถุเท่านั้น ex.png pdf jpeg</li>
-            <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษร/เติมสี เพื่อทำสติ๊กเกอร์ไลน์ อิโมจิไลน์ หรือปริ้นสติ๊กเกอร์ขาย (ต้องเป็นการตกแต่งมีการใช้การ์ตูนเท่านั้น)</li>
-            <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำ อิโมจิไลน์เด็ดขาด</li>
-            <li>4. ห้ามคัดลอก ห้ามดัดแปลง ห้ามดราฟ ห้ามขาย ห้ามส่งต่อ ห้ามแจก ห้ามแถม ห้ามเปลี่ยนชื่อไฟล์ฟอนต์</li>
-            <li>5. ห้ามนำไปลงกลุ่ม หรือขายไฟล์สิทธิ์ขาด ห้ามนำไฟล์ไปลงเว็บ</li>
-            <li>6. ห้ามอัปโหลด หรือเผยแพร่ไฟล์ฟอนต์ให้บุคคลอื่นโดยไม่ได้รับอนุญาต</li>
-            <li>7. ห้ามใช้ระบบปัญญาประดิษฐ์ (AI) เพื่อสร้าง ดัดแปลง หรือทำให้เกิดผลงานตัวอักษรหรือฟอนต์ที่มีลักษณะเหมือน คล้าย คลึง หรืออาจก่อให้เกิดความสับสนกับฟอนต์นี้ ไม่ว่าทางตรงหรือทางอ้อม</li>
+            <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกไฟล์เป็นงานสำเร็จเท่านั้น</li>
+            <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษรเพื่อทำสติ๊กเกอร์ขาย (ต้องมีการใช้การ์ตูนร่วมด้วย)</li>
+            <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำอิโมจิไลน์เด็ดขาด</li>
+            <li>4. ห้ามคัดลอก ดัดแปลง ดราฟ หรือขายไฟล์ต่อ</li>
+            <li>5. ห้ามนำไปลงกลุ่ม หรือขายสิทธิ์ขาดโดยไม่ได้รับอนุญาต</li>
+            <li>6. ห้ามอัปโหลดไฟล์ให้บุคคลอื่น</li>
+            <li>7. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเลียนแบบฟอนต์นี้</li>
         </ul>
-        <p style="background: var(--lavender); padding: 15px; border-radius: 10px; color: #8B4513; margin-top: 20px;">ใช้ตามเงื่อนไขที่สั่งซื้อ ทางร้านเก็บข้อมูลการสั่งซื้อทั้งหมดหากตรวจพบว่ามีการใช้งานผิดเงื่อนไขปรับนะคะ</p>
-        <p style="background: var(--lavender); padding: 15px; border-radius: 10px; color: #8B4513; margin-top: 20px;">หากพบหรือมีเหตุอันควรสงสัยว่ามีการใช้งานฟอนต์อันเป็นการฝ่าฝืนข้อกำหนด ผู้อนุญาต/เจ้าของฟอนต์ มีสิทธิ์เรียกขอเอกสารยืนยันสิทธิ์การใช้งาน รวมถึงใบอนุญาต ใบเสร็จรับเงิน และประวัติการสั่งซื้อ เพื่อตรวจสอบความถูกต้องได้ตามสมควร</p>
-        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px;">ถ้ามีข้อสงสัยเพิ่มเติมให้สอบถาม หากพบว่าผิดกฎ ปรับ 10,000บาท / 1ไฟล์</p>
+        <p style="background: var(--gold-cream); padding: 15px; border-radius: 10px; color: #8B7355; margin-top: 20px; text-align: center;">หากพบการใช้งานผิดเงื่อนไข ปรับ 10,000 บาท / 1 ไฟล์</p>
     </div>
 </div>
 
@@ -141,7 +153,7 @@
         <p>เจ้าของเครือฟอนต์ <b>BR & PRH Font</b></p>
         <p>เริ่มเปิดขายครั้งแรกวันที่ 15 May 2023</p>
         <div style="background: #fff8f9; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #ffe4e6;">
-            <p>สไตล์: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย</p>
+            <p>สไตล์: ลายมือน่ารัก สดใส และแนวทางการเรียบร้อย</p>
         </div>
     </div>
 </div>
@@ -155,8 +167,8 @@
         <input type="text" id="testerInput" class="search-input" placeholder="พิมพ์ข้อความที่นี่..." oninput="refreshDisplay()">
         <div style="margin: 15px 0;">
             <label style="font-size: 0.8rem;">ขนาด:</label>
-            <input type="range" id="sizeSlider" min="10" max="150" value="32" oninput="refreshDisplay()">
-            <span id="sizeLabel" style="color: var(--peach-main);">32px</span>
+            <input type="range" id="sizeSlider" min="10" max="150" value="80" oninput="refreshDisplay()">
+            <span id="sizeLabel" style="color: var(--peach-main);">80px</span>
         </div>
         <div class="tester-container">
             <div class="tag-watermark" style="left: 15px;">Thitipra Studio</div>
@@ -173,6 +185,7 @@
     </div>
 </div>
 
+<!-- Modal: VS Mode -->
 <div class="modal" id="vsModal">
     <button class="close-btn" onclick="closeModal('vsModal')">&times;</button>
     <div class="modal-content">
@@ -180,17 +193,21 @@
         <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
         <div style="margin: 15px 0;">
             <label style="font-size: 0.8rem;">ปรับขนาดพร้อมกัน:</label>
-            <input type="range" id="vsSizeSlider" min="10" max="150" value="20" oninput="refreshVS()">
-            <span id="vsSizeLabel" style="color: var(--peach-main);">20px</span>
+            <input type="range" id="vsSizeSlider" min="10" max="150" value="55" oninput="refreshVS()">
+            <span id="vsSizeLabel" style="color: var(--peach-main);">55px</span>
         </div>
         <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
+            <!-- ฝั่งซ้าย -->
             <div class="tester-container" style="flex:1; min-width:300px;">
+                <div class="tag-watermark" style="left: 15px;">Thitipra Studio</div>
                 <div class="tester-bg-watermark"></div>
                 <select id="selectLeft" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
                 <div id="displayLeft">สวัสดี</div>
                 <div id="priceLeft" class="tester-price-tag"></div>
             </div>
+            <!-- ฝั่งขวา -->
             <div class="tester-container" style="flex:1; min-width:300px;">
+                <div class="tag-watermark" style="right: 15px;">BR&PRH House</div>
                 <div class="tester-bg-watermark"></div>
                 <select id="selectRight" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
                 <div id="displayRight">สวัสดี</div>
@@ -287,7 +304,7 @@
             card.className = 'font-card';
             const isSinglePrice = (f.p === f.c);
             const priceClass = isSinglePrice ? 'price-single-style' : 'price-split-style';
-            const priceTxt = isSinglePrice ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
+            const priceTxt = isSinglePrice ? `ส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
             card.innerHTML = `<div class="font-card-header" style="font-family:'${f.en}'">${(i+1).toString().padStart(2, '0')}. ${f.th} (${f.en})</div><div class="preview-area-card" style="font-family:'${f.en}'">สวัสดี hello</div><div class="price-footer ${priceClass}"><div>${priceTxt}</div><a href="https://lin.ee/8k1sAhb" target="_blank" class="line-card-btn">🛒 สั่งซื้อกับแอดมิน</a></div>`;
             card.onclick = (e) => { if(e.target.tagName !== 'A') openModal(f); };
             list.appendChild(card);
@@ -304,7 +321,7 @@
         const modalPriceArea = document.getElementById('modalPriceDisplay');
         const isSinglePrice = (f.p === f.c);
         modalPriceArea.className = `tester-price-tag ${isSinglePrice ? 'price-single-style' : 'price-split-style'}`;
-        modalPriceArea.innerText = isSinglePrice ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
+        modalPriceArea.innerText = isSinglePrice ? `ส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
         refreshDisplay();
         document.body.style.overflow = 'hidden';
     }
@@ -345,14 +362,17 @@
         dL.style.fontFamily = lF; dR.style.fontFamily = rF;
         dL.style.fontSize = dR.style.fontSize = size + "px";
         document.getElementById('vsSizeLabel').innerText = size + "px";
+        
+        // อัปเดตสีแถบราคาในโหมด VS
         const pL = document.getElementById('priceLeft');
         const isSingleL = (dataL.p === dataL.c);
         pL.className = `tester-price-tag ${isSingleL ? 'price-single-style' : 'price-split-style'}`;
-        pL.innerText = isSingleL ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | เชิงพาณิชย์: ${dataL.c}`;
+        pL.innerText = isSingleL ? `ส่วนตัว&เชิงพาณิชย์: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | เชิงพาณิชย์: ${dataL.c}`;
+
         const pR = document.getElementById('priceRight');
         const isSingleR = (dataR.p === dataR.c);
         pR.className = `tester-price-tag ${isSingleR ? 'price-single-style' : 'price-split-style'}`;
-        pR.innerText = isSingleR ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | เชิงพาณิชย์: ${dataR.c}`;
+        pR.innerText = isSingleR ? `ส่วนตัว&เชิงพาณิชย์: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | เชิงพาณิชย์: ${dataR.c}`;
     }
 
     function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
