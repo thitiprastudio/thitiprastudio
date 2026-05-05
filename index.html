@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThitipraStudio - Font Preview & Rules</title>
+    <title>ThitipraStudio - Font Preview & VS Mode</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         /* --- Font Faces --- */
@@ -25,6 +25,7 @@
             font-family: 'MainBodyFont', sans-serif;
             margin: 0; background-color: var(--bg-cream); color: #4A4A4A;
             padding-bottom: 50px;
+            font-weight: normal; /* ตัดฟอนต์หนาออก */
         }
 
         /* ลายน้ำพื้นหลัง */
@@ -35,21 +36,21 @@
         }
 
         header { text-align: center; padding: 30px 20px; background: rgba(255, 255, 255, 0.9); border-bottom: 3px solid var(--lavender); }
-        header h1 { font-family: 'HeadlineFont', sans-serif; font-size: 2.8rem; margin: 0; color: #333; }
+        header h1 { font-family: 'HeadlineFont', sans-serif; font-size: 2.8rem; margin: 0; color: #333; font-weight: normal; }
 
         .logo-container { width: 90px; height: 90px; margin: 0 auto 15px; border-radius: 20px; overflow: hidden; border: 3px solid var(--peach-main); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
         /* Navigation */
         .nav-buttons { display: flex; justify-content: center; gap: 12px; margin: 20px 0; flex-wrap: wrap; }
-        .nav-btn { background: white; color: var(--peach-main); border: 2px solid var(--peach-main); padding: 10px 22px; border-radius: 20px; cursor: pointer; font-weight: bold; font-family: inherit; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .nav-btn { background: white; color: var(--peach-main); border: 2px solid var(--peach-main); padding: 10px 22px; border-radius: 20px; cursor: pointer; font-family: inherit; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
         .nav-btn:hover { background: var(--peach-main); color: white; transform: translateY(-2px); }
         .nav-btn.vs { background: var(--lavender); border-color: #dcc2f7; color: #555; }
 
         /* Search & Filter */
         .top-controls { max-width: var(--max-w); margin: 0 auto 30px; padding: 0 20px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .filter-group { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-        .filter-btn { padding: 8px 25px; border-radius: 25px; border: 2px solid var(--peach-main); background: white; color: var(--peach-main); cursor: pointer; font-weight: bold; font-family: inherit; font-size: 0.9rem; }
+        .filter-btn { padding: 8px 25px; border-radius: 25px; border: 2px solid var(--peach-main); background: white; color: var(--peach-main); cursor: pointer; font-family: inherit; font-size: 0.9rem; }
         .filter-btn.active { background: var(--peach-main); color: white; }
         .search-input { width: 100%; max-width: 450px; padding: 14px 25px; border-radius: 30px; border: 2.5px solid var(--lavender); outline: none; font-family: inherit; box-shadow: 0 3px 6px rgba(0,0,0,0.05); font-size: 1rem; }
 
@@ -57,26 +58,29 @@
         .container { max-width: var(--max-w); margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         .font-card { background: white; border-radius: 20px; border: 1.5px solid #EEE; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
         .font-card:hover { border-color: var(--peach-main); transform: translateY(-5px); box-shadow: 0 12px 25px rgba(255,154,162,0.15); }
-        .font-card-header { padding: 18px 20px; font-size: 1.15rem; font-weight: bold; color: #444; border-bottom: 1px solid #f9f9f9; }
+        .font-card-header { padding: 18px 20px; font-size: 1.15rem; color: #444; border-bottom: 1px solid #f9f9f9; }
         .preview-area-card { padding: 45px 15px; text-align: center; font-size: 2.2rem; min-height: 90px; color: #333; }
         
-        .price-footer { background-color: var(--gold-cream); padding: 15px; border-top: 2px solid var(--gold-pastel); text-align: center; font-size: 0.9rem; color: #8B7355; font-weight: bold; line-height: 1.5; }
+        .price-footer { background-color: var(--gold-cream); padding: 15px; border-top: 2px solid var(--gold-pastel); text-align: center; font-size: 0.9rem; color: #8B7355; line-height: 1.5; }
         .line-card-btn { display: inline-block; background: var(--line-green); color: white; text-decoration: none; padding: 6px 18px; border-radius: 15px; font-size: 0.8rem; margin-top: 10px; transition: 0.2s; }
 
         /* Modals */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; overflow-y: auto; backdrop-filter: blur(4px); }
-        .modal-content { width: 92%; max-width: 850px; background: white; margin: 50px auto; padding: 45px 25px; border-radius: 35px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .close-btn { position: absolute; top: 20px; right: 20px; width: 45px; height: 45px; background: var(--danger); color: white; border-radius: 50%; border: none; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 3000; overflow-y: auto; }
+        .modal-inner-content { width: 90%; max-width: 900px; margin: 0 auto; padding: 60px 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
+        .rules-modal-bg { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); } /* เฉพาะหน้ากฎและประวัติที่เป็น popup */
+        .popup-box { background: white; padding: 40px 25px; border-radius: 35px; width: 92%; max-width: 800px; margin: 50px auto; position: relative; }
+        
+        .close-btn { position: fixed; top: 20px; right: 20px; width: 45px; height: 45px; background: var(--danger); color: white; border-radius: 50%; border: none; font-size: 22px; cursor: pointer; z-index: 4000; display: flex; align-items: center; justify-content: center; }
 
-        /* Rules & History Details[cite: 1] */
-        .rules-title { color: var(--danger); font-size: 1.6rem; margin-bottom: 20px; text-align: center; font-weight: bold; }
-        .rules-list { text-align: left; padding: 0; }
+        /* Rules Details */
+        .rules-title { color: var(--danger); font-size: 1.6rem; margin-bottom: 20px; text-align: center; }
+        .rules-list { text-align: left; padding: 0; width: 100%; }
         .rules-list li { margin-bottom: 12px; list-style: none; padding: 12px 18px; background: #fff8f8; border-left: 4px solid var(--danger); border-radius: 8px; font-size: 0.95rem; line-height: 1.6; }
-        .rules-warning { background: var(--gold-cream); padding: 15px; border-radius: 15px; margin-top: 25px; text-align: center; font-weight: bold; color: #8B7355; border: 1px dashed var(--gold-pastel); }
 
+        /* Tester Area */
         .tester-container { width: 100%; background: white; border: 2.5px dashed var(--peach-main); border-radius: 25px; position: relative; margin-top: 20px; overflow: hidden; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .tester-bg-watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('IMG_5814.png') no-repeat center; background-size: contain; opacity: 0.12; z-index: 1; pointer-events: none; }
-        .tag-watermark { position: absolute; top: 12px; font-size: 0.65rem; color: var(--peach-main); border: 1.5px solid var(--peach-main); padding: 3px 12px; border-radius: 12px; background: white; z-index: 10; font-weight: bold; }
+        .tag-watermark { position: absolute; top: 12px; font-size: 0.65rem; color: var(--peach-main); border: 1.5px solid var(--peach-main); padding: 3px 12px; border-radius: 12px; background: white; z-index: 10; }
 
         @media (max-width: 600px) { header h1 { font-size: 2rem; } .container { grid-template-columns: 1fr; } }
     </style>
@@ -89,8 +93,8 @@
     <p style="font-size: 0.95rem; color: #777; margin: 12px 0;">🎨 เครือฟอนต์ BR&PRH ทดลองพิมพ์และเปรียบเทียบก่อนสั่งซื้อ ✨</p>
     
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="openModal('infoModal')"><i class="fas fa-id-card"></i> รู้จักเรา</button>
-        <button class="nav-btn" onclick="openModal('rulesModal')"><i class="fas fa-shield-halved"></i> กฎการใช้งาน</button>
+        <button class="nav-btn" onclick="openPopup('infoModal')"><i class="fas fa-id-card"></i> รู้จักเรา</button>
+        <button class="nav-btn" onclick="openPopup('rulesModal')"><i class="fas fa-shield-halved"></i> กฎการใช้งาน</button>
         <button class="nav-btn vs" onclick="openVS()"><i class="fas fa-shuffle"></i> โหมด VS</button>
     </div>
 </header>
@@ -98,48 +102,85 @@
 <div class="top-controls">
     <div class="filter-group">
         <button id="btn-all" class="filter-btn active" onclick="setPriceFilter('all')">ฟอนต์ทั้งหมด</button>
-        <button id="btn-single" class="filter-btn" onclick="setPriceFilter('single')">ราคาเดียว (Personal=Comm)</button>
-        <button id="btn-split" class="filter-btn" onclick="setPriceFilter('split')">ราคาแยก (ส่วนตัว/พาณิชย์)</button>
+        <button id="btn-single" class="filter-btn" onclick="setPriceFilter('single')">ราคาเดียว</button>
+        <button id="btn-split" class="filter-btn" onclick="setPriceFilter('split')">ราคาแยก</button>
     </div>
-    <input type="text" id="fontSearch" class="search-input" placeholder="🔍 ค้นหาชื่อฟอนต์ที่ชอบ..." oninput="filterFonts()">
+    <input type="text" id="fontSearch" class="search-input" placeholder="🔍 ค้นหาชื่อฟอนต์..." oninput="filterFonts()">
 </div>
 
 <div class="container" id="fontList"></div>
 
-<!-- Modal: กฎกติกา[cite: 1] -->
-<div class="modal" id="rulesModal">
-    <div class="modal-content">
-        <button class="close-btn" onclick="closeModal('rulesModal')">&times;</button>
-        <div class="rules-title"><i class="fas fa-triangle-exclamation"></i> ข้อห้ามการใช้งานทุกเงื่อนไข</div>
-        <ul class="rules-list">
-            <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกเป็นไฟล์งานสำเร็จ (PNG, PDF, JPEG) หรือ Create Outline เท่านั้น[cite: 1]</li>
-            <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษรเพื่อทำสติ๊กเกอร์ไลน์ อิโมจิไลน์ หรือปริ้นสติ๊กเกอร์ขาย[cite: 1]</li>
-            <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำ อิโมจิไลน์เด็ดขาด[cite: 1]</li>
-            <li>4. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์[cite: 1]</li>
-            <li>5. ห้ามนำไปลงกลุ่ม หรือขายไฟล์สิทธิ์ขาด ห้ามนำไฟล์ไปลงเว็บ[cite: 1]</li>
-            <li>6. ห้ามอัปโหลด หรือเผยแพร่ไฟล์ฟอนต์ให้บุคคลอื่นโดยไม่ได้รับอนุญาต[cite: 1]</li>
-            <li>7. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือสร้างผลงานที่เลียนแบบฟอนต์นี้[cite: 1]</li>
-        </ul>
-        <div class="rules-warning">หากพบการใช้งานผิดเงื่อนไข จะมีการดำเนินการปรับและดำเนินคดีตามกฎหมายสูงสุดนะคะ[cite: 1]</div>
+<!-- Modal: ทดลองพิมพ์ (จากโค้ดหลัก) -->
+<div class="modal" id="fontModal">
+    <button class="close-btn" onclick="closeModal('fontModal')">&times;</button>
+    <div class="modal-inner-content">
+        <h2 id="modalFontName" style="color: var(--peach-main); margin-bottom: 20px;"></h2>
+        <input type="text" id="testerInput" class="search-input" placeholder="พิมพ์ข้อความทดสอบที่นี่..." oninput="refreshDisplay()">
+        
+        <div style="margin: 15px 0; display:flex; align-items:center; gap:10px;">
+            <label>ขนาด:</label>
+            <input type="range" id="sizeSlider" min="30" max="180" value="80" oninput="refreshDisplay()">
+            <span id="sizeLabel" style="color: var(--peach-main); font-weight:bold;">80px</span>
+        </div>
+
+        <div class="tester-container">
+            <div class="tag-watermark" style="left:15px;">Thitipra Studio</div>
+            <div class="tag-watermark" style="right:15px;">BR&PRH House</div>
+            <div class="tester-bg-watermark"></div>
+            <div id="testerDisplay" style="position: relative; z-index: 5; text-align: center; width: 100%; word-wrap: break-word; padding: 20px;">สวัสดี hello</div>
+        </div>
+        <p id="modalPriceDisplay" style="margin-top:20px; color:#8B7355; font-weight:bold;"></p>
     </div>
 </div>
 
-<!-- Modal: ประวัติร้าน[cite: 1] -->
-<div class="modal" id="infoModal">
-    <div class="modal-content" style="text-align: center;">
-        <button class="close-btn" onclick="closeModal('infoModal')">&times;</button>
-        <img src="IPCB5121.PNG" style="width: 130px; border-radius: 25px; margin-bottom: 25px; border: 4px solid var(--lavender);">
-        <h2 style="color: var(--peach-main);">Welcome to Thitiprastudio</h2>
-        <p><b>เจ้าของฟอนต์เครือ BR & PRH Font</b>[cite: 1]</p>
-        <p style="font-size: 0.9rem; color: #888;">เริ่มเปิดขายครั้งแรกวันที่ 15 May 2023[cite: 1]</p>
-        <div style="background: #fffcfc; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #ffe4e6;">
-            <h4 style="margin-top: 0;">สไตล์ฟอนต์ประจำร้าน</h4>
-            <p>แนวลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย[cite: 1]</p>
+<!-- Modal: โหมด VS (จากโค้ดหลัก) -->
+<div class="modal" id="vsModal">
+    <button class="close-btn" onclick="closeModal('vsModal')">&times;</button>
+    <div class="modal-inner-content">
+        <h2 style="color:var(--peach-main); font-size: 2rem;">Font Comparison (VS)</h2>
+        <input type="text" id="vsInput" class="search-input" placeholder="พิมพ์ข้อความเปรียบเทียบ..." oninput="refreshVS()">
+        
+        <div style="display:flex; width:100%; gap:20px; flex-wrap:wrap; margin-top:30px;">
+            <div style="flex:1; min-width:300px;">
+                <select id="selectLeft" class="search-input" style="margin-bottom:15px;" onchange="refreshVS()"></select>
+                <div class="tester-container"><div id="displayLeft">สวัสดี</div></div>
+            </div>
+            <div style="flex:1; min-width:300px;">
+                <select id="selectRight" class="search-input" style="margin-bottom:15px;" onchange="refreshVS()"></select>
+                <div class="tester-container"><div id="displayRight">สวัสดี</div></div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Scripts (ทำงานร่วมกับระบบโฟลเดอร์ fonts/ ของคุณ) -->
+<!-- Modal: กฎกติกา (จาก PDF) -->
+<div class="modal rules-modal-bg" id="rulesModal">
+    <div class="popup-box">
+        <button class="close-btn" style="position:absolute;" onclick="closeModal('rulesModal')">&times;</button>
+        <div class="rules-title"><i class="fas fa-triangle-exclamation"></i> ข้อห้ามการใช้งานทุกเงื่อนไข[cite: 1]</div>
+        <ul class="rules-list">
+            <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกเป็นไฟล์งานสำเร็จ (PNG, PDF, JPEG) เท่านั้น[cite: 1]</li>
+            <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษรเพื่อทำสติ๊กเกอร์ไลน์ อิโมจิไลน์ หรือปริ้นขาย[cite: 1]</li>
+            <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำ อิโมจิไลน์เด็ดขาด[cite: 1]</li>
+            <li>4. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก หรือเปลี่ยนชื่อไฟล์ฟอนต์[cite: 1]</li>
+            <li>5. ห้ามนำไปลงกลุ่ม หรือขายไฟล์สิทธิ์ขาด ห้ามนำไฟล์ไปลงเว็บ[cite: 1]</li>
+            <li>6. ห้ามอัปโหลด หรือเผยแพร่ไฟล์ฟอนต์ให้บุคคลอื่น[cite: 1]</li>
+            <li>7. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเลียนแบบฟอนต์นี้[cite: 1]</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal: ประวัติร้าน -->
+<div class="modal rules-modal-bg" id="infoModal">
+    <div class="popup-box" style="text-align: center;">
+        <button class="close-btn" style="position:absolute;" onclick="closeModal('infoModal')">&times;</button>
+        <img src="IPCB5121.PNG" style="width: 120px; border-radius: 20px; margin-bottom: 20px;">
+        <h2 style="color: var(--peach-main);">Welcome to Thitiprastudio[cite: 1]</h2>
+        <p><b>เจ้าของเครือฟอนต์ BR & PRH Font</b>[cite: 1]</p>
+        <p>แนวลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก[cite: 1]</p>
+    </div>
+</div>
+
 <script>
     const fonts = [
         { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", file: "fonts/Stephanie.ttf" },
@@ -174,15 +215,21 @@
         { th: "โนร่า", en: "Nora", p: "79.-", c: "169.-", file: "fonts/BRNora-Regular.ttf" },
     ];
 
+    let currentFont = fonts[0];
     let priceFilter = 'all';
 
     async function init() {
+        const sL = document.getElementById('selectLeft');
+        const sR = document.getElementById('selectRight');
         for (const f of fonts) {
             try {
                 const font = new FontFace(f.en, `url(${f.file})`);
                 await font.load().then(l => document.fonts.add(l));
+                const opt = `<option value="${f.en}">${f.th} (${f.en})</option>`;
+                sL.innerHTML += opt; sR.innerHTML += opt;
             } catch(e) { console.warn("Load failed:", f.en); }
         }
+        sR.selectedIndex = 1;
         filterFonts();
     }
 
@@ -205,20 +252,51 @@
         }).forEach((f, i) => {
             const card = document.createElement('div');
             card.className = 'font-card';
-            const priceTxt = (f.p === f.c) ? `ใช้งานได้ทั้งส่วนตัว&เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
             card.innerHTML = `
                 <div class="font-card-header" style="font-family:'${f.en}'">${(i+1).toString().padStart(2, '0')}. ${f.th} (${f.en})</div>
                 <div class="preview-area-card" style="font-family:'${f.en}'">สวัสดี hello</div>
-                <div class="price-footer">
-                    <div>${priceTxt}</div>
-                    <a href="https://lin.ee/W3641fA" target="_blank" class="line-card-btn"><i class="fab fa-line"></i> สั่งซื้อกับแอดมิน</a>
-                </div>
+                <div class="price-footer">ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}</div>
             `;
+            card.onclick = () => openFontTester(f);
             list.appendChild(card);
         });
     }
 
-    function openModal(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+    function openFontTester(f) {
+        currentFont = f;
+        document.getElementById('modalFontName').innerText = `${f.th} (${f.en})`;
+        document.getElementById('modalPriceDisplay').innerText = `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
+        openPopup('fontModal');
+        refreshDisplay();
+    }
+
+    function refreshDisplay() {
+        const txt = document.getElementById('testerInput').value || "สวัสดี hello";
+        const size = document.getElementById('sizeSlider').value;
+        const display = document.getElementById('testerDisplay');
+        display.innerText = txt;
+        display.style.fontFamily = currentFont.en;
+        display.style.fontSize = size + "px";
+        document.getElementById('sizeLabel').innerText = size + "px";
+    }
+
+    function openVS() {
+        openPopup('vsModal');
+        refreshVS();
+    }
+
+    function refreshVS() {
+        const val = document.getElementById('vsInput').value || "สวัสดี hello";
+        const lF = document.getElementById('selectLeft').value;
+        const rF = document.getElementById('selectRight').value;
+        const dL = document.getElementById('displayLeft');
+        const dR = document.getElementById('displayRight');
+        dL.innerText = dR.innerText = val;
+        dL.style.fontFamily = lF; dR.style.fontFamily = rF;
+        dL.style.fontSize = dR.style.fontSize = "50px";
+    }
+
+    function openPopup(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
 
     init();
