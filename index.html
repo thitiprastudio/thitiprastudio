@@ -93,7 +93,7 @@
 </header>
 
 <div class="top-controls">
-    <button class="vs-open-btn" onclick="openVS()">❤️โหมดเปรียบเทียบฟอนต์ (VS Mode)🎶[cite: 1]</button>
+    <button class="vs-open-btn" onclick="openVS()">❤️โหมดเปรียบเทียบฟอนต์ (VS Mode)🎶</button>
     <div class="filter-group">
         <button id="btn-all" class="filter-btn active" onclick="setPriceFilter('all')">ฟอนต์ทั้งหมด</button>
         <button id="btn-split" class="filter-btn" onclick="setPriceFilter('split')">ราคาแยกส่วนตัว และเชิงพาณิชย์</button>
@@ -104,12 +104,16 @@
 
 <div class="container" id="fontList"></div>
 
-<!-- Modal: กฏการใช้งาน-->
+<!-- Modal: กฎการใช้งาน -->
 <div class="modal" id="rulesModal">
     <button class="close-btn" onclick="closeModal('rulesModal')">&times;</button>
     <div class="modal-content">
-        <h2 style="color: var(--danger); margin-bottom: 20px;">ข้อห้ามการใช้งานทุกเงื่อนไข[cite: 1]</h2>
-        <ul class="rules-list">
+        <h2 style="color: var(--danger); margin-bottom: 20px;">ข้อห้ามการใช้งานทุกเงื่อนไข</h2>
+        
+        <!-- เพิ่มปุ่มลิงก์ไปยัง Canva -->
+        <a href="https://rule-brprh.my.canva.site/" target="_blank" style="display: inline-block; background: var(--peach-main); color: white; text-decoration: none; padding: 10px 25px; border-radius: 20px; margin-bottom: 20px; font-size: 0.9rem; font-weight: bold; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <i class="fas fa-external-link-alt"></i> อ่านกฎการใช้งานตามเงื่อนไขที่สั่งซื้อ (เพิ่มเติม)
+        </a>
             <li>1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้องส่งออกไฟล์เป็นงานสำเร็จ หรือCreate outline ทำให้ฟอนต์เป็นวัตถุเท่านั้น ex.png pdf jpeg</li>
             <li>2. ห้ามนำฟอนต์ไปแยกตัวอักษร/เติมสี เพื่อทำสติ๊กเกอร์ไลน์ อิโมจิไลน์ หรือปริ้นสติ๊กเกอร์ขาย(ต้องเป็นการตกแต่งมีการใช้การ์ตูนเท่านั้น)</li>
             <li>3. ฟอนต์อิโมจิ ห้ามนำไปทำ อิโมจิไลน์เด็ดขาด</li>
