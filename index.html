@@ -195,15 +195,19 @@
             <span id="vsSizeLabel" style="color: var(--peach-main);">55px</span>
         </div>
         <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
+            <!-- ฝั่งซ้าย -->
             <div class="tester-container" style="flex:1; min-width:300px;">
+                <div class="tester-bg-watermark"></div> <!-- เพิ่มโลโก้จางๆ -->
                 <select id="selectLeft" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
                 <div id="displayLeft" style="position: relative; z-index: 5; text-align: center; padding: 80px 15px 40px;">สวัสดี</div>
-                <div id="priceLeft" class="tester-price-tag" style="font-size:0.9rem; border-top:1px solid #ccc; width:100%; bottom:0; background:rgba(255,255,255,0.8);"></div>
+                <div id="priceLeft" class="tester-price-tag" style="font-size:0.9rem; border-top:1px solid #ccc; width:100%; bottom:0;"></div>
             </div>
+            <!-- ฝั่งขวา -->
             <div class="tester-container" style="flex:1; min-width:300px;">
+                <div class="tester-bg-watermark"></div> <!-- เพิ่มโลโก้จางๆ -->
                 <select id="selectRight" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
                 <div id="displayRight" style="position: relative; z-index: 5; text-align: center; padding: 80px 15px 40px;">สวัสดี</div>
-                <div id="priceRight" class="tester-price-tag" style="font-size:0.9rem; border-top:1px solid #ccc; width:100%; bottom:0; background:rgba(255,255,255,0.8);"></div>
+                <div id="priceRight" class="tester-price-tag" style="font-size:0.9rem; border-top:1px solid #ccc; width:100%; bottom:0;"></div>
             </div>
         </div>
         <button onclick="closeModal('vsModal')" style="margin-top:25px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
