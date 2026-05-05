@@ -197,20 +197,27 @@
         <div id="vs-container-box" style="display:flex; width:100%; gap:15px; flex-wrap:wrap; justify-content:center;">
             <!-- ฝั่งซ้าย -->
             <div class="tester-container" style="flex:1; min-width:300px;">
-                <div class="tester-bg-watermark"></div> <!-- เพิ่มโลโก้จางๆ -->
+                <div class="tester-bg-watermark"></div> <!-- โลโก้จางๆ -->
                 <select id="selectLeft" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
                 <div id="displayLeft" style="position: relative; z-index: 5; text-align: center; padding: 80px 15px 40px;">สวัสดี</div>
-                <div id="priceLeft" class="tester-price-tag" style="font-size:0.9rem; border-top:1px solid #ccc; width:100%; bottom:0;"></div>
+                <div id="priceLeft" class="tester-price-tag" style="font-size:0.9rem;"></div>
             </div>
             <!-- ฝั่งขวา -->
             <div class="tester-container" style="flex:1; min-width:300px;">
-                <div class="tester-bg-watermark"></div> <!-- เพิ่มโลโก้จางๆ -->
+                <div class="tester-bg-watermark"></div> <!-- โลโก้จางๆ -->
                 <select id="selectRight" class="search-input" style="width:80%; position:absolute; top:45px; z-index:20; height: 35px; padding: 5px;" onchange="refreshVS()"></select>
                 <div id="displayRight" style="position: relative; z-index: 5; text-align: center; padding: 80px 15px 40px;">สวัสดี</div>
-                <div id="priceRight" class="tester-price-tag" style="font-size:0.9rem; border-top:1px solid #ccc; width:100%; bottom:0;"></div>
+                <div id="priceRight" class="tester-price-tag" style="font-size:0.9rem;"></div>
             </div>
         </div>
-        <button onclick="closeModal('vsModal')" style="margin-top:25px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
+
+        <!-- ปุ่มสั่งซื้อในโหมด VS -->
+        <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:500px; margin-top:25px;">
+            <a href="https://shop.line.me/@wbk2012r" target="_blank" style="background:var(--line-green); color:white; text-decoration:none; padding:12px; border-radius:15px; text-align:center;">🛒 สั่งซื้อผ่าน MyShop</a>
+            <a href="https://lin.ee/8k1sAhb" target="_blank" style="background:#fff; color:var(--line-green); border:2px solid var(--line-green); text-decoration:none; padding:12px; border-radius:15px; text-align:center;">💬 ติดต่อสอบถาม / สั่งซื้อผ่านแอดมิน</a>
+        </div>
+
+        <button onclick="closeModal('vsModal')" style="margin-top:20px; padding: 10px 30px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-family: inherit;">กลับหน้าหลัก</button>
     </div>
 </div>
 
