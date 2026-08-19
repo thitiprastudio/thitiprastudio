@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThitipraStudio - Official Font Preview & Management Network</title>
+    <title>ThitipraStudio - Font Preview & Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -768,11 +768,15 @@
                 if (file_light) fontPayload.file_light = file_light;
 
                 if (supabaseClient) {
+                    let dbError = null;
                     if (editId) {
-                        await supabaseClient.from('fonts').update(fontPayload).eq('id', editId);
+                        const res = await supabaseClient.from('fonts').update(fontPayload).eq('id', editId);
+                        dbError = res.error;
                     } else {
-                        await supabaseClient.from('fonts').insert([fontPayload]);
+                        const res = await supabaseClient.from('fonts').insert([fontPayload]);
+                        dbError = res.error;
                     }
+                    if (dbError) throw new Error(dbError.message);
                 }
 
                 alert('บันทึกฟอนต์สำเร็จ!');
@@ -782,7 +786,7 @@
                 filterFonts(1);
                 renderAdminFontList(1);
             } catch (err) {
-                alert('เกิดข้อผิดพลาด: ' + err.message);
+                alert('บันทึกไม่สำเร็จ: ' + err.message);
             } finally {
                 saveBtn.innerText = '+ บันทึกฟอนต์ขึ้น Cloud';
                 saveBtn.disabled = false;
@@ -800,6 +804,16 @@
                 splitGroup.classList.add('hidden');
                 singleGroup.classList.remove('hidden');
             }
+        }
+
+        function resetForm() {
+            const form = document.getElementById('fontForm');
+            if (form) form.reset();
+            const editIdInput = document.getElementById('editFontId');
+            if (editIdInput) editIdInput.value = '';
+            const saveBtn = document.getElementById('saveBtn');
+            if (saveBtn) saveBtn.innerText = '+ บันทึกฟอนต์ขึ้น Cloud';
+            togglePriceInputs();
         }
 
         function debouncedSearch() {
