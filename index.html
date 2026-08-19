@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThitipraStudio - Font Preview & Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -295,7 +296,7 @@
         </div>
     </div>
 
-    <!-- Modal 1: ทดลองพิมพ์เดี่ยว (พร้อมปุ่มน้ำหนัก ปกติ/หนา/บาง, ผังอักขระ และข้อมูลอุปกรณ์ที่รองรับ) -->
+    <!-- Modal 1: ทดลองพิมพ์เดี่ยว (พร้อมปุ่มน้ำหนัก, ผังอักขระ, อุปกรณ์รองรับ, ลิงก์ Canva) -->
     <div id="fontModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-2xl border border-[#ff85b3] shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal('fontModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
@@ -343,7 +344,7 @@
                     </div>
                 </div>
 
-                <!-- กล่องรายละเอียดฟอนต์ & อุปกรณ์ที่รองรับ (ดึงจากระบบหลังบ้าน) -->
+                <!-- กล่องรายละเอียดฟอนต์ & อุปกรณ์ที่รองรับ -->
                 <div class="mt-4 p-4 bg-white border border-pink-100 rounded-2xl text-left space-y-3 text-xs text-gray-700">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 border-b border-pink-50 pb-2">
                         <div><strong class="text-pink-600">ชนิดไฟล์:</strong> <span id="infoFileType">.otf, .ttf (ติดตั้งได้ทันที)</span></div>
@@ -352,25 +353,22 @@
 
                     <div>
                         <strong class="text-gray-800 block mb-1">📱 อุปกรณ์ & แอปพลิเคชันที่รองรับ:</strong>
-                        <div id="infoDevices" class="whitespace-pre-line text-gray-600 bg-pink-50/30 p-2.5 rounded-xl border border-pink-100">
-                            📱 iPhone / iPad / Android : GoodNotes, Notes+, Notability, ibisPaint, Procreate, Phonto, CapCut, InShot, VLLO
-                            💻 PC / Mac : Adobe Illustrator, Photoshop, Microsoft 365 และโปรแกรมทั่วไป
-                            🎨 Canva Pro – Brand Kit (เครื่องมือตั้งค่าสระขั้นสูง ทั้งนี้ขึ้นอยู่กับระบบ Canva)
-                        </div>
+                        <div id="infoDevices" class="whitespace-pre-line text-gray-600 bg-pink-50/30 p-2.5 rounded-xl border border-pink-100"></div>
                     </div>
 
                     <div>
                         <strong class="text-gray-800 block mb-1">⚖️ เงื่อนไขและประเภทการใช้งาน:</strong>
-                        <div id="infoUsageRules" class="whitespace-pre-line text-gray-600 bg-pink-50/30 p-2.5 rounded-xl border border-pink-100">
-                            • สิทธิ์ส่วนตัว: ทำงานส่งอาจารย์, แต่งรูป/คลิปพื้นที่ส่วนบุคคล
-                            • สิทธิ์เชิงพาณิชย์: แต่งป้ายสินค้า, ทำสื่อโฆษณา, เพจ, รีวิว, นายหน้า TikTok
-                            • สิทธิ์นิติบุคคล (700.-): บริษัท องค์กร หจก. (ไม่เกิน 5 เครื่อง) พร้อมใบรับรองสิทธิ์
-                        </div>
+                        <div id="infoUsageRules" class="whitespace-pre-line text-gray-600 bg-pink-50/30 p-2.5 rounded-xl border border-pink-100"></div>
                     </div>
                 </div>
 
-                <!-- ปุ่มแอคชั่นสั่งซื้อ -->
+                <!-- ปุ่มแอคชั่นสั่งซื้อ & Canva -->
                 <div class="flex flex-col gap-2 mt-4 text-xs font-semibold">
+                    <!-- ปุ่มเปิดลิงก์ Canva Template -->
+                    <a id="btnOpenCanva" href="#" target="_blank" class="hidden bg-gradient-to-r from-sky-400 to-indigo-500 hover:opacity-95 text-white p-2.5 rounded-xl text-center font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
+                        <i class="fas fa-palette"></i> 🎨 เปิดใช้งานบน Canva Template
+                    </a>
+                    
                     <a href="https://shop.line.me/@wbk2012r" target="_blank" class="bg-[#06C755] text-white p-3 rounded-xl text-center shadow-sm">
                         🛒 สั่งซื้อผ่าน MyShop (จัดส่งใน 24 ชม.)
                     </a>
@@ -551,7 +549,7 @@
                 </div>
             </div>
 
-            <!-- Tab 1: จัดการฟอนต์ & รายละเอียดอุปกรณ์ที่รองรับ -->
+            <!-- Tab 1: จัดการฟอนต์ & ข้อมูลอุปกรณ์ & ลิงก์ Canva -->
             <div id="adminTabFonts">
                 <form id="fontForm" onsubmit="handleSaveFont(event)" class="space-y-3 text-xs bg-pink-50/40 p-4 rounded-2xl border border-pink-100 mb-6">
                     <h4 id="formTitle" class="font-bold text-gray-700 text-sm mb-2 flex items-center gap-1.5">
@@ -601,6 +599,12 @@
                             <input type="text" id="newFontSingle" class="border border-pink-200 rounded-lg p-2" placeholder="ราคา เช่น 89.-">
                             <input type="text" id="newFontDriveSingle" class="sm:col-span-2 border border-pink-200 rounded-lg p-2" placeholder="ลิงก์ Google Drive">
                         </div>
+                    </div>
+
+                    <!-- ช่องลิงก์ Canva Template -->
+                    <div class="p-3 bg-sky-50/50 rounded-xl border border-sky-100">
+                        <label class="block font-bold text-sky-800 mb-1">🎨 ลิงก์ Canva Template (ถ้ามี):</label>
+                        <input type="text" id="newFontCanva" class="w-full border border-sky-200 rounded-xl p-2.5 bg-white text-xs" placeholder="https://www.canva.com/design/...">
                     </div>
 
                     <!-- รายละเอียดไฟล์ & ข้อความอุปกรณ์ที่รองรับ (ให้แอดมินแก้ไขได้) -->
@@ -985,8 +989,18 @@
             // นำข้อมูลรายละเอียดฟอนต์และอุปกรณ์มาแสดงผล
             document.getElementById('infoFileType').innerText = f.file_type || '.otf, .ttf (ติดตั้งได้ทันที)';
             document.getElementById('infoWeights').innerText = f.received_weights || 'ปกติ (Regular) / หนา (Bold) / บาง (Light)';
-            if (f.device_support) document.getElementById('infoDevices').innerText = f.device_support;
-            if (f.usage_rules) document.getElementById('infoUsageRules').innerText = f.usage_rules;
+            
+            document.getElementById('infoDevices').innerText = f.device_support || `📱 iPhone / iPad / Android : GoodNotes, Notes+, Notability, ibisPaint, Procreate, Phonto, CapCut, InShot, VLLO\n💻 PC / Mac : Adobe Illustrator, Photoshop, Microsoft 365 และโปรแกรมทั่วไป\n🎨 Canva Pro – Brand Kit (เครื่องมือตั้งค่าสระขั้นสูง ทั้งนี้ขึ้นอยู่กับระบบ Canva)`;
+            document.getElementById('infoUsageRules').innerText = f.usage_rules || `• สิทธิ์ส่วนตัว: ทำงานส่งอาจารย์, แต่งรูป/คลิปพื้นที่ส่วนบุคคล\n• สิทธิ์เชิงพาณิชย์: แต่งป้ายสินค้า, ทำสื่อโฆษณา, เพจ, รีวิว, นายหน้า TikTok\n• สิทธิ์นิติบุคคล (700.-): บริษัท องค์กร หจก. (ไม่เกิน 5 เครื่อง) พร้อมใบรับรองสิทธิ์`;
+
+            // จัดการแสดงผลปุ่ม Canva Template
+            const canvaBtn = document.getElementById('btnOpenCanva');
+            if (f.canva_url && f.canva_url.trim() !== '') {
+                canvaBtn.href = f.canva_url;
+                canvaBtn.classList.remove('hidden');
+            } else {
+                canvaBtn.classList.add('hidden');
+            }
 
             // ผังตัวอย่างอักษร
             document.getElementById('characterSetDisplay').style.fontFamily = f.en;
@@ -1412,6 +1426,7 @@
             const th = document.getElementById('newFontTh').value.trim();
             const en = document.getElementById('newFontEn').value.trim();
             const priceType = document.getElementById('priceType').value;
+            const canvaUrl = document.getElementById('newFontCanva').value.trim();
 
             const fileTypeVal = document.getElementById('editFileType').value.trim();
             const weightsVal = document.getElementById('editWeights').value.trim();
@@ -1460,6 +1475,7 @@
                             th, en, p, c,
                             drive_personal: drivePersonal,
                             drive_commercial: driveCommercial,
+                            canva_url: canvaUrl,
                             file_type: fileTypeVal,
                             received_weights: weightsVal,
                             device_support: devicesVal,
@@ -1475,6 +1491,7 @@
                             th, en, p, c,
                             drive_personal: drivePersonal,
                             drive_commercial: driveCommercial,
+                            canva_url: canvaUrl,
                             file_regular,
                             file_bold,
                             file_light,
@@ -1494,6 +1511,7 @@
                                 th, en, p, c,
                                 drive_personal: drivePersonal,
                                 drive_commercial: driveCommercial,
+                                canva_url: canvaUrl,
                                 file_type: fileTypeVal,
                                 received_weights: weightsVal,
                                 device_support: devicesVal,
@@ -1506,6 +1524,7 @@
                             th, en, p, c,
                             drive_personal: drivePersonal,
                             drive_commercial: driveCommercial,
+                            canva_url: canvaUrl,
                             file_regular,
                             file_bold,
                             file_light,
@@ -1546,7 +1565,7 @@
                         <span class="font-bold text-gray-400 w-5">${index + 1}.</span>
                         <div>
                             <span class="font-bold text-gray-800">${f.th} (${f.en})</span>
-                            <div class="text-[10px] text-gray-500">ส่วนตัว: ${f.p} | พาณิชย์: ${f.c}</div>
+                            <div class="text-[10px] text-gray-500">ส่วนตัว: ${f.p} | พาณิชย์: ${f.c} ${f.canva_url ? '| 🎨 Canva' : ''}</div>
                         </div>
                     </div>
                     <div class="flex items-center gap-1">
@@ -1587,6 +1606,7 @@
             document.getElementById('editFontId').value = f.id;
             document.getElementById('newFontTh').value = f.th;
             document.getElementById('newFontEn').value = f.en;
+            document.getElementById('newFontCanva').value = f.canva_url || '';
 
             if (f.p === f.c) {
                 document.getElementById('priceType').value = 'single';
@@ -1615,11 +1635,11 @@
         function resetForm() {
             document.getElementById('fontForm').reset();
             document.getElementById('editFontId').value = '';
+            document.getElementById('newFontCanva').value = '';
             document.getElementById('formTitle').innerHTML = '<i class="fas fa-plus-circle text-pink-400"></i> เพิ่มฟอนต์ใหม่';
             document.getElementById('saveBtn').innerText = '+ บันทึกฟอนต์ (อัปโหลด Cloud)';
             document.getElementById('cancelEditBtn').classList.add('hidden');
             
-            // รีเซ็ตค่าเริ่มต้นกล่องอุปกรณ์
             document.getElementById('editFileType').value = '.otf, .ttf (ติดตั้งได้ทันที)';
             document.getElementById('editWeights').value = 'ปกติ (Regular) / หนา (Bold) / บาง (Light)';
             document.getElementById('editDevices').value = `📱 iPhone / iPad / Android : GoodNotes, Notes+, Notability, ibisPaint, Procreate, Phonto, CapCut, InShot, VLLO\n💻 PC / Mac : Adobe Illustrator, Photoshop, Microsoft 365 และโปรแกรมทั่วไป\n🎨 Canva Pro – Brand Kit (เครื่องมือตั้งค่าสระขั้นสูง ทั้งนี้ขึ้นอยู่กับระบบ Canva)`;
