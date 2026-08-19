@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThitipraStudio - Font Preview & Management</title>
+    <title>ThitipraStudio - Official Font Preview & Management Network</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,21 +50,12 @@
         ::-webkit-scrollbar-thumb { background: var(--color-pink-dark); border-radius: 10px; }
 
         .modal-enter { animation: modalFadeIn 0.3s ease-out forwards; }
-        .modal-exit { animation: modalFadeOut 0.2s ease-in forwards; }
-        
         @keyframes modalFadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
-        @keyframes modalFadeOut {
-            from { opacity: 1; transform: scale(1); }
-            to { opacity: 0; transform: scale(0.95); }
-        }
 
-        .slider-track {
-            display: flex;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        .slider-track { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .slide { min-width: 100%; }
 
         .font-card {
@@ -217,6 +208,7 @@
                 <h2 class="font-slackey text-sm sm:text-base text-[#5c3a21] bg-[#ffe4ef] px-5 py-1.5 rounded-full shadow-sm">
                     🎨 เว็บเครือ BR & PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือ
                 </h2>
+                <p class="text-xs text-gray-500 mt-2">กดเมนูด้านบนซ้ายเพื่อศึกษาเงื่อนไขสิทธิ์การใช้งานและกฎลิขสิทธิ์อย่างละเอียด</p>
             </div>
 
             <!-- Image Slider Section -->
@@ -250,13 +242,13 @@
                 </div>
             </div>
 
-            <!-- กล่องเงื่อนไขลิขสิทธิ์ -->
+            <!-- กล่องเงื่อนไขลิขสิทธิ์ย่อ -->
             <div class="mb-8 p-4 bg-[#fff0f5] border border-pink-200 rounded-2xl text-center text-xs sm:text-sm">
                 <p class="text-gray-700 font-semibold mb-1">
-                    👤 <span class="text-red-500">บุคคลทั่วไป:</span> 1 การสั่งซื้อ/อีเมล = ใช้ได้ 1 บุคคลเท่านั้น
+                    👤 <span class="text-red-500">บุคคลทั่วไป:</span> 1 การสั่งซื้อต่อ 1 อีเมล = ใช้ได้ 1 บุคคลเท่านั้น
                 </p>
                 <div class="bg-white/80 p-2.5 rounded-xl border border-pink-100 text-[#8B7355] text-xs inline-block">
-                    🏢 บริษัท/องค์กร/หจก./หน่วยงาน (จำกัดไม่เกิน 5 เครื่อง): เริ่มต้น <span class="text-red-500 font-bold">700.-</span> ขึ้นไป พร้อมใบรับรองสิทธิ์
+                    🏢 บริษัท/องค์กร/หจก./หน่วยงาน (จำกัดไม่เกิน 5 เครื่อง): เริ่มต้น <span class="text-red-500 font-bold">700.-</span> ขึ้นไป พร้อมออกใบรับรองสิทธิ์
                 </div>
             </div>
 
@@ -317,7 +309,7 @@
                 <span id="dynamicModalIcon" class="text-2xl text-[#ff85b3]"></span>
                 <h2 id="dynamicModalTitle" class="text-xl font-bold text-[#5c3a21] font-slackey"></h2>
             </div>
-            <div id="dynamicModalContent" class="text-xs sm:text-sm text-gray-700 leading-relaxed font-sans"></div>
+            <div id="dynamicModalContent" class="text-xs sm:text-sm text-gray-700 leading-relaxed font-sans space-y-3"></div>
         </div>
     </div>
 
