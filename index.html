@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThitipraStudio - Font Preview & Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&family=Slackey&display=swap" rel="stylesheet">
@@ -588,7 +590,7 @@
 
                     <div class="flex gap-2 pt-2">
                         <button type="submit" id="saveBtn" class="flex-1 bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition">
-                            + บันทึกฟอนต์
+                            + บันทึกฟอนต์ (อัปโหลด Cloud)
                         </button>
                         <button type="button" id="cancelEditBtn" onclick="resetForm()" class="hidden px-4 bg-gray-200 text-gray-600 font-medium rounded-xl hover:bg-gray-300">
                             ยกเลิก
@@ -674,6 +676,15 @@
 
     <!-- ==================== JAVASCRIPT ==================== -->
     <script>
+        /* 1. ตั้งค่า Supabase Client */
+        const SUPABASE_URL = 'https://czyjemcsufzrvkcfzfwv.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_z10rntPACdi5LPL7lZe4yg_Ka2eCXPY';
+
+        let supabaseClient = null;
+        if (typeof supabase !== 'undefined') {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+
         let fonts = [];
         let adminUsers = [];
         let customMenus = [];
@@ -682,73 +693,56 @@
         let currentWeight = 'normal';
         let isAdminLoggedIn = false;
 
-        /* 1. IndexedDB จัดเก็บ Binary Font Files */
-        const DB_NAME = 'ThitipraFontDB';
-        const DB_VERSION = 1;
-        const STORE_NAME = 'font_files';
-
-        function openDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(DB_NAME, DB_VERSION);
-                request.onupgradeneeded = (e) => {
-                    const db = e.target.result;
-                    if (!db.objectStoreNames.contains(STORE_NAME)) {
-                        db.createObjectStore(STORE_NAME);
-                    }
-                };
-                request.onsuccess = () => resolve(request.result);
-                request.onerror = () => reject(request.error);
-            });
-        }
-
-        async function saveFontFile(key, arrayBuffer) {
-            const db = await openDB();
-            return new Promise((resolve, reject) => {
-                const tx = db.transaction(STORE_NAME, 'readwrite');
-                tx.objectStore(STORE_NAME).put(arrayBuffer, key);
-                tx.oncomplete = () => resolve();
-                tx.onerror = () => reject(tx.error);
-            });
-        }
-
-        async function getFontFile(key) {
-            const db = await openDB();
-            return new Promise((resolve, reject) => {
-                const tx = db.transaction(STORE_NAME, 'readonly');
-                const req = tx.objectStore(STORE_NAME).get(key);
-                req.onsuccess = () => resolve(req.result);
-                req.onerror = () => reject(req.error);
-            });
-        }
-
-        async function deleteFontFiles(fontId) {
-            const db = await openDB();
-            const tx = db.transaction(STORE_NAME, 'readwrite');
-            const store = tx.objectStore(STORE_NAME);
-            store.delete(`${fontId}_regular`);
-            store.delete(`${fontId}_bold`);
-            store.delete(`${fontId}_light`);
-        }
-
         /* 2. การเริ่มต้นระบบ */
         async function init() {
-            loadFontsFromStorage();
             loadAdminUsersFromStorage();
             loadCustomMenusFromStorage();
-            await loadAllFontFaceAssets();
+            await loadFontsOnline();
             populateSelects();
             renderSidebarMenus();
             filterFonts();
             startInterval();
         }
 
-        function loadFontsFromStorage() {
-            const saved = localStorage.getItem('thitipra_fonts_data');
-            fonts = saved ? JSON.parse(saved) : [];
+        /* โหลดข้อมูลฟอนต์จาก Supabase Database */
+        async function loadFontsOnline() {
+            if (supabaseClient) {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('fonts')
+                        .select('*')
+                        .order('order_index', { ascending: true });
+
+                    if (!error && data) {
+                        fonts = data;
+                    }
+                } catch (err) {
+                    console.error('Supabase load error:', err);
+                }
+            } else {
+                const saved = localStorage.getItem('thitipra_fonts_data');
+                fonts = saved ? JSON.parse(saved) : [];
+            }
+
+            await loadAllFontFaceAssets();
         }
 
-        function saveFontsToStorage() {
-            localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts));
+        async function loadAllFontFaceAssets() {
+            for (const f of fonts) {
+                if (f.file_regular) await registerFontFace(f.en, 'normal', f.file_regular);
+                if (f.file_bold) await registerFontFace(f.en, 'bold', f.file_bold);
+                if (f.file_light) await registerFontFace(f.en, '300', f.file_light);
+            }
+        }
+
+        async function registerFontFace(familyName, weight, url) {
+            try {
+                const fontFace = new FontFace(familyName, `url(${url})`, { weight: weight });
+                await fontFace.load();
+                document.fonts.add(fontFace);
+            } catch (e) {
+                console.error(`ไม่สามารถโหลดฟอนต์ ${familyName} (${weight}):`, e);
+            }
         }
 
         function loadAdminUsersFromStorage() {
@@ -760,7 +754,7 @@
                     { user: 'brprh', pass: 'pleng235' },
                     { user: 'brprhfont@gmail.com', pass: 'brprhthitiprastudio' }
                 ];
-                saveAdminUsersToStorage();
+                localStorage.setItem('thitipra_admin_accounts', JSON.stringify(adminUsers));
             }
         }
 
@@ -787,7 +781,7 @@
                         content: `Welcome to ThitipraStudio\nเจ้าของเครือฟอนต์ BR & PRH Font\nเปิดขายครั้งแรก 15 May 2023 (เดิม Babyrainfont)\n\nสไตล์ฟอนต์ประจำร้าน: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย`
                     }
                 ];
-                saveCustomMenusToStorage();
+                localStorage.setItem('thitipra_custom_menus', JSON.stringify(customMenus));
             }
         }
 
@@ -824,27 +818,6 @@
             document.getElementById('dynamicModalContent').innerText = menu.content;
 
             openModal('dynamicPageModal');
-        }
-
-        async function loadAllFontFaceAssets() {
-            for (const f of fonts) {
-                await registerFontFace(f.id, f.en, 'normal', `${f.id}_regular`);
-                if (f.hasBold) await registerFontFace(f.id, f.en, 'bold', `${f.id}_bold`);
-                if (f.hasLight) await registerFontFace(f.id, f.en, '300', `${f.id}_light`);
-            }
-        }
-
-        async function registerFontFace(id, familyName, weight, storageKey) {
-            try {
-                const buffer = await getFontFile(storageKey);
-                if (buffer) {
-                    const fontFace = new FontFace(familyName, buffer, { weight: weight });
-                    await fontFace.load();
-                    document.fonts.add(fontFace);
-                }
-            } catch (e) {
-                console.error(`โหลดฟอนต์ ${familyName} (${weight}) ไม่สำเร็จ:`, e);
-            }
         }
 
         function populateSelects() {
@@ -1162,7 +1135,7 @@
             }
         }
 
-        /* 8. ระบบจัดการ Sidebar Menu */
+        /* 8. จัดการ Sidebar Menu */
         function handleSaveMenu(e) {
             e.preventDefault();
             const editId = document.getElementById('editMenuId').value;
@@ -1310,7 +1283,7 @@
             renderAdminUserList();
         }
 
-        /* 10. จัดการฟอนต์ (บันทึก / ลิงก์ Drive / แก้ไข / ลบ / จัดเรียง) */
+        /* 10. จัดการฟอนต์ (อัปโหลดขึ้น Supabase Storage & Database เพื่อให้แสดงทุกเครื่อง) */
         function togglePriceInputs() {
             const type = document.getElementById('priceType').value;
             if (type === 'split') {
@@ -1322,13 +1295,23 @@
             }
         }
 
-        function readFileAsArrayBuffer(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = () => reject(reader.error);
-                reader.readAsArrayBuffer(file);
-            });
+        async function uploadFontToSupabase(file, filename) {
+            if (!supabaseClient) return URL.createObjectURL(file);
+            
+            const fileExt = file.name.split('.').pop();
+            const fullPath = `${filename}_${Date.now()}.${fileExt}`;
+            
+            const { error: uploadError } = await supabaseClient.storage
+                .from('font-files')
+                .upload(fullPath, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabaseClient.storage
+                .from('font-files')
+                .getPublicUrl(fullPath);
+
+            return publicUrl;
         }
 
         async function handleSaveFont(e) {
@@ -1361,64 +1344,76 @@
                 driveCommercial = singleDrive;
             }
 
-            const fontId = editId || `font_${Date.now()}`;
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.innerText = 'กำลังอัปโหลดไฟล์...';
+            saveBtn.disabled = true;
 
-            if (regFile) {
-                const regBuffer = await readFileAsArrayBuffer(regFile);
-                await saveFontFile(`${fontId}_regular`, regBuffer);
-                await registerFontFace(fontId, en, 'normal', `${fontId}_regular`);
-            }
-            let hasBold = false;
-            if (boldFile) {
-                const boldBuffer = await readFileAsArrayBuffer(boldFile);
-                await saveFontFile(`${fontId}_bold`, boldBuffer);
-                await registerFontFace(fontId, en, 'bold', `${fontId}_bold`);
-                hasBold = true;
-            }
-            let hasLight = false;
-            if (lightFile) {
-                const lightBuffer = await readFileAsArrayBuffer(lightFile);
-                await saveFontFile(`${fontId}_light`, lightBuffer);
-                await registerFontFace(fontId, en, '300', `${fontId}_light`);
-                hasLight = true;
-            }
+            try {
+                let file_regular = null;
+                let file_bold = null;
+                let file_light = null;
 
-            if (editId) {
-                const index = fonts.findIndex(f => f.id === editId);
-                if (index !== -1) {
-                    fonts[index] = {
-                        ...fonts[index],
-                        th,
-                        en,
-                        p,
-                        c,
-                        drivePersonal,
-                        driveCommercial,
-                        hasBold: boldFile ? true : fonts[index].hasBold,
-                        hasLight: lightFile ? true : fonts[index].hasLight
-                    };
+                if (regFile) file_regular = await uploadFontToSupabase(regFile, `${en}_reg`);
+                if (boldFile) file_bold = await uploadFontToSupabase(boldFile, `${en}_bold`);
+                if (lightFile) file_light = await uploadFontToSupabase(lightFile, `${en}_light`);
+
+                if (supabaseClient) {
+                    if (editId) {
+                        const updatePayload = { th, en, p, c, drive_personal: drivePersonal, drive_commercial: driveCommercial };
+                        if (file_regular) updatePayload.file_regular = file_regular;
+                        if (file_bold) updatePayload.file_bold = file_bold;
+                        if (file_light) updatePayload.file_light = file_light;
+
+                        await supabaseClient.from('fonts').update(updatePayload).eq('id', editId);
+                    } else {
+                        await supabaseClient.from('fonts').insert([{
+                            th, en, p, c,
+                            drive_personal: drivePersonal,
+                            drive_commercial: driveCommercial,
+                            file_regular,
+                            file_bold,
+                            file_light
+                        }]);
+                    }
+                } else {
+                    // โหมด Local
+                    const fontId = editId || `font_${Date.now()}`;
+                    if (editId) {
+                        const index = fonts.findIndex(f => f.id === editId);
+                        if (index !== -1) {
+                            fonts[index] = {
+                                ...fonts[index],
+                                th, en, p, c,
+                                drive_personal: drivePersonal,
+                                drive_commercial: driveCommercial
+                            };
+                        }
+                    } else {
+                        fonts.push({
+                            id: fontId,
+                            th, en, p, c,
+                            drive_personal: drivePersonal,
+                            drive_commercial: driveCommercial,
+                            file_regular,
+                            file_bold,
+                            file_light
+                        });
+                    }
+                    localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts));
                 }
-                alert('แก้ไขข้อมูลฟอนต์เรียบร้อยแล้ว');
-            } else {
-                fonts.push({
-                    id: fontId,
-                    th,
-                    en,
-                    p,
-                    c,
-                    drivePersonal,
-                    driveCommercial,
-                    hasBold,
-                    hasLight
-                });
-                alert('เพิ่มฟอนต์ใหม่เข้าสู่ระบบเรียบร้อยแล้ว');
-            }
 
-            saveFontsToStorage();
-            resetForm();
-            populateSelects();
-            filterFonts();
-            renderAdminFontList();
+                alert('บันทึกข้อมูลฟอนต์ขึ้นเซิร์ฟเวอร์เรียบร้อยแล้ว ทุกเครื่องจะมองเห็นทันที!');
+                await loadFontsOnline();
+                resetForm();
+                populateSelects();
+                filterFonts();
+                renderAdminFontList();
+            } catch (err) {
+                alert('เกิดข้อผิดพลาดในการบันทึก: ' + err.message);
+            } finally {
+                saveBtn.innerText = '+ บันทึกฟอนต์ (อัปโหลด Cloud)';
+                saveBtn.disabled = false;
+            }
         }
 
         function renderAdminFontList() {
@@ -1449,14 +1444,21 @@
             });
         }
 
-        function moveFontOrder(index, direction) {
+        async function moveFontOrder(index, direction) {
             const targetIndex = index + direction;
             if (targetIndex < 0 || targetIndex >= fonts.length) return;
+            
             const temp = fonts[index];
             fonts[index] = fonts[targetIndex];
             fonts[targetIndex] = temp;
 
-            saveFontsToStorage();
+            if (supabaseClient) {
+                await supabaseClient.from('fonts').update({ order_index: targetIndex }).eq('id', temp.id);
+                await supabaseClient.from('fonts').update({ order_index: index }).eq('id', fonts[index].id);
+            } else {
+                localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts));
+            }
+
             renderAdminFontList();
             populateSelects();
             filterFonts();
@@ -1473,13 +1475,13 @@
             if (f.p === f.c) {
                 document.getElementById('priceType').value = 'single';
                 document.getElementById('newFontSingle').value = f.p;
-                document.getElementById('newFontDriveSingle').value = f.drivePersonal || '';
+                document.getElementById('newFontDriveSingle').value = f.drive_personal || '';
             } else {
                 document.getElementById('priceType').value = 'split';
                 document.getElementById('newFontP').value = f.p;
                 document.getElementById('newFontC').value = f.c;
-                document.getElementById('newFontDrivePersonal').value = f.drivePersonal || '';
-                document.getElementById('newFontDriveCommercial').value = f.driveCommercial || '';
+                document.getElementById('newFontDrivePersonal').value = f.drive_personal || '';
+                document.getElementById('newFontDriveCommercial').value = f.drive_commercial || '';
             }
             togglePriceInputs();
 
@@ -1492,16 +1494,22 @@
             document.getElementById('fontForm').reset();
             document.getElementById('editFontId').value = '';
             document.getElementById('formTitle').innerHTML = '<i class="fas fa-plus-circle text-pink-400"></i> เพิ่มฟอนต์ใหม่';
-            document.getElementById('saveBtn').innerText = '+ บันทึกฟอนต์';
+            document.getElementById('saveBtn').innerText = '+ บันทึกฟอนต์ (อัปโหลด Cloud)';
             document.getElementById('cancelEditBtn').classList.add('hidden');
             togglePriceInputs();
         }
 
         async function deleteFont(id) {
             if (!confirm('ต้องการลบฟอนต์นี้ออกจากระบบหรือไม่?')) return;
-            await deleteFontFiles(id);
-            fonts = fonts.filter(f => f.id !== id);
-            saveFontsToStorage();
+
+            if (supabaseClient) {
+                await supabaseClient.from('fonts').delete().eq('id', id);
+            } else {
+                fonts = fonts.filter(f => f.id !== id);
+                localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts));
+            }
+
+            await loadFontsOnline();
             renderAdminFontList();
             populateSelects();
             filterFonts();
