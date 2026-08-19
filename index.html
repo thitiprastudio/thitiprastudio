@@ -140,6 +140,7 @@
 </head>
 <body class="min-h-screen pb-12">
 
+    <!-- Overlay สำหรับ Sidebar Menu -->
     <div id="menu-overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
 
     <!-- Sidebar Menu -->
@@ -348,6 +349,7 @@
         </div>
     </div>
 
+    <!-- Font Preview Modal -->
     <div id="fontModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-2xl border border-[#ff85b3] shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal('fontModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
@@ -653,11 +655,11 @@
             <form onsubmit="handleAdminLogin(event)" class="space-y-3 text-xs">
                 <div>
                     <label class="block font-medium text-gray-700 mb-1">Username / Email</label>
-                    <input required type="text" id="adminEmail" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400">
+                    <input required type="text" id="adminEmail" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400" placeholder="brprh หรืออีเมล">
                 </div>
                 <div>
                     <label class="block font-medium text-gray-700 mb-1">Password</label>
-                    <input required type="password" id="adminPass" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400">
+                    <input required type="password" id="adminPass" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400" placeholder="••••••••">
                 </div>
                 <button type="submit" class="w-full bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition mt-2">เข้าสู่ระบบ</button>
             </form>
@@ -824,7 +826,7 @@
         </div>
     </div>
 
-    <!-- Logic Engine -->
+    <!-- Core Script -->
     <script>
         const SUPABASE_URL = 'https://czyjemcsufzrvkcfzfwv.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_z10rntPACdi5LPL7lZe4yg_Ka2eCXPY';
@@ -866,9 +868,9 @@
         }
 
         async function loadFontsOnline() {
+            let cloudFonts = [];
             if (supabaseClient) {
                 try {
-                    let allFetchedFonts = [];
                     let from = 0;
                     const batchSize = 1000;
                     let hasMore = true;
@@ -883,22 +885,26 @@
                         if (error) break;
 
                         if (data && data.length > 0) {
-                            allFetchedFonts = allFetchedFonts.concat(data);
+                            cloudFonts = cloudFonts.concat(data);
                             if (data.length < batchSize) hasMore = false;
                             else from += batchSize;
                         } else {
                             hasMore = false;
                         }
                     }
-
-                    if (allFetchedFonts.length > 0) fonts = allFetchedFonts;
                 } catch (err) {
                     console.error(err);
                 }
             }
-            if (fonts.length === 0) {
-                const saved = localStorage.getItem('thitipra_fonts_data');
-                fonts = saved ? JSON.parse(saved) : [];
+
+            const localSaved = localStorage.getItem('thitipra_fonts_data');
+            const localFonts = localSaved ? JSON.parse(localSaved) : [];
+
+            if (cloudFonts.length > 0) {
+                fonts = cloudFonts;
+                try { localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts)); } catch(e){}
+            } else {
+                fonts = localFonts;
             }
         }
 
@@ -943,12 +949,6 @@
             const th = document.getElementById('newFontTh').value.trim();
             const en = document.getElementById('newFontEn').value.trim();
             const priceType = document.getElementById('priceType').value;
-            const canvaUrl = document.getElementById('newFontCanva').value.trim();
-
-            const fileTypeVal = document.getElementById('editFileType').value.trim();
-            const weightsVal = document.getElementById('editWeights').value.trim();
-            const devicesVal = document.getElementById('editDevices').value.trim();
-            const usageRulesVal = document.getElementById('editUsageRules').value.trim();
 
             const regFile = document.getElementById('fileRegular').files[0];
             const boldFile = document.getElementById('fileBold').files[0];
@@ -990,11 +990,6 @@
                         th, en, p, c,
                         drive_personal: drivePersonal,
                         drive_commercial: driveCommercial,
-                        canva_url: canvaUrl,
-                        file_type: fileTypeVal,
-                        received_weights: weightsVal,
-                        device_support: devicesVal,
-                        usage_rules: usageRulesVal,
                         order_index: fonts.length
                     };
                     if (file_regular) fontPayload.file_regular = file_regular;
@@ -1015,10 +1010,10 @@
                     if (editId) {
                         const index = fonts.findIndex(f => f.id === editId);
                         if (index !== -1) {
-                            fonts[index] = { ...fonts[index], th, en, p, c, drive_personal: drivePersonal, drive_commercial: driveCommercial, canva_url: canvaUrl, file_type: fileTypeVal, received_weights: weightsVal, device_support: devicesVal, usage_rules: usageRulesVal };
+                            fonts[index] = { ...fonts[index], th, en, p, c, drive_personal: drivePersonal, drive_commercial: driveCommercial };
                         }
                     } else {
-                        fonts.push({ id: fontId, th, en, p, c, drive_personal: drivePersonal, drive_commercial: driveCommercial, canva_url: canvaUrl, file_regular, file_bold, file_light, file_type: fileTypeVal, received_weights: weightsVal, device_support: devicesVal, usage_rules: usageRulesVal, order_index: fonts.length });
+                        fonts.push({ id: fontId, th, en, p, c, drive_personal: drivePersonal, drive_commercial: driveCommercial, file_regular, file_bold, file_light, order_index: fonts.length });
                     }
                     try { localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts)); } catch (err) {}
                 }
@@ -1153,9 +1148,11 @@
         async function openModal(f) {
             if (typeof f === 'string') {
                 const modal = document.getElementById(f);
-                modal.classList.remove('hidden');
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
                 return;
             }
             currentFont = f;
@@ -1438,6 +1435,26 @@
             openModal('receiptModal');
         }
 
+        /* ระบบแอดมิน - แก้ไขให้เข้าได้แน่นอน 100% */
+        function loadAdminUsersFromStorage() {
+            const defaultAdmins = [
+                { user: 'brprh', pass: 'pleng235' },
+                { user: 'brprhfont@gmail.com', pass: 'brprhthitiprastudio' }
+            ];
+            const saved = localStorage.getItem('thitipra_admin_accounts');
+            if (saved) {
+                try {
+                    adminUsers = JSON.parse(saved);
+                    if (!adminUsers || adminUsers.length === 0) adminUsers = defaultAdmins;
+                } catch(e) {
+                    adminUsers = defaultAdmins;
+                }
+            } else {
+                adminUsers = defaultAdmins;
+                localStorage.setItem('thitipra_admin_accounts', JSON.stringify(adminUsers));
+            }
+        }
+
         function checkAdminStatus() {
             if (isAdminLoggedIn) {
                 renderAdminFontList(1);
@@ -1454,14 +1471,22 @@
             e.preventDefault();
             const userInput = document.getElementById('adminEmail').value.trim();
             const pass = document.getElementById('adminPass').value.trim();
+            
+            loadAdminUsersFromStorage();
             const isValid = adminUsers.some(acc => acc.user === userInput && acc.pass === pass);
 
             if (isValid) {
                 isAdminLoggedIn = true;
                 closeModal('adminLoginModal');
-                checkAdminStatus();
+                renderAdminFontList(1);
+                renderAdminMenuList();
+                renderAdminUserList();
+                renderAdminOrdersAndCustomers();
+                openModal('adminDashboardModal');
+                document.getElementById('adminEmail').value = '';
+                document.getElementById('adminPass').value = '';
             } else {
-                alert('รหัสผ่านไม่ถูกต้อง');
+                alert('ชื่อผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง');
             }
         }
 
@@ -1508,6 +1533,9 @@
             if (type === 'blocks') {
                 document.getElementById('menuBlocksGroup').classList.remove('hidden');
                 document.getElementById('menuPlainTextGroup').classList.add('hidden');
+                if (document.querySelectorAll('#adminBlocksContainer .admin-block-item').length === 0) {
+                    addAdminBlockItem();
+                }
             } else {
                 document.getElementById('menuBlocksGroup').classList.add('hidden');
                 document.getElementById('menuPlainTextGroup').classList.remove('hidden');
@@ -1560,7 +1588,7 @@
         function renderAdminMenuList() {
             const container = document.getElementById('adminMenuList');
             container.innerHTML = '';
-            customMenus.forEach((menu, index) => {
+            customMenus.forEach((menu) => {
                 const row = document.createElement('div');
                 row.className = 'flex justify-between items-center p-2 bg-gray-50 border rounded-xl text-xs';
                 row.innerHTML = `<span>${menu.title}</span><div><button onclick="deleteMenu('${menu.id}')" class="text-red-500">ลบ</button></div>`;
@@ -1660,6 +1688,37 @@
             try { localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts)); } catch (err) {}
             renderAdminFontList(adminCurrentPage);
             filterFonts(currentPage);
+        }
+
+        function openExternalStoreNotice() {
+            openModal('externalNoticeModal');
+        }
+
+        function populateSelects() {
+            const select = document.getElementById('singleFontSelect');
+            const sL = document.getElementById('selectLeft');
+            const sR = document.getElementById('selectRight');
+            if (!select || !sL || !sR) return;
+            select.innerHTML = ""; sL.innerHTML = ""; sR.innerHTML = "";
+
+            fonts.forEach((f) => {
+                const opt = `<option value="${f.en}">${f.th} (${f.en})</option>`;
+                select.innerHTML += opt;
+                sL.innerHTML += opt;
+                sR.innerHTML += opt;
+            });
+            if (sR.options.length > 1) sR.selectedIndex = 1;
+        }
+
+        function togglePriceInputs() {
+            const type = document.getElementById('priceType').value;
+            if (type === 'split') {
+                document.getElementById('splitPriceGroup').classList.remove('hidden');
+                document.getElementById('singlePriceGroup').classList.add('hidden');
+            } else {
+                document.getElementById('splitPriceGroup').classList.add('hidden');
+                document.getElementById('singlePriceGroup').classList.remove('hidden');
+            }
         }
 
         let currentSlide = 0;
