@@ -172,7 +172,6 @@
                     </div>
                 </button>
 
-                <!-- รายการเมนูไดนามิกที่แอดมินจัดการได้ -->
                 <div id="dynamicMenuItems" class="space-y-2 border-t border-b border-pink-100 py-2.5 my-2.5"></div>
 
                 <button onclick="checkAdminStatus(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-pink-50 hover:bg-pink-100 rounded-2xl transition text-[15px] text-pink-600 font-bold border border-pink-200">
@@ -312,7 +311,7 @@
                 <span id="dynamicModalIcon" class="text-2xl text-[#ff85b3]"></span>
                 <h2 id="dynamicModalTitle" class="text-xl font-bold text-[#5c3a21] font-slackey"></h2>
             </div>
-            <div id="dynamicModalContent" class="text-xs sm:text-sm text-gray-700 leading-relaxed space-y-3 whitespace-pre-line font-sans"></div>
+            <div id="dynamicModalContent" class="text-xs sm:text-sm text-gray-700 leading-relaxed font-sans"></div>
         </div>
     </div>
 
@@ -334,7 +333,7 @@
                 <p class="font-bold text-amber-950 flex items-center gap-1.5"><i class="fas fa-info-circle text-amber-600"></i> ข้อกำหนดในการจัดส่ง:</p>
                 <p>• เมื่อทำรายการสั่งซื้อฟอนต์เครืออื่นๆ ผ่านเว็บไซต์</p>
                 <p class="text-pink-600 font-bold bg-white p-2 rounded-xl border border-amber-200/60 text-center text-sm shadow-sm">
-                    ⏰ "ต้องรอแอดมินจัดส่งไฟล์ภายใน 1 - 3 ชั่วโมงนะคะ"
+                    ⏰ "ต้องรอแอดมินดึงเมลและจัดส่งไฟล์ภายใน 1 - 3 ชั่วโมง เนื่องจากติดงานประจำ แต่จะรีบดำเนินการให้ไวที่สุดค่ะ"
                 </p>
             </div>
 
@@ -385,7 +384,7 @@
                     <div id="modalPriceDisplay" class="p-3 text-xs font-semibold"></div>
                 </div>
 
-                <!-- กล่องแสดงผังตัวอย่างอักษร -->
+                <!-- ผังตัวอย่างอักษร -->
                 <div class="mt-5 p-4 sm:p-5 bg-gradient-to-b from-pink-50/70 to-pink-50/20 border border-pink-200/80 rounded-2xl text-left shadow-sm">
                     <div class="flex items-center justify-between mb-3 border-b border-pink-200/60 pb-2">
                         <span class="text-xs font-bold text-gray-800 flex items-center gap-2">
@@ -454,7 +453,7 @@
                     </div>
                 </div>
 
-                <!-- กล่องรายละเอียดฟอนต์ & อุปกรณ์ที่รองรับ -->
+                <!-- กล่องรายละเอียดฟอนต์ -->
                 <div class="mt-4 p-4 bg-white border border-pink-100 rounded-2xl text-left space-y-3 text-xs text-gray-700">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 border-b border-pink-50 pb-2">
                         <div><strong class="text-pink-600">ชนิดไฟล์:</strong> <span id="infoFileType">.otf, .ttf (ติดตั้งได้ทันที)</span></div>
@@ -676,9 +675,17 @@
                     <p class="text-[10px] text-gray-400">* ต้องใช้อีเมล Gmail เพื่อให้ระบบแชร์สิทธิ์โฟลเดอร์ Google Drive</p>
                 </div>
 
-                <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-center text-amber-800 font-semibold text-xs leading-relaxed">
-                    📲 เมื่อชำระเงินเรียบร้อยแล้ว กดปุ่มด้านล่างเพื่อเปิด LINE OA<br>
-                    <span class="text-pink-600 font-bold">"แนบสลิปการโอนเงินในห้องแชทได้ทันทีค่ะ"</span>
+                <!-- กล่องแจ้งเตือนเรื่องการรอแอดมินดึงเมล -->
+                <div class="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl text-center text-amber-900 font-medium text-xs leading-relaxed space-y-1 shadow-xs">
+                    <div class="flex items-center justify-center gap-1.5 text-amber-700 font-bold">
+                        <i class="fas fa-clock"></i> <span>ข้อความสำคัญก่อนชำระเงิน</span>
+                    </div>
+                    <p class="text-[11px] text-amber-800">
+                        เมื่อโอนเงินเรียบร้อยแล้ว <span class="text-pink-600 font-bold">รบกวนรอแอดมินดึงเมลแชร์ไดรฟ์ 1 - 3 ชั่วโมงนะคะ</span>
+                    </p>
+                    <p class="text-[10px] text-gray-500">
+                        (เนื่องจากแอดมินติดงานประจำ แต่จะรีบดึงให้ไวที่สุดเมื่อสะดวกค่ะ ขอบคุณที่เข้าใจนะคะ 💖)
+                    </p>
                 </div>
 
                 <button type="submit" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold py-3.5 rounded-2xl transition shadow-md flex items-center justify-center gap-2 text-sm">
@@ -861,20 +868,39 @@
                     </h4>
                     <input type="hidden" id="editMenuId" value="">
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="sm:col-span-2">
                             <label class="block font-medium text-gray-700 mb-1">ชื่อเมนูที่จะแสดงบน Bar</label>
                             <input required type="text" id="newMenuTitle" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น เงื่อนไข & ประเภทการใช้งาน, วิธีสั่งซื้อ">
                         </div>
                         <div>
-                            <label class="block font-medium text-gray-700 mb-1">ไอคอน (FontAwesome Class)</label>
-                            <input type="text" id="newMenuIcon" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น fas fa-scale-balanced, fas fa-shield-alt">
+                            <label class="block font-medium text-gray-700 mb-1">ไอคอน (FontAwesome)</label>
+                            <input type="text" id="newMenuIcon" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น fas fa-scale-balanced">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block font-medium text-gray-700 mb-1">เนื้อหาที่จะแสดงเมื่อกดเข้าไป (รองรับการขึ้นบรรทัดใหม่)</label>
-                        <textarea required id="newMenuContent" rows="7" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white leading-relaxed font-sans" placeholder="กรอกรายละเอียด ข้อความ กฎ หรือเงื่อนไขที่ต้องการแสดง..."></textarea>
+                        <label class="block font-medium text-gray-700 mb-1">รูปแบบเนื้อหาที่ต้องการแสดง</label>
+                        <select id="menuContentType" onchange="toggleMenuContentType()" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white font-semibold text-pink-600">
+                            <option value="blocks">แบบแบ่งเป็นกรอบกล่องข้อความ (หัวข้อย่อย + รายละเอียด)</option>
+                            <option value="text">แบบข้อความยาวต่อเนื่อง (Plain Text)</option>
+                        </select>
+                    </div>
+
+                    <div id="menuPlainTextGroup" class="hidden">
+                        <label class="block font-medium text-gray-700 mb-1">เนื้อหาข้อความยาว (รองรับการขึ้นบรรทัดใหม่)</label>
+                        <textarea id="newMenuContent" rows="6" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white leading-relaxed font-sans" placeholder="กรอกรายละเอียด ข้อความ กฎ หรือเงื่อนไขที่ต้องการแสดง..."></textarea>
+                    </div>
+
+                    <div id="menuBlocksGroup" class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <label class="block font-medium text-gray-700">รายการกรอบข้อความย่อย (Cards / Sections):</label>
+                            <button type="button" onclick="addAdminBlockItem()" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-bold px-3 py-1 rounded-full text-[11px] transition flex items-center gap-1">
+                                <i class="fas fa-plus"></i> เพิ่มกรอบข้อความ
+                            </button>
+                        </div>
+
+                        <div id="adminBlocksContainer" class="space-y-2.5"></div>
                     </div>
 
                     <div class="flex gap-2 pt-1">
@@ -1009,43 +1035,33 @@
             localStorage.setItem('thitipra_admin_accounts', JSON.stringify(adminUsers));
         }
 
-        /* โหลดและตรวจสอบเมนูเริ่มต้นของ Sidebar พร้อมอัปเดตถ้ายังไม่มีเมนูเงื่อนไข */
         function loadCustomMenusFromStorage() {
             const defaultUsageMenu = {
                 id: 'menu_usage_types',
                 title: 'เงื่อนไข & ประเภทการใช้งาน',
                 icon: 'fas fa-scale-balanced',
-                content: `⚖️ เงื่อนไขและประเภทการใช้งาน:
-
-• สิทธิ์ส่วนตัว: ทำงานส่งอาจารย์, แต่งรูป/คลิปพื้นที่ส่วนบุคคล
-• สิทธิ์เชิงพาณิชย์: แต่งป้ายสินค้า, ทำสื่อโฆษณา, เพจ, รีวิว, นายหน้า TikTok
-• สิทธิ์นิติบุคคล (700.-): บริษัท องค์กร หจก. (ไม่เกิน 5 เครื่อง) พร้อมใบรับรองสิทธิ์
-
-------------------------------------------
-👤 1. สิทธิ์ใช้งานส่วนตัว (Personal License):
-- สำหรับ 1 บุคคล / 1 การสั่งซื้อ (ไม่เกี่ยวกับการเงิน/กำไร)
-- ใช้งานเพื่อการศึกษา จดโน้ต ทำรายงาน ปริ้นอ่านเองได้
-- ตั้งค่าฟอนต์ระบบในเครื่อง Android ได้
-- แต่งภาพ/วิดีโอลงในพื้นที่ส่วนบุคคล (ที่ไม่ใช่พื้นที่ขายของ/เพจ/รีวิว/โปรโมท)
-
-💼 2. สิทธิ์ใช้งานเชิงพาณิชย์ (Commercial License):
-- มีเงิน รายได้ หรือผลประโยชน์เข้ามาเกี่ยวข้อง
-- ตกแต่งภาพสินค้า, ป้ายโปรโมต, โฆษณา Ads
-- ใช้ในแพลตฟอร์ม Facebook, IG, TikTok, Lemon8, เพจ, YouTube
-- สื่อสิ่งพิมพ์ ปริ้น สกรีน ไดคัท แพ็กเกจจิ้งสินค้า โลโก้
-- สติกเกอร์ / ธีมไลน์ (ต้องตกแต่งสำเร็จรูป ไม่ขายเป็นตัวอักษรแยก)
-
-🏢 3. สิทธิ์นิติบุคคล (Business License 700.- ขึ้นไป):
-- สำหรับ บริษัท, องค์กร, ห้างหุ้นส่วนจำกัด (หจก.)
-- จำกัดผู้ใช้งานไม่เกิน 5 เครื่อง ต่อ 1 การสั่งซื้อ
-- ใช้งานเชิงพาณิชย์ หรือรับจ้างออกแบบให้ผู้อื่น
-- ออกใบเสร็จรับเงิน (ไม่จด VAT) + ออกใบรับรองสิทธิ์ถูกต้องตามกฎหมาย`
+                type: 'blocks',
+                blocks: [
+                    {
+                        subtitle: '👤 สิทธิ์ใช้งานส่วนตัว (Personal License)',
+                        text: '• สำหรับ 1 บุคคล / 1 การสั่งซื้อ (ไม่เกี่ยวกับการเงิน/กำไร)\n• ใช้งานเพื่อการศึกษา จดโน้ต ทำรายงาน ปริ้นอ่านเองได้\n• ตั้งค่าฟอนต์ระบบในเครื่อง Android ได้\n• แต่งภาพ/วิดีโอลงในพื้นที่ส่วนบุคคล (ที่ไม่ใช่พื้นที่ขายของ/เพจ/รีวิว/โปรโมท)'
+                    },
+                    {
+                        subtitle: '💼 สิทธิ์ใช้งานเชิงพาณิชย์ (Commercial License)',
+                        text: '• มีเงิน รายได้ หรือผลประโยชน์เข้ามาเกี่ยวข้อง\n• ตกแต่งภาพสินค้า, ป้ายโปรโมต, โฆษณา Ads\n• ใช้ในแพลตฟอร์ม Facebook, IG, TikTok, Lemon8, เพจ, YouTube\n• สื่อสิ่งพิมพ์ ปริ้น สกรีน ไดคัท แพ็กเกจจิ้งสินค้า โลโก้\n• สติกเกอร์ / ธีมไลน์ (ต้องตกแต่งสำเร็จรูป ไม่ขายเป็นตัวอักษรแยก)'
+                    },
+                    {
+                        subtitle: '🏢 สิทธิ์นิติบุคคล (Business License 700.- ขึ้นไป)',
+                        text: '• สำหรับ บริษัท, องค์กร, ห้างหุ้นส่วนจำกัด (หจก.)\n• จำกัดผู้ใช้งานไม่เกิน 5 เครื่อง ต่อ 1 การสั่งซื้อ\n• ใช้งานเชิงพาณิชย์ หรือรับจ้างออกแบบให้ผู้อื่น\n• ออกใบเสร็จรับเงิน (ไม่จด VAT) + ออกใบรับรองสิทธิ์ถูกต้องตามกฎหมาย'
+                    }
+                ]
             };
 
             const defaultRulesMenu = {
                 id: 'menu_rules',
                 title: 'กฎและข้อห้ามลิขสิทธิ์',
                 icon: 'fas fa-shield-halved',
+                type: 'text',
                 content: `1 การสั่งซื้อ ต่อ 1 อีเมล = ใช้ได้ 1 บุคคลเท่านั้น\n\nราคาสำหรับบริษัท/องค์กร/หจก. เริ่มต้น 700.- (จำกัดไม่เกิน 5 เครื่อง)\n\n1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้อง Create outline หรือส่งออกเป็นไฟล์งานสำเร็จเท่านั้น\n2. ห้ามแยกตัวอักษร/เติมสีทำสติกเกอร์ไลน์ หรือพิมพ์สติกเกอร์ขาย\n3. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์\n4. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเทรนฟอนต์ที่คล้ายคลึงกับฟอนต์นี้\n\n⚠️ หากพบการละเมิดลิขสิทธิ์ ปรับ 10,000 บาท / 1 ไฟล์`
             };
 
@@ -1053,6 +1069,7 @@
                 id: 'menu_about',
                 title: 'รู้จักกับสตูดิโอ',
                 icon: 'fas fa-id-card',
+                type: 'text',
                 content: `Welcome to ThitipraStudio\nเจ้าของเครือฟอนต์ BR & PRH Font\nเปิดขายครั้งแรก 15 May 2023 (เดิม Babyrainfont)\n\nสไตล์ฟอนต์ประจำร้าน: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย`
             };
 
@@ -1060,7 +1077,6 @@
             if (saved) {
                 try {
                     customMenus = JSON.parse(saved);
-                    // ตรวจสอบและแทรกเมนูเงื่อนไขอัตโนมัติหากยังไม่มีในแคชเก่า
                     const exists = customMenus.some(m => m.id === 'menu_usage_types' || m.title.includes('เงื่อนไข'));
                     if (!exists) {
                         customMenus.unshift(defaultUsageMenu);
@@ -1106,7 +1122,32 @@
 
             document.getElementById('dynamicModalTitle').innerText = menu.title;
             document.getElementById('dynamicModalIcon').className = menu.icon || 'fas fa-file-alt';
-            document.getElementById('dynamicModalContent').innerText = menu.content;
+            
+            const contentContainer = document.getElementById('dynamicModalContent');
+            contentContainer.innerHTML = '';
+
+            if (menu.type === 'blocks' && Array.isArray(menu.blocks) && menu.blocks.length > 0) {
+                const blocksWrapper = document.createElement('div');
+                blocksWrapper.className = 'space-y-3';
+
+                menu.blocks.forEach((b) => {
+                    const blockCard = document.createElement('div');
+                    blockCard.className = 'p-3.5 bg-gradient-to-br from-pink-50/50 to-white border border-pink-200/80 rounded-2xl shadow-xs space-y-1.5';
+                    blockCard.innerHTML = `
+                        <div class="font-bold text-gray-800 text-sm flex items-center gap-1.5 text-pink-600">
+                            <i class="fas fa-bookmark text-pink-400 text-xs"></i> ${b.subtitle || 'รายละเอียด'}
+                        </div>
+                        <div class="text-xs text-gray-600 leading-relaxed whitespace-pre-line pl-1">${b.text || ''}</div>
+                    `;
+                    blocksWrapper.appendChild(blockCard);
+                });
+                contentContainer.appendChild(blocksWrapper);
+            } else {
+                const textDiv = document.createElement('div');
+                textDiv.className = 'p-3.5 bg-pink-50/30 border border-pink-100 rounded-2xl text-xs sm:text-sm text-gray-700 leading-relaxed whitespace-pre-line';
+                textDiv.innerText = menu.content || '';
+                contentContainer.appendChild(textDiv);
+            }
 
             openModal('dynamicPageModal');
         }
@@ -1426,7 +1467,8 @@
 • ยอดโอน: ${priceText}
 • เมลลูกค้า: ${email}
 ---------------------------
-(แนบสลิปการโอนเงินด้านล่างนี้ได้เลยค่ะ)`;
+(แนบสลิปการโอนเงินด้านล่างนี้ได้เลยค่ะ)
+⏰ รอแอดมินดึงเมลและจัดส่งไฟล์ไดรฟ์ภายใน 1-3 ชม. นะคะ`;
 
             const lineUrl = `https://line.me/R/oaMessage/@wbk2012r/?${encodeURIComponent(message)}`;
             window.open(lineUrl, '_blank') || window.open('https://lin.ee/8k1sAhb', '_blank');
@@ -1496,23 +1538,77 @@
             }
         }
 
-        /* 8. จัดการ Sidebar Menu */
+        /* 8. จัดการ Sidebar Menu & กรอบข้อความย่อย */
+        function toggleMenuContentType() {
+            const type = document.getElementById('menuContentType').value;
+            if (type === 'blocks') {
+                document.getElementById('menuBlocksGroup').classList.remove('hidden');
+                document.getElementById('menuPlainTextGroup').classList.add('hidden');
+                if (document.querySelectorAll('#adminBlocksContainer .admin-block-item').length === 0) {
+                    addAdminBlockItem();
+                }
+            } else {
+                document.getElementById('menuBlocksGroup').classList.add('hidden');
+                document.getElementById('menuPlainTextGroup').classList.remove('hidden');
+            }
+        }
+
+        function addAdminBlockItem(subtitle = '', text = '') {
+            const container = document.getElementById('adminBlocksContainer');
+            const div = document.createElement('div');
+            div.className = 'admin-block-item p-3 bg-white border border-pink-200 rounded-xl space-y-2 relative shadow-xs';
+            div.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-[11px] text-pink-600"><i class="fas fa-cube"></i> กล่องข้อความ</span>
+                    <button type="button" onclick="this.closest('.admin-block-item').remove()" class="text-red-400 hover:text-red-600 text-xs font-bold px-1.5 py-0.5 rounded hover:bg-red-50">
+                        <i class="fas fa-trash"></i> ลบกรอบนี้
+                    </button>
+                </div>
+                <div>
+                    <label class="block text-[10px] text-gray-500 mb-0.5">หัวข้อย่อยประจำกรอบ:</label>
+                    <input type="text" class="block-subtitle w-full border border-pink-100 rounded-lg p-2 text-xs font-bold bg-pink-50/30" placeholder="เช่น 👤 สิทธิ์ใช้งานส่วนตัว" value="${subtitle}">
+                </div>
+                <div>
+                    <label class="block text-[10px] text-gray-500 mb-0.5">รายละเอียดข้อความในกรอบ:</label>
+                    <textarea rows="3" class="block-text w-full border border-pink-100 rounded-lg p-2 text-xs bg-pink-50/20" placeholder="รายละเอียดข้อความ...">${text}</textarea>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
         function handleSaveMenu(e) {
             e.preventDefault();
             const editId = document.getElementById('editMenuId').value;
             const title = document.getElementById('newMenuTitle').value.trim();
             const icon = document.getElementById('newMenuIcon').value.trim() || 'fas fa-file-alt';
-            const content = document.getElementById('newMenuContent').value;
+            const type = document.getElementById('menuContentType').value;
+
+            let menuPayload = { title, icon, type };
+
+            if (type === 'blocks') {
+                const blockElements = document.querySelectorAll('#adminBlocksContainer .admin-block-item');
+                const blocks = [];
+                blockElements.forEach(el => {
+                    const subtitle = el.querySelector('.block-subtitle').value.trim();
+                    const text = el.querySelector('.block-text').value;
+                    if (subtitle || text) {
+                        blocks.push({ subtitle, text });
+                    }
+                });
+                menuPayload.blocks = blocks;
+            } else {
+                menuPayload.content = document.getElementById('newMenuContent').value;
+            }
 
             if (editId) {
                 const index = customMenus.findIndex(m => m.id === editId);
                 if (index !== -1) {
-                    customMenus[index] = { ...customMenus[index], title, icon, content };
+                    customMenus[index] = { ...customMenus[index], ...menuPayload };
                 }
                 alert('แก้ไขเมนูเรียบร้อยแล้ว');
             } else {
                 const newId = `menu_${Date.now()}`;
-                customMenus.push({ id: newId, title, icon, content });
+                customMenus.push({ id: newId, ...menuPayload });
                 alert('เพิ่มเมนูใหม่ใน Sidebar เรียบร้อยแล้ว');
             }
 
@@ -1531,12 +1627,17 @@
             customMenus.forEach((menu, index) => {
                 const row = document.createElement('div');
                 row.className = 'flex items-center justify-between p-2.5 bg-gray-50 border border-gray-100 rounded-xl text-xs';
+                const isBlocks = menu.type === 'blocks';
+                const previewDesc = isBlocks 
+                    ? `(แบบแบ่ง ${menu.blocks ? menu.blocks.length : 0} กรอบข้อความ)` 
+                    : (menu.content ? menu.content.slice(0, 30) + '...' : '');
+
                 row.innerHTML = `
                     <div class="flex items-center gap-2">
                         <span class="font-bold text-gray-400 w-5">${index + 1}.</span>
                         <div>
                             <span class="font-bold text-gray-800"><i class="${menu.icon || 'fas fa-file-alt'} text-pink-400 mr-1"></i> ${menu.title}</span>
-                            <div class="text-[10px] text-gray-400 truncate max-w-xs">${menu.content.slice(0, 35)}...</div>
+                            <div class="text-[10px] text-gray-400 truncate max-w-xs">${previewDesc}</div>
                         </div>
                     </div>
                     <div class="flex items-center gap-1">
@@ -1569,7 +1670,21 @@
             document.getElementById('editMenuId').value = menu.id;
             document.getElementById('newMenuTitle').value = menu.title;
             document.getElementById('newMenuIcon').value = menu.icon || '';
-            document.getElementById('newMenuContent').value = menu.content;
+            document.getElementById('menuContentType').value = menu.type || 'text';
+
+            toggleMenuContentType();
+
+            if (menu.type === 'blocks') {
+                const container = document.getElementById('adminBlocksContainer');
+                container.innerHTML = '';
+                if (Array.isArray(menu.blocks) && menu.blocks.length > 0) {
+                    menu.blocks.forEach(b => addAdminBlockItem(b.subtitle, b.text));
+                } else {
+                    addAdminBlockItem();
+                }
+            } else {
+                document.getElementById('newMenuContent').value = menu.content || '';
+            }
 
             document.getElementById('menuFormTitle').innerHTML = '<i class="fas fa-edit text-pink-400"></i> แก้ไขเมนูและเนื้อหา';
             document.getElementById('saveMenuBtn').innerText = 'บันทึกการแก้ไข';
@@ -1579,6 +1694,10 @@
         function resetMenuForm() {
             document.getElementById('menuForm').reset();
             document.getElementById('editMenuId').value = '';
+            document.getElementById('adminBlocksContainer').innerHTML = '';
+            document.getElementById('menuContentType').value = 'blocks';
+            toggleMenuContentType();
+
             document.getElementById('menuFormTitle').innerHTML = '<i class="fas fa-plus-circle text-pink-400"></i> เพิ่มเมนูและเนื้อหาใหม่ใน Sidebar';
             document.getElementById('saveMenuBtn').innerText = '+ บันทึกเมนู';
             document.getElementById('cancelEditMenuBtn').classList.add('hidden');
