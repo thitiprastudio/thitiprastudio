@@ -173,7 +173,6 @@
                     </div>
                 </button>
 
-                <!-- รายการเมนูไดนามิก (เงื่อนไขสิทธิ์ & กฎการใช้งาน) -->
                 <div id="dynamicMenuItems" class="space-y-2 border-t border-b border-pink-100 py-2.5 my-2.5"></div>
 
                 <button onclick="checkAdminStatus(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-pink-50 hover:bg-pink-100 rounded-2xl transition text-[15px] text-pink-600 font-bold border border-pink-200">
@@ -1755,7 +1754,7 @@
             const user = document.getElementById('newAdminUser').value.trim();
             const pass = document.getElementById('newAdminPass').value.trim();
             adminUsers.push({ user, pass });
-            saveAdminUsersToStorage();
+            saveCustomMenusToStorage();
             renderAdminUserList();
             document.getElementById('newAdminUser').value = '';
             document.getElementById('newAdminPass').value = '';
@@ -1764,7 +1763,7 @@
         function deleteAdminUser(index) {
             if (adminUsers.length <= 1) return;
             adminUsers.splice(index, 1);
-            saveAdminUsersToStorage();
+            saveCustomMenusToStorage();
             renderAdminUserList();
         }
 
