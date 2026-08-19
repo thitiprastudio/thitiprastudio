@@ -133,7 +133,7 @@
     <!-- Overlay สำหรับ Sidebar Menu -->
     <div id="menu-overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
 
-    <!-- Sidebar Menu 🎀 -->
+    <!-- Sidebar Menu 🎀 (แสดงเมนูหลัก + เมนูที่แอดมินเพิ่มเองแบบไดนามิก) -->
     <div id="side-menu" class="fixed inset-y-0 left-0 w-72 bg-white/95 backdrop-blur-md shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out border-r border-pink-200">
         <div class="p-6 h-full flex flex-col">
             <div class="flex justify-between items-center mb-6 border-b border-pink-100 pb-4">
@@ -143,21 +143,19 @@
                 </button>
             </div>
             
-            <div class="space-y-3 font-medium text-[#5c3a21] flex-1">
+            <div class="space-y-2.5 font-medium text-[#5c3a21] flex-1 overflow-y-auto pr-1">
+                <!-- เมนูคงที่หลัก -->
                 <a href="#fonts-section" onclick="toggleMenu()" class="flex items-center gap-3 p-3 hover:bg-pink-50 rounded-2xl transition text-[15px]">
                     <span class="text-[#ff85b3]"><i class="fas fa-font"></i></span> แคตตาล็อกฟอนต์ทั้งหมด
                 </a>
                 <button onclick="openVS(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 hover:bg-pink-50 rounded-2xl transition text-[15px]">
                     <span class="text-[#ff85b3]"><i class="fas fa-columns"></i></span> โหมดเปรียบเทียบ (VS Mode)
                 </button>
-                <button onclick="openModal('rulesModal'); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 hover:bg-pink-50 rounded-2xl transition text-[15px]">
-                    <span class="text-red-400"><i class="fas fa-shield-halved"></i></span> กฎและเงื่อนไขการใช้งาน
-                </button>
-                <button onclick="openModal('infoModal'); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 hover:bg-pink-50 rounded-2xl transition text-[15px]">
-                    <span class="text-[#ff85b3]"><i class="fas fa-id-card"></i></span> รู้จักกับสตูดิโอ
-                </button>
-                
-                <!-- ปุ่มเข้าแอดมินในเมนูข้าง -->
+
+                <!-- จุดแสดงเมนูที่แอดมินสร้างเพิ่มเอง -->
+                <div id="dynamicMenuItems" class="space-y-2.5 border-t border-b border-pink-100 py-2.5 my-2.5"></div>
+
+                <!-- เมนูแอดมิน -->
                 <button onclick="checkAdminStatus(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-pink-50 hover:bg-pink-100 rounded-2xl transition text-[15px] text-pink-600 font-bold border border-pink-200">
                     <span><i class="fas fa-user-shield text-pink-500"></i></span> ระบบหลังบ้าน (แอดมิน)
                 </button>
@@ -169,7 +167,7 @@
         </div>
     </div>
 
-    <!-- Top Bar (มีปุ่มแอดมินที่มุมขวาบนแบบเดิม) -->
+    <!-- Top Bar -->
     <div class="w-full bg-white/90 backdrop-blur-md border-b border-pink-200 py-3 px-4 flex justify-between items-center text-xs font-slackey text-pink-400 font-medium tracking-wider sticky top-0 z-30 shadow-sm">
         <div class="flex items-center gap-2">
             <button onclick="toggleMenu()" class="p-1.5 hover:bg-pink-100 rounded-lg text-pink-500 transition">
@@ -286,6 +284,20 @@
 
     <!-- ==================== MODALS ==================== -->
 
+    <!-- Dynamic Modal สำหรับหน้าข้อมูลที่แอดมินสร้างเอง -->
+    <div id="dynamicPageModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-lg border border-pink-200 shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('dynamicPageModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="flex items-center gap-3 mb-4 border-b border-pink-100 pb-3">
+                <span id="dynamicModalIcon" class="text-2xl text-[#ff85b3]"></span>
+                <h2 id="dynamicModalTitle" class="text-xl font-bold text-[#5c3a21] font-slackey"></h2>
+            </div>
+            <div id="dynamicModalContent" class="text-xs sm:text-sm text-gray-700 leading-relaxed space-y-3 whitespace-pre-line"></div>
+        </div>
+    </div>
+
     <!-- Modal 1: ทดลองพิมพ์เดี่ยว -->
     <div id="fontModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-lg border border-[#ff85b3] shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
@@ -362,46 +374,6 @@
         </div>
     </div>
 
-    <!-- Modal 3: กฎการใช้งาน -->
-    <div id="rulesModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
-        <div class="bg-white rounded-3xl p-6 w-full max-w-lg border border-red-200 shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeModal('rulesModal')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 bg-gray-50 rounded-full p-1.5">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <h2 class="text-lg font-bold text-red-500 text-center mb-3">ข้อห้ามการใช้งานทุกเงื่อนไข</h2>
-            <a href="https://rule-brprh.my.canva.site/" target="_blank" class="block text-center bg-[#ff85b3] text-white text-xs py-2.5 rounded-xl mb-4 font-semibold">
-                <i class="fas fa-external-link-alt"></i> อ่านกฎการใช้งานเพิ่มเติมบน Canva
-            </a>
-            <ul class="text-xs space-y-2 text-gray-700 leading-relaxed list-none p-0">
-                <li class="bg-[#FFF0F5] p-3 rounded-xl border-l-4 border-amber-400">1 การสั่งซื้อ ต่อ 1 อีเมล = ใช้ได้ 1 บุคคลเท่านั้น</li>
-                <li class="bg-[#FFF0F5] p-3 rounded-xl border-l-4 border-amber-400">ราคาสำหรับบริษัท/องค์กร/หจก. เริ่มต้น 700.- (จำกัดไม่เกิน 5 เครื่อง)</li>
-                <li class="bg-[#FFF3B0] p-3 rounded-xl border-l-4 border-red-500 text-red-600">1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้อง Create outline หรือส่งออกเป็นไฟล์งานสำเร็จเท่านั้น</li>
-                <li class="bg-[#FFF3B0] p-3 rounded-xl border-l-4 border-red-500 text-red-600">2. ห้ามแยกตัวอักษร/เติมสีทำสติกเกอร์ไลน์ หรือพิมพ์สติกเกอร์ขาย</li>
-                <li class="bg-[#FFF3B0] p-3 rounded-xl border-l-4 border-red-500 text-red-600">3. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์</li>
-                <li class="bg-[#FFF3B0] p-3 rounded-xl border-l-4 border-red-500 text-red-600">4. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเทรนฟอนต์ที่คล้ายคลึงกับฟอนต์นี้</li>
-            </ul>
-            <div class="bg-[#FFF3B0] p-3 rounded-xl text-center text-xs font-bold text-amber-900 mt-4">
-                ⚠️ หากพบการละเมิดลิขสิทธิ์ ปรับ 10,000 บาท / 1 ไฟล์
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 4: รู้จักสตูดิโอ -->
-    <div id="infoModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
-        <div class="bg-white rounded-3xl p-6 w-full max-w-sm border border-pink-200 shadow-2xl modal-enter relative text-center">
-            <button onclick="closeModal('infoModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <img src="IPCB5121.PNG" class="w-20 h-20 rounded-2xl mx-auto mb-3 border border-pink-200">
-            <h2 class="text-base font-bold text-[#ff85b3]">Welcome to ThitipraStudio</h2>
-            <p class="text-xs text-gray-600 mt-1">เจ้าของเครือฟอนต์ <b>BR & PRH Font</b></p>
-            <p class="text-[11px] text-gray-400">เปิดขายครั้งแรก 15 May 2023 (เดิม Babyrainfont)</p>
-            <div class="bg-pink-50 p-3 rounded-2xl border border-pink-100 text-xs text-gray-600 mt-4">
-                สไตล์ฟอนต์ประจำร้าน: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย
-            </div>
-        </div>
-    </div>
-
     <!-- Modal 5: Admin Login -->
     <div id="adminLoginModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-sm border-2 border-pink-300 shadow-2xl modal-enter relative">
@@ -425,18 +397,19 @@
         </div>
     </div>
 
-    <!-- Modal 6: Admin Dashboard (จัดการฟอนต์ + แนบลิงก์ Drive + จัดการรหัสผ่าน) -->
+    <!-- Modal 6: Admin Dashboard (จัดการฟอนต์ + เมนูข้าง Sidebar + รหัสผ่าน) -->
     <div id="adminDashboardModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-2xl border-2 border-pink-300 shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-4 border-b pb-3">
-                <div class="flex gap-2">
-                    <button onclick="switchAdminTab('fonts')" id="tabBtnFonts" class="font-slackey text-sm px-4 py-1.5 rounded-full bg-[#ff85b3] text-white">จัดการฟอนต์</button>
-                    <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="font-slackey text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">จัดการรหัสผ่าน</button>
+            <div class="flex justify-between items-center mb-4 border-b pb-3 flex-wrap gap-2">
+                <div class="flex gap-2 flex-wrap">
+                    <button onclick="switchAdminTab('fonts')" id="tabBtnFonts" class="font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-[#ff85b3] text-white">จัดการฟอนต์</button>
+                    <button onclick="switchAdminTab('menus')" id="tabBtnMenus" class="font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">จัดการ Sidebar Menu</button>
+                    <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">จัดการรหัสผ่าน</button>
                 </div>
                 <button onclick="adminLogout()" class="text-xs bg-red-50 text-red-500 px-3 py-1.5 rounded-full hover:bg-red-100 transition">ออกจากระบบ</button>
             </div>
 
-            <!-- Tab 1: ฟอร์มเพิ่ม/แก้ไขฟอนต์ -->
+            <!-- Tab 1: จัดการฟอนต์ -->
             <div id="adminTabFonts">
                 <form id="fontForm" onsubmit="handleSaveFont(event)" class="space-y-3 text-xs bg-pink-50/40 p-4 rounded-2xl border border-pink-100 mb-6">
                     <h4 id="formTitle" class="font-bold text-gray-700 text-sm mb-2 flex items-center gap-1.5">
@@ -463,7 +436,6 @@
                         </select>
                     </div>
 
-                    <!-- ฟิลด์ราคาและลิงก์ Drive แบบแยกประเภท -->
                     <div id="splitPriceGroup" class="space-y-3">
                         <div class="p-3 bg-white rounded-xl border border-pink-100 space-y-2">
                             <span class="font-bold text-pink-600">สิทธิ์ใช้งานส่วนตัว (Personal Use)</span>
@@ -481,7 +453,6 @@
                         </div>
                     </div>
 
-                    <!-- ฟิลด์ราคาและลิงก์ Drive แบบราคาเดียว -->
                     <div id="singlePriceGroup" class="hidden p-3 bg-white rounded-xl border border-pink-100 space-y-2">
                         <span class="font-bold text-green-600">ใช้งานได้ทั้งส่วนตัว & เชิงพาณิชย์</span>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -490,7 +461,6 @@
                         </div>
                     </div>
 
-                    <!-- อัปโหลดไฟล์ฟอนต์ 3 น้ำหนัก -->
                     <div class="border-t border-pink-100 pt-3 space-y-2">
                         <span class="block font-semibold text-gray-700">ไฟล์ฟอนต์สำหรับทดลองพิมพ์สด (.ttf / .otf)</span>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -526,7 +496,48 @@
                 <div id="adminFontList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
             </div>
 
-            <!-- Tab 2: จัดการรหัสผ่านแอดมิน -->
+            <!-- Tab 2: จัดการ Sidebar Menu & ข้อมูลหน้าเพจ -->
+            <div id="adminTabMenus" class="hidden space-y-4 text-xs">
+                <form id="menuForm" onsubmit="handleSaveMenu(event)" class="bg-pink-50/40 p-4 rounded-2xl border border-pink-100 space-y-3">
+                    <h4 id="menuFormTitle" class="font-bold text-gray-700 text-sm flex items-center gap-1.5">
+                        <i class="fas fa-plus-circle text-pink-400"></i> เพิ่มเมนูและเนื้อหาใหม่ใน Sidebar
+                    </h4>
+                    <input type="hidden" id="editMenuId" value="">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-medium text-gray-700 mb-1">ชื่อเมนูที่จะแสดงบน Bar</label>
+                            <input required type="text" id="newMenuTitle" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น โปรโมชั่นพิเศษ, วิธีสั่งซื้อ">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-gray-700 mb-1">ไอคอน (FontAwesome Class)</label>
+                            <input type="text" id="newMenuIcon" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น fas fa-gift, fas fa-star">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-gray-700 mb-1">เนื้อหาที่จะแสดงเมื่อกดเข้าไป (รองรับการขึ้นบรรทัดใหม่)</label>
+                        <textarea required id="newMenuContent" rows="5" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white leading-relaxed" placeholder="กรอกรายละเอียด ข้อความ กฎ หรือเงื่อนไขที่ต้องการแสดง..."></textarea>
+                    </div>
+
+                    <div class="flex gap-2 pt-1">
+                        <button type="submit" id="saveMenuBtn" class="flex-1 bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition">
+                            + บันทึกเมนู
+                        </button>
+                        <button type="button" id="cancelEditMenuBtn" onclick="resetMenuForm()" class="hidden px-4 bg-gray-200 text-gray-600 font-medium rounded-xl hover:bg-gray-300">
+                            ยกเลิก
+                        </button>
+                    </div>
+                </form>
+
+                <h4 class="font-bold text-gray-700 text-sm flex items-center justify-between">
+                    <span>รายการเมนูใน Sidebar (<span id="menuCountBadge">0</span>)</span>
+                    <span class="text-[11px] text-gray-400 font-normal">กดลูกศรเพื่อเรียงลำดับ</span>
+                </h4>
+                <div id="adminMenuList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+            </div>
+
+            <!-- Tab 3: จัดการรหัสผ่านแอดมิน -->
             <div id="adminTabUsers" class="hidden space-y-4 text-xs">
                 <form onsubmit="handleAddNewAdmin(event)" class="bg-pink-50/40 p-4 rounded-2xl border border-pink-100 space-y-3">
                     <h4 class="font-bold text-gray-700 text-sm flex items-center gap-1.5">
@@ -558,12 +569,13 @@
     <script>
         let fonts = [];
         let adminUsers = [];
+        let customMenus = [];
         let currentFont = null;
         let priceFilter = 'all';
         let currentWeight = 'normal';
         let isAdminLoggedIn = false;
 
-        /* 1. IndexedDB จัดเก็บ Binary Files */
+        /* 1. IndexedDB จัดเก็บ Binary Font Files */
         const DB_NAME = 'ThitipraFontDB';
         const DB_VERSION = 1;
         const STORE_NAME = 'font_files';
@@ -615,8 +627,10 @@
         async function init() {
             loadFontsFromStorage();
             loadAdminUsersFromStorage();
+            loadCustomMenusFromStorage();
             await loadAllFontFaceAssets();
             populateSelects();
+            renderSidebarMenus();
             filterFonts();
             startInterval();
         }
@@ -645,6 +659,65 @@
 
         function saveAdminUsersToStorage() {
             localStorage.setItem('thitipra_admin_accounts', JSON.stringify(adminUsers));
+        }
+
+        function loadCustomMenusFromStorage() {
+            const saved = localStorage.getItem('thitipra_custom_menus');
+            if (saved) {
+                customMenus = JSON.parse(saved);
+            } else {
+                // ข้อมูลเริ่มต้นของเมนูเสริม
+                customMenus = [
+                    {
+                        id: 'menu_rules',
+                        title: 'กฎการใช้งานลิขสิทธิ์',
+                        icon: 'fas fa-shield-halved',
+                        content: `1 การสั่งซื้อ ต่อ 1 อีเมล = ใช้ได้ 1 บุคคลเท่านั้น\n\nราคาสำหรับบริษัท/องค์กร/หจก. เริ่มต้น 700.- (จำกัดไม่เกิน 5 เครื่อง)\n\n1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้อง Create outline หรือส่งออกเป็นไฟล์งานสำเร็จเท่านั้น\n2. ห้ามแยกตัวอักษร/เติมสีทำสติกเกอร์ไลน์ หรือพิมพ์สติกเกอร์ขาย\n3. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์\n4. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเทรนฟอนต์ที่คล้ายคลึงกับฟอนต์นี้\n\n⚠️ หากพบการละเมิดลิขสิทธิ์ ปรับ 10,000 บาท / 1 ไฟล์`
+                    },
+                    {
+                        id: 'menu_about',
+                        title: 'รู้จักกับสตูดิโอ',
+                        icon: 'fas fa-id-card',
+                        content: `Welcome to ThitipraStudio\nเจ้าของเครือฟอนต์ BR & PRH Font\nเปิดขายครั้งแรก 15 May 2023 (เดิม Babyrainfont)\n\nสไตล์ฟอนต์ประจำร้าน: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย`
+                    }
+                ];
+                saveCustomMenusToStorage();
+            }
+        }
+
+        function saveCustomMenusToStorage() {
+            localStorage.setItem('thitipra_custom_menus', JSON.stringify(customMenus));
+        }
+
+        /* 3. จัดการแสดงผล Sidebar Menu ไดนามิก */
+        function renderSidebarMenus() {
+            const container = document.getElementById('dynamicMenuItems');
+            container.innerHTML = '';
+
+            customMenus.forEach((menu) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left flex items-center gap-3 p-3 hover:bg-pink-50 rounded-2xl transition text-[15px]';
+                btn.innerHTML = `
+                    <span class="text-[#ff85b3]"><i class="${menu.icon || 'fas fa-file-alt'}"></i></span> 
+                    <span>${menu.title}</span>
+                `;
+                btn.onclick = () => {
+                    openDynamicPage(menu.id);
+                    toggleMenu();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function openDynamicPage(menuId) {
+            const menu = customMenus.find(m => m.id === menuId);
+            if (!menu) return;
+
+            document.getElementById('dynamicModalTitle').innerText = menu.title;
+            document.getElementById('dynamicModalIcon').className = menu.icon || 'fas fa-file-alt';
+            document.getElementById('dynamicModalContent').innerText = menu.content;
+
+            openModal('dynamicPageModal');
         }
 
         async function loadAllFontFaceAssets() {
@@ -684,7 +757,7 @@
             if (sR.options.length > 1) sR.selectedIndex = 1;
         }
 
-        /* 3. การแสดงผลแคตตาล็อกหน้าแรก */
+        /* 4. การแสดงผลแคตตาล็อกหน้าแรก */
         function setPriceFilter(type) {
             priceFilter = type;
             document.querySelectorAll('.filter-btn').forEach(b => {
@@ -737,7 +810,7 @@
             });
         }
 
-        /* 4. การทดสอบพิมพ์ใน Modal */
+        /* 5. การทดสอบพิมพ์ใน Modal */
         function openModal(f) {
             if (typeof f === 'string') {
                 const modal = document.getElementById(f);
@@ -855,10 +928,11 @@
             }
         }
 
-        /* 5. ระบบแอดมินและการเข้าสู่ระบบ */
+        /* 6. ระบบแอดมินและการเข้าสู่ระบบ */
         function checkAdminStatus() {
             if (isAdminLoggedIn) {
                 renderAdminFontList();
+                renderAdminMenuList();
                 renderAdminUserList();
                 openModal('adminDashboardModal');
             } else {
@@ -877,6 +951,7 @@
                 isAdminLoggedIn = true;
                 closeModal('adminLoginModal');
                 renderAdminFontList();
+                renderAdminMenuList();
                 renderAdminUserList();
                 openModal('adminDashboardModal');
                 document.getElementById('adminEmail').value = '';
@@ -892,21 +967,126 @@
         }
 
         function switchAdminTab(tab) {
+            document.getElementById('adminTabFonts').classList.add('hidden');
+            document.getElementById('adminTabMenus').classList.add('hidden');
+            document.getElementById('adminTabUsers').classList.add('hidden');
+
+            document.getElementById('tabBtnFonts').className = 'font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200';
+            document.getElementById('tabBtnMenus').className = 'font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200';
+            document.getElementById('tabBtnUsers').className = 'font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200';
+
             if (tab === 'fonts') {
                 document.getElementById('adminTabFonts').classList.remove('hidden');
-                document.getElementById('adminTabUsers').classList.add('hidden');
-                document.getElementById('tabBtnFonts').className = 'font-slackey text-sm px-4 py-1.5 rounded-full bg-[#ff85b3] text-white';
-                document.getElementById('tabBtnUsers').className = 'font-slackey text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200';
+                document.getElementById('tabBtnFonts').className = 'font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-[#ff85b3] text-white';
+                renderAdminFontList();
+            } else if (tab === 'menus') {
+                document.getElementById('adminTabMenus').classList.remove('hidden');
+                document.getElementById('tabBtnMenus').className = 'font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-[#ff85b3] text-white';
+                renderAdminMenuList();
             } else {
-                document.getElementById('adminTabFonts').classList.add('hidden');
                 document.getElementById('adminTabUsers').classList.remove('hidden');
-                document.getElementById('tabBtnFonts').className = 'font-slackey text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200';
-                document.getElementById('tabBtnUsers').className = 'font-slackey text-sm px-4 py-1.5 rounded-full bg-[#ff85b3] text-white';
+                document.getElementById('tabBtnUsers').className = 'font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-[#ff85b3] text-white';
                 renderAdminUserList();
             }
         }
 
-        /* 6. จัดการบัญชีแอดมิน */
+        /* 7. ระบบจัดการ Sidebar Menu (เพิ่ม/แก้ไข/ลบ/เรียงลำดับ) */
+        function handleSaveMenu(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editMenuId').value;
+            const title = document.getElementById('newMenuTitle').value.trim();
+            const icon = document.getElementById('newMenuIcon').value.trim() || 'fas fa-file-alt';
+            const content = document.getElementById('newMenuContent').value;
+
+            if (editId) {
+                const index = customMenus.findIndex(m => m.id === editId);
+                if (index !== -1) {
+                    customMenus[index] = { ...customMenus[index], title, icon, content };
+                }
+                alert('แก้ไขเมนูเรียบร้อยแล้ว');
+            } else {
+                const newId = `menu_${Date.now()}`;
+                customMenus.push({ id: newId, title, icon, content });
+                alert('เพิ่มเมนูใหม่ใน Sidebar เรียบร้อยแล้ว');
+            }
+
+            saveCustomMenusToStorage();
+            renderSidebarMenus();
+            renderAdminMenuList();
+            resetMenuForm();
+        }
+
+        function renderAdminMenuList() {
+            const container = document.getElementById('adminMenuList');
+            const badge = document.getElementById('menuCountBadge');
+            container.innerHTML = '';
+            badge.innerText = customMenus.length;
+
+            customMenus.forEach((menu, index) => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between p-2.5 bg-gray-50 border border-gray-100 rounded-xl text-xs';
+                row.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-gray-400 w-5">${index + 1}.</span>
+                        <div>
+                            <span class="font-bold text-gray-800"><i class="${menu.icon || 'fas fa-file-alt'} text-pink-400 mr-1"></i> ${menu.title}</span>
+                            <div class="text-[10px] text-gray-400 truncate max-w-xs">${menu.content.slice(0, 35)}...</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <button onclick="moveMenuOrder(${index}, -1)" ${index === 0 ? 'disabled' : ''} class="p-1 px-2 rounded bg-white border text-gray-600 hover:bg-gray-100 disabled:opacity-30">⬆</button>
+                        <button onclick="moveMenuOrder(${index}, 1)" ${index === customMenus.length - 1 ? 'disabled' : ''} class="p-1 px-2 rounded bg-white border text-gray-600 hover:bg-gray-100 disabled:opacity-30">⬇</button>
+                        <button onclick="startEditMenu('${menu.id}')" class="p-1 px-2 rounded bg-pink-100 text-pink-600 hover:bg-pink-200">แก้ไข</button>
+                        <button onclick="deleteMenu('${menu.id}')" class="p-1 px-2 rounded bg-red-100 text-red-600 hover:bg-red-200">ลบ</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function moveMenuOrder(index, direction) {
+            const targetIndex = index + direction;
+            if (targetIndex < 0 || targetIndex >= customMenus.length) return;
+            const temp = customMenus[index];
+            customMenus[index] = customMenus[targetIndex];
+            customMenus[targetIndex] = temp;
+
+            saveCustomMenusToStorage();
+            renderSidebarMenus();
+            renderAdminMenuList();
+        }
+
+        function startEditMenu(id) {
+            const menu = customMenus.find(m => m.id === id);
+            if (!menu) return;
+
+            document.getElementById('editMenuId').value = menu.id;
+            document.getElementById('newMenuTitle').value = menu.title;
+            document.getElementById('newMenuIcon').value = menu.icon || '';
+            document.getElementById('newMenuContent').value = menu.content;
+
+            document.getElementById('menuFormTitle').innerHTML = '<i class="fas fa-edit text-pink-400"></i> แก้ไขเมนูและเนื้อหา';
+            document.getElementById('saveMenuBtn').innerText = 'บันทึกการแก้ไข';
+            document.getElementById('cancelEditMenuBtn').classList.remove('hidden');
+        }
+
+        function resetMenuForm() {
+            document.getElementById('menuForm').reset();
+            document.getElementById('editMenuId').value = '';
+            document.getElementById('menuFormTitle').innerHTML = '<i class="fas fa-plus-circle text-pink-400"></i> เพิ่มเมนูและเนื้อหาใหม่ใน Sidebar';
+            document.getElementById('saveMenuBtn').innerText = '+ บันทึกเมนู';
+            document.getElementById('cancelEditMenuBtn').classList.add('hidden');
+        }
+
+        function deleteMenu(id) {
+            if (!confirm('ต้องการลบเมนูนี้ออกจาก Sidebar หรือไม่?')) return;
+            customMenus = customMenus.filter(m => m.id !== id);
+            saveCustomMenusToStorage();
+            renderSidebarMenus();
+            renderAdminMenuList();
+        }
+
+        /* 8. ระบบจัดการรหัสผ่านแอดมิน */
         function renderAdminUserList() {
             const container = document.getElementById('adminUserList');
             const badge = document.getElementById('adminCountBadge');
@@ -958,7 +1138,7 @@
             renderAdminUserList();
         }
 
-        /* 7. จัดการฟอนต์ (บันทึก / ลิงก์ Drive / แก้ไข / ลบ / จัดเรียง) */
+        /* 9. จัดการฟอนต์ (บันทึก / ลิงก์ Drive / แก้ไข / ลบ / จัดเรียง) */
         function togglePriceInputs() {
             const type = document.getElementById('priceType').value;
             if (type === 'split') {
@@ -1155,7 +1335,7 @@
             filterFonts();
         }
 
-        /* 8. Slider Logic */
+        /* 10. Slider Logic */
         let currentSlide = 0;
         const track = document.getElementById('slider-track');
         const slides = document.querySelectorAll('.slide');
