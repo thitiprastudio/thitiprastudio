@@ -129,7 +129,6 @@
         }
 
         .char-spacing { letter-spacing: 0.35em; word-spacing: 0.5em; line-height: 2.2; }
-        .char-spacing-sm { letter-spacing: 0.25em; word-spacing: 0.35em; line-height: 1.9; }
 
         @media print {
             body * { visibility: hidden; }
@@ -212,13 +211,12 @@
             <div class="text-center mb-8 flex flex-col items-center relative">
                 <div class="relative w-24 h-24 sm:w-28 sm:h-28 mb-3 cursor-pointer select-none" onclick="checkAdminStatus()">
                     <div class="absolute inset-0 bg-gradient-to-tr from-[#ff85b3] to-[#ffb8d1] rounded-full opacity-40 blur-md"></div>
-                    <img src="IPCB5121.PNG" alt="Logo" class="relative w-full h-full object-cover rounded-full border-4 border-white shadow-md z-10 transition-transform active:scale-95">
+                    <img src="IPCB5121.PNG" alt="Logo" class="relative w-full h-full object-cover rounded-full border-4 border-white shadow-md z-10 transition-transform active:scale-95" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Logo';">
                 </div>
                 <h1 class="font-slackey text-3xl sm:text-4xl font-bold text-[#ff85b3] text-shadow-cute mb-2">ThitipraStudio</h1>
                 <h2 class="font-slackey text-sm sm:text-base text-[#5c3a21] bg-[#ffe4ef] px-5 py-1.5 rounded-full shadow-sm">
                     🎨 เว็บเครือ BR & PRH ทดลองพิมพ์และเปรียบเทียบฟอนต์ลายมือ
                 </h2>
-                <p class="text-xs text-gray-500 mt-2">กด ... และเปิดในเบราว์เซอร์เพื่อประสบการณ์ที่สมบูรณ์แบบ</p>
             </div>
 
             <!-- Image Slider Section -->
@@ -377,49 +375,7 @@
                     <div id="testerDisplay">ฐิติประสตูดิโอ ThitipraStudio</div>
                     <div id="modalPriceDisplay" class="p-3 text-xs font-semibold"></div>
                 </div>
-                <div class="mt-5 p-4 sm:p-5 bg-gradient-to-b from-pink-50/70 to-pink-50/20 border border-pink-200/80 rounded-2xl text-left shadow-sm">
-                    <div class="flex items-center justify-between mb-3 border-b border-pink-200/60 pb-2">
-                        <span class="text-xs font-bold text-gray-800 flex items-center gap-2">
-                            <i class="fas fa-table-cells-large text-pink-500 text-sm"></i> ผังตัวอย่างอักษรครบเซ็ต (Character Set)
-                        </span>
-                    </div>
-                    <div id="characterSetDisplay" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs" style="font-family: inherit;">
-                        <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5 md:col-span-2">
-                            <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-pink-600 bg-pink-50 px-2 py-0.5 rounded-md">พยัญชนะไทย (๔๔ ตัว)</span>
-                            <div class="text-[14px] text-gray-800 font-medium pl-1 char-spacing">ก ข ฃ ค ฅ ฆ ง จ ฉ ช ซ ฌ ญ ฎ ฏ ฐ ฑ ฒ ณ ด ต ถ ท ธ น บ ป ผ ฝ พ ฟ ภ ม ย ร ล ว ศ ษ ส ห ฬ อ ฮ</div>
-                        </div>
-                        <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5 md:col-span-2">
-                            <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-pink-600 bg-pink-50 px-2 py-0.5 rounded-md">สระ & วรรณยุกต์ & เครื่องหมายไทย</span>
-                            <div class="text-[15px] text-gray-800 font-medium pl-1 char-spacing">ะ า ำ ิ ี ึ ื ุ ู เ แ โ ใ ไ ็ ่ ้ ๊ ๋ ์ ํ ๎ ฯ ๆ ฿</div>
-                        </div>
-                        <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5">
-                            <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md">English Uppercase (A-Z)</span>
-                            <div class="text-[14px] text-gray-800 font-medium pl-1 char-spacing">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
-                        </div>
-                        <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5">
-                            <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md">English Lowercase (a-z)</span>
-                            <div class="text-[14px] text-gray-800 font-medium pl-1 char-spacing">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4 p-4 bg-white border border-pink-100 rounded-2xl text-left space-y-3 text-xs text-gray-700">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 border-b border-pink-50 pb-2">
-                        <div><strong class="text-pink-600">ชนิดไฟล์:</strong> <span id="infoFileType">.otf, .ttf (ติดตั้งได้ทันที)</span></div>
-                        <div><strong class="text-pink-600">ขนาด/น้ำหนักที่ได้รับ:</strong> <span id="infoWeights">ปกติ (Regular) / หนา (Bold) / บาง (Light)</span></div>
-                    </div>
-                    <div>
-                        <strong class="text-gray-800 block mb-1">📱 อุปกรณ์ & แอปพลิเคชันที่รองรับ:</strong>
-                        <div id="infoDevices" class="whitespace-pre-line text-gray-600 bg-pink-50/30 p-2.5 rounded-xl border border-pink-100"></div>
-                    </div>
-                    <div>
-                        <strong class="text-gray-800 block mb-1">⚖️ เงื่อนไขและประเภทการใช้งาน:</strong>
-                        <div id="infoUsageRules" class="whitespace-pre-line text-gray-600 bg-pink-50/30 p-2.5 rounded-xl border border-pink-100"></div>
-                    </div>
-                </div>
                 <div class="flex flex-col gap-2 mt-4 text-xs font-semibold">
-                    <a id="btnOpenCanva" href="#" target="_blank" class="hidden bg-gradient-to-r from-sky-400 to-indigo-500 hover:opacity-95 text-white p-2.5 rounded-xl text-center font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
-                        <i class="fas fa-palette"></i> 🎨 เปิดใช้งานบน Canva Template
-                    </a>
                     <a href="https://shop.line.me/@wbk2012r" target="_blank" class="bg-[#06C755] text-white p-3 rounded-xl text-center shadow-sm">🛒 สั่งซื้อผ่าน MyShop (จัดส่งใน 24 ชม.)</a>
                     <button type="button" onclick="openOrderModal()" class="w-full bg-white border-2 border-[#06C755] hover:bg-green-50 text-[#06C755] p-2.5 rounded-xl text-center font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
                         <i class="fab fa-line text-base"></i> 💬 สั่งซื้อ / ชำระเงิน / ติดต่อแอดมิน
@@ -437,11 +393,6 @@
             </button>
             <h2 class="font-slackey text-2xl text-center text-purple-900 mb-1">Font Comparison (VS Mode)</h2>
             <input type="text" id="vsInput" class="w-full border-2 border-purple-100 rounded-xl p-2.5 text-sm text-center mb-3 focus:outline-purple-400" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
-            <div class="flex items-center gap-3 w-full px-2 mb-4">
-                <span class="text-xs text-gray-500">ขนาดพร้อมกัน:</span>
-                <input type="range" id="vsSizeSlider" min="20" max="90" value="50" class="flex-1 accent-purple-400" oninput="refreshVS()">
-                <span id="vsSizeLabel" class="text-xs text-purple-600 font-bold min-w-[40px]">50px</span>
-            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div class="space-y-3">
                     <div class="tester-container" style="min-height: 200px; margin-top:0;">
@@ -452,9 +403,7 @@
                         <div id="displayLeft">สวัสดี hello</div>
                         <div id="priceLeft" class="p-2 text-center text-xs font-semibold"></div>
                     </div>
-                    <button type="button" onclick="orderFontFromVS('selectLeft')" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold py-2.5 rounded-xl transition shadow-sm flex items-center justify-center gap-1.5 text-xs">
-                        <i class="fab fa-line text-sm"></i> สั่งซื้อฟอนต์ฝั่งซ้าย (<span id="btnTextOrderLeft">ฟอนต์นี้</span>)
-                    </button>
+                    <button type="button" onclick="orderFontFromVS('selectLeft')" class="w-full bg-[#06C755] text-white font-bold py-2.5 rounded-xl transition shadow-sm text-xs">สั่งซื้อฟอนต์ฝั่งซ้าย</button>
                 </div>
                 <div class="space-y-3">
                     <div class="tester-container" style="min-height: 200px; margin-top:0;">
@@ -465,9 +414,7 @@
                         <div id="displayRight">สวัสดี hello</div>
                         <div id="priceRight" class="p-2 text-center text-xs font-semibold"></div>
                     </div>
-                    <button type="button" onclick="orderFontFromVS('selectRight')" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold py-2.5 rounded-xl transition shadow-sm flex items-center justify-center gap-1.5 text-xs">
-                        <i class="fab fa-line text-sm"></i> สั่งซื้อฟอนต์ฝั่งขวา (<span id="btnTextOrderRight">ฟอนต์นี้</span>)
-                    </button>
+                    <button type="button" onclick="orderFontFromVS('selectRight')" class="w-full bg-[#06C755] text-white font-bold py-2.5 rounded-xl transition shadow-sm text-xs">สั่งซื้อฟอนต์ฝั่งขวา</button>
                 </div>
             </div>
         </div>
@@ -515,10 +462,10 @@
                 </div>
                 <div class="p-4 bg-gradient-to-b from-pink-50/60 to-pink-50/20 border-2 border-pink-200 rounded-3xl text-center space-y-3">
                     <div class="w-48 h-48 mx-auto bg-white p-2.5 rounded-2xl shadow-sm border border-pink-200 flex items-center justify-center overflow-hidden">
-                        <img src="QRcodepayment.jpg" alt="QR Code Payment" class="w-full h-full object-contain rounded-xl" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ThitipraStudioPayment';">
+                        <img src="QRcodepayment.jpg" alt="QR Code" class="w-full h-full object-contain rounded-xl" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ThitipraStudio';">
                     </div>
                     <div class="bg-white p-3 rounded-2xl border border-pink-200 inline-block w-full shadow-xs">
-                        <span class="text-[11px] text-gray-500 block mb-0.5">ยอดเงินที่ต้องชำระ (ตามสิทธิ์ที่เลือก)</span>
+                        <span class="text-[11px] text-gray-500 block mb-0.5">ยอดเงินที่ต้องชำระ</span>
                         <span class="text-2xl font-bold text-pink-600 font-slackey" id="paymentTotalAmount">฿0</span>
                     </div>
                 </div>
@@ -529,7 +476,7 @@
                 <div class="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl text-center text-amber-900 font-medium text-xs leading-relaxed space-y-1">
                     <p>เมื่อโอนเงินเรียบร้อยแล้ว <span class="text-pink-600 font-bold">รบกวนรอแอดมินดึงเมลแชร์ไดรฟ์ 1 - 3 ชั่วโมงนะคะ</span></p>
                 </div>
-                <button type="submit" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold py-3.5 rounded-2xl transition shadow-md flex items-center justify-center gap-2 text-sm">
+                <button type="submit" class="w-full bg-[#06C755] text-white font-bold py-3.5 rounded-2xl transition shadow-md flex items-center justify-center gap-2 text-sm">
                     <i class="fab fa-line text-xl"></i> ยืนยันข้อมูลและส่งสลิปไปที่ LINE
                 </button>
             </form>
@@ -542,40 +489,19 @@
             <button onclick="closeModal('customerAuthModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <div class="text-center mb-4">
-                <h3 class="font-slackey text-xl text-[#5c3a21]" id="authModalTitle">เข้าสู่ระบบสมาชิก</h3>
-            </div>
+            <h3 class="font-slackey text-xl text-[#5c3a21] text-center mb-4" id="authModalTitle">เข้าสู่ระบบสมาชิก</h3>
             <form id="customerLoginForm" onsubmit="handleCustomerLogin(event)" class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-medium text-gray-700 mb-1">อีเมล (Gmail)</label>
-                    <input required type="email" id="custLoginEmail" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400" placeholder="example@gmail.com">
-                </div>
-                <div>
-                    <label class="block font-medium text-gray-700 mb-1">รหัสผ่าน</label>
-                    <input required type="password" id="custLoginPass" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400" placeholder="••••••••">
-                </div>
-                <button type="submit" class="w-full bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition mt-2 shadow-sm">เข้าสู่ระบบ</button>
-                <div class="text-center pt-2">
-                    <button type="button" onclick="switchAuthView('register')" class="text-pink-600 font-semibold hover:underline text-[11px]">ยังไม่มีบัญชี? สมัครสมาชิกใหม่</button>
-                </div>
+                <input required type="email" id="custLoginEmail" class="w-full border p-2.5 rounded-xl" placeholder="example@gmail.com">
+                <input required type="password" id="custLoginPass" class="w-full border p-2.5 rounded-xl" placeholder="รหัสผ่าน">
+                <button type="submit" class="w-full bg-[#ff85b3] text-white font-bold py-2.5 rounded-xl">เข้าสู่ระบบ</button>
+                <div class="text-center pt-2"><button type="button" onclick="switchAuthView('register')" class="text-pink-600 text-[11px]">สมัครสมาชิกใหม่</button></div>
             </form>
             <form id="customerRegisterForm" onsubmit="handleCustomerRegister(event)" class="hidden space-y-3 text-xs">
-                <div>
-                    <label class="block font-medium text-gray-700 mb-1">ชื่อ - นามสกุล หรือ ชื่อร้าน/บริษัท</label>
-                    <input required type="text" id="custRegName" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400">
-                </div>
-                <div>
-                    <label class="block font-medium text-gray-700 mb-1">อีเมล (Gmail สำหรับรับไฟล์)</label>
-                    <input required type="email" id="custRegEmail" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400">
-                </div>
-                <div>
-                    <label class="block font-medium text-gray-700 mb-1">กำหนดรหัสผ่าน</label>
-                    <input required type="password" id="custRegPass" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400">
-                </div>
-                <button type="submit" class="w-full bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition mt-2 shadow-sm">สมัครสมาชิก</button>
-                <div class="text-center pt-2">
-                    <button type="button" onclick="switchAuthView('login')" class="text-pink-600 font-semibold hover:underline text-[11px]">มีบัญชีแล้ว? เข้าสู่ระบบ</button>
-                </div>
+                <input required type="text" id="custRegName" class="w-full border p-2.5 rounded-xl" placeholder="ชื่อ-นามสกุล">
+                <input required type="email" id="custRegEmail" class="w-full border p-2.5 rounded-xl" placeholder="example@gmail.com">
+                <input required type="password" id="custRegPass" class="w-full border p-2.5 rounded-xl" placeholder="กำหนดรหัสผ่าน">
+                <button type="submit" class="w-full bg-[#ff85b3] text-white font-bold py-2.5 rounded-xl">สมัครสมาชิก</button>
+                <div class="text-center pt-2"><button type="button" onclick="switchAuthView('login')" class="text-pink-600 text-[11px]">มีบัญชีแล้ว? เข้าสู่ระบบ</button></div>
             </form>
         </div>
     </div>
@@ -586,12 +512,9 @@
             <button onclick="closeModal('customerProfileModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <div class="flex justify-between items-center mb-4 border-b border-pink-100 pb-3">
-                <div>
-                    <h3 class="font-slackey text-lg text-[#5c3a21]" id="profileCustName">ชื่อลูกค้า</h3>
-                    <p class="text-xs text-gray-400" id="profileCustEmail">email@gmail.com</p>
-                </div>
-                <button onclick="customerLogout()" class="text-xs bg-red-50 text-red-500 px-3 py-1.5 rounded-full hover:bg-red-100 transition font-medium">ออกจากระบบ</button>
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <div><h3 class="font-slackey text-lg text-[#5c3a21]" id="profileCustName">ชื่อ</h3><p class="text-xs text-gray-400" id="profileCustEmail">email</p></div>
+                <button onclick="customerLogout()" class="text-xs bg-red-50 text-red-500 px-3 py-1.5 rounded-full">ออกจากระบบ</button>
             </div>
             <div id="customerOrderList" class="space-y-2.5"></div>
         </div>
@@ -599,69 +522,33 @@
 
     <!-- Receipt Modal -->
     <div id="receiptModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
-        <div class="bg-white rounded-3xl p-6 w-full max-w-lg border border-gray-200 shadow-2xl modal-enter relative max-h-[92vh] overflow-y-auto">
-            <button onclick="closeModal('receiptModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5 print:hidden">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-lg border shadow-2xl modal-enter relative max-h-[92vh] overflow-y-auto">
+            <button onclick="closeModal('receiptModal')" class="absolute top-4 right-4 text-gray-400 bg-gray-50 rounded-full p-1.5 print:hidden">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <div id="receiptPrintArea" class="bg-white p-4 sm:p-6 text-gray-800 text-xs leading-relaxed space-y-4 border border-pink-100 rounded-2xl">
-                <div class="flex justify-between items-start border-b border-gray-200 pb-4">
-                    <div>
-                        <h2 class="font-slackey text-xl text-[#ff85b3]">ThitipraStudio</h2>
-                        <p class="text-[10px] text-gray-500">เครือข่าย BR & PRH Font Network</p>
-                    </div>
-                    <div class="text-right">
-                        <span class="bg-pink-100 text-pink-700 font-bold px-2.5 py-0.5 rounded-full text-[10px] block mb-1">ใบเสร็จรับเงิน</span>
-                        <div class="text-[10px]">เลขที่: <span id="recNo" class="font-mono font-bold"></span></div>
-                        <div class="text-[10px]">วันที่: <span id="recDate"></span></div>
-                    </div>
+            <div id="receiptPrintArea" class="bg-white p-4 text-xs space-y-4 border rounded-2xl">
+                <div class="flex justify-between items-start border-b pb-4">
+                    <div><h2 class="font-slackey text-xl text-[#ff85b3]">ThitipraStudio</h2><p class="text-[10px]">BR & PRH Network</p></div>
+                    <div class="text-right"><span class="bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full text-[10px] font-bold">ใบเสร็จรับเงิน</span><div>เลขที่: <span id="recNo" class="font-bold"></span></div><div>วันที่: <span id="recDate"></span></div></div>
                 </div>
-                <div class="bg-pink-50/30 p-3 rounded-xl grid grid-cols-2 gap-2 text-[11px]">
-                    <div>ลูกค้า: <strong id="recCustName"></strong></div>
-                    <div>อีเมล: <span id="recCustEmail"></span></div>
-                </div>
-                <div class="border border-gray-100 rounded-xl overflow-hidden">
-                    <table class="w-full text-left text-[11px]">
-                        <thead class="bg-pink-50/70">
-                            <tr>
-                                <th class="p-2.5">รายการ</th>
-                                <th class="p-2.5">สิทธิ์</th>
-                                <th class="p-2.5 text-right">จำนวนเงิน</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="p-2.5" id="recFontName"></td>
-                                <td class="p-2.5" id="recLicenseType"></td>
-                                <td class="p-2.5 text-right font-bold text-pink-600" id="recAmount"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div>ลูกค้า: <strong id="recCustName"></strong> | อีเมล: <span id="recCustEmail"></span></div>
+                <div class="border rounded-xl p-2 bg-pink-50/30">รายการ: <span id="recFontName" class="font-bold"></span> (<span id="recLicenseType"></span>) - <span id="recAmount" class="font-bold text-pink-600"></span></div>
             </div>
-            <div class="flex gap-2 mt-4 text-xs font-semibold print:hidden">
-                <button onclick="window.print()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl transition">พิมพ์ / บันทึก PDF</button>
-                <button onclick="closeModal('receiptModal')" class="flex-1 bg-[#ff85b3] hover:bg-pink-500 text-white py-2.5 rounded-xl transition">ปิด</button>
-            </div>
+            <div class="flex gap-2 mt-4 text-xs print:hidden"><button onclick="window.print()" class="flex-1 bg-gray-100 py-2.5 rounded-xl">พิมพ์ / PDF</button><button onclick="closeModal('receiptModal')" class="flex-1 bg-[#ff85b3] text-white py-2.5 rounded-xl">ปิด</button></div>
         </div>
     </div>
 
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-sm border-2 border-pink-300 shadow-2xl modal-enter relative">
-            <button onclick="closeModal('adminLoginModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
+            <button onclick="closeModal('adminLoginModal')" class="absolute top-4 right-4 text-gray-400 bg-gray-50 rounded-full p-1.5">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
             <h3 class="font-slackey text-xl text-center text-[#ff85b3] mb-4">ADMIN ACCESS</h3>
             <form onsubmit="handleAdminLogin(event)" class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-medium text-gray-700 mb-1">Username / Email</label>
-                    <input required type="text" id="adminEmail" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400" placeholder="brprh หรืออีเมล">
-                </div>
-                <div>
-                    <label class="block font-medium text-gray-700 mb-1">Password</label>
-                    <input required type="password" id="adminPass" class="w-full border border-pink-200 rounded-xl p-2.5 focus:outline-pink-400" placeholder="••••••••">
-                </div>
-                <button type="submit" class="w-full bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition mt-2">เข้าสู่ระบบ</button>
+                <input required type="text" id="adminEmail" class="w-full border p-2.5 rounded-xl" placeholder="Username">
+                <input required type="password" id="adminPass" class="w-full border p-2.5 rounded-xl" placeholder="Password">
+                <button type="submit" class="w-full bg-[#ff85b3] text-white font-bold py-2.5 rounded-xl">เข้าสู่ระบบ</button>
             </form>
         </div>
     </div>
@@ -670,163 +557,66 @@
     <div id="adminDashboardModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-3xl border-2 border-pink-300 shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4 border-b pb-3 flex-wrap gap-2">
-                <div class="flex gap-2 flex-wrap items-center">
+                <div class="flex gap-2 flex-wrap">
                     <button onclick="switchAdminTab('fonts')" id="tabBtnFonts" class="font-slackey text-xs px-3.5 py-1.5 rounded-full bg-[#ff85b3] text-white">จัดการฟอนต์</button>
-                    <button onclick="switchAdminTab('menus')" id="tabBtnMenus" class="font-slackey text-xs px-3.5 py-1.5 rounded-full bg-gray-100 text-gray-600">จัดการ Sidebar Menu</button>
-                    <button onclick="switchAdminTab('orders')" id="tabBtnOrders" class="font-slackey text-xs px-3.5 py-1.5 rounded-full bg-gray-100 text-gray-600">จัดการลูกค้า & ออเดอร์</button>
-                    <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="font-slackey text-xs px-3.5 py-1.5 rounded-full bg-gray-100 text-gray-600">จัดการรหัสผ่าน</button>
+                    <button onclick="switchAdminTab('menus')" id="tabBtnMenus" class="font-slackey text-xs px-3.5 py-1.5 rounded-full bg-gray-100 text-gray-600">จัดการเมนู</button>
+                    <button onclick="switchAdminTab('orders')" id="tabBtnOrders" class="font-slackey text-xs px-3.5 py-1.5 rounded-full bg-gray-100 text-gray-600">ออเดอร์</button>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button type="button" onclick="closeModal('adminDashboardModal')" class="text-xs bg-pink-100 text-pink-600 px-3 py-1.5 rounded-full font-bold">กลับหน้าหลัก</button>
-                    <button type="button" onclick="adminLogout()" class="text-xs bg-red-50 text-red-500 px-3 py-1.5 rounded-full font-medium">ออกจากระบบ</button>
-                </div>
+                <button type="button" onclick="adminLogout()" class="text-xs bg-red-50 text-red-500 px-3 py-1.5 rounded-full">ออกจากระบบ</button>
             </div>
 
             <!-- Tab 1: Fonts -->
             <div id="adminTabFonts">
-                <form id="fontForm" onsubmit="handleSaveFont(event)" class="space-y-3 text-xs bg-pink-50/40 p-4 rounded-2xl border border-pink-100 mb-6">
-                    <h4 id="formTitle" class="font-bold text-gray-700 text-sm mb-2 flex items-center gap-1.5">
-                        <i class="fas fa-plus-circle text-pink-400"></i> เพิ่มฟอนต์ใหม่
-                    </h4>
-                    <input type="hidden" id="editFontId" value="">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                            <label class="block font-medium text-gray-700 mb-1">ชื่อภาษาไทย</label>
-                            <input required type="text" id="newFontTh" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white">
-                        </div>
-                        <div>
-                            <label class="block font-medium text-gray-700 mb-1">ชื่อภาษาอังกฤษ</label>
-                            <input required type="text" id="newFontEn" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white">
-                        </div>
+                <form id="fontForm" onsubmit="handleSaveFont(event)" class="space-y-3 text-xs bg-pink-50/40 p-4 rounded-2xl border mb-6">
+                    <h4 class="font-bold text-sm mb-2 text-pink-500">เพิ่ม / แก้ไขฟอนต์</h4>
+                    <input type="hidden" id="editFontId">
+                    <div class="grid grid-cols-2 gap-2">
+                        <input required type="text" id="newFontTh" class="border p-2 rounded-xl bg-white" placeholder="ชื่อไทย">
+                        <input required type="text" id="newFontEn" class="border p-2 rounded-xl bg-white" placeholder="ชื่ออังกฤษ">
                     </div>
-                    <div>
-                        <label class="block font-medium text-gray-700 mb-1">รูปแบบราคา</label>
-                        <select id="priceType" onchange="togglePriceInputs()" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white">
-                            <option value="split">แยกราคา ส่วนตัว และ เชิงพาณิชย์</option>
-                            <option value="single">ราคาเดียว (ใช้ได้ทั้ง 2 รูปแบบ)</option>
-                        </select>
+                    <select id="priceType" onchange="togglePriceInputs()" class="border p-2 rounded-xl w-full bg-white">
+                        <option value="split">แยกราคา ส่วนตัว / พาณิชย์</option>
+                        <option value="single">ราคาเดียว</option>
+                    </select>
+                    <div id="splitPriceGroup" class="grid grid-cols-2 gap-2">
+                        <input type="text" id="newFontP" class="border p-2 rounded-xl bg-white" placeholder="ราคา ส่วนตัว (เช่น 79.-)">
+                        <input type="text" id="newFontC" class="border p-2 rounded-xl bg-white" placeholder="ราคา พาณิชย์ (เช่น 169.-)">
                     </div>
-                    <div id="splitPriceGroup" class="space-y-3">
-                        <div class="p-3 bg-white rounded-xl border border-pink-100 space-y-2">
-                            <span class="font-bold text-pink-600">ส่วนตัว</span>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                <input type="text" id="newFontP" class="border border-pink-200 rounded-lg p-2" placeholder="79.-">
-                                <input type="text" id="newFontDrivePersonal" class="sm:col-span-2 border border-pink-200 rounded-lg p-2" placeholder="Google Drive Link">
-                            </div>
-                        </div>
-                        <div class="p-3 bg-white rounded-xl border border-pink-100 space-y-2">
-                            <span class="font-bold text-pink-600">พาณิชย์</span>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                <input type="text" id="newFontC" class="border border-pink-200 rounded-lg p-2" placeholder="169.-">
-                                <input type="text" id="newFontDriveCommercial" class="sm:col-span-2 border border-pink-200 rounded-lg p-2" placeholder="Google Drive Link">
-                            </div>
-                        </div>
+                    <div id="singlePriceGroup" class="hidden">
+                        <input type="text" id="newFontSingle" class="border p-2 rounded-xl w-full bg-white" placeholder="ราคาเดียว (เช่น 89.-)">
                     </div>
-                    <div id="singlePriceGroup" class="hidden p-3 bg-white rounded-xl border border-pink-100 space-y-2">
-                        <span class="font-bold text-green-600">ราคาเดียว</span>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <input type="text" id="newFontSingle" class="border border-pink-200 rounded-lg p-2" placeholder="89.-">
-                            <input type="text" id="newFontDriveSingle" class="sm:col-span-2 border border-pink-200 rounded-lg p-2" placeholder="Google Drive Link">
-                        </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="bg-white p-2 rounded-xl border"><label class="block text-[10px]">Regular *</label><input type="file" id="fileRegular" accept=".ttf,.otf" class="w-full text-[10px]"></div>
+                        <div class="bg-white p-2 rounded-xl border"><label class="block text-[10px]">Bold</label><input type="file" id="fileBold" accept=".ttf,.otf" class="w-full text-[10px]"></div>
+                        <div class="bg-white p-2 rounded-xl border"><label class="block text-[10px]">Light</label><input type="file" id="fileLight" accept=".ttf,.otf" class="w-full text-[10px]"></div>
                     </div>
-                    <div class="border-t border-pink-100 pt-3 space-y-2">
-                        <span class="block font-semibold text-gray-700">ไฟล์ฟอนต์ (.ttf / .otf)</span>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <div class="bg-white p-2 rounded-xl border border-pink-100">
-                                <label class="block font-medium text-gray-600 mb-1">ปกติ (Regular) *</label>
-                                <input type="file" id="fileRegular" accept=".ttf,.otf" class="w-full text-[10px]">
-                            </div>
-                            <div class="bg-white p-2 rounded-xl border border-pink-100">
-                                <label class="block font-medium text-gray-600 mb-1">หนา (Bold)</label>
-                                <input type="file" id="fileBold" accept=".ttf,.otf" class="w-full text-[10px]">
-                            </div>
-                            <div class="bg-white p-2 rounded-xl border border-pink-100">
-                                <label class="block font-medium text-gray-600 mb-1">บาง (Light)</label>
-                                <input type="file" id="fileLight" accept=".ttf,.otf" class="w-full text-[10px]">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex gap-2 pt-2">
-                        <button type="submit" id="saveBtn" class="flex-1 bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition">+ บันทึกฟอนต์ (อัปโหลด Cloud)</button>
-                        <button type="button" id="cancelEditBtn" onclick="resetForm()" class="hidden px-4 bg-gray-200 text-gray-600 font-medium rounded-xl">ยกเลิก</button>
-                    </div>
+                    <button type="submit" id="saveBtn" class="w-full bg-[#ff85b3] text-white font-bold py-2.5 rounded-xl">+ บันทึกฟอนต์ขึ้น Cloud</button>
                 </form>
-
-                <div class="flex justify-between items-center mb-3">
-                    <h4 class="font-bold text-gray-700 text-sm">รายการฟอนต์ทั้งหมด (<span id="fontCountBadge">0</span>)</h4>
-                    <input type="text" id="adminFontSearch" placeholder="🔍 ค้นหา..." oninput="renderAdminFontList(1)" class="border border-pink-200 rounded-lg px-2.5 py-1 text-xs">
-                </div>
-                <div id="adminFontList" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
-                <div id="adminFontPagination" class="mt-3 flex justify-center items-center gap-1.5 text-xs font-semibold"></div>
+                <div id="adminFontList" class="space-y-2 max-h-60 overflow-y-auto"></div>
             </div>
 
-            <!-- Tab 2: Sidebar Menu -->
-            <div id="adminTabMenus" class="hidden space-y-4 text-xs">
-                <form id="menuForm" onsubmit="handleSaveMenu(event)" class="bg-pink-50/40 p-4 rounded-2xl border border-pink-100 space-y-3">
-                    <h4 id="menuFormTitle" class="font-bold text-gray-700 text-sm flex items-center gap-1.5"><i class="fas fa-plus-circle text-pink-400"></i> เพิ่มเมนู</h4>
-                    <input type="hidden" id="editMenuId" value="">
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div class="sm:col-span-2">
-                            <label class="block font-medium text-gray-700 mb-1">ชื่อเมนู</label>
-                            <input required type="text" id="newMenuTitle" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white">
-                        </div>
-                        <div>
-                            <label class="block font-medium text-gray-700 mb-1">ไอคอน (FontAwesome)</label>
-                            <input type="text" id="newMenuIcon" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="fas fa-file">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block font-medium text-gray-700 mb-1">รูปแบบเนื้อหา</label>
-                        <select id="menuContentType" onchange="toggleMenuContentType()" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white font-semibold text-pink-600">
-                            <option value="blocks">แบบแบ่งเป็นกรอบกล่องข้อความ (หัวข้อย่อย + รายละเอียด)</option>
-                            <option value="text">แบบข้อความยาวต่อเนื่อง (Plain Text)</option>
-                        </select>
-                    </div>
-                    <div id="menuPlainTextGroup" class="hidden">
-                        <textarea id="newMenuContent" rows="6" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เนื้อหา..."></textarea>
-                    </div>
-                    <div id="menuBlocksGroup" class="space-y-3">
-                        <div class="flex justify-between items-center">
-                            <label class="block font-medium text-gray-700">รายการกรอบข้อความย่อย:</label>
-                            <button type="button" onclick="addAdminBlockItem()" class="bg-pink-100 text-pink-700 font-bold px-3 py-1 rounded-full text-[11px]">+ เพิ่มกรอบ</button>
-                        </div>
-                        <div id="adminBlocksContainer" class="space-y-2.5"></div>
-                    </div>
-                    <button type="submit" id="saveMenuBtn" class="w-full bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition">+ บันทึกเมนู</button>
+            <!-- Tab 2: Menus -->
+            <div id="adminTabMenus" class="hidden space-y-3 text-xs">
+                <form onsubmit="handleSaveMenu(event)" class="bg-pink-50/40 p-4 rounded-2xl border space-y-2">
+                    <h4 class="font-bold text-pink-500">เพิ่มเมนู Sidebar</h4>
+                    <input type="hidden" id="editMenuId">
+                    <input required type="text" id="newMenuTitle" class="w-full border p-2 rounded-xl bg-white" placeholder="ชื่อเมนู">
+                    <input type="text" id="newMenuIcon" class="w-full border p-2 rounded-xl bg-white" placeholder="ไอคอน FontAwesome (เช่น fas fa-info-circle)">
+                    <textarea id="newMenuContent" rows="4" class="w-full border p-2 rounded-xl bg-white" placeholder="เนื้อหาภายในเมนู..."></textarea>
+                    <button type="submit" class="w-full bg-[#ff85b3] text-white py-2 rounded-xl font-bold">+ บันทึกเมนู</button>
                 </form>
-                <div id="adminMenuList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+                <div id="adminMenuList" class="space-y-2 max-h-60 overflow-y-auto"></div>
             </div>
 
-            <!-- Tab 3: Orders & Customers -->
-            <div id="adminTabOrders" class="hidden space-y-4 text-xs">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-pink-50/40 p-4 rounded-2xl border border-pink-100 space-y-3">
-                        <h4 class="font-bold text-gray-700 text-sm">ฐานข้อมูลลูกค้า (<span id="adminCustCount">0</span>)</h4>
-                        <div id="adminCustList" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
-                    </div>
-                    <div class="bg-pink-50/40 p-4 rounded-2xl border border-pink-100 space-y-3">
-                        <h4 class="font-bold text-gray-700 text-sm">รายการสั่งซื้อทั้งหมด (<span id="adminOrderCount">0</span>)</h4>
-                        <div id="adminOrdersList" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab 4: Admin Accounts -->
-            <div id="adminTabUsers" class="hidden space-y-4 text-xs">
-                <form onsubmit="handleAddNewAdmin(event)" class="bg-pink-50/40 p-4 rounded-2xl border border-pink-100 space-y-3">
-                    <h4 class="font-bold text-gray-700 text-sm">เพิ่มบัญชีแอดมินใหม่</h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <input required type="text" id="newAdminUser" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="Username / Email">
-                        <input required type="password" id="newAdminPass" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="Password">
-                    </div>
-                    <button type="submit" class="w-full bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition">+ เพิ่มบัญชีแอดมิน</button>
-                </form>
-                <div id="adminUserList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+            <!-- Tab 3: Orders -->
+            <div id="adminTabOrders" class="hidden space-y-3 text-xs">
+                <h4 class="font-bold text-pink-500">ประวัติคำสั่งซื้อทั้งหมด (<span id="adminOrderCount">0</span>)</h4>
+                <div id="adminOrdersList" class="space-y-2 max-h-72 overflow-y-auto"></div>
             </div>
         </div>
     </div>
 
-    <!-- Core Engine -->
+    <!-- Script Engine -->
     <script>
         const SUPABASE_URL = 'https://czyjemcsufzrvkcfzfwv.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_z10rntPACdi5LPL7lZe4yg_Ka2eCXPY';
@@ -837,7 +627,7 @@
         }
 
         let fonts = [];
-        let adminUsers = [];
+        let adminUsers = [{ user: 'brprh', pass: 'pleng235' }];
         let customMenus = [];
         let customers = [];
         let orders = [];
@@ -850,16 +640,10 @@
         let currentPage = 1;
         const itemsPerPage = 24;
         let currentFilteredFonts = [];
-        let adminCurrentPage = 1;
-        const adminItemsPerPage = 30;
         let searchDebounceTimer = null;
 
         async function init() {
-            loadAdminUsersFromStorage();
-            loadCustomMenusFromStorage();
-            loadCustomersFromStorage();
-            loadOrdersFromStorage();
-            checkCustomerSession();
+            loadLocalStorageData();
             await loadFontsOnline();
             populateSelects();
             renderSidebarMenus();
@@ -867,58 +651,37 @@
             startInterval();
         }
 
+        function loadLocalStorageData() {
+            const savedOrders = localStorage.getItem('thitipra_orders');
+            if (savedOrders) orders = JSON.parse(savedOrders);
+
+            const savedCust = localStorage.getItem('thitipra_customers');
+            if (savedCust) customers = JSON.parse(savedCust);
+
+            const curCust = localStorage.getItem('thitipra_current_customer');
+            if (curCust) {
+                currentCustomer = JSON.parse(curCust);
+                updateAuthButtonUI();
+            }
+            loadCustomMenusFromStorage();
+        }
+
+        function saveOrdersToStorage() { localStorage.setItem('thitipra_orders', JSON.stringify(orders)); }
+        function saveCustomersToStorage() { localStorage.setItem('thitipra_customers', JSON.stringify(customers)); }
+
         async function loadFontsOnline() {
             let cloudFonts = [];
             if (supabaseClient) {
                 try {
-                    let from = 0;
-                    const batchSize = 1000;
-                    let hasMore = true;
-
-                    while (hasMore) {
-                        const { data, error } = await supabaseClient
-                            .from('fonts')
-                            .select('*')
-                            .order('order_index', { ascending: true })
-                            .range(from, from + batchSize - 1);
-
-                        if (error) break;
-
-                        if (data && data.length > 0) {
-                            cloudFonts = cloudFonts.concat(data);
-                            if (data.length < batchSize) hasMore = false;
-                            else from += batchSize;
-                        } else {
-                            hasMore = false;
-                        }
-                    }
-                } catch (err) {
-                    console.error(err);
-                }
+                    const { data, error } = await supabaseClient.from('fonts').select('*').order('order_index', { ascending: true });
+                    if (!error && data) cloudFonts = data;
+                } catch (err) { console.error(err); }
             }
 
             const localSaved = localStorage.getItem('thitipra_fonts_data');
             const localFonts = localSaved ? JSON.parse(localSaved) : [];
 
-            if (cloudFonts.length > 0) {
-                fonts = cloudFonts;
-                try { localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts)); } catch(e){}
-            } else {
-                fonts = localFonts;
-            }
-        }
-
-        async function ensureFontLoaded(fontFamily, weight = 'normal', url = null) {
-            if (!url) return;
-            const weightVal = (weight === 'bold') ? 'bold' : (weight === 'light' || weight === '300') ? '300' : 'normal';
-            try {
-                const isLoaded = document.fonts.check(`${weightVal} 16px "${fontFamily}"`);
-                if (!isLoaded) {
-                    const fontFace = new FontFace(fontFamily, `url(${url})`, { weight: weightVal });
-                    await fontFace.load();
-                    document.fonts.add(fontFace);
-                }
-            } catch (e) {}
+            fonts = cloudFonts.length > 0 ? cloudFonts : localFonts;
         }
 
         async function uploadFontToSupabase(file, filename) {
@@ -933,10 +696,7 @@
 
                 if (uploadError) return URL.createObjectURL(file);
 
-                const { data: { publicUrl } } = supabaseClient.storage
-                    .from('font-files')
-                    .getPublicUrl(fullPath);
-
+                const { data: { publicUrl } } = supabaseClient.storage.from('font-files').getPublicUrl(fullPath);
                 return publicUrl;
             } catch (e) {
                 return URL.createObjectURL(file);
@@ -959,22 +719,17 @@
                 return;
             }
 
-            let p, c, drivePersonal, driveCommercial;
+            let p, c;
             if (priceType === 'split') {
                 p = document.getElementById('newFontP').value.trim() || '79.-';
                 c = document.getElementById('newFontC').value.trim() || '169.-';
-                drivePersonal = document.getElementById('newFontDrivePersonal').value.trim();
-                driveCommercial = document.getElementById('newFontDriveCommercial').value.trim();
             } else {
                 const single = document.getElementById('newFontSingle').value.trim() || '89.-';
-                const singleDrive = document.getElementById('newFontDriveSingle').value.trim();
                 p = single; c = single;
-                drivePersonal = singleDrive;
-                driveCommercial = singleDrive;
             }
 
             const saveBtn = document.getElementById('saveBtn');
-            saveBtn.innerText = 'กำลังประมวลผล...';
+            saveBtn.innerText = 'กำลังอัปโหลด Cloud...';
             saveBtn.disabled = true;
 
             try {
@@ -983,52 +738,43 @@
                 if (boldFile) file_bold = await uploadFontToSupabase(boldFile, `${en}_bold`);
                 if (lightFile) file_light = await uploadFontToSupabase(lightFile, `${en}_light`);
 
-                let savedToCloud = false;
+                const fontPayload = { th, en, p, c, order_index: fonts.length };
+                if (file_regular) fontPayload.file_regular = file_regular;
+                if (file_bold) fontPayload.file_bold = file_bold;
+                if (file_light) fontPayload.file_light = file_light;
 
                 if (supabaseClient) {
-                    const fontPayload = {
-                        th, en, p, c,
-                        drive_personal: drivePersonal,
-                        drive_commercial: driveCommercial,
-                        order_index: fonts.length
-                    };
-                    if (file_regular) fontPayload.file_regular = file_regular;
-                    if (file_bold) fontPayload.file_bold = file_bold;
-                    if (file_light) fontPayload.file_light = file_light;
-
                     if (editId) {
-                        const { error } = await supabaseClient.from('fonts').update(fontPayload).eq('id', editId);
-                        if (!error) savedToCloud = true;
+                        await supabaseClient.from('fonts').update(fontPayload).eq('id', editId);
                     } else {
-                        const { error } = await supabaseClient.from('fonts').insert([fontPayload]);
-                        if (!error) savedToCloud = true;
+                        await supabaseClient.from('fonts').insert([fontPayload]);
                     }
                 }
 
-                if (!savedToCloud) {
-                    const fontId = editId || `font_${Date.now()}`;
-                    if (editId) {
-                        const index = fonts.findIndex(f => f.id === editId);
-                        if (index !== -1) {
-                            fonts[index] = { ...fonts[index], th, en, p, c, drive_personal: drivePersonal, drive_commercial: driveCommercial };
-                        }
-                    } else {
-                        fonts.push({ id: fontId, th, en, p, c, drive_personal: drivePersonal, drive_commercial: driveCommercial, file_regular, file_bold, file_light, order_index: fonts.length });
-                    }
-                    try { localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts)); } catch (err) {}
-                }
-
-                alert('บันทึกข้อมูลฟอนต์เรียบร้อยแล้ว!');
+                alert('บันทึกฟอนต์สำเร็จ!');
                 await loadFontsOnline();
                 resetForm();
                 populateSelects();
-                filterFonts(currentPage);
+                filterFonts(1);
                 renderAdminFontList(1);
             } catch (err) {
                 alert('เกิดข้อผิดพลาด: ' + err.message);
             } finally {
-                saveBtn.innerText = '+ บันทึกฟอนต์ (อัปโหลด Cloud)';
+                saveBtn.innerText = '+ บันทึกฟอนต์ขึ้น Cloud';
                 saveBtn.disabled = false;
+            }
+        }
+
+        function togglePriceInputs() {
+            const type = document.getElementById('priceType').value;
+            const splitGroup = document.getElementById('splitPriceGroup');
+            const singleGroup = document.getElementById('singlePriceGroup');
+            if (type === 'split') {
+                splitGroup.classList.remove('hidden');
+                singleGroup.classList.add('hidden');
+            } else {
+                splitGroup.classList.add('hidden');
+                singleGroup.classList.remove('hidden');
             }
         }
 
@@ -1039,15 +785,6 @@
 
         function setPriceFilter(type) {
             priceFilter = type;
-            document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.remove('bg-pink-400', 'text-white');
-                b.classList.add('bg-white', 'text-pink-500');
-            });
-            const activeBtn = document.getElementById(`btn-${type}`);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-pink-400', 'text-white');
-                activeBtn.classList.remove('bg-white', 'text-pink-500');
-            }
             filterFonts(1);
         }
 
@@ -1088,19 +825,19 @@
                 card.className = 'font-card';
                 const isSinglePrice = (f.p === f.c);
                 const priceClass = isSinglePrice ? 'price-single-style' : 'price-split-style';
-                const priceTxt = isSinglePrice ? `ใช้ได้ทั้ง 2 รูปแบบ: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
+                const priceTxt = isSinglePrice ? `ราคา: ${f.p}` : `ส่วนตัว: ${f.p} | พาณิชย์: ${f.c}`;
 
                 if (f.file_regular) ensureFontLoaded(f.en, 'normal', f.file_regular);
 
                 card.innerHTML = `
                     <div class="px-4 pt-3 font-semibold text-gray-800 text-sm flex justify-between items-center" style="font-family:'${f.en}', sans-serif">
                         <span class="truncate">${realIndex}. ${f.th} (${f.en})</span>
-                        <span class="text-[10px] text-pink-400 font-sans shrink-0 ml-1"><i class="fas fa-hand-pointer"></i> ลองพิมพ์</span>
+                        <span class="text-[10px] text-pink-400 font-sans shrink-0 ml-1">ลองพิมพ์</span>
                     </div>
                     <div class="preview-area-card" style="font-family:'${f.en}', sans-serif">สวัสดี hello</div>
                     <div class="p-3 text-center text-xs ${priceClass} flex justify-between items-center">
                         <span class="font-medium truncate mr-2">${priceTxt}</span>
-                        <button onclick="openFontOrderDirect('${f.id}')" class="bg-white border border-[#06C755] text-[#06C755] hover:bg-[#06C755] hover:text-white px-2.5 py-1 rounded-full text-[11px] transition shrink-0">สั่งซื้อ</button>
+                        <button onclick="openFontOrderDirect('${f.id}')" class="bg-white border border-[#06C755] text-[#06C755] px-2.5 py-1 rounded-full text-[11px] shrink-0">สั่งซื้อ</button>
                     </div>
                 `;
                 card.onclick = (e) => { if (e.target.tagName !== 'BUTTON') openModal(f); };
@@ -1114,35 +851,18 @@
             const totalPages = Math.ceil(currentFilteredFonts.length / itemsPerPage);
             if (totalPages <= 1) return;
 
-            const prevBtn = document.createElement('button');
-            prevBtn.className = `px-3 py-1.5 rounded-xl border ${currentPage === 1 ? 'bg-gray-100 text-gray-300 border-gray-200' : 'bg-white text-pink-600 border-pink-200'}`;
-            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-            prevBtn.disabled = (currentPage === 1);
-            prevBtn.onclick = () => { if (currentPage > 1) filterFonts(currentPage - 1); };
-            container.appendChild(prevBtn);
-
-            for (let p = Math.max(1, currentPage - 2); p <= Math.min(totalPages, currentPage + 2); p++) {
+            for (let p = 1; p <= totalPages; p++) {
                 const btn = document.createElement('button');
-                btn.className = `px-3 py-1.5 rounded-xl border transition ${p === currentPage ? 'bg-[#ff85b3] text-white border-[#ff85b3]' : 'bg-white text-gray-700 border-pink-200'}`;
+                btn.className = `px-3 py-1.5 rounded-xl border ${p === currentPage ? 'bg-[#ff85b3] text-white' : 'bg-white text-gray-700'}`;
                 btn.innerText = p;
                 btn.onclick = () => filterFonts(p);
                 container.appendChild(btn);
             }
-
-            const nextBtn = document.createElement('button');
-            nextBtn.className = `px-3 py-1.5 rounded-xl border ${currentPage === totalPages ? 'bg-gray-100 text-gray-300 border-gray-200' : 'bg-white text-pink-600 border-pink-200'}`;
-            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-            nextBtn.disabled = (currentPage === totalPages);
-            nextBtn.onclick = () => { if (currentPage < totalPages) filterFonts(currentPage + 1); };
-            container.appendChild(nextBtn);
         }
 
         function openFontOrderDirect(fontId) {
             const f = fonts.find(i => i.id === fontId);
-            if (f) {
-                currentFont = f;
-                openOrderModal();
-            }
+            if (f) { currentFont = f; openOrderModal(); }
         }
 
         async function openModal(modalId) {
@@ -1155,33 +875,17 @@
                 document.getElementById('singleFontSelect').value = modalId.en;
                 document.getElementById('modalFontName').innerText = `${modalId.th} (${modalId.en})`;
                 document.getElementById('modalFontName').style.fontFamily = modalId.en;
-
-                const isSinglePrice = (modalId.p === modalId.c);
-                document.getElementById('modalPriceDisplay').innerText = isSinglePrice ? `ราคา: ${modalId.p}` : `ส่วนตัว: ${modalId.p} | เชิงพาณิชย์: ${modalId.c}`;
+                document.getElementById('modalPriceDisplay').innerText = `ส่วนตัว: ${modalId.p} | พาณิชย์: ${modalId.c}`;
 
                 if (modalId.file_regular) await ensureFontLoaded(modalId.en, 'normal', modalId.file_regular);
-                if (modalId.file_bold) await ensureFontLoaded(modalId.en, 'bold', modalId.file_bold);
-                if (modalId.file_light) await ensureFontLoaded(modalId.en, '300', modalId.file_light);
-
-                changeWeight('normal');
                 refreshDisplay();
             }
-
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
+            if (modal) { modal.classList.remove('hidden'); modal.style.display = 'flex'; }
         }
 
-        async function changeWeight(weight) {
-            currentWeight = (weight === 'bold') ? 'bold' : (weight === 'light' || weight === '300') ? '300' : 'normal';
-            refreshDisplay();
-        }
-
-        function changeSingleFont(fontEn) {
-            const f = fonts.find(i => i.en === fontEn);
-            if (f) openModal(f);
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) { modal.classList.add('hidden'); modal.style.display = 'none'; }
         }
 
         function refreshDisplay() {
@@ -1191,79 +895,22 @@
             if (display) {
                 display.innerText = txt;
                 display.style.fontFamily = currentFont ? currentFont.en : 'sans-serif';
-                display.style.fontWeight = currentWeight;
                 display.style.fontSize = size + "px";
                 document.getElementById('sizeLabel').innerText = size + "px";
             }
         }
 
-        function openVS() {
-            openModal('vsModal');
-            refreshVS();
-        }
-
-        function openVSFromModal() {
-            const txt = document.getElementById('testerInput').value;
-            closeModal('fontModal');
-            openVS();
-            if (currentFont) document.getElementById('selectLeft').value = currentFont.en;
-            if (txt) document.getElementById('vsInput').value = txt;
-            refreshVS();
-        }
+        function openVS() { openModal('vsModal'); refreshVS(); }
 
         async function refreshVS() {
             const val = document.getElementById('vsInput').value || "สวัสดี hello";
-            const size = document.getElementById('vsSizeSlider').value;
             const lF = document.getElementById('selectLeft').value;
             const rF = document.getElementById('selectRight').value;
-            const dataL = fonts.find(f => f.en === lF);
-            const dataR = fonts.find(f => f.en === rF);
-
-            if (dataL && dataL.file_regular) await ensureFontLoaded(dataL.en, 'normal', dataL.file_regular);
-            if (dataR && dataR.file_regular) await ensureFontLoaded(dataR.en, 'normal', dataR.file_regular);
-
             const dL = document.getElementById('displayLeft');
             const dR = document.getElementById('displayRight');
             if (dL && dR) {
                 dL.innerText = dR.innerText = val;
                 dL.style.fontFamily = lF; dR.style.fontFamily = rF;
-                dL.style.fontSize = dR.style.fontSize = size + "px";
-                document.getElementById('vsSizeLabel').innerText = size + "px";
-            }
-
-            if (dataL) {
-                document.getElementById('priceLeft').innerText = `ราคา: ${dataL.p}`;
-                document.getElementById('btnTextOrderLeft').innerText = dataL.th;
-            }
-            if (dataR) {
-                document.getElementById('priceRight').innerText = `ราคา: ${dataR.p}`;
-                document.getElementById('btnTextOrderRight').innerText = dataR.th;
-            }
-        }
-
-        function orderFontFromVS(selectId) {
-            const fontEn = document.getElementById(selectId).value;
-            const fontData = fonts.find(f => f.en === fontEn);
-            if (fontData) {
-                currentFont = fontData;
-                closeModal('vsModal');
-                openOrderModal();
-            }
-        }
-
-        function jumpToSingle(selectId) {
-            const fontEn = document.getElementById(selectId).value;
-            const fontData = fonts.find(f => f.en === fontEn);
-            closeModal('vsModal');
-            if (fontData) openModal(fontData);
-        }
-
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
             }
         }
 
@@ -1302,55 +949,32 @@
         function handleSendToLine(e) {
             e.preventDefault();
             if (!currentFont) return;
-
             const email = document.getElementById('orderCustomerEmail').value.trim();
             const selectedLicense = document.querySelector('input[name="licenseSelect"]:checked').value;
             let licenseText = selectedLicense === 'personal' ? 'ส่วนตัว' : selectedLicense === 'commercial' ? 'พาณิชย์' : 'นิติบุคคล';
             let priceText = selectedLicense === 'personal' ? currentFont.p : selectedLicense === 'commercial' ? currentFont.c : '700.-';
 
             const orderId = `REC-${Date.now().toString().slice(-6)}`;
-            const newOrder = {
-                orderId: orderId,
-                date: new Date().toLocaleDateString('th-TH'),
-                customerName: currentCustomer ? currentCustomer.name : 'ลูกค้าทั่วไป',
-                customerEmail: email,
-                fontName: `${currentFont.th} (${currentFont.en})`,
-                license: licenseText,
-                amount: priceText,
-                total: priceText
-            };
-
-            orders.unshift(newOrder);
+            orders.unshift({ orderId, date: new Date().toLocaleDateString('th-TH'), customerName: currentCustomer ? currentCustomer.name : 'ลูกค้าทั่วไป', customerEmail: email, fontName: `${currentFont.th} (${currentFont.en})`, license: licenseText, amount: priceText });
             saveOrdersToStorage();
 
-            const message = `🛒 สั่งซื้อฟอนต์: ${currentFont.th} (${currentFont.en})\n• เลขที่: ${orderId}\n• สิทธิ์: ${licenseText}\n• ยอดโอน: ${priceText}\n• เมล: ${email}\n⏰ รอแอดมินดึงเมลและจัดส่งไฟล์ไดรฟ์ภายใน 1-3 ชม. นะคะ`;
-            const lineUrl = `https://line.me/R/oaMessage/@wbk2012r/?${encodeURIComponent(message)}`;
-            window.open(lineUrl, '_blank') || window.open('https://lin.ee/8k1sAhb', '_blank');
-
+            window.open(`https://line.me/R/oaMessage/@wbk2012r/?${encodeURIComponent(`🛒 สั่งซื้อฟอนต์: ${currentFont.th} (${currentFont.en})\n• เลขที่: ${orderId}\n• สิทธิ์: ${licenseText}\n• ยอดโอน: ${priceText}\n• เมล: ${email}\n⏰ รอแอดมินดึงเมลแชร์ไดรฟ์ภายใน 1-3 ชม.`)}`, '_blank');
             closeModal('orderLicenseModal');
-            alert(`บันทึกคำสั่งซื้อสำเร็จ! เลขที่ใบเสร็จคือ ${orderId}`);
+            alert(`บันทึกคำสั่งซื้อเรียบร้อย เลขที่: ${orderId}`);
         }
 
-        /* ระบบสมาชิกลูกค้า */
         function handleCustomerProfileNav() {
-            if (currentCustomer) {
-                renderCustomerOrders();
-                openModal('customerProfileModal');
-            } else {
-                switchAuthView('login');
-                openModal('customerAuthModal');
-            }
+            if (currentCustomer) { renderCustomerOrders(); openModal('customerProfileModal'); }
+            else { switchAuthView('login'); openModal('customerAuthModal'); }
         }
 
         function switchAuthView(view) {
             if (view === 'register') {
                 document.getElementById('customerLoginForm').classList.add('hidden');
                 document.getElementById('customerRegisterForm').classList.remove('hidden');
-                document.getElementById('authModalTitle').innerText = 'สมัครสมาชิก';
             } else {
                 document.getElementById('customerLoginForm').classList.remove('hidden');
                 document.getElementById('customerRegisterForm').classList.add('hidden');
-                document.getElementById('authModalTitle').innerText = 'เข้าสู่ระบบ';
             }
         }
 
@@ -1359,18 +983,9 @@
             const name = document.getElementById('custRegName').value.trim();
             const email = document.getElementById('custRegEmail').value.trim();
             const pass = document.getElementById('custRegPass').value.trim();
-
-            loadCustomersFromStorage();
-            if (customers.some(c => c.email === email)) {
-                alert('อีเมลนี้เคยสมัครสมาชิกแล้ว');
-                return;
-            }
-
-            const newCust = { id: `cust_${Date.now()}`, name, email, pass, registeredAt: new Date().toLocaleDateString('th-TH') };
-            customers.push(newCust);
+            customers.push({ id: `cust_${Date.now()}`, name, email, pass });
             saveCustomersToStorage();
-
-            currentCustomer = newCust;
+            currentCustomer = customers[customers.length - 1];
             localStorage.setItem('thitipra_current_customer', JSON.stringify(currentCustomer));
             updateAuthButtonUI();
             closeModal('customerAuthModal');
@@ -1381,8 +996,6 @@
             e.preventDefault();
             const email = document.getElementById('custLoginEmail').value.trim();
             const pass = document.getElementById('custLoginPass').value.trim();
-
-            loadCustomersFromStorage();
             const found = customers.find(c => c.email === email && c.pass === pass);
             if (found) {
                 currentCustomer = found;
@@ -1390,9 +1003,7 @@
                 updateAuthButtonUI();
                 closeModal('customerAuthModal');
                 handleCustomerProfileNav();
-            } else {
-                alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
-            }
+            } else { alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง'); }
         }
 
         function customerLogout() {
@@ -1404,11 +1015,8 @@
 
         function updateAuthButtonUI() {
             const label = document.getElementById('userAuthLabel');
-            if (currentCustomer && label) {
-                label.innerText = currentCustomer.name.split(' ')[0] || currentCustomer.email.split('@')[0];
-            } else if (label) {
-                label.innerText = 'เข้าสู่ระบบลูกค้า';
-            }
+            if (currentCustomer && label) label.innerText = currentCustomer.name.split(' ')[0];
+            else if (label) label.innerText = 'เข้าสู่ระบบลูกค้า';
         }
 
         function renderCustomerOrders() {
@@ -1417,427 +1025,123 @@
             document.getElementById('profileCustEmail').innerText = currentCustomer.email;
             const container = document.getElementById('customerOrderList');
             container.innerHTML = '';
-
             const myOrders = orders.filter(o => o.customerEmail === currentCustomer.email);
-            if (myOrders.length === 0) {
-                container.innerHTML = `<div class="text-center py-8 text-gray-400 text-xs">ยังไม่มีประวัติการสั่งซื้อ</div>`;
-                return;
-            }
-
+            if (myOrders.length === 0) { container.innerHTML = `<div class="text-center py-4 text-gray-400 text-xs">ยังไม่มีประวัติการสั่งซื้อ</div>`; return; }
             myOrders.forEach(o => {
-                const item = document.createElement('div');
-                item.className = 'p-3 bg-white border border-pink-100 rounded-2xl flex justify-between items-center cursor-pointer';
-                item.onclick = () => showReceipt(o);
-                item.innerHTML = `
-                    <div>
-                        <div class="font-bold text-gray-800 text-xs">${o.fontName}</div>
-                        <div class="text-[10px] text-gray-400">${o.orderId} • ${o.date}</div>
-                    </div>
-                    <div class="font-bold text-pink-600 text-sm">${o.amount}</div>
-                `;
-                container.appendChild(item);
+                container.innerHTML += `<div class="p-3 bg-white border rounded-xl flex justify-between items-center cursor-pointer" onclick='showReceipt(${JSON.stringify(o)})'><div><div class="font-bold">${o.fontName}</div><div class="text-[10px] text-gray-400">${o.orderId} • ${o.date}</div></div><div class="font-bold text-pink-600">${o.amount}</div></div>`;
             });
         }
 
-        function showReceipt(orderData) {
-            document.getElementById('recNo').innerText = orderData.orderId;
-            document.getElementById('recDate').innerText = orderData.date;
-            document.getElementById('recCustName').innerText = orderData.customerName || 'ลูกค้าทั่วไป';
-            document.getElementById('recCustEmail').innerText = orderData.customerEmail;
-            document.getElementById('recFontName').innerText = orderData.fontName;
-            document.getElementById('recLicenseType').innerText = orderData.license;
-            document.getElementById('recAmount').innerText = orderData.amount;
+        function showReceipt(o) {
+            document.getElementById('recNo').innerText = o.orderId;
+            document.getElementById('recDate').innerText = o.date;
+            document.getElementById('recCustName').innerText = o.customerName;
+            document.getElementById('recCustEmail').innerText = o.customerEmail;
+            document.getElementById('recFontName').innerText = o.fontName;
+            document.getElementById('recLicenseType').innerText = o.license;
+            document.getElementById('recAmount').innerText = o.amount;
             openModal('receiptModal');
         }
 
-        /* ระบบแอดมิน */
-        function loadAdminUsersFromStorage() {
-            const defaultAdmins = [
-                { user: 'brprh', pass: 'pleng235' },
-                { user: 'brprhfont@gmail.com', pass: 'brprhthitiprastudio' }
-            ];
-            const saved = localStorage.getItem('thitipra_admin_accounts');
-            if (saved) {
-                try {
-                    adminUsers = JSON.parse(saved);
-                    if (!adminUsers || adminUsers.length === 0) adminUsers = defaultAdmins;
-                } catch(e) { adminUsers = defaultAdmins; }
-            } else {
-                adminUsers = defaultAdmins;
-                localStorage.setItem('thitipra_admin_accounts', JSON.stringify(adminUsers));
-            }
-        }
-
         function checkAdminStatus() {
-            if (isAdminLoggedIn) {
-                renderAdminFontList(1);
-                renderAdminMenuList();
-                renderAdminUserList();
-                renderAdminOrdersAndCustomers();
-                openModal('adminDashboardModal');
-            } else {
-                openModal('adminLoginModal');
-            }
+            if (isAdminLoggedIn) { renderAdminFontList(1); renderAdminMenuList(); renderAdminOrders(); openModal('adminDashboardModal'); }
+            else openModal('adminLoginModal');
         }
 
         function handleAdminLogin(e) {
             e.preventDefault();
-            const userInput = document.getElementById('adminEmail').value.trim();
-            const pass = document.getElementById('adminPass').value.trim();
-            
-            loadAdminUsersFromStorage();
-            const isValid = adminUsers.some(acc => acc.user === userInput && acc.pass === pass);
-
-            if (isValid) {
+            if (document.getElementById('adminEmail').value.trim() === 'brprh' && document.getElementById('adminPass').value.trim() === 'pleng235') {
                 isAdminLoggedIn = true;
                 closeModal('adminLoginModal');
                 checkAdminStatus();
-                document.getElementById('adminEmail').value = '';
-                document.getElementById('adminPass').value = '';
-            } else {
-                alert('ชื่อผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง');
-            }
+            } else { alert('รหัสผ่านแอดมินไม่ถูกต้อง'); }
         }
 
-        function adminLogout() {
-            isAdminLoggedIn = false;
-            closeModal('adminDashboardModal');
-        }
+        function adminLogout() { isAdminLoggedIn = false; closeModal('adminDashboardModal'); }
 
         function switchAdminTab(tab) {
-            ['Fonts', 'Menus', 'Orders', 'Users'].forEach(t => {
-                document.getElementById(`adminTab${t}`).classList.add('hidden');
+            ['Fonts', 'Menus', 'Orders'].forEach(t => {
+                document.getElementById(`adminTab${t}`).classList.add(`hidden`);
                 document.getElementById(`tabBtn${t}`).className = 'font-slackey text-xs px-3.5 py-1.5 rounded-full bg-gray-100 text-gray-600';
             });
-            const activeTab = tab.charAt(0).toUpperCase() + tab.slice(1);
-            document.getElementById(`adminTab${activeTab}`).classList.remove('hidden');
-            document.getElementById(`tabBtn${activeTab}`).className = 'font-slackey text-xs px-3.5 py-1.5 rounded-full bg-[#ff85b3] text-white';
+            document.getElementById(`adminTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.remove('hidden');
+            document.getElementById(`tabBtn${tab.charAt(0).toUpperCase() + tab.slice(1)}`).className = 'font-slackey text-xs px-3.5 py-1.5 rounded-full bg-[#ff85b3] text-white';
         }
 
-        function renderAdminOrdersAndCustomers() {
-            document.getElementById('adminCustCount').innerText = customers.length;
-            document.getElementById('adminOrderCount').innerText = orders.length;
-            const custContainer = document.getElementById('adminCustList');
-            const orderContainer = document.getElementById('adminOrdersList');
-            custContainer.innerHTML = '';
-            orderContainer.innerHTML = '';
-
-            customers.forEach(c => {
-                const div = document.createElement('div');
-                div.className = 'p-2.5 bg-white rounded-xl border border-gray-100 text-xs';
-                div.innerHTML = `<div class="font-bold">${c.name}</div><div class="text-[10px] text-gray-400">${c.email}</div>`;
-                custContainer.appendChild(div);
-            });
-
-            orders.forEach(o => {
-                const div = document.createElement('div');
-                div.className = 'p-2.5 bg-white rounded-xl border border-gray-100 flex justify-between items-center text-xs';
-                div.innerHTML = `<div><div class="font-bold">${o.fontName}</div><div class="text-[10px] text-gray-400">${o.customerEmail}</div></div><button onclick='showReceipt(${JSON.stringify(o)})' class="bg-pink-100 text-pink-600 px-2 py-1 rounded">ดู</button>`;
-                orderContainer.appendChild(div);
-            });
-        }
-
-        /* Sidebar Menu Management & Storage */
         function loadCustomMenusFromStorage() {
-            const defaultUsageMenu = {
-                id: 'menu_usage_types',
-                title: 'เงื่อนไข & ประเภทการใช้งาน',
-                icon: 'fas fa-scale-balanced',
-                type: 'blocks',
-                blocks: [
-                    {
-                        subtitle: '👤 สิทธิ์ใช้งานส่วนตัว (Personal License)',
-                        text: '• สำหรับ 1 บุคคล / 1 การสั่งซื้อ (ไม่เกี่ยวกับการเงิน/กำไร)\n• ใช้งานเพื่อการศึกษา จดโน้ต ทำรายงาน ปริ้นอ่านเองได้\n• ตั้งค่าฟอนต์ระบบในเครื่อง Android ได้\n• แต่งภาพ/วิดีโอลงในพื้นที่ส่วนบุคคล (ที่ไม่ใช่พื้นที่ขายของ/เพจ/รีวิว/โปรโมท)'
-                    },
-                    {
-                        subtitle: '💼 สิทธิ์ใช้งานเชิงพาณิชย์ (Commercial License)',
-                        text: '• มีเงิน รายได้ หรือผลประโยชน์เข้ามาเกี่ยวข้อง\n• ตกแต่งภาพสินค้า, ป้ายโปรโมต, โฆษณา Ads\n• ใช้ในแพลตฟอร์ม Facebook, IG, TikTok, Lemon8, เพจ, YouTube\n• สื่อสิ่งพิมพ์ ปริ้น สกรีน ไดคัท แพ็กเกจจิ้งสินค้า โลโก้\n• สติกเกอร์ / ธีมไลน์ (ต้องตกแต่งสำเร็จรูป ไม่ขายเป็นตัวอักษรแยก)'
-                    },
-                    {
-                        subtitle: '🏢 สิทธิ์นิติบุคคล (Business License 700.- ขึ้นไป)',
-                        text: '• สำหรับ บริษัท, องค์กร, ห้างหุ้นส่วนจำกัด (หจก.)\n• จำกัดผู้ใช้งานไม่เกิน 5 เครื่อง ต่อ 1 การสั่งซื้อ\n• ใช้งานเชิงพาณิชย์ หรือรับจ้างออกแบบให้ผู้อื่น\n• ออกใบเสร็จรับเงิน (ไม่จด VAT) + ออกใบรับรองสิทธิ์ถูกต้องตามกฎหมาย'
-                    }
-                ]
-            };
-
-            const defaultRulesMenu = {
-                id: 'menu_rules',
-                title: 'กฎและข้อห้ามลิขสิทธิ์',
-                icon: 'fas fa-shield-halved',
-                type: 'text',
-                content: `1 การสั่งซื้อ ต่อ 1 อีเมล = ใช้ได้ 1 บุคคลเท่านั้น\n\nราคาสำหรับบริษัท/องค์กร/หจก. เริ่มต้น 700.- (จำกัดไม่เกิน 5 เครื่อง)\n\n1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้อง Create outline หรือส่งออกเป็นไฟล์งานสำเร็จเท่านั้น\n2. ห้ามแยกตัวอักษร/เติมสีทำสติกเกอร์ไลน์ หรือพิมพ์สติกเกอร์ขาย\n3. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์\n4. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเทรนฟอนต์ที่คล้ายคลึงกับฟอนต์นี้\n\n⚠️ หากพบการละเมิดลิขสิทธิ์ ปรับ 10,000 บาท / 1 ไฟล์`
-            };
-
-            const defaultAboutMenu = {
-                id: 'menu_about',
-                title: 'รู้จักกับสตูดิโอ',
-                icon: 'fas fa-id-card',
-                type: 'text',
-                content: `Welcome to ThitipraStudio\nเจ้าของเครือฟอนต์ BR & PRH Font\nเปิดขายครั้งแรก 15 May 2023 (เดิม Babyrainfont)\n\nสไตล์ฟอนต์ประจำร้าน: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย`
-            };
-
-            const saved = localStorage.getItem('thitipra_custom_menus');
-            if (saved) {
-                try {
-                    customMenus = JSON.parse(saved);
-                    const exists = customMenus.some(m => m.id === 'menu_usage_types' || m.title.includes('เงื่อนไข'));
-                    if (!exists) {
-                        customMenus.unshift(defaultUsageMenu);
-                        saveCustomMenusToStorage();
-                    }
-                } catch(e) {
-                    customMenus = [defaultUsageMenu, defaultRulesMenu, defaultAboutMenu];
-                    saveCustomMenusToStorage();
-                }
-            } else {
-                customMenus = [defaultUsageMenu, defaultRulesMenu, defaultAboutMenu];
-                saveCustomMenusToStorage();
-            }
-        }
-
-        function saveCustomMenusToStorage() {
-            localStorage.setItem('thitipra_custom_menus', JSON.stringify(customMenus));
+            customMenus = [
+                { id: 'menu_usage_types', title: 'เงื่อนไข & ประเภทการใช้งาน', icon: 'fas fa-scale-balanced', type: 'text', content: '👤 ส่วนตัว: ใช้ส่วนตัว ไม่แสวงหากำไร\n💼 พาณิชย์: ใช้ลงเพจ ยิงแอด ขายสินค้า\n🏢 นิติบุคคล: สำหรับบริษัท จำกัด 5 เครื่อง' },
+                { id: 'menu_rules', title: 'กฎและข้อห้ามลิขสิทธิ์', icon: 'fas fa-shield-halved', type: 'text', content: '1. ห้ามแจกจ่ายหรือขายต่อไฟล์ฟอนต์\n2. ห้ามดราฟหรือเทรน AI จากฟอนต์นี้' }
+            ];
         }
 
         function renderSidebarMenus() {
             const container = document.getElementById('dynamicMenuItems');
             if (!container) return;
             container.innerHTML = '';
-
-            customMenus.forEach((menu) => {
-                const btn = document.createElement('button');
-                btn.className = 'w-full text-left flex items-center gap-3 p-3 hover:bg-pink-50 rounded-2xl transition text-[15px]';
-                btn.innerHTML = `
-                    <span class="text-[#ff85b3]"><i class="${menu.icon || 'fas fa-file-alt'}"></i></span> 
-                    <span>${menu.title}</span>
-                `;
-                btn.onclick = () => {
-                    openDynamicPage(menu.id);
-                    toggleMenu();
-                };
-                container.appendChild(btn);
+            customMenus.forEach(m => {
+                container.innerHTML += `<button onclick="openDynamicPage('${m.id}'); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 hover:bg-pink-50 rounded-2xl text-[15px]"><span class="text-[#ff85b3]"><i class="${m.icon}"></i></span><span>${m.title}</span></button>`;
             });
         }
 
-        function openDynamicPage(menuId) {
-            const menu = customMenus.find(m => m.id === menuId);
-            if (!menu) return;
-
-            document.getElementById('dynamicModalTitle').innerText = menu.title;
-            document.getElementById('dynamicModalIcon').className = menu.icon || 'fas fa-file-alt';
-            
-            const contentContainer = document.getElementById('dynamicModalContent');
-            contentContainer.innerHTML = '';
-
-            if (menu.type === 'blocks' && Array.isArray(menu.blocks) && menu.blocks.length > 0) {
-                const blocksWrapper = document.createElement('div');
-                blocksWrapper.className = 'space-y-3';
-
-                menu.blocks.forEach((b) => {
-                    const blockCard = document.createElement('div');
-                    blockCard.className = 'p-3.5 bg-gradient-to-br from-pink-50/50 to-white border border-pink-200/80 rounded-2xl shadow-xs space-y-1.5';
-                    blockCard.innerHTML = `
-                        <div class="font-bold text-gray-800 text-sm flex items-center gap-1.5 text-pink-600">
-                            <i class="fas fa-bookmark text-pink-400 text-xs"></i> ${b.subtitle || 'รายละเอียด'}
-                        </div>
-                        <div class="text-xs text-gray-600 leading-relaxed whitespace-pre-line pl-1">${b.text || ''}</div>
-                    `;
-                    blocksWrapper.appendChild(blockCard);
-                });
-                contentContainer.appendChild(blocksWrapper);
-            } else {
-                const textDiv = document.createElement('div');
-                textDiv.className = 'p-3.5 bg-pink-50/30 border border-pink-100 rounded-2xl text-xs sm:text-sm text-gray-700 leading-relaxed whitespace-pre-line';
-                textDiv.innerText = menu.content || '';
-                contentContainer.appendChild(textDiv);
-            }
-
+        function openDynamicPage(id) {
+            const m = customMenus.find(item => item.id === id);
+            if (!m) return;
+            document.getElementById('dynamicModalTitle').innerText = m.title;
+            document.getElementById('dynamicModalIcon').className = m.icon;
+            document.getElementById('dynamicModalContent').innerText = m.content;
             openModal('dynamicPageModal');
         }
 
-        function toggleMenuContentType() {
-            const type = document.getElementById('menuContentType').value;
-            if (type === 'blocks') {
-                document.getElementById('menuBlocksGroup').classList.remove('hidden');
-                document.getElementById('menuPlainTextGroup').classList.add('hidden');
-                if (document.querySelectorAll('#adminBlocksContainer .admin-block-item').length === 0) {
-                    addAdminBlockItem();
-                }
-            } else {
-                document.getElementById('menuBlocksGroup').classList.add('hidden');
-                document.getElementById('menuPlainTextGroup').classList.remove('hidden');
-            }
-        }
-
-        function addAdminBlockItem(subtitle = '', text = '') {
-            const container = document.getElementById('adminBlocksContainer');
-            const div = document.createElement('div');
-            div.className = 'admin-block-item p-3 bg-white border border-pink-200 rounded-xl space-y-2';
-            div.innerHTML = `
-                <div class="flex justify-between"><span class="font-bold text-[11px] text-pink-600">กรอบข้อความ</span><button type="button" onclick="this.closest('.admin-block-item').remove()" class="text-red-500">ลบ</button></div>
-                <input type="text" class="block-subtitle w-full border border-pink-100 rounded p-1.5" placeholder="หัวข้อย่อย" value="${subtitle}">
-                <textarea class="block-text w-full border border-pink-100 rounded p-1.5" placeholder="รายละเอียด">${text}</textarea>
-            `;
-            container.appendChild(div);
-        }
-
-        function handleSaveMenu(e) {
-            e.preventDefault();
-            const editId = document.getElementById('editMenuId').value;
-            const title = document.getElementById('newMenuTitle').value.trim();
-            const icon = document.getElementById('newMenuIcon').value.trim() || 'fas fa-file-alt';
-            const type = document.getElementById('menuContentType').value;
-            let menuPayload = { title, icon, type };
-
-            if (type === 'blocks') {
-                const blocks = [];
-                document.querySelectorAll('#adminBlocksContainer .admin-block-item').forEach(el => {
-                    blocks.push({ subtitle: el.querySelector('.block-subtitle').value.trim(), text: el.querySelector('.block-text').value });
-                });
-                menuPayload.blocks = blocks;
-            } else {
-                menuPayload.content = document.getElementById('newMenuContent').value;
-            }
-
-            if (editId) {
-                const index = customMenus.findIndex(m => m.id === editId);
-                if (index !== -1) customMenus[index] = { ...customMenus[index], ...menuPayload };
-            } else {
-                customMenus.push({ id: `menu_${Date.now()}`, ...menuPayload });
-            }
-
-            saveCustomMenusToStorage();
-            renderSidebarMenus();
-            renderAdminMenuList();
-            resetMenuForm();
+        function renderAdminFontList() {
+            const list = document.getElementById('adminFontList');
+            list.innerHTML = '';
+            fonts.forEach((f, idx) => {
+                list.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-50 border rounded-xl"><span>${idx+1}. ${f.th} (${f.en})</span><button onclick="deleteFont('${f.id}')" class="text-red-500">ลบ</button></div>`;
+            });
         }
 
         function renderAdminMenuList() {
-            const container = document.getElementById('adminMenuList');
-            if (!container) return;
-            container.innerHTML = '';
-            customMenus.forEach((menu) => {
-                const row = document.createElement('div');
-                row.className = 'flex justify-between items-center p-2 bg-gray-50 border rounded-xl text-xs';
-                row.innerHTML = `<span>${menu.title}</span><div><button onclick="deleteMenu('${menu.id}')" class="text-red-500">ลบ</button></div>`;
-                container.appendChild(row);
+            const list = document.getElementById('adminMenuList');
+            list.innerHTML = '';
+            customMenus.forEach(m => {
+                list.innerHTML += `<div class="p-2 bg-gray-50 border rounded-xl">${m.title}</div>`;
             });
         }
 
-        function deleteMenu(id) {
-            customMenus = customMenus.filter(m => m.id !== id);
-            saveCustomMenusToStorage();
-            renderSidebarMenus();
-            renderAdminMenuList();
-        }
-
-        function resetMenuForm() {
-            document.getElementById('menuForm').reset();
-            document.getElementById('editMenuId').value = '';
-            document.getElementById('adminBlocksContainer').innerHTML = '';
-        }
-
-        function renderAdminUserList() {
-            const container = document.getElementById('adminUserList');
-            if (!container) return;
-            container.innerHTML = '';
-            adminUsers.forEach((acc, index) => {
-                const row = document.createElement('div');
-                row.className = 'flex justify-between items-center p-2.5 bg-gray-50 border rounded-xl text-xs';
-                row.innerHTML = `<span>${acc.user}</span>${adminUsers.length > 1 ? `<button onclick="deleteAdminUser(${index})" class="text-red-500">ลบ</button>` : ''}`;
-                container.appendChild(row);
+        function renderAdminOrders() {
+            document.getElementById('adminOrderCount').innerText = orders.length;
+            const list = document.getElementById('adminOrdersList');
+            list.innerHTML = '';
+            orders.forEach(o => {
+                list.innerHTML += `<div class="p-2 bg-gray-50 border rounded-xl flex justify-between"><span>${o.fontName} (${o.customerEmail})</span><span class="font-bold text-pink-600">${o.amount}</span></div>`;
             });
-        }
-
-        function handleAddNewAdmin(e) {
-            e.preventDefault();
-            const user = document.getElementById('newAdminUser').value.trim();
-            const pass = document.getElementById('newAdminPass').value.trim();
-            adminUsers.push({ user, pass });
-            saveCustomMenusToStorage();
-            renderAdminUserList();
-            document.getElementById('newAdminUser').value = '';
-            document.getElementById('newAdminPass').value = '';
-        }
-
-        function deleteAdminUser(index) {
-            if (adminUsers.length <= 1) return;
-            adminUsers.splice(index, 1);
-            saveCustomMenusToStorage();
-            renderAdminUserList();
-        }
-
-        function renderAdminFontList(page = 1) {
-            adminCurrentPage = page;
-            const container = document.getElementById('adminFontList');
-            const badge = document.getElementById('fontCountBadge');
-            if (!container || !badge) return;
-            const searchInput = (document.getElementById('adminFontSearch') ? document.getElementById('adminFontSearch').value : '').trim().toLowerCase();
-            
-            container.innerHTML = '';
-            badge.innerText = fonts.length;
-
-            const filteredAdminFonts = fonts.filter(f => (f.th || '').toLowerCase().includes(searchInput) || (f.en || '').toLowerCase().includes(searchInput));
-            const startIndex = (adminCurrentPage - 1) * adminItemsPerPage;
-            const pageItems = filteredAdminFonts.slice(startIndex, startIndex + adminItemsPerPage);
-
-            pageItems.forEach((f, index) => {
-                const row = document.createElement('div');
-                row.className = 'flex items-center justify-between p-2.5 bg-gray-50 border rounded-xl text-xs';
-                row.innerHTML = `<span>${startIndex + index + 1}. ${f.th} (${f.en})</span><div><button onclick="startEditFont('${f.id}')" class="text-pink-600 mr-2">แก้ไข</button><button onclick="deleteFont('${f.id}')" class="text-red-600">ลบ</button></div>`;
-                container.appendChild(row);
-            });
-        }
-
-        function startEditFont(id) {
-            const f = fonts.find(i => i.id === id);
-            if (!f) return;
-            document.getElementById('editFontId').value = f.id;
-            document.getElementById('newFontTh').value = f.th;
-            document.getElementById('newFontEn').value = f.en;
-            if (f.p === f.c) {
-                document.getElementById('priceType').value = 'single';
-                document.getElementById('newFontSingle').value = f.p;
-            } else {
-                document.getElementById('priceType').value = 'split';
-                document.getElementById('newFontP').value = f.p;
-                document.getElementById('newFontC').value = f.c;
-            }
-            togglePriceInputs();
-        }
-
-        function resetForm() {
-            const form = document.getElementById('fontForm');
-            if (form) form.reset();
-            document.getElementById('editFontId').value = '';
-            togglePriceInputs();
         }
 
         async function deleteFont(id) {
-            if (!confirm('ยืนยันการลบฟอนต์?')) return;
+            if (!confirm('ยืนยันลบฟอนต์?')) return;
             if (supabaseClient) await supabaseClient.from('fonts').delete().eq('id', id);
             fonts = fonts.filter(f => f.id !== id);
-            try { localStorage.setItem('thitipra_fonts_data', JSON.stringify(fonts)); } catch (err) {}
-            renderAdminFontList(adminCurrentPage);
-            filterFonts(currentPage);
+            renderAdminFontList();
+            filterFonts(1);
+        }
+
+        function populateSelects() {
+            ['singleFontSelect', 'selectLeft', 'selectRight'].forEach(id => {
+                const sel = document.getElementById(id);
+                if (sel) {
+                    sel.innerHTML = '';
+                    fonts.forEach(f => { sel.innerHTML += `<option value="${f.en}">${f.th} (${f.en})</option>`; });
+                }
+            });
         }
 
         let currentSlide = 0;
         const track = document.getElementById('slider-track');
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('#slider-dots button');
-
-        function updateSlider() {
-            if (!track || slides.length === 0) return;
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            dots.forEach((dot, index) => {
-                dot.className = index === currentSlide ? 'w-4 h-2 rounded-full bg-[#ff85b3] transition-all' : 'w-2 h-2 rounded-full bg-white/60 transition-all';
-            });
-        }
-
-        function nextSlide() { currentSlide = (currentSlide + 1) % slides.length; updateSlider(); }
-        function prevSlide() { currentSlide = (currentSlide - 1 + slides.length) % slides.length; updateSlider(); }
-        function startInterval() { if (slides.length > 0) setInterval(nextSlide, 3500); }
+        function updateSlider() { if (track) track.style.transform = `translateX(-${currentSlide * 100}%)`; }
+        function nextSlide() { currentSlide = (currentSlide + 1) % 3; updateSlider(); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + 3) % 3; updateSlider(); }
+        function startInterval() { setInterval(nextSlide, 3500); }
 
         init();
     </script>
