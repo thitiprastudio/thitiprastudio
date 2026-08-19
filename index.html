@@ -129,7 +129,6 @@
             box-sizing: border-box;
         }
 
-        /* ระยะห่างตัวอักษรของ Character Set */
         .char-spacing {
             letter-spacing: 0.35em;
             word-spacing: 0.5em;
@@ -160,7 +159,6 @@
                     <span class="text-[#ff85b3]"><i class="fas fa-columns"></i></span> โหมดเปรียบเทียบ (VS Mode)
                 </button>
 
-                <!-- ปุ่มสั่งซื้อฟอนต์เครืออื่นๆ -->
                 <button onclick="openExternalStoreNotice(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-gradient-to-r from-amber-50 to-pink-50 hover:from-amber-100 hover:to-pink-100 rounded-2xl transition text-[14px] text-amber-900 border border-amber-200/80 shadow-sm font-semibold">
                     <span class="text-amber-500 text-base"><i class="fas fa-store"></i></span> 
                     <div>
@@ -169,7 +167,6 @@
                     </div>
                 </button>
 
-                <!-- รายการเมนูไดนามิกที่แอดมินจัดการได้ -->
                 <div id="dynamicMenuItems" class="space-y-2 border-t border-b border-pink-100 py-2.5 my-2.5"></div>
 
                 <button onclick="checkAdminStatus(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-pink-50 hover:bg-pink-100 rounded-2xl transition text-[15px] text-pink-600 font-bold border border-pink-200">
@@ -382,7 +379,7 @@
                     <div id="modalPriceDisplay" class="p-3 text-xs font-semibold"></div>
                 </div>
 
-                <!-- กล่องแสดงผังตัวอย่างอักษรแบบแบ่งช่องเป็นหมวดหมู่ย่อย ชัดเจน อ่านง่าย พร้อมระยะห่างตัวอักษรแบบกว้าง -->
+                <!-- กล่องแสดงผังตัวอย่างอักษรแบบแบ่งช่องเป็นหมวดหมู่ย่อย ชัดเจน อ่านง่าย -->
                 <div class="mt-5 p-4 sm:p-5 bg-gradient-to-b from-pink-50/70 to-pink-50/20 border border-pink-200/80 rounded-2xl text-left shadow-sm">
                     <div class="flex items-center justify-between mb-3 border-b border-pink-200/60 pb-2">
                         <span class="text-xs font-bold text-gray-800 flex items-center gap-2">
@@ -484,7 +481,7 @@
                         🛒 สั่งซื้อผ่าน MyShop (จัดส่งใน 24 ชม.)
                     </a>
                     <button type="button" onclick="openOrderModal()" class="w-full bg-white border-2 border-[#06C755] hover:bg-green-50 text-[#06C755] p-2.5 rounded-xl text-center font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
-                        <i class="fab fa-line text-base"></i> 💬 สั่งซื้อ / ติดต่อแอดมิน (เลือกสิทธิ์)
+                        <i class="fab fa-line text-base"></i> 💬 สั่งซื้อ / ชำระเงิน / ติดต่อแอดมิน
                     </button>
                 </div>
             </div>
@@ -530,7 +527,7 @@
         </div>
     </div>
 
-    <!-- Modal 7: ฟอร์มสั่งซื้อและเลือกสิทธิ์การใช้งานส่งเข้า LINE OA -->
+    <!-- Modal 7: ฟอร์มสั่งซื้อ ชำระเงินผ่าน QR Code และส่งข้อมูลเข้า LINE OA -->
     <div id="orderLicenseModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-lg border-2 border-pink-300 shadow-2xl modal-enter relative max-h-[92vh] overflow-y-auto">
             <button onclick="closeModal('orderLicenseModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
@@ -538,9 +535,9 @@
             </button>
 
             <div class="text-center mb-4">
-                <span class="text-xs bg-pink-100 text-pink-600 font-bold px-3 py-1 rounded-full">สั่งซื้อกับแอดมิน</span>
+                <span class="text-xs bg-pink-100 text-pink-600 font-bold px-3 py-1 rounded-full">สั่งซื้อและชำระเงิน</span>
                 <h3 class="font-slackey text-xl text-[#5c3a21] mt-2" id="orderModalFontTitle">ชื่อฟอนต์</h3>
-                <p class="text-xs text-gray-400">กรุณาเลือกสิทธิ์การใช้งานและกรอกอีเมลเพื่อส่งออเดอร์ไปยัง LINE</p>
+                <p class="text-xs text-gray-400">กรุณาเลือกสิทธิ์การใช้งาน สแกนจ่าย และส่งสลิปแจ้งทาง LINE</p>
             </div>
 
             <form onsubmit="handleSendToLine(event)" class="space-y-4 text-xs">
@@ -550,7 +547,7 @@
                     <label class="block p-3.5 rounded-2xl border-2 cursor-pointer transition relative bg-pink-50/30 border-pink-200 hover:border-pink-400" id="label-personal">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <input type="radio" name="licenseSelect" value="personal" checked class="accent-pink-500">
+                                <input type="radio" name="licenseSelect" value="personal" checked onchange="updatePaymentAmount()" class="accent-pink-500">
                                 <span class="font-bold text-gray-800 text-sm">ใช้งานส่วนตัว (Personal License)</span>
                             </div>
                             <span class="font-bold text-pink-600 text-sm" id="orderPricePersonal">฿79</span>
@@ -566,7 +563,7 @@
                     <label class="block p-3.5 rounded-2xl border-2 cursor-pointer transition relative bg-yellow-50/40 border-yellow-200 hover:border-yellow-400" id="label-commercial">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <input type="radio" name="licenseSelect" value="commercial" class="accent-pink-500">
+                                <input type="radio" name="licenseSelect" value="commercial" onchange="updatePaymentAmount()" class="accent-pink-500">
                                 <span class="font-bold text-gray-800 text-sm">ใช้งานเชิงพาณิชย์ (Commercial)</span>
                             </div>
                             <span class="font-bold text-amber-700 text-sm" id="orderPriceCommercial">฿169</span>
@@ -584,7 +581,7 @@
                     <label class="block p-3.5 rounded-2xl border-2 cursor-pointer transition relative bg-purple-50/30 border-purple-200 hover:border-purple-400" id="label-business">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <input type="radio" name="licenseSelect" value="business" class="accent-pink-500">
+                                <input type="radio" name="licenseSelect" value="business" onchange="updatePaymentAmount()" class="accent-pink-500">
                                 <span class="font-bold text-gray-800 text-sm">นิติบุคคล (Business License)</span>
                             </div>
                             <span class="font-bold text-purple-700 text-sm">฿700</span>
@@ -598,19 +595,38 @@
                     </label>
                 </div>
 
+                <!-- กล่อง QR Code ชำระเงิน & ยอดเงิน -->
+                <div class="p-4 bg-gradient-to-b from-pink-50/60 to-pink-50/20 border-2 border-pink-200 rounded-3xl text-center space-y-3">
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="bg-[#06C755] text-white px-2.5 py-0.5 rounded-full text-[10px] font-bold">QR Payment</span>
+                        <span class="font-bold text-gray-800 text-sm">สแกนชำระเงินผ่าน QR Code</span>
+                    </div>
+
+                    <div class="w-48 h-48 mx-auto bg-white p-2.5 rounded-2xl shadow-sm border border-pink-200 flex items-center justify-center overflow-hidden">
+                        <img src="QRcodepayment.jpg" alt="QR Code Payment" class="w-full h-full object-contain rounded-xl" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ThitipraStudioPayment';">
+                    </div>
+
+                    <!-- ยอดเงินที่ต้องชำระ -->
+                    <div class="bg-white p-3 rounded-2xl border border-pink-200 inline-block w-full shadow-xs">
+                        <span class="text-[11px] text-gray-500 block mb-0.5">ยอดเงินที่ต้องชำระ (ตามสิทธิ์ที่เลือก)</span>
+                        <span class="text-2xl font-bold text-pink-600 font-slackey" id="paymentTotalAmount">฿0</span>
+                        <span class="text-[10px] text-gray-400 block mt-0.5">ชื่อบัญชี: บัญชีร้านค้า ThitipraStudio</span>
+                    </div>
+                </div>
+
                 <div class="space-y-1">
                     <label class="block font-bold text-gray-700 text-sm">2. อีเมลของลูกค้า (Gmail สำหรับรับไฟล์ไดรฟ์)</label>
                     <input required type="email" id="orderCustomerEmail" class="w-full border-2 border-pink-200 rounded-xl p-3 text-xs focus:outline-pink-400 bg-white" placeholder="example@gmail.com">
                     <p class="text-[10px] text-gray-400">* ต้องใช้อีเมล Gmail เพื่อให้ระบบแชร์สิทธิ์โฟลเดอร์ Google Drive</p>
                 </div>
 
-                <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-center text-amber-800 font-semibold text-xs">
-                    ⏰ ระบบจะเปิด LINE และส่งข้อมูลออเดอร์ให้แอดมิน<br>
-                    <span class="text-pink-600 font-bold">"รอแอดมินส่งบัญชีให้ภายใน 1 ชม. ค่ะ"</span>
+                <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-center text-amber-800 font-semibold text-xs leading-relaxed">
+                    📲 เมื่อชำระเงินเรียบร้อยแล้ว กดปุ่มด้านล่างเพื่อเปิด LINE OA<br>
+                    <span class="text-pink-600 font-bold">"แนบสลิปการโอนเงินในห้องแชทได้ทันทีค่ะ"</span>
                 </div>
 
                 <button type="submit" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold py-3.5 rounded-2xl transition shadow-md flex items-center justify-center gap-2 text-sm">
-                    <i class="fab fa-line text-xl"></i> ยืนยันและส่งข้อมูลไปที่ LINE
+                    <i class="fab fa-line text-xl"></i> ยืนยันข้อมูลและส่งสลิปไปที่ LINE
                 </button>
             </form>
         </div>
@@ -937,7 +953,6 @@
             localStorage.setItem('thitipra_admin_accounts', JSON.stringify(adminUsers));
         }
 
-        /* โหลดและกำหนดเมนูเริ่มต้นของ Sidebar พร้อมข้อมูลเงื่อนไขและประเภทการใช้งาน */
         function loadCustomMenusFromStorage() {
             const saved = localStorage.getItem('thitipra_custom_menus');
             if (saved) {
@@ -1258,7 +1273,21 @@
             }
         }
 
-        /* 6. ระบบสั่งซื้อฟอนต์และส่งข้อมูลเข้า LINE OA */
+        /* 6. ระบบสั่งซื้อฟอนต์ ชำระเงิน QR Code และส่งข้อมูลเข้า LINE OA */
+        function updatePaymentAmount() {
+            if (!currentFont) return;
+            const selectedLicense = document.querySelector('input[name="licenseSelect"]:checked').value;
+            const totalEl = document.getElementById('paymentTotalAmount');
+            
+            if (selectedLicense === 'personal') {
+                totalEl.innerText = `${currentFont.p.includes('฿') ? '' : '฿'}${currentFont.p}`;
+            } else if (selectedLicense === 'commercial') {
+                totalEl.innerText = `${currentFont.c.includes('฿') ? '' : '฿'}${currentFont.c}`;
+            } else {
+                totalEl.innerText = `฿700`;
+            }
+        }
+
         function openOrderModal() {
             if (!currentFont) return;
 
@@ -1275,7 +1304,8 @@
 
             document.querySelector('input[name="licenseSelect"][value="personal"]').checked = true;
             document.getElementById('orderCustomerEmail').value = '';
-
+            
+            updatePaymentAmount();
             openModal('orderLicenseModal');
         }
 
@@ -1301,14 +1331,14 @@
             }
 
             const message = 
-`🛒 สนใจสั่งซื้อฟอนต์ลายมือ
+`🛒 แจ้งชำระเงินสั่งซื้อฟอนต์ลายมือ
 ---------------------------
 • ชื่อฟอนต์: ${currentFont.th} (${currentFont.en})
-• การใช้งานที่เลือก: ${licenseText}
-• ราคา: ${priceText}
+• สิทธิ์ที่เลือก: ${licenseText}
+• ยอดโอน: ${priceText}
 • เมลลูกค้า: ${email}
 ---------------------------
-(รอแอดมินส่งบัญชีให้ภายใน 1 ชม. ค่ะ)`;
+(แนบสลิปการโอนเงินด้านล่างนี้ได้เลยค่ะ)`;
 
             const lineUrl = `https://line.me/R/oaMessage/@wbk2012r/?${encodeURIComponent(message)}`;
             window.open(lineUrl, '_blank') || window.open('https://lin.ee/8k1sAhb', '_blank');
