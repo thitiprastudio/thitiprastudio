@@ -12,7 +12,7 @@
     <style>
         :root {
             --color-pink-bg: #ffe4ef;
-            --color-pink-dot: #fff;
+            --color-pink-dot: #ffffff;
             --color-pink-dark: #ff85b3;
             --color-pink-light: #ffb8d1;
             --color-brown-dark: #5c3a21;
@@ -166,7 +166,7 @@
         </div>
     </div>
 
-    <!-- Top Bar (ปุ่มแอดมินที่มุมบนขวา) -->
+    <!-- Top Bar -->
     <div class="w-full bg-white/90 backdrop-blur-md border-b border-pink-200 py-3 px-4 flex justify-between items-center text-xs font-slackey text-pink-400 font-medium tracking-wider sticky top-0 z-30 shadow-sm">
         <div class="flex items-center gap-2">
             <button onclick="toggleMenu()" class="p-1.5 hover:bg-pink-100 rounded-lg text-pink-500 transition">
@@ -181,7 +181,7 @@
         </div>
     </div>
 
-    <!-- Main Container -->
+    <!-- Main Container (Clean Board Layout ไร้สันงู) -->
     <main class="max-w-4xl mx-auto mt-6 sm:mt-8 px-4 relative z-0">
         <div class="clean-box p-6 sm:p-10 border border-white">
             
@@ -326,7 +326,7 @@
                     <div id="modalPriceDisplay" class="p-3 text-xs font-semibold"></div>
                 </div>
 
-                <!-- ปุ่มแอคชั่นสั่งซื้อ -->
+                <!-- ปุ่มสั่งซื้อ & ติดต่อแอดมิน -->
                 <div class="flex flex-col gap-2 mt-4 text-xs font-semibold">
                     <a href="https://shop.line.me/@wbk2012r" target="_blank" class="bg-[#06C755] text-white p-3 rounded-xl text-center shadow-sm">
                         🛒 สั่งซื้อผ่าน MyShop (จัดส่งใน 24 ชม.)
@@ -392,7 +392,6 @@
             </div>
 
             <form onsubmit="handleSendToLine(event)" class="space-y-4 text-xs">
-                <!-- ตัวเลือกสิทธิ์ 3 แบบ -->
                 <div class="space-y-2.5">
                     <label class="block font-bold text-gray-700 text-sm">1. เลือกประเภทและสิทธิ์การใช้งาน</label>
 
@@ -497,13 +496,24 @@
     <!-- Modal 6: Admin Dashboard (จัดการฟอนต์ + เมนูข้าง Sidebar + รหัสผ่าน) -->
     <div id="adminDashboardModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-2xl border-2 border-pink-300 shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
+            
+            <!-- แถบด้านบน: เลือกแท็บ + ปุ่มสลับไปหน้าหลัก (ไม่หลุดระบบ) + ปุ่มออกจากระบบ -->
             <div class="flex justify-between items-center mb-4 border-b pb-3 flex-wrap gap-2">
-                <div class="flex gap-2 flex-wrap">
+                <div class="flex gap-2 flex-wrap items-center">
                     <button onclick="switchAdminTab('fonts')" id="tabBtnFonts" class="font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-[#ff85b3] text-white">จัดการฟอนต์</button>
                     <button onclick="switchAdminTab('menus')" id="tabBtnMenus" class="font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">จัดการ Sidebar Menu</button>
                     <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="font-slackey text-xs sm:text-sm px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">จัดการรหัสผ่าน</button>
                 </div>
-                <button onclick="adminLogout()" class="text-xs bg-red-50 text-red-500 px-3 py-1.5 rounded-full hover:bg-red-100 transition">ออกจากระบบ</button>
+                
+                <div class="flex items-center gap-2">
+                    <!-- ปุ่มกลับหน้าหลักโดยไม่ต้องออกจากระบบ -->
+                    <button type="button" onclick="closeModal('adminDashboardModal')" class="text-xs bg-pink-100 text-pink-600 px-3.5 py-1.5 rounded-full hover:bg-pink-200 font-bold transition flex items-center gap-1 shadow-sm">
+                        <i class="fas fa-home"></i> กลับหน้าหลัก
+                    </button>
+                    <button type="button" onclick="adminLogout()" class="text-xs bg-red-50 text-red-500 px-3.5 py-1.5 rounded-full hover:bg-red-100 transition font-medium">
+                        ออกจากระบบ
+                    </button>
+                </div>
             </div>
 
             <!-- Tab 1: จัดการฟอนต์ -->
