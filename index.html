@@ -134,6 +134,11 @@
             word-spacing: 0.5em;
             line-height: 2.2;
         }
+        .char-spacing-sm {
+            letter-spacing: 0.25em;
+            word-spacing: 0.35em;
+            line-height: 1.9;
+        }
     </style>
 </head>
 <body class="min-h-screen pb-12">
@@ -379,7 +384,7 @@
                     <div id="modalPriceDisplay" class="p-3 text-xs font-semibold"></div>
                 </div>
 
-                <!-- กล่องแสดงผังตัวอย่างอักษรแบบแบ่งช่องเป็นหมวดหมู่ย่อย ชัดเจน อ่านง่าย -->
+                <!-- กล่องแสดงผังตัวอย่างอักษร -->
                 <div class="mt-5 p-4 sm:p-5 bg-gradient-to-b from-pink-50/70 to-pink-50/20 border border-pink-200/80 rounded-2xl text-left shadow-sm">
                     <div class="flex items-center justify-between mb-3 border-b border-pink-200/60 pb-2">
                         <span class="text-xs font-bold text-gray-800 flex items-center gap-2">
@@ -390,7 +395,6 @@
 
                     <div id="characterSetDisplay" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs" style="font-family: inherit;">
                         
-                        <!-- บล็อก 1: พยัญชนะไทย -->
                         <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5 md:col-span-2">
                             <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-pink-600 bg-pink-50 px-2 py-0.5 rounded-md">
                                 <i class="fas fa-language"></i> พยัญชนะไทย (๔๔ ตัว)
@@ -400,7 +404,6 @@
                             </div>
                         </div>
 
-                        <!-- บล็อก 2: สระและวรรณยุกต์ไทย -->
                         <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5 md:col-span-2">
                             <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-pink-600 bg-pink-50 px-2 py-0.5 rounded-md">
                                 <i class="fas fa-font"></i> สระ & วรรณยุกต์ & เครื่องหมายไทย
@@ -410,7 +413,6 @@
                             </div>
                         </div>
 
-                        <!-- บล็อก 3: ภาษาอังกฤษพิมพ์ใหญ่ -->
                         <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5">
                             <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md">
                                 <i class="fas fa-font-case"></i> English Uppercase (A-Z)
@@ -420,7 +422,6 @@
                             </div>
                         </div>
 
-                        <!-- บล็อก 4: ภาษาอังกฤษพิมพ์เล็ก -->
                         <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5">
                             <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md">
                                 <i class="fas fa-font"></i> English Lowercase (a-z)
@@ -430,7 +431,6 @@
                             </div>
                         </div>
 
-                        <!-- บล็อก 5: ตัวเลขอารบิก & ตัวเลขไทย -->
                         <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5">
                             <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
                                 <i class="fas fa-hashtag"></i> ตัวเลขอารบิก & ตัวเลขไทย
@@ -441,7 +441,6 @@
                             </div>
                         </div>
 
-                        <!-- บล็อก 6: สัญลักษณ์และเครื่องหมาย -->
                         <div class="bg-white p-3.5 rounded-xl border border-pink-100 shadow-xs space-y-1.5">
                             <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-md">
                                 <i class="fas fa-icons"></i> สัญลักษณ์ & เครื่องหมายวรรคตอน
@@ -488,16 +487,17 @@
         </div>
     </div>
 
-    <!-- Modal 2: โหมดเปรียบเทียบ VS -->
+    <!-- Modal 2: โหมดเปรียบเทียบ VS (พร้อมผังอักขระ & ปุ่มสั่งซื้อแยกฝั่ง) -->
     <div id="vsModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
-        <div class="bg-white rounded-3xl p-6 w-full max-w-2xl border border-purple-300 shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-4xl border border-purple-300 shadow-2xl modal-enter relative max-h-[92vh] overflow-y-auto">
             <button onclick="closeModal('vsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-purple-600 bg-gray-50 rounded-full p-1.5">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
 
-            <h2 class="font-slackey text-2xl text-center text-purple-900 mb-3">Font Comparison (VS)</h2>
+            <h2 class="font-slackey text-2xl text-center text-purple-900 mb-1">Font Comparison (VS Mode)</h2>
+            <p class="text-center text-xs text-gray-400 mb-3">เปรียบเทียบข้อความสดและผังอักขระ พร้อมเลือกสั่งซื้อฟอนต์ที่ชอบได้ทันที</p>
 
-            <input type="text" id="vsInput" class="w-full border-2 border-purple-100 rounded-xl p-2.5 text-sm text-center mb-3" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
+            <input type="text" id="vsInput" class="w-full border-2 border-purple-100 rounded-xl p-2.5 text-sm text-center mb-3 focus:outline-purple-400" placeholder="พิมพ์ข้อความเดียวเปรียบเทียบ..." oninput="refreshVS()">
 
             <div class="flex items-center gap-3 w-full px-2 mb-4">
                 <span class="text-xs text-gray-500">ขนาดพร้อมกัน:</span>
@@ -505,24 +505,83 @@
                 <span id="vsSizeLabel" class="text-xs text-purple-600 font-bold min-w-[40px]">50px</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="tester-container" style="min-height: 200px;">
-                    <div class="p-2 border-b border-pink-100 flex items-center gap-2 bg-pink-50/50">
-                        <select id="selectLeft" class="w-full text-xs p-1.5 rounded-lg border border-pink-200" onchange="refreshVS()"></select>
-                        <button class="bg-[#ff85b3] text-white p-1.5 rounded-lg text-xs" onclick="jumpToSingle('selectLeft')"><i class="fas fa-arrow-right"></i></button>
+            <!-- กล่องเปรียบเทียบ 2 ฝั่ง -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                
+                <!-- ฝั่งซ้าย (Left Font) -->
+                <div class="space-y-3">
+                    <div class="tester-container" style="min-height: 200px; margin-top:0;">
+                        <div class="p-2 border-b border-pink-100 flex items-center gap-2 bg-pink-50/50">
+                            <select id="selectLeft" class="w-full text-xs p-1.5 rounded-lg border border-pink-200" onchange="refreshVS()"></select>
+                            <button class="bg-[#ff85b3] text-white p-1.5 px-2 rounded-lg text-xs" onclick="jumpToSingle('selectLeft')" title="ดูรายละเอียดฟอนต์นี้"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                        <div id="displayLeft">สวัสดี hello</div>
+                        <div id="priceLeft" class="p-2 text-center text-xs font-semibold"></div>
                     </div>
-                    <div id="displayLeft">สวัสดี hello</div>
-                    <div id="priceLeft" class="p-2 text-center text-xs font-semibold"></div>
+
+                    <button type="button" onclick="orderFontFromVS('selectLeft')" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold py-2.5 rounded-xl transition shadow-sm flex items-center justify-center gap-1.5 text-xs">
+                        <i class="fab fa-line text-sm"></i> สั่งซื้อฟอนต์ฝั่งซ้าย (<span id="btnTextOrderLeft">ฟอนต์นี้</span>)
+                    </button>
+
+                    <!-- ผังตัวอย่างอักษร ฝั่งซ้าย -->
+                    <div class="p-3 bg-pink-50/40 border border-pink-100 rounded-2xl text-left space-y-2 text-[11px]">
+                        <span class="font-bold text-gray-700 block text-xs border-b border-pink-100 pb-1 flex items-center gap-1.5">
+                            <i class="fas fa-table-cells text-pink-400"></i> ผังอักขระ (<span id="charTitleLeft"></span>)
+                        </span>
+                        <div id="charSetLeft" class="space-y-2 text-gray-700 leading-relaxed bg-white p-2.5 rounded-xl border border-pink-50">
+                            <div>
+                                <strong class="text-pink-600 block text-[10px]">ไทย (ก-ฮ / สระ / วรรณยุกต์):</strong>
+                                <div class="char-spacing-sm font-medium">ก ข ฃ ค ฅ ฆ ง จ ฉ ช ซ ฌ ญ ฎ ฏ ฐ ฑ ฒ ณ ด ต ถ ท ธ น บ ป ผ ฝ พ ฟ ภ ม ย ร ล ว ศ ษ ส ห ฬ อ ฮ ะ า ำ ิ ี ึ ื ุ ู เ แ โ ใ ไ ็ ่ ้ ๊ ๋ ์ ํ ๎ ฯ ๆ ฿</div>
+                            </div>
+                            <div>
+                                <strong class="text-purple-600 block text-[10px]">English (A-Z / a-z):</strong>
+                                <div class="char-spacing-sm font-medium">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br>a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
+                            </div>
+                            <div>
+                                <strong class="text-amber-700 block text-[10px]">ตัวเลข & สัญลักษณ์:</strong>
+                                <div class="char-spacing-sm font-medium">0 1 2 3 4 5 6 7 8 9 ๐ ๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙ ! @ # $ % ^ & * ( ) _ + - = [ ] { } ; : , . / ? ~</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="tester-container" style="min-height: 200px;">
-                    <div class="p-2 border-b border-pink-100 flex items-center gap-2 bg-pink-50/50">
-                        <select id="selectRight" class="w-full text-xs p-1.5 rounded-lg border border-pink-200" onchange="refreshVS()"></select>
-                        <button class="bg-[#ff85b3] text-white p-1.5 rounded-lg text-xs" onclick="jumpToSingle('selectRight')"><i class="fas fa-arrow-right"></i></button>
+                <!-- ฝั่งขวา (Right Font) -->
+                <div class="space-y-3">
+                    <div class="tester-container" style="min-height: 200px; margin-top:0;">
+                        <div class="p-2 border-b border-purple-100 flex items-center gap-2 bg-purple-50/50">
+                            <select id="selectRight" class="w-full text-xs p-1.5 rounded-lg border border-purple-200" onchange="refreshVS()"></select>
+                            <button class="bg-purple-400 text-white p-1.5 px-2 rounded-lg text-xs" onclick="jumpToSingle('selectRight')" title="ดูรายละเอียดฟอนต์นี้"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                        <div id="displayRight">สวัสดี hello</div>
+                        <div id="priceRight" class="p-2 text-center text-xs font-semibold"></div>
                     </div>
-                    <div id="displayRight">สวัสดี hello</div>
-                    <div id="priceRight" class="p-2 text-center text-xs font-semibold"></div>
+
+                    <button type="button" onclick="orderFontFromVS('selectRight')" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold py-2.5 rounded-xl transition shadow-sm flex items-center justify-center gap-1.5 text-xs">
+                        <i class="fab fa-line text-sm"></i> สั่งซื้อฟอนต์ฝั่งขวา (<span id="btnTextOrderRight">ฟอนต์นี้</span>)
+                    </button>
+
+                    <!-- ผังตัวอย่างอักษร ฝั่งขวา -->
+                    <div class="p-3 bg-purple-50/40 border border-purple-100 rounded-2xl text-left space-y-2 text-[11px]">
+                        <span class="font-bold text-gray-700 block text-xs border-b border-purple-100 pb-1 flex items-center gap-1.5">
+                            <i class="fas fa-table-cells text-purple-400"></i> ผังอักขระ (<span id="charTitleRight"></span>)
+                        </span>
+                        <div id="charSetRight" class="space-y-2 text-gray-700 leading-relaxed bg-white p-2.5 rounded-xl border border-purple-50">
+                            <div>
+                                <strong class="text-pink-600 block text-[10px]">ไทย (ก-ฮ / สระ / วรรณยุกต์):</strong>
+                                <div class="char-spacing-sm font-medium">ก ข ฃ ค ฅ ฆ ง จ ฉ ช ซ ฌ ญ ฎ ฏ ฐ ฑ ฒ ณ ด ต ถ ท ธ น บ ป ผ ฝ พ ฟ ภ ม ย ร ล ว ศ ษ ส ห ฬ อ ฮ ะ า ำ ิ ี ึ ื ุ ู เ แ โ ใ ไ ็ ่ ้ ๊ ๋ ์ ํ ๎ ฯ ๆ ฿</div>
+                            </div>
+                            <div>
+                                <strong class="text-purple-600 block text-[10px]">English (A-Z / a-z):</strong>
+                                <div class="char-spacing-sm font-medium">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br>a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
+                            </div>
+                            <div>
+                                <strong class="text-amber-700 block text-[10px]">ตัวเลข & สัญลักษณ์:</strong>
+                                <div class="char-spacing-sm font-medium">0 1 2 3 4 5 6 7 8 9 ๐ ๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙ ! @ # $ % ^ & * ( ) _ + - = [ ] { } ; : , . / ? ~</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -1235,6 +1294,9 @@
                 const isSingleL = (dataL.p === dataL.c);
                 pL.className = `p-2 text-center text-xs font-semibold ${isSingleL ? 'price-single-style' : 'price-split-style'}`;
                 pL.innerText = isSingleL ? `ราคา: ${dataL.p}` : `ส่วนตัว: ${dataL.p} | เชิงพาณิชย์: ${dataL.c}`;
+                document.getElementById('btnTextOrderLeft').innerText = dataL.th;
+                document.getElementById('charTitleLeft').innerText = `${dataL.th} (${dataL.en})`;
+                document.getElementById('charSetLeft').style.fontFamily = dataL.en;
             }
 
             const pR = document.getElementById('priceRight');
@@ -1242,6 +1304,19 @@
                 const isSingleR = (dataR.p === dataR.c);
                 pR.className = `p-2 text-center text-xs font-semibold ${isSingleR ? 'price-single-style' : 'price-split-style'}`;
                 pR.innerText = isSingleR ? `ราคา: ${dataR.p}` : `ส่วนตัว: ${dataR.p} | เชิงพาณิชย์: ${dataR.c}`;
+                document.getElementById('btnTextOrderRight').innerText = dataR.th;
+                document.getElementById('charTitleRight').innerText = `${dataR.th} (${dataR.en})`;
+                document.getElementById('charSetRight').style.fontFamily = dataR.en;
+            }
+        }
+
+        function orderFontFromVS(selectId) {
+            const fontEn = document.getElementById(selectId).value;
+            const fontData = fonts.find(f => f.en === fontEn);
+            if (fontData) {
+                currentFont = fontData;
+                closeModal('vsModal');
+                openOrderModal();
             }
         }
 
