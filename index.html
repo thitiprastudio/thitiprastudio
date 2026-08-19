@@ -173,6 +173,7 @@
                     </div>
                 </button>
 
+                <!-- รายการเมนูไดนามิก (เงื่อนไขสิทธิ์ & กฎการใช้งาน) -->
                 <div id="dynamicMenuItems" class="space-y-2 border-t border-b border-pink-100 py-2.5 my-2.5"></div>
 
                 <button onclick="checkAdminStatus(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-pink-50 hover:bg-pink-100 rounded-2xl transition text-[15px] text-pink-600 font-bold border border-pink-200">
@@ -826,7 +827,7 @@
         </div>
     </div>
 
-    <!-- Core Script -->
+    <!-- Core Engine -->
     <script>
         const SUPABASE_URL = 'https://czyjemcsufzrvkcfzfwv.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_z10rntPACdi5LPL7lZe4yg_Ka2eCXPY';
@@ -1145,34 +1146,33 @@
             }
         }
 
-        async function openModal(f) {
-            if (typeof f === 'string') {
-                const modal = document.getElementById(f);
-                if (modal) {
-                    modal.classList.remove('hidden');
-                    modal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                }
-                return;
+        async function openModal(modalId) {
+            let modal = null;
+            if (typeof modalId === 'string') {
+                modal = document.getElementById(modalId);
+            } else if (modalId && modalId.id) {
+                currentFont = modalId;
+                modal = document.getElementById('fontModal');
+                document.getElementById('singleFontSelect').value = modalId.en;
+                document.getElementById('modalFontName').innerText = `${modalId.th} (${modalId.en})`;
+                document.getElementById('modalFontName').style.fontFamily = modalId.en;
+
+                const isSinglePrice = (modalId.p === modalId.c);
+                document.getElementById('modalPriceDisplay').innerText = isSinglePrice ? `ราคา: ${modalId.p}` : `ส่วนตัว: ${modalId.p} | เชิงพาณิชย์: ${modalId.c}`;
+
+                if (modalId.file_regular) await ensureFontLoaded(modalId.en, 'normal', modalId.file_regular);
+                if (modalId.file_bold) await ensureFontLoaded(modalId.en, 'bold', modalId.file_bold);
+                if (modalId.file_light) await ensureFontLoaded(modalId.en, '300', modalId.file_light);
+
+                changeWeight('normal');
+                refreshDisplay();
             }
-            currentFont = f;
-            const modal = document.getElementById('fontModal');
-            modal.classList.remove('hidden');
-            modal.style.display = 'flex';
-            document.getElementById('singleFontSelect').value = f.en;
-            document.getElementById('modalFontName').innerText = `${f.th} (${f.en})`;
-            document.getElementById('modalFontName').style.fontFamily = f.en;
 
-            const isSinglePrice = (f.p === f.c);
-            document.getElementById('modalPriceDisplay').innerText = isSinglePrice ? `ราคา: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
-
-            if (f.file_regular) await ensureFontLoaded(f.en, 'normal', f.file_regular);
-            if (f.file_bold) await ensureFontLoaded(f.en, 'bold', f.file_bold);
-            if (f.file_light) await ensureFontLoaded(f.en, '300', f.file_light);
-
-            changeWeight('normal');
-            refreshDisplay();
-            document.body.style.overflow = 'hidden';
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         async function changeWeight(weight) {
@@ -1189,11 +1189,13 @@
             const txt = document.getElementById('testerInput').value || "ฐิติประสตูดิโอ ThitipraStudio";
             const size = document.getElementById('sizeSlider').value;
             const display = document.getElementById('testerDisplay');
-            display.innerText = txt;
-            display.style.fontFamily = currentFont ? currentFont.en : 'sans-serif';
-            display.style.fontWeight = currentWeight;
-            display.style.fontSize = size + "px";
-            document.getElementById('sizeLabel').innerText = size + "px";
+            if (display) {
+                display.innerText = txt;
+                display.style.fontFamily = currentFont ? currentFont.en : 'sans-serif';
+                display.style.fontWeight = currentWeight;
+                display.style.fontSize = size + "px";
+                document.getElementById('sizeLabel').innerText = size + "px";
+            }
         }
 
         function openVS() {
@@ -1223,10 +1225,12 @@
 
             const dL = document.getElementById('displayLeft');
             const dR = document.getElementById('displayRight');
-            dL.innerText = dR.innerText = val;
-            dL.style.fontFamily = lF; dR.style.fontFamily = rF;
-            dL.style.fontSize = dR.style.fontSize = size + "px";
-            document.getElementById('vsSizeLabel').innerText = size + "px";
+            if (dL && dR) {
+                dL.innerText = dR.innerText = val;
+                dL.style.fontFamily = lF; dR.style.fontFamily = rF;
+                dL.style.fontSize = dR.style.fontSize = size + "px";
+                document.getElementById('vsSizeLabel').innerText = size + "px";
+            }
 
             if (dataL) {
                 document.getElementById('priceLeft').innerText = `ราคา: ${dataL.p}`;
@@ -1328,6 +1332,7 @@
             alert(`บันทึกคำสั่งซื้อสำเร็จ! เลขที่ใบเสร็จคือ ${orderId}`);
         }
 
+        /* ระบบสมาชิกลูกค้า */
         function handleCustomerProfileNav() {
             if (currentCustomer) {
                 renderCustomerOrders();
@@ -1356,6 +1361,7 @@
             const email = document.getElementById('custRegEmail').value.trim();
             const pass = document.getElementById('custRegPass').value.trim();
 
+            loadCustomersFromStorage();
             if (customers.some(c => c.email === email)) {
                 alert('อีเมลนี้เคยสมัครสมาชิกแล้ว');
                 return;
@@ -1377,6 +1383,7 @@
             const email = document.getElementById('custLoginEmail').value.trim();
             const pass = document.getElementById('custLoginPass').value.trim();
 
+            loadCustomersFromStorage();
             const found = customers.find(c => c.email === email && c.pass === pass);
             if (found) {
                 currentCustomer = found;
@@ -1394,6 +1401,15 @@
             localStorage.removeItem('thitipra_current_customer');
             updateAuthButtonUI();
             closeModal('customerProfileModal');
+        }
+
+        function updateAuthButtonUI() {
+            const label = document.getElementById('userAuthLabel');
+            if (currentCustomer && label) {
+                label.innerText = currentCustomer.name.split(' ')[0] || currentCustomer.email.split('@')[0];
+            } else if (label) {
+                label.innerText = 'เข้าสู่ระบบลูกค้า';
+            }
         }
 
         function renderCustomerOrders() {
@@ -1435,7 +1451,7 @@
             openModal('receiptModal');
         }
 
-        /* ระบบแอดมิน - แก้ไขให้เข้าได้แน่นอน 100% */
+        /* ระบบแอดมิน */
         function loadAdminUsersFromStorage() {
             const defaultAdmins = [
                 { user: 'brprh', pass: 'pleng235' },
@@ -1446,9 +1462,7 @@
                 try {
                     adminUsers = JSON.parse(saved);
                     if (!adminUsers || adminUsers.length === 0) adminUsers = defaultAdmins;
-                } catch(e) {
-                    adminUsers = defaultAdmins;
-                }
+                } catch(e) { adminUsers = defaultAdmins; }
             } else {
                 adminUsers = defaultAdmins;
                 localStorage.setItem('thitipra_admin_accounts', JSON.stringify(adminUsers));
@@ -1478,11 +1492,7 @@
             if (isValid) {
                 isAdminLoggedIn = true;
                 closeModal('adminLoginModal');
-                renderAdminFontList(1);
-                renderAdminMenuList();
-                renderAdminUserList();
-                renderAdminOrdersAndCustomers();
-                openModal('adminDashboardModal');
+                checkAdminStatus();
                 document.getElementById('adminEmail').value = '';
                 document.getElementById('adminPass').value = '';
             } else {
@@ -1526,6 +1536,124 @@
                 div.innerHTML = `<div><div class="font-bold">${o.fontName}</div><div class="text-[10px] text-gray-400">${o.customerEmail}</div></div><button onclick='showReceipt(${JSON.stringify(o)})' class="bg-pink-100 text-pink-600 px-2 py-1 rounded">ดู</button>`;
                 orderContainer.appendChild(div);
             });
+        }
+
+        /* Sidebar Menu Management & Storage */
+        function loadCustomMenusFromStorage() {
+            const defaultUsageMenu = {
+                id: 'menu_usage_types',
+                title: 'เงื่อนไข & ประเภทการใช้งาน',
+                icon: 'fas fa-scale-balanced',
+                type: 'blocks',
+                blocks: [
+                    {
+                        subtitle: '👤 สิทธิ์ใช้งานส่วนตัว (Personal License)',
+                        text: '• สำหรับ 1 บุคคล / 1 การสั่งซื้อ (ไม่เกี่ยวกับการเงิน/กำไร)\n• ใช้งานเพื่อการศึกษา จดโน้ต ทำรายงาน ปริ้นอ่านเองได้\n• ตั้งค่าฟอนต์ระบบในเครื่อง Android ได้\n• แต่งภาพ/วิดีโอลงในพื้นที่ส่วนบุคคล (ที่ไม่ใช่พื้นที่ขายของ/เพจ/รีวิว/โปรโมท)'
+                    },
+                    {
+                        subtitle: '💼 สิทธิ์ใช้งานเชิงพาณิชย์ (Commercial License)',
+                        text: '• มีเงิน รายได้ หรือผลประโยชน์เข้ามาเกี่ยวข้อง\n• ตกแต่งภาพสินค้า, ป้ายโปรโมต, โฆษณา Ads\n• ใช้ในแพลตฟอร์ม Facebook, IG, TikTok, Lemon8, เพจ, YouTube\n• สื่อสิ่งพิมพ์ ปริ้น สกรีน ไดคัท แพ็กเกจจิ้งสินค้า โลโก้\n• สติกเกอร์ / ธีมไลน์ (ต้องตกแต่งสำเร็จรูป ไม่ขายเป็นตัวอักษรแยก)'
+                    },
+                    {
+                        subtitle: '🏢 สิทธิ์นิติบุคคล (Business License 700.- ขึ้นไป)',
+                        text: '• สำหรับ บริษัท, องค์กร, ห้างหุ้นส่วนจำกัด (หจก.)\n• จำกัดผู้ใช้งานไม่เกิน 5 เครื่อง ต่อ 1 การสั่งซื้อ\n• ใช้งานเชิงพาณิชย์ หรือรับจ้างออกแบบให้ผู้อื่น\n• ออกใบเสร็จรับเงิน (ไม่จด VAT) + ออกใบรับรองสิทธิ์ถูกต้องตามกฎหมาย'
+                    }
+                ]
+            };
+
+            const defaultRulesMenu = {
+                id: 'menu_rules',
+                title: 'กฎและข้อห้ามลิขสิทธิ์',
+                icon: 'fas fa-shield-halved',
+                type: 'text',
+                content: `1 การสั่งซื้อ ต่อ 1 อีเมล = ใช้ได้ 1 บุคคลเท่านั้น\n\nราคาสำหรับบริษัท/องค์กร/หจก. เริ่มต้น 700.- (จำกัดไม่เกิน 5 เครื่อง)\n\n1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้อง Create outline หรือส่งออกเป็นไฟล์งานสำเร็จเท่านั้น\n2. ห้ามแยกตัวอักษร/เติมสีทำสติกเกอร์ไลน์ หรือพิมพ์สติกเกอร์ขาย\n3. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์\n4. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเทรนฟอนต์ที่คล้ายคลึงกับฟอนต์นี้\n\n⚠️ หากพบการละเมิดลิขสิทธิ์ ปรับ 10,000 บาท / 1 ไฟล์`
+            };
+
+            const defaultAboutMenu = {
+                id: 'menu_about',
+                title: 'รู้จักกับสตูดิโอ',
+                icon: 'fas fa-id-card',
+                type: 'text',
+                content: `Welcome to ThitipraStudio\nเจ้าของเครือฟอนต์ BR & PRH Font\nเปิดขายครั้งแรก 15 May 2023 (เดิม Babyrainfont)\n\nสไตล์ฟอนต์ประจำร้าน: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย`
+            };
+
+            const saved = localStorage.getItem('thitipra_custom_menus');
+            if (saved) {
+                try {
+                    customMenus = JSON.parse(saved);
+                    const exists = customMenus.some(m => m.id === 'menu_usage_types' || m.title.includes('เงื่อนไข'));
+                    if (!exists) {
+                        customMenus.unshift(defaultUsageMenu);
+                        saveCustomMenusToStorage();
+                    }
+                } catch(e) {
+                    customMenus = [defaultUsageMenu, defaultRulesMenu, defaultAboutMenu];
+                    saveCustomMenusToStorage();
+                }
+            } else {
+                customMenus = [defaultUsageMenu, defaultRulesMenu, defaultAboutMenu];
+                saveCustomMenusToStorage();
+            }
+        }
+
+        function saveCustomMenusToStorage() {
+            localStorage.setItem('thitipra_custom_menus', JSON.stringify(customMenus));
+        }
+
+        function renderSidebarMenus() {
+            const container = document.getElementById('dynamicMenuItems');
+            if (!container) return;
+            container.innerHTML = '';
+
+            customMenus.forEach((menu) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left flex items-center gap-3 p-3 hover:bg-pink-50 rounded-2xl transition text-[15px]';
+                btn.innerHTML = `
+                    <span class="text-[#ff85b3]"><i class="${menu.icon || 'fas fa-file-alt'}"></i></span> 
+                    <span>${menu.title}</span>
+                `;
+                btn.onclick = () => {
+                    openDynamicPage(menu.id);
+                    toggleMenu();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function openDynamicPage(menuId) {
+            const menu = customMenus.find(m => m.id === menuId);
+            if (!menu) return;
+
+            document.getElementById('dynamicModalTitle').innerText = menu.title;
+            document.getElementById('dynamicModalIcon').className = menu.icon || 'fas fa-file-alt';
+            
+            const contentContainer = document.getElementById('dynamicModalContent');
+            contentContainer.innerHTML = '';
+
+            if (menu.type === 'blocks' && Array.isArray(menu.blocks) && menu.blocks.length > 0) {
+                const blocksWrapper = document.createElement('div');
+                blocksWrapper.className = 'space-y-3';
+
+                menu.blocks.forEach((b) => {
+                    const blockCard = document.createElement('div');
+                    blockCard.className = 'p-3.5 bg-gradient-to-br from-pink-50/50 to-white border border-pink-200/80 rounded-2xl shadow-xs space-y-1.5';
+                    blockCard.innerHTML = `
+                        <div class="font-bold text-gray-800 text-sm flex items-center gap-1.5 text-pink-600">
+                            <i class="fas fa-bookmark text-pink-400 text-xs"></i> ${b.subtitle || 'รายละเอียด'}
+                        </div>
+                        <div class="text-xs text-gray-600 leading-relaxed whitespace-pre-line pl-1">${b.text || ''}</div>
+                    `;
+                    blocksWrapper.appendChild(blockCard);
+                });
+                contentContainer.appendChild(blocksWrapper);
+            } else {
+                const textDiv = document.createElement('div');
+                textDiv.className = 'p-3.5 bg-pink-50/30 border border-pink-100 rounded-2xl text-xs sm:text-sm text-gray-700 leading-relaxed whitespace-pre-line';
+                textDiv.innerText = menu.content || '';
+                contentContainer.appendChild(textDiv);
+            }
+
+            openModal('dynamicPageModal');
         }
 
         function toggleMenuContentType() {
@@ -1587,6 +1715,7 @@
 
         function renderAdminMenuList() {
             const container = document.getElementById('adminMenuList');
+            if (!container) return;
             container.innerHTML = '';
             customMenus.forEach((menu) => {
                 const row = document.createElement('div');
@@ -1611,6 +1740,7 @@
 
         function renderAdminUserList() {
             const container = document.getElementById('adminUserList');
+            if (!container) return;
             container.innerHTML = '';
             adminUsers.forEach((acc, index) => {
                 const row = document.createElement('div');
@@ -1627,6 +1757,8 @@
             adminUsers.push({ user, pass });
             saveAdminUsersToStorage();
             renderAdminUserList();
+            document.getElementById('newAdminUser').value = '';
+            document.getElementById('newAdminPass').value = '';
         }
 
         function deleteAdminUser(index) {
@@ -1640,13 +1772,13 @@
             adminCurrentPage = page;
             const container = document.getElementById('adminFontList');
             const badge = document.getElementById('fontCountBadge');
+            if (!container || !badge) return;
             const searchInput = (document.getElementById('adminFontSearch') ? document.getElementById('adminFontSearch').value : '').trim().toLowerCase();
             
             container.innerHTML = '';
             badge.innerText = fonts.length;
 
             const filteredAdminFonts = fonts.filter(f => (f.th || '').toLowerCase().includes(searchInput) || (f.en || '').toLowerCase().includes(searchInput));
-
             const startIndex = (adminCurrentPage - 1) * adminItemsPerPage;
             const pageItems = filteredAdminFonts.slice(startIndex, startIndex + adminItemsPerPage);
 
@@ -1676,7 +1808,8 @@
         }
 
         function resetForm() {
-            document.getElementById('fontForm').reset();
+            const form = document.getElementById('fontForm');
+            if (form) form.reset();
             document.getElementById('editFontId').value = '';
             togglePriceInputs();
         }
@@ -1690,43 +1823,13 @@
             filterFonts(currentPage);
         }
 
-        function openExternalStoreNotice() {
-            openModal('externalNoticeModal');
-        }
-
-        function populateSelects() {
-            const select = document.getElementById('singleFontSelect');
-            const sL = document.getElementById('selectLeft');
-            const sR = document.getElementById('selectRight');
-            if (!select || !sL || !sR) return;
-            select.innerHTML = ""; sL.innerHTML = ""; sR.innerHTML = "";
-
-            fonts.forEach((f) => {
-                const opt = `<option value="${f.en}">${f.th} (${f.en})</option>`;
-                select.innerHTML += opt;
-                sL.innerHTML += opt;
-                sR.innerHTML += opt;
-            });
-            if (sR.options.length > 1) sR.selectedIndex = 1;
-        }
-
-        function togglePriceInputs() {
-            const type = document.getElementById('priceType').value;
-            if (type === 'split') {
-                document.getElementById('splitPriceGroup').classList.remove('hidden');
-                document.getElementById('singlePriceGroup').classList.add('hidden');
-            } else {
-                document.getElementById('splitPriceGroup').classList.add('hidden');
-                document.getElementById('singlePriceGroup').classList.remove('hidden');
-            }
-        }
-
         let currentSlide = 0;
         const track = document.getElementById('slider-track');
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('#slider-dots button');
 
         function updateSlider() {
+            if (!track || slides.length === 0) return;
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
             dots.forEach((dot, index) => {
                 dot.className = index === currentSlide ? 'w-4 h-2 rounded-full bg-[#ff85b3] transition-all' : 'w-2 h-2 rounded-full bg-white/60 transition-all';
@@ -1735,7 +1838,7 @@
 
         function nextSlide() { currentSlide = (currentSlide + 1) % slides.length; updateSlider(); }
         function prevSlide() { currentSlide = (currentSlide - 1 + slides.length) % slides.length; updateSlider(); }
-        function startInterval() { setInterval(nextSlide, 3500); }
+        function startInterval() { if (slides.length > 0) setInterval(nextSlide, 3500); }
 
         init();
     </script>
