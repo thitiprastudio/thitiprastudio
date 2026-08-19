@@ -145,7 +145,7 @@
                 </button>
             </div>
             
-            <div class="space-y-2.5 font-medium text-[#5c3a21] flex-1 overflow-y-auto pr-1">
+            <div class="space-y-2 font-medium text-[#5c3a21] flex-1 overflow-y-auto pr-1">
                 <a href="#fonts-section" onclick="toggleMenu()" class="flex items-center gap-3 p-3 hover:bg-pink-50 rounded-2xl transition text-[15px]">
                     <span class="text-[#ff85b3]"><i class="fas fa-font"></i></span> แคตตาล็อกฟอนต์ทั้งหมด
                 </a>
@@ -153,7 +153,17 @@
                     <span class="text-[#ff85b3]"><i class="fas fa-columns"></i></span> โหมดเปรียบเทียบ (VS Mode)
                 </button>
 
-                <div id="dynamicMenuItems" class="space-y-2.5 border-t border-b border-pink-100 py-2.5 my-2.5"></div>
+                <!-- ปุ่มสั่งซื้อฟอนต์เครืออื่นๆ -->
+                <button onclick="openExternalStoreNotice(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-gradient-to-r from-amber-50 to-pink-50 hover:from-amber-100 hover:to-pink-100 rounded-2xl transition text-[14px] text-amber-900 border border-amber-200/80 shadow-sm font-semibold">
+                    <span class="text-amber-500 text-base"><i class="fas fa-store"></i></span> 
+                    <div>
+                        <div class="leading-tight">สั่งซื้อฟอนต์เครืออื่นๆ</div>
+                        <div class="text-[10px] text-pink-500 font-normal mt-0.5">ตัวแทนจำหน่ายอย่างถูกต้อง ✨</div>
+                    </div>
+                </button>
+
+                <!-- รายการเมนูไดนามิกที่แอดมินจัดการได้ -->
+                <div id="dynamicMenuItems" class="space-y-2 border-t border-b border-pink-100 py-2.5 my-2.5"></div>
 
                 <button onclick="checkAdminStatus(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-pink-50 hover:bg-pink-100 rounded-2xl transition text-[15px] text-pink-600 font-bold border border-pink-200">
                     <span><i class="fas fa-user-shield text-pink-500"></i></span> ระบบหลังบ้าน (แอดมิน)
@@ -292,11 +302,44 @@
                 <span id="dynamicModalIcon" class="text-2xl text-[#ff85b3]"></span>
                 <h2 id="dynamicModalTitle" class="text-xl font-bold text-[#5c3a21] font-slackey"></h2>
             </div>
-            <div id="dynamicModalContent" class="text-xs sm:text-sm text-gray-700 leading-relaxed space-y-3 whitespace-pre-line"></div>
+            <div id="dynamicModalContent" class="text-xs sm:text-sm text-gray-700 leading-relaxed space-y-3 whitespace-pre-line font-sans"></div>
         </div>
     </div>
 
-    <!-- Modal 1: ทดลองพิมพ์เดี่ยว (พร้อมปุ่มน้ำหนัก, ผังอักขระ, อุปกรณ์รองรับ, ลิงก์ Canva) -->
+    <!-- Notice Modal สำหรับแจ้งเตือนการสั่งซื้อฟอนต์เครืออื่นๆ -->
+    <div id="externalNoticeModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-md border-2 border-amber-300 shadow-2xl modal-enter relative text-center">
+            <button onclick="closeModal('externalNoticeModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            
+            <div class="w-16 h-16 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                <i class="fas fa-clock"></i>
+            </div>
+            
+            <h3 class="font-slackey text-xl text-[#5c3a21] mb-1">สั่งซื้อฟอนต์เครืออื่นๆ</h3>
+            <span class="inline-block bg-pink-100 text-pink-600 text-xs font-semibold px-3 py-1 rounded-full mb-3">ตัวแทนจำหน่ายอย่างถูกต้อง</span>
+
+            <div class="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 text-xs text-amber-900 leading-relaxed mb-4 text-left space-y-1.5 font-medium">
+                <p class="font-bold text-amber-950 flex items-center gap-1.5"><i class="fas fa-info-circle text-amber-600"></i> ข้อกำหนดในการจัดส่ง:</p>
+                <p>• เมื่อทำรายการสั่งซื้อฟอนต์เครืออื่นๆ ผ่านเว็บไซต์</p>
+                <p class="text-pink-600 font-bold bg-white p-2 rounded-xl border border-amber-200/60 text-center text-sm shadow-sm">
+                    ⏰ "ต้องรอแอดมินจัดส่งไฟล์ภายใน 1 - 3 ชั่วโมงนะคะ"
+                </p>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="closeModal('externalNoticeModal')" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl font-bold transition text-xs">
+                    ยกเลิก
+                </button>
+                <a href="https://thitiprastudio.pages.dev/" target="_blank" onclick="closeModal('externalNoticeModal')" class="flex-1 bg-gradient-to-r from-amber-500 to-pink-500 hover:opacity-95 text-white py-2.5 rounded-xl font-bold transition text-xs flex items-center justify-center gap-1.5 shadow-md">
+                    <span>ไปยังหน้าร้าน</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 1: ทดลองพิมพ์เดี่ยว -->
     <div id="fontModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-2xl border border-[#ff85b3] shadow-2xl modal-enter relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal('fontModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
@@ -311,7 +354,7 @@
                 <select id="singleFontSelect" class="w-full bg-white border border-pink-200 rounded-xl p-2.5 text-xs text-center mb-2" onchange="changeSingleFont(this.value)"></select>
                 <h2 id="modalFontName" class="text-2xl font-bold text-[#ff85b3] mb-3"></h2>
 
-                <!-- แถบเลือกน้ำหนักฟอนต์ (ปกติ / หนา / บาง) -->
+                <!-- แถบเลือกน้ำหนักฟอนต์ -->
                 <div class="flex justify-center gap-2 mb-3">
                     <button type="button" id="weightBtn-normal" onclick="changeWeight('normal')" class="px-4 py-1.5 rounded-full text-xs font-bold border border-pink-300 bg-[#ff85b3] text-white transition shadow-sm">ปกติ (Regular)</button>
                     <button type="button" id="weightBtn-bold" onclick="changeWeight('bold')" class="px-4 py-1.5 rounded-full text-xs font-bold border border-pink-300 bg-white text-pink-600 transition shadow-sm">หนา (Bold)</button>
@@ -326,14 +369,12 @@
                     <span id="sizeLabel" class="text-xs text-pink-500 font-bold min-w-[40px]">65px</span>
                 </div>
 
-                <!-- กล่องทดสอบพิมพ์ -->
                 <div class="tester-container">
                     <div class="tester-bg-watermark"></div>
                     <div id="testerDisplay">ฐิติประสตูดิโอ ThitipraStudio</div>
                     <div id="modalPriceDisplay" class="p-3 text-xs font-semibold"></div>
                 </div>
 
-                <!-- กล่องแสดงผังตัวอย่างอักษร สระ วรรณยุกต์ ตัวเลข และเครื่องหมาย -->
                 <div class="mt-4 p-4 bg-pink-50/50 border border-pink-100 rounded-2xl text-left">
                     <span class="text-xs font-bold text-gray-700 block mb-2"><i class="fas fa-table-cells text-pink-400"></i> ผังตัวอย่างอักษรครบเซ็ต (Character Set):</span>
                     <div id="characterSetDisplay" class="text-xs text-gray-700 leading-relaxed bg-white p-3 rounded-xl border border-pink-100 space-y-1.5" style="font-family: inherit;">
@@ -344,7 +385,6 @@
                     </div>
                 </div>
 
-                <!-- กล่องรายละเอียดฟอนต์ & อุปกรณ์ที่รองรับ -->
                 <div class="mt-4 p-4 bg-white border border-pink-100 rounded-2xl text-left space-y-3 text-xs text-gray-700">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 border-b border-pink-50 pb-2">
                         <div><strong class="text-pink-600">ชนิดไฟล์:</strong> <span id="infoFileType">.otf, .ttf (ติดตั้งได้ทันที)</span></div>
@@ -362,9 +402,7 @@
                     </div>
                 </div>
 
-                <!-- ปุ่มแอคชั่นสั่งซื้อ & Canva -->
                 <div class="flex flex-col gap-2 mt-4 text-xs font-semibold">
-                    <!-- ปุ่มเปิดลิงก์ Canva Template -->
                     <a id="btnOpenCanva" href="#" target="_blank" class="hidden bg-gradient-to-r from-sky-400 to-indigo-500 hover:opacity-95 text-white p-2.5 rounded-xl text-center font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
                         <i class="fas fa-palette"></i> 🎨 เปิดใช้งานบน Canva Template
                     </a>
@@ -549,7 +587,7 @@
                 </div>
             </div>
 
-            <!-- Tab 1: จัดการฟอนต์ & ข้อมูลอุปกรณ์ & ลิงก์ Canva -->
+            <!-- Tab 1: จัดการฟอนต์ -->
             <div id="adminTabFonts">
                 <form id="fontForm" onsubmit="handleSaveFont(event)" class="space-y-3 text-xs bg-pink-50/40 p-4 rounded-2xl border border-pink-100 mb-6">
                     <h4 id="formTitle" class="font-bold text-gray-700 text-sm mb-2 flex items-center gap-1.5">
@@ -601,13 +639,11 @@
                         </div>
                     </div>
 
-                    <!-- ช่องลิงก์ Canva Template -->
                     <div class="p-3 bg-sky-50/50 rounded-xl border border-sky-100">
                         <label class="block font-bold text-sky-800 mb-1">🎨 ลิงก์ Canva Template (ถ้ามี):</label>
                         <input type="text" id="newFontCanva" class="w-full border border-sky-200 rounded-xl p-2.5 bg-white text-xs" placeholder="https://www.canva.com/design/...">
                     </div>
 
-                    <!-- รายละเอียดไฟล์ & ข้อความอุปกรณ์ที่รองรับ (ให้แอดมินแก้ไขได้) -->
                     <div class="border-t border-pink-100 pt-3 space-y-3">
                         <span class="block font-semibold text-pink-600">ข้อมูลไฟล์ & อุปกรณ์ที่รองรับ (แก้ไขได้):</span>
                         
@@ -672,7 +708,7 @@
                 <div id="adminFontList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
             </div>
 
-            <!-- Tab 2: จัดการ Sidebar Menu & ข้อมูลหน้าเพจ -->
+            <!-- Tab 2: จัดการ Sidebar Menu -->
             <div id="adminTabMenus" class="hidden space-y-4 text-xs">
                 <form id="menuForm" onsubmit="handleSaveMenu(event)" class="bg-pink-50/40 p-4 rounded-2xl border border-pink-100 space-y-3">
                     <h4 id="menuFormTitle" class="font-bold text-gray-700 text-sm flex items-center gap-1.5">
@@ -683,17 +719,17 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block font-medium text-gray-700 mb-1">ชื่อเมนูที่จะแสดงบน Bar</label>
-                            <input required type="text" id="newMenuTitle" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น โปรโมชั่นพิเศษ, วิธีสั่งซื้อ">
+                            <input required type="text" id="newMenuTitle" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น สิทธิ์การใช้งาน, วิธีสั่งซื้อ">
                         </div>
                         <div>
                             <label class="block font-medium text-gray-700 mb-1">ไอคอน (FontAwesome Class)</label>
-                            <input type="text" id="newMenuIcon" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น fas fa-gift, fas fa-star">
+                            <input type="text" id="newMenuIcon" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น fas fa-scale-balanced, fas fa-shield-alt">
                         </div>
                     </div>
 
                     <div>
                         <label class="block font-medium text-gray-700 mb-1">เนื้อหาที่จะแสดงเมื่อกดเข้าไป (รองรับการขึ้นบรรทัดใหม่)</label>
-                        <textarea required id="newMenuContent" rows="5" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white leading-relaxed" placeholder="กรอกรายละเอียด ข้อความ กฎ หรือเงื่อนไขที่ต้องการแสดง..."></textarea>
+                        <textarea required id="newMenuContent" rows="6" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white leading-relaxed font-sans" placeholder="กรอกรายละเอียด ข้อความ กฎ หรือเงื่อนไขที่ต้องการแสดง..."></textarea>
                     </div>
 
                     <div class="flex gap-2 pt-1">
@@ -726,7 +762,7 @@
                         </div>
                         <div>
                             <label class="block font-medium text-gray-700 mb-1">Password</label>
-                            <input required type="text" id="newAdminPass" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น pass1234">
+                            <input required type="password" id="newAdminPass" class="w-full border border-pink-200 rounded-xl p-2.5 bg-white" placeholder="เช่น pass1234">
                         </div>
                     </div>
                     <button type="submit" class="w-full bg-[#ff85b3] hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition">
@@ -771,7 +807,6 @@
             startInterval();
         }
 
-        /* โหลดข้อมูลฟอนต์จาก Supabase Database */
         async function loadFontsOnline() {
             if (supabaseClient) {
                 try {
@@ -829,6 +864,7 @@
             localStorage.setItem('thitipra_admin_accounts', JSON.stringify(adminUsers));
         }
 
+        /* โหลดและกำหนดเมนูเริ่มต้นของ Sidebar พร้อมข้อมูลสิทธิ์การใช้งาน */
         function loadCustomMenusFromStorage() {
             const saved = localStorage.getItem('thitipra_custom_menus');
             if (saved) {
@@ -836,8 +872,38 @@
             } else {
                 customMenus = [
                     {
+                        id: 'menu_licenses',
+                        title: 'เงื่อนไข & สิทธิ์การใช้งานฟอนต์',
+                        icon: 'fas fa-scale-balanced',
+                        content: `📜 รายละเอียดประเภทและขอบเขตสิทธิ์การใช้งาน (License Agreement)
+
+👤 1. สิทธิ์ใช้งานส่วนตัว (Personal License)
+• สำหรับ 1 บุคคล / 1 การสั่งซื้อ (ไม่เกี่ยวข้องกับการเงิน/กำไร)
+• ใช้สำหรับศึกษา ทำรายงาน สรุปบทเรียน งานส่งอาจารย์ (พิมพ์อ่านเองได้)
+• ตั้งเป็นฟอนต์ระบบเครื่อง Android ได้
+• ตกแต่งภาพ/วิดีโอลงในพื้นที่ส่วนตัว (ที่มิใช่เพจ/ช่องทางขายสินค้า/โปรโมท/รีวิว)
+
+💼 2. สิทธิ์ใช้งานเชิงพาณิชย์ (Commercial License)
+• สำหรับบุคคลทั่วไป/ฟรีแลนซ์ ที่มีผลประโยชน์ รายได้ หรือการค้าเข้ามาเกี่ยวข้อง
+• สื่อออนไลน์: แต่งภาพสินค้า, ทำ Ads โฆษณา, ทำป้าย, ลงช่องทาง Facebook, IG, TikTok, YouTube, Lemon8
+• สื่อสิ่งพิมพ์: งานสกรีน, งานพิมพ์, งานป้าย, แพ็กเกจจิ้งสินค้า
+• งานออกแบบ: ออกแบบโลโก้, งานกราฟิกโปรโมต, ครีเอเตอร์/นายหน้า TikTok
+• ทำ Sticker / Theme Line (ต้องตกแต่งสำเร็จรูป ไม่ขายเป็นไฟล์แยกตัวอักษร)
+
+🏢 3. สิทธิ์นิติบุคคล / บริษัท / หจก. (Business License 700.- ขึ้นไป)
+• สำหรับองค์กร บริษัท ห้างหุ้นส่วนจำกัด หน่วยงานภาครัฐและเอกชน
+• จำกัดผู้ใช้งานไม่เกิน 5 เครื่อง ต่อ 1 การสั่งซื้อ
+• ใช้งานเพื่อธุรกิจ การตลาด สื่อประชาสัมพันธ์องค์กร และรับจ้างออกแบบ
+• ทางร้านออกใบเสร็จรับเงิน (ไม่จด VAT) พร้อมใบรับรองสิทธิ์การใช้งาน
+
+⚠️ ข้อห้ามสำคัญและบทลงโทษ:
+1. ห้ามแจก ส่งต่อ ขายต่อ หรือเปลี่ยนชื่อไฟล์ฟอนต์โดยเด็ดขาด
+2. ห้ามดราฟต์ คัดลอก ดัดแปลง หรือนำไปเทรน AI สร้างฟอนต์เลียนแบบ
+3. หากตรวจพบการละเมิดลิขสิทธิ์ ปรับ 10,000 บาท ต่อ 1 ไฟล์`
+                    },
+                    {
                         id: 'menu_rules',
-                        title: 'กฎการใช้งานลิขสิทธิ์',
+                        title: 'กฎและข้อห้ามลิขสิทธิ์',
                         icon: 'fas fa-shield-halved',
                         content: `1 การสั่งซื้อ ต่อ 1 อีเมล = ใช้ได้ 1 บุคคลเท่านั้น\n\nราคาสำหรับบริษัท/องค์กร/หจก. เริ่มต้น 700.- (จำกัดไม่เกิน 5 เครื่อง)\n\n1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้อง Create outline หรือส่งออกเป็นไฟล์งานสำเร็จเท่านั้น\n2. ห้ามแยกตัวอักษร/เติมสีทำสติกเกอร์ไลน์ หรือพิมพ์สติกเกอร์ขาย\n3. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์\n4. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเทรนฟอนต์ที่คล้ายคลึงกับฟอนต์นี้\n\n⚠️ หากพบการละเมิดลิขสิทธิ์ ปรับ 10,000 บาท / 1 ไฟล์`
                     },
@@ -885,6 +951,10 @@
             document.getElementById('dynamicModalContent').innerText = menu.content;
 
             openModal('dynamicPageModal');
+        }
+
+        function openExternalStoreNotice() {
+            openModal('externalNoticeModal');
         }
 
         function populateSelects() {
@@ -964,7 +1034,7 @@
             }
         }
 
-        /* 5. การทดสอบพิมพ์ใน Modal พร้อมเลือกระดับน้ำหนัก ปกติ / หนา / บาง */
+        /* 5. การทดสอบพิมพ์ใน Modal */
         function openModal(f) {
             if (typeof f === 'string') {
                 const modal = document.getElementById(f);
@@ -986,14 +1056,12 @@
             modalPriceArea.className = `p-3 text-xs font-semibold ${isSinglePrice ? 'price-single-style' : 'price-split-style'}`;
             modalPriceArea.innerText = isSinglePrice ? `ใช้ได้ทั้งส่วนตัว & เชิงพาณิชย์: ${f.p}` : `ส่วนตัว: ${f.p} | เชิงพาณิชย์: ${f.c}`;
 
-            // นำข้อมูลรายละเอียดฟอนต์และอุปกรณ์มาแสดงผล
             document.getElementById('infoFileType').innerText = f.file_type || '.otf, .ttf (ติดตั้งได้ทันที)';
             document.getElementById('infoWeights').innerText = f.received_weights || 'ปกติ (Regular) / หนา (Bold) / บาง (Light)';
             
             document.getElementById('infoDevices').innerText = f.device_support || `📱 iPhone / iPad / Android : GoodNotes, Notes+, Notability, ibisPaint, Procreate, Phonto, CapCut, InShot, VLLO\n💻 PC / Mac : Adobe Illustrator, Photoshop, Microsoft 365 และโปรแกรมทั่วไป\n🎨 Canva Pro – Brand Kit (เครื่องมือตั้งค่าสระขั้นสูง ทั้งนี้ขึ้นอยู่กับระบบ Canva)`;
             document.getElementById('infoUsageRules').innerText = f.usage_rules || `• สิทธิ์ส่วนตัว: ทำงานส่งอาจารย์, แต่งรูป/คลิปพื้นที่ส่วนบุคคล\n• สิทธิ์เชิงพาณิชย์: แต่งป้ายสินค้า, ทำสื่อโฆษณา, เพจ, รีวิว, นายหน้า TikTok\n• สิทธิ์นิติบุคคล (700.-): บริษัท องค์กร หจก. (ไม่เกิน 5 เครื่อง) พร้อมใบรับรองสิทธิ์`;
 
-            // จัดการแสดงผลปุ่ม Canva Template
             const canvaBtn = document.getElementById('btnOpenCanva');
             if (f.canva_url && f.canva_url.trim() !== '') {
                 canvaBtn.href = f.canva_url;
@@ -1002,7 +1070,6 @@
                 canvaBtn.classList.add('hidden');
             }
 
-            // ผังตัวอย่างอักษร
             document.getElementById('characterSetDisplay').style.fontFamily = f.en;
 
             changeWeight('normal');
@@ -1042,7 +1109,6 @@
             display.style.fontSize = size + "px";
             document.getElementById('sizeLabel').innerText = size + "px";
 
-            // ปรับน้ำหนักของกล่องผังตัวอย่างอักษรตามด้วย
             document.getElementById('characterSetDisplay').style.fontWeight = currentWeight;
         }
 
@@ -1179,7 +1245,7 @@
             closeModal('orderLicenseModal');
         }
 
-        /* 7. ระบบแอดมินและการเข้าสู่ระบบ */
+        /* 7. ระบบแอดมิน */
         function checkAdminStatus() {
             if (isAdminLoggedIn) {
                 renderAdminFontList();
@@ -1389,7 +1455,7 @@
             renderAdminUserList();
         }
 
-        /* 10. จัดการฟอนต์ (อัปโหลดขึ้น Supabase Storage & Database) */
+        /* 10. จัดการฟอนต์ */
         function togglePriceInputs() {
             const type = document.getElementById('priceType').value;
             if (type === 'split') {
@@ -1621,7 +1687,6 @@
             }
             togglePriceInputs();
 
-            // ดึงข้อมูลอุปกรณ์ & ข้อกำหนดเดิมมาแสดงในฟอร์มแก้ไข
             document.getElementById('editFileType').value = f.file_type || '.otf, .ttf (ติดตั้งได้ทันที)';
             document.getElementById('editWeights').value = f.received_weights || 'ปกติ (Regular) / หนา (Bold) / บาง (Light)';
             document.getElementById('editDevices').value = f.device_support || `📱 iPhone / iPad / Android : GoodNotes, Notes+, Notability, ibisPaint, Procreate, Phonto, CapCut, InShot, VLLO\n💻 PC / Mac : Adobe Illustrator, Photoshop, Microsoft 365 และโปรแกรมทั่วไป\n🎨 Canva Pro – Brand Kit (เครื่องมือตั้งค่าสระขั้นสูง ทั้งนี้ขึ้นอยู่กับระบบ Canva)`;
