@@ -172,6 +172,7 @@
                     </div>
                 </button>
 
+                <!-- รายการเมนูไดนามิกที่แอดมินจัดการได้ -->
                 <div id="dynamicMenuItems" class="space-y-2 border-t border-b border-pink-100 py-2.5 my-2.5"></div>
 
                 <button onclick="checkAdminStatus(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-pink-50 hover:bg-pink-100 rounded-2xl transition text-[15px] text-pink-600 font-bold border border-pink-200">
@@ -487,7 +488,7 @@
         </div>
     </div>
 
-    <!-- Modal 2: โหมดเปรียบเทียบ VS (พร้อมผังอักขระ & ปุ่มสั่งซื้อแยกฝั่ง) -->
+    <!-- Modal 2: โหมดเปรียบเทียบ VS -->
     <div id="vsModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-4xl border border-purple-300 shadow-2xl modal-enter relative max-h-[92vh] overflow-y-auto">
             <button onclick="closeModal('vsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-purple-600 bg-gray-50 rounded-full p-1.5">
@@ -505,10 +506,9 @@
                 <span id="vsSizeLabel" class="text-xs text-purple-600 font-bold min-w-[40px]">50px</span>
             </div>
 
-            <!-- กล่องเปรียบเทียบ 2 ฝั่ง -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 
-                <!-- ฝั่งซ้าย (Left Font) -->
+                <!-- ฝั่งซ้าย -->
                 <div class="space-y-3">
                     <div class="tester-container" style="min-height: 200px; margin-top:0;">
                         <div class="p-2 border-b border-pink-100 flex items-center gap-2 bg-pink-50/50">
@@ -523,7 +523,6 @@
                         <i class="fab fa-line text-sm"></i> สั่งซื้อฟอนต์ฝั่งซ้าย (<span id="btnTextOrderLeft">ฟอนต์นี้</span>)
                     </button>
 
-                    <!-- ผังตัวอย่างอักษร ฝั่งซ้าย -->
                     <div class="p-3 bg-pink-50/40 border border-pink-100 rounded-2xl text-left space-y-2 text-[11px]">
                         <span class="font-bold text-gray-700 block text-xs border-b border-pink-100 pb-1 flex items-center gap-1.5">
                             <i class="fas fa-table-cells text-pink-400"></i> ผังอักขระ (<span id="charTitleLeft"></span>)
@@ -545,7 +544,7 @@
                     </div>
                 </div>
 
-                <!-- ฝั่งขวา (Right Font) -->
+                <!-- ฝั่งขวา -->
                 <div class="space-y-3">
                     <div class="tester-container" style="min-height: 200px; margin-top:0;">
                         <div class="p-2 border-b border-purple-100 flex items-center gap-2 bg-purple-50/50">
@@ -560,7 +559,6 @@
                         <i class="fab fa-line text-sm"></i> สั่งซื้อฟอนต์ฝั่งขวา (<span id="btnTextOrderRight">ฟอนต์นี้</span>)
                     </button>
 
-                    <!-- ผังตัวอย่างอักษร ฝั่งขวา -->
                     <div class="p-3 bg-purple-50/40 border border-purple-100 rounded-2xl text-left space-y-2 text-[11px]">
                         <span class="font-bold text-gray-700 block text-xs border-b border-purple-100 pb-1 flex items-center gap-1.5">
                             <i class="fas fa-table-cells text-purple-400"></i> ผังอักขระ (<span id="charTitleRight"></span>)
@@ -586,7 +584,7 @@
         </div>
     </div>
 
-    <!-- Modal 7: ฟอร์มสั่งซื้อ ชำระเงินผ่าน QR Code และส่งข้อมูลเข้า LINE OA -->
+    <!-- Modal 7: ฟอร์มสั่งซื้อ ชำระเงินผ่าน QR Code -->
     <div id="orderLicenseModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-lg border-2 border-pink-300 shadow-2xl modal-enter relative max-h-[92vh] overflow-y-auto">
             <button onclick="closeModal('orderLicenseModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full p-1.5">
@@ -665,7 +663,6 @@
                         <img src="QRcodepayment.jpg" alt="QR Code Payment" class="w-full h-full object-contain rounded-xl" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ThitipraStudioPayment';">
                     </div>
 
-                    <!-- ยอดเงินที่ต้องชำระ -->
                     <div class="bg-white p-3 rounded-2xl border border-pink-200 inline-block w-full shadow-xs">
                         <span class="text-[11px] text-gray-500 block mb-0.5">ยอดเงินที่ต้องชำระ (ตามสิทธิ์ที่เลือก)</span>
                         <span class="text-2xl font-bold text-pink-600 font-slackey" id="paymentTotalAmount">฿0</span>
@@ -1012,54 +1009,70 @@
             localStorage.setItem('thitipra_admin_accounts', JSON.stringify(adminUsers));
         }
 
+        /* โหลดและตรวจสอบเมนูเริ่มต้นของ Sidebar พร้อมอัปเดตถ้ายังไม่มีเมนูเงื่อนไข */
         function loadCustomMenusFromStorage() {
-            const saved = localStorage.getItem('thitipra_custom_menus');
-            if (saved) {
-                customMenus = JSON.parse(saved);
-            } else {
-                customMenus = [
-                    {
-                        id: 'menu_usage_types',
-                        title: 'เงื่อนไข & ประเภทการใช้งาน',
-                        icon: 'fas fa-scale-balanced',
-                        content: `⚖️ เงื่อนไขและประเภทการใช้งาน:
+            const defaultUsageMenu = {
+                id: 'menu_usage_types',
+                title: 'เงื่อนไข & ประเภทการใช้งาน',
+                icon: 'fas fa-scale-balanced',
+                content: `⚖️ เงื่อนไขและประเภทการใช้งาน:
 
 • สิทธิ์ส่วนตัว: ทำงานส่งอาจารย์, แต่งรูป/คลิปพื้นที่ส่วนบุคคล
 • สิทธิ์เชิงพาณิชย์: แต่งป้ายสินค้า, ทำสื่อโฆษณา, เพจ, รีวิว, นายหน้า TikTok
 • สิทธิ์นิติบุคคล (700.-): บริษัท องค์กร หจก. (ไม่เกิน 5 เครื่อง) พร้อมใบรับรองสิทธิ์
 
 ------------------------------------------
-👤 รายละเอียดสิทธิ์ส่วนตัว (Personal):
+👤 1. สิทธิ์ใช้งานส่วนตัว (Personal License):
 - สำหรับ 1 บุคคล / 1 การสั่งซื้อ (ไม่เกี่ยวกับการเงิน/กำไร)
 - ใช้งานเพื่อการศึกษา จดโน้ต ทำรายงาน ปริ้นอ่านเองได้
 - ตั้งค่าฟอนต์ระบบในเครื่อง Android ได้
-- แต่งภาพ/วิดีโอลงในพื้นที่ส่วนบุคคล
+- แต่งภาพ/วิดีโอลงในพื้นที่ส่วนบุคคล (ที่ไม่ใช่พื้นที่ขายของ/เพจ/รีวิว/โปรโมท)
 
-💼 รายละเอียดสิทธิ์เชิงพาณิชย์ (Commercial):
+💼 2. สิทธิ์ใช้งานเชิงพาณิชย์ (Commercial License):
 - มีเงิน รายได้ หรือผลประโยชน์เข้ามาเกี่ยวข้อง
 - ตกแต่งภาพสินค้า, ป้ายโปรโมต, โฆษณา Ads
 - ใช้ในแพลตฟอร์ม Facebook, IG, TikTok, Lemon8, เพจ, YouTube
-- สื่อสิ่งพิมพ์ ปริ้น สกรีน ไดคัท แพ็กเกจจิ้งสินค้า
+- สื่อสิ่งพิมพ์ ปริ้น สกรีน ไดคัท แพ็กเกจจิ้งสินค้า โลโก้
+- สติกเกอร์ / ธีมไลน์ (ต้องตกแต่งสำเร็จรูป ไม่ขายเป็นตัวอักษรแยก)
 
-🏢 รายละเอียดสิทธิ์นิติบุคคล (Business):
+🏢 3. สิทธิ์นิติบุคคล (Business License 700.- ขึ้นไป):
 - สำหรับ บริษัท, องค์กร, ห้างหุ้นส่วนจำกัด (หจก.)
 - จำกัดผู้ใช้งานไม่เกิน 5 เครื่อง ต่อ 1 การสั่งซื้อ
+- ใช้งานเชิงพาณิชย์ หรือรับจ้างออกแบบให้ผู้อื่น
 - ออกใบเสร็จรับเงิน (ไม่จด VAT) + ออกใบรับรองสิทธิ์ถูกต้องตามกฎหมาย`
-                    },
-                    {
-                        id: 'menu_rules',
-                        title: 'กฎและข้อห้ามลิขสิทธิ์',
-                        icon: 'fas fa-shield-halved',
-                        content: `1 การสั่งซื้อ ต่อ 1 อีเมล = ใช้ได้ 1 บุคคลเท่านั้น\n\nราคาสำหรับบริษัท/องค์กร/หจก. เริ่มต้น 700.- (จำกัดไม่เกิน 5 เครื่อง)\n\n1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้อง Create outline หรือส่งออกเป็นไฟล์งานสำเร็จเท่านั้น\n2. ห้ามแยกตัวอักษร/เติมสีทำสติกเกอร์ไลน์ หรือพิมพ์สติกเกอร์ขาย\n3. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์\n4. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเทรนฟอนต์ที่คล้ายคลึงกับฟอนต์นี้\n\n⚠️ หากพบการละเมิดลิขสิทธิ์ ปรับ 10,000 บาท / 1 ไฟล์`
-                    },
-                    {
-                        id: 'menu_about',
-                        title: 'รู้จักกับสตูดิโอ',
-                        icon: 'fas fa-id-card',
-                        content: `Welcome to ThitipraStudio\nเจ้าของเครือฟอนต์ BR & PRH Font\nเปิดขายครั้งแรก 15 May 2023 (เดิม Babyrainfont)\n\nสไตล์ฟอนต์ประจำร้าน: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย`
+            };
+
+            const defaultRulesMenu = {
+                id: 'menu_rules',
+                title: 'กฎและข้อห้ามลิขสิทธิ์',
+                icon: 'fas fa-shield-halved',
+                content: `1 การสั่งซื้อ ต่อ 1 อีเมล = ใช้ได้ 1 บุคคลเท่านั้น\n\nราคาสำหรับบริษัท/องค์กร/หจก. เริ่มต้น 700.- (จำกัดไม่เกิน 5 เครื่อง)\n\n1. ห้ามส่งไฟล์ฟอนต์ต่อ ต้อง Create outline หรือส่งออกเป็นไฟล์งานสำเร็จเท่านั้น\n2. ห้ามแยกตัวอักษร/เติมสีทำสติกเกอร์ไลน์ หรือพิมพ์สติกเกอร์ขาย\n3. ห้ามคัดลอก ดัดแปลง ดราฟ ขาย ส่งต่อ แจก แถม หรือเปลี่ยนชื่อไฟล์ฟอนต์\n4. ห้ามใช้ AI เพื่อสร้าง ดัดแปลง หรือเทรนฟอนต์ที่คล้ายคลึงกับฟอนต์นี้\n\n⚠️ หากพบการละเมิดลิขสิทธิ์ ปรับ 10,000 บาท / 1 ไฟล์`
+            };
+
+            const defaultAboutMenu = {
+                id: 'menu_about',
+                title: 'รู้จักกับสตูดิโอ',
+                icon: 'fas fa-id-card',
+                content: `Welcome to ThitipraStudio\nเจ้าของเครือฟอนต์ BR & PRH Font\nเปิดขายครั้งแรก 15 May 2023 (เดิม Babyrainfont)\n\nสไตล์ฟอนต์ประจำร้าน: ลายมือน่ารัก สดใส ปุ๊กปิ๊กที่สุดในสามโลก และแนวทางการเรียบร้อย`
+            };
+
+            const saved = localStorage.getItem('thitipra_custom_menus');
+            if (saved) {
+                try {
+                    customMenus = JSON.parse(saved);
+                    // ตรวจสอบและแทรกเมนูเงื่อนไขอัตโนมัติหากยังไม่มีในแคชเก่า
+                    const exists = customMenus.some(m => m.id === 'menu_usage_types' || m.title.includes('เงื่อนไข'));
+                    if (!exists) {
+                        customMenus.unshift(defaultUsageMenu);
+                        saveCustomMenusToStorage();
                     }
-                ];
-                localStorage.setItem('thitipra_custom_menus', JSON.stringify(customMenus));
+                } catch(e) {
+                    customMenus = [defaultUsageMenu, defaultRulesMenu, defaultAboutMenu];
+                    saveCustomMenusToStorage();
+                }
+            } else {
+                customMenus = [defaultUsageMenu, defaultRulesMenu, defaultAboutMenu];
+                saveCustomMenusToStorage();
             }
         }
 
