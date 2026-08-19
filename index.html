@@ -829,7 +829,15 @@
                 alert('อีเมลหรือรหัสผ่านแอดมินไม่ถูกต้อง');
             }
         }
-
+            if (email === 'brprh' && pass === 'pleng235') {
+                isAdminLoggedIn = true;
+                closeModal('adminLoginModal');
+                renderAdminFontList();
+                openModal('adminDashboardModal');
+            } else {
+                alert('อีเมลหรือรหัสผ่านแอดมินไม่ถูกต้อง');
+            }
+        }
         function adminLogout() {
             isAdminLoggedIn = false;
             closeModal('adminDashboardModal');
