@@ -542,7 +542,7 @@
                     <input type="hidden" id="editFontId">
                     <div class="grid grid-cols-2 gap-2">
                         <input required type="text" id="newFontTh" class="border p-2 rounded-xl bg-white" placeholder="ชื่อไทย">
-                        <input required type="text" id="newFontEn" class="border p-2 rounded-xl bg-white" placeholder="ชื่ออังกฤษ">
+                        <input required type="text" id="newFontEn" class="border p-2 rounded-xl bg-white" placeholder="ชื่ออังกฤษ (เช่น Babyrain)">
                     </div>
                     
                     <div class="grid grid-cols-2 gap-2">
@@ -680,17 +680,21 @@
             }
         }
 
+        // 🛠 ฟังก์ชันโหลดฟอนต์ที่แก้ไขชื่อให้ปลอดภัยต่อ CSS
         async function ensureFontLoaded(fontFamily, weight = 'normal', url = null) {
             if (!url) return;
+            const safeFamilyName = fontFamily.replace(/[^a-zA-Z0-9]/g, '_');
             const weightVal = (weight === 'bold') ? 'bold' : (weight === 'light' || weight === '300') ? '300' : 'normal';
             try {
-                const isLoaded = document.fonts.check(`${weightVal} 16px "${fontFamily}"`);
+                const isLoaded = document.fonts.check(`${weightVal} 16px "${safeFamilyName}"`);
                 if (!isLoaded) {
-                    const fontFace = new FontFace(fontFamily, `url(${url})`, { weight: weightVal });
+                    const fontFace = new FontFace(safeFamilyName, `url(${url})`, { weight: weightVal });
                     await fontFace.load();
                     document.fonts.add(fontFace);
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.error("Font load error for:", fontFamily, e);
+            }
         }
 
         async function uploadFontToSupabase(file, filename) {
@@ -839,6 +843,7 @@
             loadFontsOnlinePaged(1, term);
         }
 
+        // 🛠 ฟังก์ชันเรนเดอร์การ์ดแสดงผลฟอนต์ที่อัปเดตชื่อให้รองรับ CSS สมบูรณ์
         function renderPaginatedCardsServerSide() {
             const list = document.getElementById('fontList');
             list.innerHTML = "";
@@ -859,14 +864,16 @@
                 const priceClass = isSinglePrice ? 'price-single-style' : 'price-split-style';
                 const priceTxt = isSinglePrice ? `ราคา: ${f.p}` : `ส่วนตัว: ${f.p} | พาณิชย์: ${f.c}`;
 
+                const safeFamilyName = f.en.replace(/[^a-zA-Z0-9]/g, '_');
+
                 if (f.file_regular) ensureFontLoaded(f.en, 'normal', f.file_regular);
 
                 card.innerHTML = `
-                    <div class="px-4 pt-3 font-semibold text-gray-800 text-sm flex justify-between items-center" style="font-family:'${f.en}', sans-serif">
+                    <div class="px-4 pt-3 font-semibold text-gray-800 text-sm flex justify-between items-center" style="font-family:'${safeFamilyName}', sans-serif">
                         <span class="truncate">${realIndex}. ${f.th} (${f.en})</span>
                         <span class="text-[10px] text-pink-400 font-sans shrink-0 ml-1">ลองพิมพ์</span>
                     </div>
-                    <div class="preview-area-card" style="font-family:'${f.en}', sans-serif">สวัสดี hello</div>
+                    <div class="preview-area-card" style="font-family:'${safeFamilyName}', sans-serif">สวัสดี hello</div>
                     <div class="p-3 text-center text-xs ${priceClass} flex justify-between items-center">
                         <span class="font-medium truncate mr-2">${priceTxt}</span>
                         <button onclick="openFontOrderDirect('${f.id}')" class="bg-white border border-[#06C755] text-[#06C755] px-2.5 py-1 rounded-full text-[11px] shrink-0">สั่งซื้อ</button>
@@ -929,7 +936,7 @@
                 modal = document.getElementById('fontModal');
                 document.getElementById('singleFontSelect').value = modalId.en;
                 document.getElementById('modalFontName').innerText = `${modalId.th} (${modalId.en})`;
-                document.getElementById('modalFontName').style.fontFamily = modalId.en;
+                document.getElementById('modalFontName').style.fontFamily = modalId.en.replace(/[^a-zA-Z0-9]/g, '_');
                 document.getElementById('modalPriceDisplay').innerText = `ส่วนตัว: ${modalId.p} | พาณิชย์: ${modalId.c}`;
 
                 currentWeight = 'normal';
@@ -977,7 +984,7 @@
             const display = document.getElementById('testerDisplay');
             if (display) {
                 display.innerText = txt;
-                display.style.fontFamily = currentFont ? currentFont.en : 'sans-serif';
+                display.style.fontFamily = currentFont ? currentFont.en.replace(/[^a-zA-Z0-9]/g, '_') : 'sans-serif';
                 display.style.fontSize = size + "px";
                 document.getElementById('sizeLabel').innerText = size + "px";
             }
@@ -987,8 +994,8 @@
 
         async function refreshVS() {
             const val = document.getElementById('vsInput').value || "สวัสดี hello";
-            const lF = document.getElementById('selectLeft').value;
-            const rF = document.getElementById('selectRight').value;
+            const lF = document.getElementById('selectLeft').value.replace(/[^a-zA-Z0-9]/g, '_');
+            const rF = document.getElementById('selectRight').value.replace(/[^a-zA-Z0-9]/g, '_');
             const dL = document.getElementById('displayLeft');
             const dR = document.getElementById('displayRight');
             if (dL && dR) {
