@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Control Panel - ThitipraStudio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -65,7 +64,7 @@
             
             <div class="bg-white p-3 rounded-2xl border flex flex-wrap items-center justify-between gap-3 shadow-sm text-xs font-semibold">
                 <div class="flex gap-2 flex-wrap">
-                    <button onclick="switchTab('fonts')" id="tab-btn-fonts" class="px-3.5 py-1.5 rounded-xl tab-active transition">📦 จัดการฟอนต์ & ไดรฟ์ (<span id="count-fonts">0</span>)</button>
+                    <button onclick="switchTab('fonts')" id="tab-btn-fonts" class="px-3.5 py-1.5 rounded-xl tab-active transition">📦 จัดการฟอนต์ GitHub (<span id="count-fonts">0</span>)</button>
                     <button onclick="switchTab('orders')" id="tab-btn-orders" class="px-3.5 py-1.5 rounded-xl bg-slate-100 text-slate-600 transition">📝 ตรวจสลิป & ดึงเมล (<span id="count-orders">0</span>)</button>
                     <button onclick="switchTab('cms')" id="tab-btn-cms" class="px-3.5 py-1.5 rounded-xl bg-slate-100 text-slate-600 transition">🗂 จัดการ Sidebar Menu</button>
                     <button onclick="switchTab('qa')" id="tab-btn-qa" class="px-3.5 py-1.5 rounded-xl bg-slate-100 text-slate-600 transition">💬 จัดการคำถาม Q&A</button>
@@ -73,12 +72,12 @@
                 <button onclick="logoutAdmin()" class="text-rose-500 hover:bg-rose-50 px-3 py-1.5 rounded-xl transition"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</button>
             </div>
 
-            <!-- Tab 1: Fonts -->
+            <!-- Tab 1: Fonts (GitHub fonts/) -->
             <div id="view-fonts" class="space-y-4">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h3 class="font-bold text-slate-800 text-base">คลังฟอนต์และลิงก์ Drive (Supabase Cloud)</h3>
-                        <p class="text-xs text-slate-400">ฐานข้อมูล: <code class="text-pink-600">czyjemcsufzrvkcfzfwv.supabase.co</code></p>
+                        <h3 class="font-bold text-slate-800 text-base">คลังฟอนต์และลิงก์ Drive (GitHub fonts/)</h3>
+                        <p class="text-xs text-slate-400">โครงสร้างไฟล์: <code class="text-pink-600 font-bold">fonts/your-font-name.ttf</code> บน GitHub Repository</p>
                     </div>
                     <button onclick="openFontModal()" class="px-3.5 py-2 bg-[#FF9EBB] text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm">
                         <i class="fas fa-plus"></i> เพิ่มฟอนต์ใหม่
@@ -90,6 +89,7 @@
                             <tr>
                                 <th class="p-3">ชื่อฟอนต์</th>
                                 <th class="p-3">ราคา (ส่วนตัว / พาณิชย์ / นิติบุคคล)</th>
+                                <th class="p-3">Path บน GitHub</th>
                                 <th class="p-3">Google Drive (ส่วนตัว)</th>
                                 <th class="p-3">Google Drive (พาณิชย์)</th>
                                 <th class="p-3 text-center">จัดการ</th>
@@ -137,20 +137,20 @@
         </div>
     </main>
 
-    <!-- Modal: Font Add/Edit (Supabase Cloud Storage Sync) -->
+    <!-- Modal: Font Add/Edit (GitHub fonts/) -->
     <div id="fontModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border max-h-[90vh] overflow-y-auto text-xs">
             <h3 id="fontModalTitle" class="font-bold text-base text-slate-800 mb-3">เพิ่มฟอนต์ใหม่</h3>
             <form onsubmit="saveFont(event)" class="space-y-3">
-                <input type="hidden" id="edit-font-id">
+                <input type="hidden" id="edit-font-idx">
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block font-semibold mb-1">ชื่อภาษาไทย *</label>
                         <input type="text" id="f-th" required placeholder="เช่น สเตฟานี่" class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
                     </div>
                     <div>
-                        <label class="block font-semibold mb-1">ชื่อภาษาอังกฤษ *</label>
-                        <input type="text" id="f-en" required placeholder="เช่น Stephanie" class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
+                        <label class="block font-semibold mb-1">ชื่อภาษาอังกฤษ (Font Family) *</label>
+                        <input type="text" id="f-en" required placeholder="เช่น Stephanie" oninput="autoFillPath(this.value)" class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
                     </div>
                 </div>
                 <div class="grid grid-cols-3 gap-2">
@@ -169,16 +169,16 @@
                 </div>
                 <div>
                     <label class="block font-semibold mb-1">Google Drive (สิทธิ์ส่วนตัว) *</label>
-                    <input type="url" id="f-drive-p" placeholder="https://drive.google.com/..." class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
+                    <input type="url" id="f-drive-p" placeholder="https://drive.google.com/drive/folders/..." class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
                 </div>
                 <div>
                     <label class="block font-semibold mb-1">Google Drive (สิทธิ์พาณิชย์) *</label>
-                    <input type="url" id="f-drive-c" placeholder="https://drive.google.com/..." class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
+                    <input type="url" id="f-drive-c" placeholder="https://drive.google.com/drive/folders/..." class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
                 </div>
                 <div>
-                    <label class="block font-semibold mb-1">ไฟล์ฟอนต์ (.ttf / .otf) หรือ Path *</label>
-                    <input type="text" id="f-file" required placeholder="fonts/Stephanie.ttf หรือ URL จาก Cloud" class="w-full p-2 bg-slate-50 border rounded-xl outline-none mb-1.5">
-                    <input type="file" id="f-file-upload" accept=".ttf,.otf" class="w-full text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:bg-pink-100 file:text-pink-700">
+                    <label class="block font-semibold mb-1">Path ไฟล์ฟอนต์บน GitHub (โฟลเดอร์ fonts/) *</label>
+                    <input type="text" id="f-file" required placeholder="fonts/Stephanie.ttf" class="w-full p-2 bg-slate-50 border rounded-xl outline-none mb-1">
+                    <p class="text-[10px] text-slate-400 leading-tight">* ต้องตรงกับชื่อไฟล์ `.ttf` ที่อัปโหลดไว้ในโฟลเดอร์ <code>fonts/</code> บน GitHub เป๊ะๆ (Case Sensitive)</p>
                 </div>
                 <div class="pt-2 flex justify-end gap-2">
                     <button type="button" onclick="closeFontModal()" class="px-4 py-2 bg-slate-100 rounded-xl font-semibold">ยกเลิก</button>
@@ -244,13 +244,6 @@
     </div>
 
     <script>
-        const SUPABASE_URL = 'https://czyjemcsufzrvkcfzfwv.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_z10rntPACdi5LPL7lZe4yg_Ka2eCXPY';
-        let supabaseClient = null;
-        if (typeof supabase !== 'undefined') {
-            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        }
-
         const _U = [98, 114, 112, 114, 104];         // brprh
         const _P = [112, 108, 101, 110, 103, 50, 51, 53]; // pleng235
 
@@ -262,7 +255,7 @@
             return true;
         }
 
-        let fonts = [];
+        let fonts = JSON.parse(localStorage.getItem('thitipra_fonts')) || [];
         let orders = JSON.parse(localStorage.getItem('thitipra_orders')) || [];
         let cms = JSON.parse(localStorage.getItem('thitipra_cms')) || [];
         let qaList = JSON.parse(localStorage.getItem('thitipra_qa')) || [];
@@ -298,10 +291,10 @@
             location.reload();
         }
 
-        async function renderDashboard() {
+        function renderDashboard() {
             document.getElementById('admin-auth-card').classList.add('hidden');
             document.getElementById('admin-console').classList.remove('hidden');
-            await fetchAdminFonts();
+            renderFontsTable();
             renderOrdersGrid();
             renderCMSList();
             renderQAList();
@@ -316,23 +309,6 @@
             document.getElementById(`tab-btn-${tab}`).className = "px-3.5 py-1.5 rounded-xl tab-active transition";
         }
 
-        async function fetchAdminFonts() {
-            if (supabaseClient) {
-                try {
-                    const { data } = await supabaseClient.from('fonts').select('*').order('created_at', { ascending: false });
-                    if (data) {
-                        fonts = data;
-                        localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
-                    }
-                } catch(e) {
-                    fonts = JSON.parse(localStorage.getItem('thitipra_fonts')) || [];
-                }
-            } else {
-                fonts = JSON.parse(localStorage.getItem('thitipra_fonts')) || [];
-            }
-            renderFontsTable();
-        }
-
         function renderFontsTable() {
             const tbody = document.getElementById('fonts-tbody');
             tbody.innerHTML = '';
@@ -343,20 +319,28 @@
                 tr.innerHTML = `
                     <td class="p-3 font-bold">${f.th} <span class="font-normal text-slate-400">(${f.en})</span></td>
                     <td class="p-3 font-medium">${f.p} / ${f.c} / ${f.b||'700.-'}</td>
+                    <td class="p-3"><code class="text-pink-600 bg-pink-50 px-1.5 py-0.5 rounded text-[11px] font-mono">${f.file || 'fonts/'+f.en+'.ttf'}</code></td>
                     <td class="p-3 text-[11px]"><a href="${f.drive_personal||f.drive||'#'}" target="_blank" class="text-pink-500 hover:underline"><i class="fab fa-google-drive"></i> ส่วนตัว</a></td>
                     <td class="p-3 text-[11px]"><a href="${f.drive_commercial||f.drive||'#'}" target="_blank" class="text-blue-500 hover:underline"><i class="fab fa-google-drive"></i> พาณิชย์</a></td>
                     <td class="p-3 text-center">
                         <button onclick="editFont(${idx})" class="p-1 text-slate-500 hover:text-[#FF9EBB]"><i class="fas fa-edit"></i></button>
-                        <button onclick="deleteFont('${f.id || idx}')" class="p-1 text-slate-500 hover:text-rose-600"><i class="fas fa-trash"></i></button>
+                        <button onclick="deleteFont(${idx})" class="p-1 text-slate-500 hover:text-rose-600"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
+        function autoFillPath(val) {
+            const cleanVal = val.trim().replace(/\s+/g, '');
+            if (cleanVal) {
+                document.getElementById('f-file').value = `fonts/${cleanVal}.ttf`;
+            }
+        }
+
         function openFontModal() {
-            document.getElementById('fontModalTitle').innerText = 'เพิ่มฟอนต์ใหม่';
-            document.getElementById('edit-font-id').value = '';
+            document.getElementById('fontModalTitle').innerText = 'เพิ่มฟอนต์ใหม่ (GitHub fonts/)';
+            document.getElementById('edit-font-idx').value = '';
             document.getElementById('f-th').value = '';
             document.getElementById('f-en').value = '';
             document.getElementById('f-p').value = '79.-';
@@ -365,33 +349,14 @@
             document.getElementById('f-drive-p').value = '';
             document.getElementById('f-drive-c').value = '';
             document.getElementById('f-file').value = '';
-            document.getElementById('f-file-upload').value = '';
             document.getElementById('fontModal').classList.remove('hidden');
         }
 
         function closeFontModal() { document.getElementById('fontModal').classList.add('hidden'); }
 
-        async function saveFont(e) {
+        function saveFont(e) {
             e.preventDefault();
-            const editId = document.getElementById('edit-font-id').value;
-            const btn = document.getElementById('saveFontBtn');
-            btn.innerText = 'กำลังบันทึก...';
-
-            let fileUrl = document.getElementById('f-file').value.trim();
-            const uploadFile = document.getElementById('f-file-upload').files[0];
-
-            if (uploadFile && supabaseClient) {
-                try {
-                    const ext = uploadFile.name.split('.').pop();
-                    const path = `fonts_${Date.now()}.${ext}`;
-                    const { error } = await supabaseClient.storage.from('font-files').upload(path, uploadFile);
-                    if (!error) {
-                        const { data } = supabaseClient.storage.from('font-files').getPublicUrl(path);
-                        fileUrl = data.publicUrl;
-                    }
-                } catch(err) {}
-            }
-
+            const idx = document.getElementById('edit-font-idx').value;
             const fontObj = {
                 th: document.getElementById('f-th').value.trim(),
                 en: document.getElementById('f-en').value.trim(),
@@ -400,28 +365,24 @@
                 b: document.getElementById('f-b').value.trim(),
                 drive_personal: document.getElementById('f-drive-p').value.trim(),
                 drive_commercial: document.getElementById('f-drive-c').value.trim(),
-                file: fileUrl
+                file: document.getElementById('f-file').value.trim()
             };
 
-            if (supabaseClient) {
-                try {
-                    if (editId) {
-                        await supabaseClient.from('fonts').update(fontObj).eq('id', editId);
-                    } else {
-                        await supabaseClient.from('fonts').insert([fontObj]);
-                    }
-                } catch(err) {}
+            if (idx !== '') {
+                fonts[idx] = fontObj;
+            } else {
+                fonts.unshift(fontObj);
             }
 
-            await fetchAdminFonts();
-            btn.innerText = 'บันทึกฟอนต์';
+            localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
             closeFontModal();
+            renderFontsTable();
         }
 
         function editFont(idx) {
             const f = fonts[idx];
             document.getElementById('fontModalTitle').innerText = 'แก้ไขข้อมูลฟอนต์';
-            document.getElementById('edit-font-id').value = f.id || '';
+            document.getElementById('edit-font-idx').value = idx;
             document.getElementById('f-th').value = f.th;
             document.getElementById('f-en').value = f.en;
             document.getElementById('f-p').value = f.p;
@@ -429,19 +390,15 @@
             document.getElementById('f-b').value = f.b || '700.-';
             document.getElementById('f-drive-p').value = f.drive_personal || f.drive || '';
             document.getElementById('f-drive-c').value = f.drive_commercial || f.drive || '';
-            document.getElementById('f-file').value = f.file;
+            document.getElementById('f-file').value = f.file || `fonts/${f.en}.ttf`;
             document.getElementById('fontModal').classList.remove('hidden');
         }
 
-        async function deleteFont(id) {
-            if(confirm('ต้องการลบฟอนต์นี้?')) {
-                if (supabaseClient && isNaN(id)) {
-                    await supabaseClient.from('fonts').delete().eq('id', id);
-                } else {
-                    fonts.splice(id, 1);
-                    localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
-                }
-                await fetchAdminFonts();
+        function deleteFont(idx) {
+            if(confirm('ต้องการลบฟอนต์นี้ออกจากคลัง?')) {
+                fonts.splice(idx, 1);
+                localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
+                renderFontsTable();
             }
         }
 
@@ -470,21 +427,14 @@
             });
         }
 
-        async function approveOrder(idx) {
+        function approveOrder(idx) {
             orders[idx].status = 'approved';
             localStorage.setItem('thitipra_orders', JSON.stringify(orders));
-            
-            if (supabaseClient && orders[idx].id) {
-                try {
-                    await supabaseClient.from('orders').update({ status: 'approved' }).eq('id', orders[idx].id);
-                } catch(e) {}
-            }
-
             renderOrdersGrid();
             alert(`อนุมัติคำสั่งซื้อเรียบร้อย! ปลดล็อกสิทธิ์ Drive ให้ ${orders[idx].customerEmail} สำเร็จ`);
         }
 
-        // CMS Functions
+        // CMS Management
         function renderCMSList() {
             const list = document.getElementById('cms-list');
             list.innerHTML = '';
@@ -551,7 +501,7 @@
             }
         }
 
-        // Q&A Functions
+        // Q&A Management
         function renderQAList() {
             const list = document.getElementById('qa-list');
             list.innerHTML = '';
