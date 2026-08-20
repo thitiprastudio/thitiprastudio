@@ -265,7 +265,7 @@
                 </div>
 
                 <div class="max-w-md mx-auto relative">
-                    <input type="text" id="fontSearch" placeholder="🔍 ค้นหาชื่อฟอนต์จากทั้งหมด..." oninput="debouncedSearch()" 
+                    <input type="text" id="fontSearch" placeholder="🔍 ค้นหาชื่อฟอนต์จากระบบ 10,000+ ตัว..." oninput="debouncedSearch()" 
                            class="w-full bg-white border-2 border-pink-100 rounded-full py-2.5 px-5 text-sm focus:outline-none focus:border-pink-400 shadow-sm">
                 </div>
             </div>
@@ -511,24 +511,6 @@
         </div>
     </div>
 
-    <!-- Receipt Modal -->
-    <div id="receiptModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
-        <div class="bg-white rounded-3xl p-6 w-full max-w-lg border shadow-2xl modal-enter relative max-h-[92vh] overflow-y-auto">
-            <button onclick="closeModal('receiptModal')" class="absolute top-4 right-4 text-gray-400 bg-gray-50 rounded-full p-1.5 print:hidden">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <div id="receiptPrintArea" class="bg-white p-4 text-xs space-y-4 border rounded-2xl">
-                <div class="flex justify-between items-start border-b pb-4">
-                    <div><h2 class="font-slackey text-xl text-[#ff85b3]">ThitipraStudio</h2><p class="text-[10px]">BR & PRH Network</p></div>
-                    <div class="text-right"><span class="bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full text-[10px] font-bold">ใบเสร็จรับเงิน</span><div>เลขที่: <span id="recNo" class="font-bold"></span></div><div>วันที่: <span id="recDate"></span></div></div>
-                </div>
-                <div>ลูกค้า: <strong id="recCustName"></strong> | อีเมล: <span id="recCustEmail"></span></div>
-                <div class="border rounded-xl p-2 bg-pink-50/30">รายการ: <span id="recFontName" class="font-bold"></span> (<span id="recLicenseType"></span>) - <span id="recAmount" class="font-bold text-pink-600"></span></div>
-            </div>
-            <div class="flex gap-2 mt-4 text-xs print:hidden"><button onclick="window.print()" class="flex-1 bg-gray-100 py-2.5 rounded-xl">พิมพ์ / PDF</button><button onclick="closeModal('receiptModal')" class="flex-1 bg-[#ff85b3] text-white py-2.5 rounded-xl">ปิด</button></div>
-        </div>
-    </div>
-
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-sm border-2 border-pink-300 shadow-2xl modal-enter relative">
@@ -565,25 +547,14 @@
                         <input required type="text" id="newFontTh" class="border p-2 rounded-xl bg-white" placeholder="ชื่อไทย">
                         <input required type="text" id="newFontEn" class="border p-2 rounded-xl bg-white" placeholder="ชื่ออังกฤษ">
                     </div>
-                    <select id="priceType" onchange="togglePriceInputs()" class="border p-2 rounded-xl w-full bg-white">
-                        <option value="split">แยกราคา & ไดรฟ์ ส่วนตัว / พาณิชย์</option>
-                        <option value="single">ราคาเดียว & ไดรฟ์เดียว</option>
-                    </select>
-
-                    <div id="splitPriceGroup" class="space-y-2">
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="text" id="newFontP" class="border p-2 rounded-xl bg-white" placeholder="ราคา ส่วนตัว (เช่น 79.-)">
-                            <input type="text" id="newFontC" class="border p-2 rounded-xl bg-white" placeholder="ราคา พาณิชย์ (เช่น 169.-)">
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="text" id="newFontDriveP" class="border p-2 rounded-xl bg-pink-50 border-pink-200" placeholder="🔗 Google Drive (สิทธิ์ส่วนตัว)">
-                            <input type="text" id="newFontDriveC" class="border p-2 rounded-xl bg-yellow-50 border-yellow-200" placeholder="🔗 Google Drive (สิทธิ์พาณิชย์)">
-                        </div>
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="newFontP" class="border p-2 rounded-xl bg-white" placeholder="ราคา ส่วนตัว (เช่น 79.-)">
+                        <input type="text" id="newFontC" class="border p-2 rounded-xl bg-white" placeholder="ราคา พาณิชย์ (เช่น 169.-)">
                     </div>
-
-                    <div id="singlePriceGroup" class="hidden space-y-2">
-                        <input type="text" id="newFontSingle" class="border p-2 rounded-xl w-full bg-white" placeholder="ราคาเดียว (เช่น 89.-)">
-                        <input type="text" id="newFontDriveSingle" class="border p-2 rounded-xl w-full bg-green-50 border-green-200" placeholder="🔗 Google Drive (ใช้ร่วมกัน)">
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="newFontDriveP" class="border p-2 rounded-xl bg-pink-50 border-pink-200" placeholder="🔗 Google Drive (สิทธิ์ส่วนตัว)">
+                        <input type="text" id="newFontDriveC" class="border p-2 rounded-xl bg-yellow-50 border-yellow-200" placeholder="🔗 Google Drive (สิทธิ์พาณิชย์)">
                     </div>
 
                     <div class="grid grid-cols-3 gap-2">
@@ -628,7 +599,6 @@
         }
 
         let fonts = [];
-        let adminUsers = [{ user: 'brprh', pass: 'pleng235' }];
         let customMenus = [];
         let customers = [];
         let orders = [];
@@ -638,17 +608,16 @@
         let currentWeight = 'normal';
         let isAdminLoggedIn = false;
 
-        let currentPage = 1;
-        const itemsPerPage = 24;
-        let currentFilteredFonts = [];
+        let currentPaginationPage = 1;
+        const serverPageSize = 24;
+        let totalFontsCount = 0;
         let searchDebounceTimer = null;
 
         async function init() {
             loadLocalStorageData();
-            await loadFontsOnline();
+            await loadFontsOnlinePaged(1, '');
             populateSelects();
             renderSidebarMenus();
-            filterFonts();
             startInterval();
         }
 
@@ -670,38 +639,48 @@
         function saveOrdersToStorage() { localStorage.setItem('thitipra_orders', JSON.stringify(orders)); }
         function saveCustomersToStorage() { localStorage.setItem('thitipra_customers', JSON.stringify(customers)); }
 
-        async function loadFontsOnline() {
-            let cloudFonts = [];
-            if (supabaseClient) {
-                try {
-                    let from = 0;
-                    const batchSize = 1000;
-                    let hasMore = true;
+        async function loadFontsOnlinePaged(page = 1, searchTerm = '') {
+            currentPaginationPage = page;
+            if (!supabaseClient) return;
 
-                    while (hasMore) {
-                        const { data, error } = await supabaseClient
-                            .from('fonts')
-                            .select('*')
-                            .order('order_index', { ascending: true })
-                            .range(from, from + batchSize - 1);
+            try {
+                const from = (page - 1) * serverPageSize;
+                const to = from + serverPageSize - 1;
 
-                        if (error) break;
+                let countQuery = supabaseClient.from('fonts').select('*', { count: 'exact', head: true });
+                if (searchTerm) {
+                    countQuery = countQuery.or(`th.ilike.%${searchTerm}%,en.ilike.%${searchTerm}%`);
+                }
+                const { count } = await countQuery;
+                totalFontsCount = count || 0;
 
-                        if (data && data.length > 0) {
-                            cloudFonts = cloudFonts.concat(data);
-                            if (data.length < batchSize) hasMore = false;
-                            else from += batchSize;
-                        } else {
-                            hasMore = false;
-                        }
-                    }
-                } catch (err) { console.error(err); }
+                let query = supabaseClient
+                    .from('fonts')
+                    .select('*')
+                    .order('order_index', { ascending: true })
+                    .range(from, to);
+
+                if (searchTerm) {
+                    query = query.or(`th.ilike.%${searchTerm}%,en.ilike.%${searchTerm}%`);
+                }
+
+                if (priceFilter === 'single') {
+                    query = query.filter('p', 'eq', 'c');
+                } else if (priceFilter === 'split') {
+                    query = query.neq('p', 'c');
+                }
+
+                const { data, error } = await query;
+                if (error) throw error;
+
+                fonts = data || [];
+                renderPaginatedCardsServerSide();
+                renderServerPaginationControls();
+                
+                document.getElementById('totalFilteredCount').innerText = totalFontsCount;
+            } catch (err) {
+                console.error('Error loading fonts:', err);
             }
-
-            const localSaved = localStorage.getItem('thitipra_fonts_data');
-            const localFonts = localSaved ? JSON.parse(localSaved) : [];
-
-            fonts = cloudFonts.length > 0 ? cloudFonts : localFonts;
         }
 
         async function ensureFontLoaded(fontFamily, weight = 'normal', url = null) {
@@ -741,7 +720,11 @@
             const editId = document.getElementById('editFontId').value;
             const th = document.getElementById('newFontTh').value.trim();
             const en = document.getElementById('newFontEn').value.trim();
-            const priceType = document.getElementById('priceType').value;
+            
+            const p = document.getElementById('newFontP').value.trim() || '79.-';
+            const c = document.getElementById('newFontC').value.trim() || '169.-';
+            const drive_personal = document.getElementById('newFontDriveP').value.trim();
+            const drive_commercial = document.getElementById('newFontDriveC').value.trim();
 
             const regFile = document.getElementById('fileRegular').files[0];
             const boldFile = document.getElementById('fileBold').files[0];
@@ -750,20 +733,6 @@
             if (!editId && !regFile) {
                 alert('กรุณาเลือกไฟล์ฟอนต์ปกติ (Regular)');
                 return;
-            }
-
-            let p, c, drive_personal, drive_commercial;
-            if (priceType === 'split') {
-                p = document.getElementById('newFontP').value.trim() || '79.-';
-                c = document.getElementById('newFontC').value.trim() || '169.-';
-                drive_personal = document.getElementById('newFontDriveP').value.trim();
-                drive_commercial = document.getElementById('newFontDriveC').value.trim();
-            } else {
-                const single = document.getElementById('newFontSingle').value.trim() || '89.-';
-                const singleDrive = document.getElementById('newFontDriveSingle').value.trim();
-                p = single; c = single;
-                drive_personal = singleDrive;
-                drive_commercial = singleDrive;
             }
 
             const saveBtn = document.getElementById('saveBtn');
@@ -776,7 +745,15 @@
                 if (boldFile) file_bold = await uploadFontToSupabase(boldFile, `${en}_bold`);
                 if (lightFile) file_light = await uploadFontToSupabase(lightFile, `${en}_light`);
 
-                const fontPayload = { th, en, p, c, drive_personal, drive_commercial, order_index: fonts.length };
+                const fontPayload = { 
+                    th, 
+                    en, 
+                    p, 
+                    c, 
+                    drive_personal, 
+                    drive_commercial, 
+                    order_index: totalFontsCount + 1 
+                };
                 if (file_regular) fontPayload.file_regular = file_regular;
                 if (file_bold) fontPayload.file_bold = file_bold;
                 if (file_light) fontPayload.file_light = file_light;
@@ -794,29 +771,16 @@
                 }
 
                 alert('บันทึกฟอนต์สำเร็จ!');
-                await loadFontsOnline();
+                const term = (document.getElementById('fontSearch').value || '').trim();
+                await loadFontsOnlinePaged(1, term);
                 resetForm();
                 populateSelects();
-                filterFonts(1);
                 renderAdminFontList();
             } catch (err) {
                 alert('บันทึกไม่สำเร็จ: ' + err.message);
             } finally {
                 saveBtn.innerText = '+ บันทึกฟอนต์ขึ้น Cloud';
                 saveBtn.disabled = false;
-            }
-        }
-
-        function togglePriceInputs() {
-            const type = document.getElementById('priceType').value;
-            const splitGroup = document.getElementById('splitPriceGroup');
-            const singleGroup = document.getElementById('singlePriceGroup');
-            if (type === 'split') {
-                splitGroup.classList.remove('hidden');
-                singleGroup.classList.add('hidden');
-            } else {
-                splitGroup.classList.add('hidden');
-                singleGroup.classList.remove('hidden');
             }
         }
 
@@ -827,52 +791,46 @@
             if (editIdInput) editIdInput.value = '';
             const saveBtn = document.getElementById('saveBtn');
             if (saveBtn) saveBtn.innerText = '+ บันทึกฟอนต์ขึ้น Cloud';
-            togglePriceInputs();
         }
 
         function debouncedSearch() {
             clearTimeout(searchDebounceTimer);
-            searchDebounceTimer = setTimeout(() => filterFonts(1), 250);
+            searchDebounceTimer = setTimeout(() => {
+                const term = (document.getElementById('fontSearch').value || '').trim();
+                loadFontsOnlinePaged(1, term);
+            }, 400);
         }
 
         function setPriceFilter(type) {
             priceFilter = type;
-            filterFonts(1);
-        }
-
-        function filterFonts(page = 1) {
-            currentPage = page;
-            const term = (document.getElementById('fontSearch').value || '').trim().toLowerCase();
-
-            currentFilteredFonts = fonts.filter(f => {
-                const match = (f.th || '').toLowerCase().includes(term) || (f.en || '').toLowerCase().includes(term);
-                if (priceFilter === 'single') return match && (f.p === f.c);
-                if (priceFilter === 'split') return match && (f.p !== f.c);
-                return match;
+            ['all', 'split', 'single'].forEach(t => {
+                const btn = document.getElementById(`btn-${t}`);
+                if (btn) {
+                    if (t === type) {
+                        btn.className = 'filter-btn px-4 py-2 rounded-full border border-pink-400 bg-pink-400 text-white font-medium transition';
+                    } else {
+                        btn.className = 'filter-btn px-4 py-2 rounded-full border border-pink-400 bg-white text-pink-500 font-medium transition';
+                    }
+                }
             });
-
-            document.getElementById('totalFilteredCount').innerText = currentFilteredFonts.length;
-            renderPaginatedCards();
-            renderPaginationControls();
+            const term = (document.getElementById('fontSearch').value || '').trim();
+            loadFontsOnlinePaged(1, term);
         }
 
-        function renderPaginatedCards() {
+        function renderPaginatedCardsServerSide() {
             const list = document.getElementById('fontList');
             list.innerHTML = "";
 
-            if (currentFilteredFonts.length === 0) {
+            if (fonts.length === 0) {
                 list.innerHTML = `<div class="col-span-full text-center py-12 text-gray-400 text-xs">ไม่พบฟอนต์ในระบบ</div>`;
                 return;
             }
 
-            const totalPages = Math.ceil(currentFilteredFonts.length / itemsPerPage);
-            document.getElementById('pageIndicator').innerText = `หน้า ${currentPage} / ${totalPages || 1}`;
+            const totalPages = Math.ceil(totalFontsCount / serverPageSize);
+            document.getElementById('pageIndicator').innerText = `หน้า ${currentPaginationPage} / ${totalPages || 1}`;
 
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const pageItems = currentFilteredFonts.slice(startIndex, startIndex + itemsPerPage);
-
-            pageItems.forEach((f, i) => {
-                const realIndex = startIndex + i + 1;
+            fonts.forEach((f, i) => {
+                const realIndex = (currentPaginationPage - 1) * serverPageSize + i + 1;
                 const card = document.createElement('div');
                 card.className = 'font-card';
                 const isSinglePrice = (f.p === f.c);
@@ -897,19 +855,42 @@
             });
         }
 
-        function renderPaginationControls() {
+        function renderServerPaginationControls() {
             const container = document.getElementById('paginationControls');
             container.innerHTML = '';
-            const totalPages = Math.ceil(currentFilteredFonts.length / itemsPerPage);
+            const totalPages = Math.ceil(totalFontsCount / serverPageSize);
             if (totalPages <= 1) return;
 
-            for (let p = 1; p <= totalPages; p++) {
-                const btn = document.createElement('button');
-                btn.className = `px-3 py-1.5 rounded-xl border ${p === currentPage ? 'bg-[#ff85b3] text-white' : 'bg-white text-gray-700'}`;
-                btn.innerText = p;
-                btn.onclick = () => filterFonts(p);
-                container.appendChild(btn);
+            const maxButtons = 5;
+            let startPage = Math.max(1, currentPaginationPage - Math.floor(maxButtons / 2));
+            let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+            
+            if (endPage - startPage + 1 < maxButtons) {
+                startPage = Math.max(1, endPage - maxButtons + 1);
             }
+
+            if (startPage > 1) {
+                container.appendChild(createPageButton(1, '<< หน้าแรก'));
+            }
+
+            for (let p = startPage; p <= endPage; p++) {
+                container.appendChild(createPageButton(p, p, p === currentPaginationPage));
+            }
+
+            if (endPage < totalPages) {
+                container.appendChild(createPageButton(totalPages, 'หน้าสุดท้าย >>'));
+            }
+        }
+
+        function createPageButton(pageNum, text, isActive = false) {
+            const btn = document.createElement('button');
+            btn.className = `px-3 py-1.5 rounded-xl border ${isActive ? 'bg-[#ff85b3] text-white' : 'bg-white text-gray-700'}`;
+            btn.innerText = text;
+            btn.onclick = () => {
+                const term = (document.getElementById('fontSearch').value || '').trim();
+                loadFontsOnlinePaged(pageNum, term);
+            };
+            return btn;
         }
 
         function openFontOrderDirect(fontId) {
@@ -1008,7 +989,6 @@
 
             const orderId = `REC-${Date.now().toString().slice(-6)}`;
             
-            // บันทึกออเดอร์ลงฐานข้อมูล orders พร้อมระบุประเภทสิทธิ์
             if (supabaseClient) {
                 supabaseClient.from('orders').insert([{
                     font_id: currentFont.id,
@@ -1178,11 +1158,15 @@
             openModal('dynamicPageModal');
         }
 
-        function renderAdminFontList() {
+        async function renderAdminFontList() {
             const list = document.getElementById('adminFontList');
+            list.innerHTML = 'กำลังโหลด...';
+            if (!supabaseClient) return;
+            const { data } = await supabaseClient.from('fonts').select('*').order('order_index', { ascending: true }).limit(50);
             list.innerHTML = '';
-            fonts.forEach((f, idx) => {
-                list.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-50 border rounded-xl"><span>${idx+1}. ${f.th} (${f.en})</span><button onclick="deleteFont('${f.id}')" class="text-red-500">ลบ</button></div>`;
+            if (!data) return;
+            data.forEach((f, idx) => {
+                list.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-50 border rounded-xl"><span>${idx+1}. ${f.th} (${f.en}) [ส่วนตัว:${f.p} | พาณิชย์:${f.c}]</span><button onclick="deleteFont('${f.id}')" class="text-red-500 font-bold">ลบ</button></div>`;
             });
         }
 
@@ -1229,17 +1213,20 @@
         async function deleteFont(id) {
             if (!confirm('ยืนยันลบฟอนต์?')) return;
             if (supabaseClient) await supabaseClient.from('fonts').delete().eq('id', id);
-            fonts = fonts.filter(f => f.id !== id);
+            const term = (document.getElementById('fontSearch').value || '').trim();
+            loadFontsOnlinePaged(currentPaginationPage, term);
             renderAdminFontList();
-            filterFonts(1);
         }
 
-        function populateSelects() {
+        async function populateSelects() {
+            if (!supabaseClient) return;
+            const { data } = await supabaseClient.from('fonts').select('th, en').order('order_index', { ascending: true }).limit(200);
+            if (!data) return;
             ['singleFontSelect', 'selectLeft', 'selectRight'].forEach(id => {
                 const sel = document.getElementById(id);
                 if (sel) {
                     sel.innerHTML = '';
-                    fonts.forEach(f => { sel.innerHTML += `<option value="${f.en}">${f.th} (${f.en})</option>`; });
+                    data.forEach(f => { sel.innerHTML += `<option value="${f.en}">${f.th} (${f.en})</option>`; });
                 }
             });
         }
