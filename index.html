@@ -118,12 +118,6 @@
             overflow-y: auto;
             box-sizing: border-box;
         }
-
-        @media print {
-            body * { visibility: hidden; }
-            #receiptPrintArea, #receiptPrintArea * { visibility: visible; }
-            #receiptPrintArea { position: absolute; left: 0; top: 0; width: 100%; }
-        }
     </style>
 </head>
 <body class="min-h-screen pb-12">
@@ -718,7 +712,6 @@
             }
         }
 
-        // ฟังก์ชันดึงข้อมูลฟอนต์เก่ามาใส่ในฟอร์มเพื่อแก้ไข
         function loadFontForEdit(fontObj) {
             document.getElementById('editFontId').value = fontObj.id;
             document.getElementById('newFontTh').value = fontObj.th || '';
@@ -935,10 +928,38 @@
                 document.getElementById('modalFontName').style.fontFamily = modalId.en;
                 document.getElementById('modalPriceDisplay').innerText = `ส่วนตัว: ${modalId.p} | พาณิชย์: ${modalId.c}`;
 
+                currentWeight = 'normal';
+                updateWeightBtnUI('normal');
+
                 if (modalId.file_regular) await ensureFontLoaded(modalId.en, 'normal', modalId.file_regular);
+                if (modalId.file_bold) await ensureFontLoaded(modalId.en, 'bold', modalId.file_bold);
+                if (modalId.file_light) await ensureFontLoaded(modalId.en, 'light', modalId.file_light);
+
                 refreshDisplay();
             }
             if (modal) { modal.classList.remove('hidden'); modal.style.display = 'flex'; }
+        }
+
+        function changeWeight(weight) {
+            currentWeight = weight;
+            updateWeightBtnUI(weight);
+            const display = document.getElementById('testerDisplay');
+            if (display) {
+                display.style.fontWeight = (weight === 'bold') ? 'bold' : (weight === 'light' ? '300' : 'normal');
+            }
+        }
+
+        function updateWeightBtnUI(weight) {
+            ['normal', 'bold', 'light'].forEach(w => {
+                const btn = document.getElementById(`weightBtn-${w}`);
+                if (btn) {
+                    if (w === weight) {
+                        btn.className = 'px-4 py-1.5 rounded-full text-xs font-bold border border-pink-300 bg-[#ff85b3] text-white transition shadow-sm';
+                    } else {
+                        btn.className = 'px-4 py-1.5 rounded-full text-xs font-bold border border-pink-300 bg-white text-pink-600 transition shadow-sm';
+                    }
+                }
+            });
         }
 
         function closeModal(id) {
