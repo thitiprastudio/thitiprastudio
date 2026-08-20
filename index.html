@@ -699,17 +699,20 @@
                 const fileExt = file.name.split('.').pop();
                 const fullPath = `${filename}_${Date.now()}.${fileExt}`;
                 
-                // ใช้ชื่อ Bucket เป็น 'font-files' ตามที่คุณตั้งไว้ใน Supabase
                 const { error: uploadError } = await supabaseClient.storage
                     .from('font-files')
                     .upload(fullPath, file, { cacheControl: '3600', upsert: true });
 
-                if (uploadError) return URL.createObjectURL(file);
+                if (uploadError) {
+                    console.error('Upload Error:', uploadError.message);
+                    return null;
+                }
 
-                const { data: { publicUrl } } = supabaseClient.storage.from('font-files').getPublicUrl(fullPath);
-                return publicUrl;
+                const urlData = supabaseClient.storage.from('font-files').getPublicUrl(fullPath);
+                return urlData.data.publicUrl;
             } catch (e) {
-                return URL.createObjectURL(file);
+                console.error('Storage Exception:', e);
+                return null;
             }
         }
 
