@@ -699,6 +699,7 @@
                 const fileExt = file.name.split('.').pop();
                 const fullPath = `${filename}_${Date.now()}.${fileExt}`;
                 
+                // ใช้ชื่อ Bucket เป็น 'font-files' ตามที่คุณตั้งไว้ใน Supabase
                 const { error: uploadError } = await supabaseClient.storage
                     .from('font-files')
                     .upload(fullPath, file, { cacheControl: '3600', upsert: true });
