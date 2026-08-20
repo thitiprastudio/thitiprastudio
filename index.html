@@ -91,14 +91,9 @@
                         <div class="text-[10px] text-pink-500 font-normal">ตัวแทนจำหน่ายอย่างถูกต้อง ✨</div>
                     </div>
                 </button>
-                <div class="border-t border-b border-pink-100 py-2 my-2 space-y-2">
-                    <button onclick="openDynamicPage('usage'); toggleMenu();" class="w-full text-left flex items-center gap-3 p-2.5 hover:bg-pink-50 rounded-xl">
-                        <span class="text-brand-dark"><i class="fas fa-scale-balanced"></i></span> เงื่อนไข & ประเภทการใช้งาน
-                    </button>
-                    <button onclick="openDynamicPage('rules'); toggleMenu();" class="w-full text-left flex items-center gap-3 p-2.5 hover:bg-pink-50 rounded-xl">
-                        <span class="text-brand-dark"><i class="fas fa-shield-halved"></i></span> กฎและข้อห้ามลิขสิทธิ์
-                    </button>
-                </div>
+                <!-- เมนูไดนามิกที่แอดมินสร้างเพิ่ม -->
+                <div id="dynamicMenuItems" class="border-t border-b border-pink-100 py-2 my-2 space-y-2"></div>
+
                 <button onclick="checkAdminStatus(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-brand-light hover:bg-pink-200 rounded-2xl transition text-brand-dark font-bold border border-pink-200">
                     <span><i class="fas fa-user-shield"></i></span> ระบบหลังบ้าน (แอดมิน)
                 </button>
@@ -364,55 +359,61 @@
             
             <form onsubmit="handleSendToLine(event)" class="space-y-3 text-xs">
                 <div class="space-y-2">
+                    <!-- Personal Use -->
                     <label class="block p-3 rounded-2xl border-2 cursor-pointer transition bg-pink-50/20 border-pink-200">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <input type="radio" name="licenseSelect" value="personal" checked onchange="updatePaymentAmount()" class="accent-brand-main">
                                 <div>
-                                    <span class="font-bold text-gray-800 text-xs block">Personal Use (บุคคลทั่วไป)</span>
-                                    <span class="text-[10px] text-gray-500">ใช้เรียน จดโน้ต ส่วนตัว</span>
+                                    <span class="font-bold text-gray-800 text-xs block">ใช้งานส่วนตัว (Personal License)</span>
+                                    <span class="text-[10px] text-gray-500">ไม่เกี่ยวกับการเงิน รายได้ ผลกำไร</span>
                                 </div>
                             </div>
                             <span class="font-bold text-pink-600 text-xs" id="orderPricePersonal">฿79</span>
                         </div>
+                        <div class="mt-2 text-gray-600 text-[10px] leading-relaxed border-t border-pink-100 pt-2 pl-5 space-y-0.5">
+                            <p>• สำหรับการศึกษาใช้จดสรุป ทำงานส่งอาจารย์ (ปริ้นอ่านเองได้)</p>
+                            <p>• ตั้งฟอนต์เครื่อง android ได้</p>
+                            <p>• ใช้แต่งวิดีโอ ภาพลงในพื้นที่ส่วนตัว (ที่ไม่ใช่พื้นที่ขายสินค้าโปรโมท/รีวิว/เพจ)</p>
+                        </div>
                     </label>
                     
+                    <!-- Commercial Use -->
                     <label class="block p-3 rounded-2xl border-2 cursor-pointer transition bg-yellow-50/30 border-yellow-200">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <input type="radio" name="licenseSelect" value="commercial" onchange="updatePaymentAmount()" class="accent-brand-main">
                                 <div>
-                                    <span class="font-bold text-gray-800 text-xs block">Commercial (เชิงพาณิชย์)</span>
-                                    <span class="text-[10px] text-gray-500">แม่ค้าออนไลน์ รีวิว ยิงแอด</span>
+                                    <span class="font-bold text-gray-800 text-xs block">ใช้งานเชิงพาณิชย์ (Commercial)</span>
+                                    <span class="text-[10px] text-gray-500">มีเงิน รายได้ ผลกำไรเกี่ยวข้อง</span>
                                 </div>
                             </div>
                             <span class="font-bold text-amber-700 text-xs" id="orderPriceCommercial">฿169</span>
                         </div>
+                        <div class="mt-2 text-gray-600 text-[10px] leading-relaxed border-t border-yellow-100 pt-2 pl-5 space-y-0.5">
+                            <p>• ออกแบบผลงาน แต่งป้าย ลงในพื้นที่ขายของ สำหรับบุคคลทั่วไป</p>
+                            <p>• Sticker/Theme Line ต้องตกแต่งให้เรียบร้อยเท่านั้น</p>
+                            <p>• สื่อออนไลน์ Instagram, Facebook, TikTok, Lemon8, เพจ, CapCut, YouTube</p>
+                            <p>• สื่อสิ่งพิมพ์ ปริ้น ไดคัท สกรีน (Logo, Ads โฆษณา, แต่งภาพ รีวิว, นายหน้า TikTok)</p>
+                        </div>
                     </label>
 
+                    <!-- Business / Company Use -->
                     <label class="block p-3 rounded-2xl border-2 cursor-pointer transition bg-purple-50/30 border-purple-200">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <input type="radio" name="licenseSelect" value="freelance" onchange="updatePaymentAmount()" class="accent-brand-main">
+                                <input type="radio" name="licenseSelect" value="business" onchange="updatePaymentAmount()" class="accent-brand-main">
                                 <div>
-                                    <span class="font-bold text-gray-800 text-xs block">Freelance Use (ฟรีแลนซ์)</span>
-                                    <span class="text-[10px] text-gray-500">รับจ้างทั่วไป (ไม่เกิน 5 เครื่อง)</span>
+                                    <span class="font-bold text-gray-800 text-xs block">นิติบุคคล (Business License)</span>
+                                    <span class="text-[10px] text-gray-500">บริษัท, องค์กร, หจก. (จำกัด 5 เครื่อง)</span>
                                 </div>
                             </div>
                             <span class="font-bold text-purple-700 text-xs">฿700</span>
                         </div>
-                    </label>
-
-                    <label class="block p-3 rounded-2xl border-2 cursor-pointer transition bg-blue-50/30 border-blue-200">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <input type="radio" name="licenseSelect" value="company" onchange="updatePaymentAmount()" class="accent-brand-main">
-                                <div>
-                                    <span class="font-bold text-gray-800 text-xs block">Company Use (นิติบุคคล/บริษัท)</span>
-                                    <span class="text-[10px] text-gray-500">ใช้ภายในองค์กร (ไม่เกิน 5 เครื่อง)</span>
-                                </div>
-                            </div>
-                            <span class="font-bold text-blue-700 text-xs">฿1,000</span>
+                        <div class="mt-2 text-gray-600 text-[10px] leading-relaxed border-t border-purple-100 pt-2 pl-5 space-y-0.5">
+                            <p>• สำหรับบริษัท องค์กร และ หจก. เฉพาะเครือ BR&PRH เท่านั้น</p>
+                            <p>• จำกัดผู้ใช้งาน 5 เครื่อง ต่อ 1 การสั่งซื้อ</p>
+                            <p>• ออกใบเสร็จรับเงิน (ไม่จดvat) + ใบรับรองสิทธิ์ (ฟรีแลนซ์ออกแบบให้บริษัท/ทำสื่อ/โลโก้)</p>
                         </div>
                     </label>
                 </div>
@@ -494,9 +495,14 @@
             <div class="flex justify-between items-center mb-3 border-b pb-2 flex-wrap gap-2">
                 <div class="flex gap-1.5 flex-wrap">
                     <button onclick="switchAdminTab('fonts')" id="tabBtnFonts" class="font-slackey text-[10px] px-3 py-1.5 rounded-full bg-brand-dark text-white">จัดการฟอนต์ & ไดรฟ์</button>
+                    <button onclick="switchAdminTab('menus')" id="tabBtnMenus" class="font-slackey text-[10px] px-3 py-1.5 rounded-full bg-gray-100 text-gray-600">จัดการ Sidebar</button>
                     <button onclick="switchAdminTab('orders')" id="tabBtnOrders" class="font-slackey text-[10px] px-3 py-1.5 rounded-full bg-gray-100 text-gray-600">ออเดอร์ & อนุมัติสิทธิ์</button>
                 </div>
-                <button type="button" onclick="adminLogout()" class="text-[10px] bg-red-50 text-red-500 px-2.5 py-1 rounded-full font-bold">ออก</button>
+                <!-- ปุ่มออกไปหน้าหลักโดยไม่ต้องออกจากระบบแอดมิน -->
+                <div class="flex gap-1.5">
+                    <button type="button" onclick="closeModal('adminDashboardModal')" class="text-[10px] bg-pink-100 text-brand-dark px-2.5 py-1 rounded-full font-bold">🏠 กลับหน้าหลัก</button>
+                    <button type="button" onclick="adminLogout()" class="text-[10px] bg-red-50 text-red-500 px-2.5 py-1 rounded-full font-bold">ออกจากระบบ</button>
+                </div>
             </div>
 
             <!-- Tab 1: Fonts & Drive Links Manager -->
@@ -529,7 +535,24 @@
                 <div id="adminFontList" class="space-y-1.5 max-h-52 overflow-y-auto pr-1"></div>
             </div>
 
-            <!-- Tab 2: Orders Approval -->
+            <!-- Tab 2: Sidebar Menus Manager -->
+            <div id="adminTabMenus" class="hidden space-y-3 text-xs">
+                <form id="menuForm" onsubmit="handleSaveMenu(event)" class="space-y-2 text-xs bg-pink-50/50 p-3 rounded-2xl border border-pink-100">
+                    <h4 class="font-bold text-brand-dark">เพิ่ม / แก้ไขเมนูใน Sidebar</h4>
+                    <input type="hidden" id="editMenuId">
+                    <div class="grid grid-cols-2 gap-2">
+                        <input required type="text" id="newMenuTitle" class="border p-2 rounded-xl bg-white" placeholder="ชื่อเมนู (เช่น เงื่อนไขการใช้)">
+                        <input type="text" id="newMenuIcon" class="border p-2 rounded-xl bg-white" placeholder="ไอคอน (เช่น fas fa-info-circle)">
+                    </div>
+                    <div>
+                        <textarea required id="newMenuContent" rows="4" class="w-full border p-2 rounded-xl bg-white" placeholder="รายละเอียดเนื้อหาภายในเมนู..."></textarea>
+                    </div>
+                    <button type="submit" id="saveMenuBtn" class="w-full bg-brand-dark text-white font-bold py-2 rounded-xl transition">+ บันทึกเมนู Sidebar</button>
+                </form>
+                <div id="adminMenuList" class="space-y-1.5 max-h-52 overflow-y-auto pr-1"></div>
+            </div>
+
+            <!-- Tab 3: Orders Approval -->
             <div id="adminTabOrders" class="hidden space-y-2 text-xs">
                 <h4 class="font-bold text-brand-dark">รายการคำสั่งซื้อรอตรวจสอบสลิป (<span id="adminOrderCount">0</span>)</h4>
                 <div id="adminOrdersList" class="space-y-2 max-h-64 overflow-y-auto"></div>
@@ -548,6 +571,7 @@
         }
 
         let fonts = [];
+        let customMenus = [];
         let customers = [];
         let orders = [];
         let currentCustomer = null;
@@ -565,6 +589,7 @@
             loadLocalStorageData();
             await loadFontsOnlinePaged(1, '');
             populateSelects();
+            renderSidebarMenus();
         }
 
         function loadLocalStorageData() {
@@ -579,10 +604,25 @@
                 currentCustomer = JSON.parse(curCust);
                 updateAuthButtonUI();
             }
+            loadCustomMenusFromStorage();
         }
 
         function saveOrdersToStorage() { localStorage.setItem('thitipra_orders', JSON.stringify(orders)); }
         function saveCustomersToStorage() { localStorage.setItem('thitipra_customers', JSON.stringify(customers)); }
+
+        function loadCustomMenusFromStorage() {
+            const saved = localStorage.getItem('thitipra_custom_menus');
+            if (saved) {
+                customMenus = JSON.parse(saved);
+            } else {
+                customMenus = [
+                    { id: 'menu_usage', title: 'เงื่อนไข & ประเภทการใช้งาน', icon: 'fas fa-scale-balanced', content: '👤 Personal Use: สำหรับใช้ส่วนตัว เรียนจดโน้ต\n💼 Commercial Use: สำหรับแม่ค้าออนไลน์ ยิงแอด' },
+                    { id: 'menu_rules', title: 'กฎและข้อห้ามลิขสิทธิ์', icon: 'fas fa-shield-halved', content: '1. ห้ามแจกจ่ายหรือขายต่อไฟล์ฟอนต์\n2. ห้ามดราฟหรือเทรน AI จากตัวอักษร' }
+                ];
+                saveCustomMenusToStorage();
+            }
+        }
+        function saveCustomMenusToStorage() { localStorage.setItem('thitipra_custom_menus', JSON.stringify(customMenus)); }
 
         async function loadFontsOnlinePaged(page = 1, searchTerm = '') {
             currentPaginationPage = page;
@@ -917,6 +957,29 @@
             }
         }
 
+        function renderSidebarMenus() {
+            const container = document.getElementById('dynamicMenuItems');
+            if (!container) return;
+            container.innerHTML = '';
+            customMenus.forEach(m => {
+                container.innerHTML += `
+                    <button onclick="openDynamicCustomPage('${m.id}'); toggleMenu();" class="w-full text-left flex items-center gap-3 p-2.5 hover:bg-pink-50 rounded-xl text-sm">
+                        <span class="text-brand-dark"><i class="${m.icon || 'fas fa-file-alt'}"></i></span>
+                        <span>${m.title}</span>
+                    </button>
+                `;
+            });
+        }
+
+        function openDynamicCustomPage(id) {
+            const m = customMenus.find(item => item.id === id);
+            if (!m) return;
+            document.getElementById('dynamicModalTitle').innerText = m.title;
+            document.getElementById('dynamicModalIcon').className = m.icon || 'fas fa-file-alt';
+            document.getElementById('dynamicModalContent').innerText = m.content;
+            document.getElementById('dynamicPageModal').style.display = 'flex';
+        }
+
         function openDynamicPage(type) {
             const title = type === 'usage' ? 'เงื่อนไข & ประเภทการใช้งาน' : 'กฎและข้อห้ามลิขสิทธิ์';
             const content = type === 'usage' ? 
@@ -1031,7 +1094,7 @@
         }
 
         function checkAdminStatus() {
-            if (isAdminLoggedIn) { renderAdminFontList(); renderAdminOrders(); document.getElementById('adminDashboardModal').style.display = 'flex'; }
+            if (isAdminLoggedIn) { renderAdminFontList(); renderAdminMenuList(); renderAdminOrders(); document.getElementById('adminDashboardModal').style.display = 'flex'; }
             else document.getElementById('adminLoginModal').style.display = 'flex';
         }
 
@@ -1047,13 +1110,19 @@
         function adminLogout() { isAdminLoggedIn = false; closeModal('adminDashboardModal'); }
 
         function switchAdminTab(tab) {
-            ['Fonts', 'Orders'].forEach(t => {
-                document.getElementById(`adminTab${t}`).classList.add('hidden');
-                document.getElementById(`tabBtn${t}`).className = 'font-slackey text-[10px] px-3 py-1.5 rounded-full bg-gray-100 text-gray-600';
+            ['Fonts', 'Menus', 'Orders'].forEach(t => {
+                const el = document.getElementById(`adminTab${t}`);
+                const btn = document.getElementById(`tabBtn${t}`);
+                if (el) el.classList.add('hidden');
+                if (btn) btn.className = 'font-slackey text-[10px] px-3 py-1.5 rounded-full bg-gray-100 text-gray-600';
             });
-            document.getElementById(`adminTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.remove('hidden');
-            document.getElementById(`tabBtn${tab.charAt(0).toUpperCase() + tab.slice(1)}`).className = 'font-slackey text-[10px] px-3 py-1.5 rounded-full bg-brand-dark text-white';
+            const activeEl = document.getElementById(`adminTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+            const activeBtn = document.getElementById(`tabBtn${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+            if (activeEl) activeEl.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = 'font-slackey text-[10px] px-3 py-1.5 rounded-full bg-brand-dark text-white';
+            
             if (tab === 'orders') renderAdminOrders();
+            if (tab === 'menus') renderAdminMenuList();
         }
 
         async function renderAdminFontList() {
@@ -1151,6 +1220,63 @@
             populateSelects();
         }
 
+        function handleSaveMenu(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editMenuId').value;
+            const title = document.getElementById('newMenuTitle').value.trim();
+            const icon = document.getElementById('newMenuIcon').value.trim() || 'fas fa-file-alt';
+            const content = document.getElementById('newMenuContent').value.trim();
+
+            if (editId) {
+                const idx = customMenus.findIndex(m => m.id === editId);
+                if (idx !== -1) customMenus[idx] = { ...customMenus[idx], title, icon, content };
+                alert('อัปเดตเมนูสำเร็จ');
+            } else {
+                customMenus.push({ id: `menu_${Date.now()}`, title, icon, content });
+                alert('เพิ่มเมนูสำเร็จ');
+            }
+            saveCustomMenusToStorage();
+            renderSidebarMenus();
+            renderAdminMenuList();
+            document.getElementById('menuForm').reset();
+            document.getElementById('editMenuId').value = '';
+        }
+
+        function renderAdminMenuList() {
+            const list = document.getElementById('adminMenuList');
+            if (!list) return;
+            list.innerHTML = '';
+            customMenus.forEach((m, idx) => {
+                list.innerHTML += `
+                    <div class="flex justify-between items-center p-2 bg-gray-50 border rounded-xl text-[11px] gap-1">
+                        <div><b>${idx+1}. <i class="${m.icon}"></i> ${m.title}</b></div>
+                        <div class="flex gap-1">
+                            <button type="button" onclick='loadMenuForEdit("${m.id}")' class="bg-blue-500 text-white px-2 py-0.5 rounded text-[10px]">แก้ไข</button>
+                            <button type="button" onclick="deleteMenu('${m.id}')" class="bg-red-500 text-white px-2 py-0.5 rounded text-[10px]">ลบ</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function loadMenuForEdit(id) {
+            const m = customMenus.find(item => item.id === id);
+            if (!m) return;
+            document.getElementById('editMenuId').value = m.id;
+            document.getElementById('newMenuTitle').value = m.title;
+            document.getElementById('newMenuIcon').value = m.icon;
+            document.getElementById('newMenuContent').value = m.content;
+            document.getElementById('saveMenuBtn').innerText = '💾 บันทึกการแก้ไขเมนู';
+        }
+
+        function deleteMenu(id) {
+            if (!confirm('ยืนยันลบเมนูนี้?')) return;
+            customMenus = customMenus.filter(m => m.id !== id);
+            saveCustomMenusToStorage();
+            renderSidebarMenus();
+            renderAdminMenuList();
+        }
+
         async function renderAdminOrders() {
             if (!supabaseClient) return;
             const { data } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
@@ -1179,32 +1305,12 @@
             renderAdminOrders();
         }
 
-        function switchTab(pageId, navIndex) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-
-            for (let i = 0; i <= 3; i++) {
-                const item = document.getElementById(`nav-item-${i}`);
-                if (item) {
-                    if (i === navIndex) {
-                        item.classList.remove('text-brand-subtext');
-                        item.classList.add('text-brand-main');
-                    } else {
-                        item.classList.remove('text-brand-main');
-                        item.classList.add('text-brand-subtext');
-                    }
-                }
-            }
-        }
-
         let currentSlide = 0;
         const track = document.getElementById('slider-track');
         function updateSlider() { if (track) track.style.transform = `translateX(-${currentSlide * 100}%)`; }
         function nextSlide() { currentSlide = (currentSlide + 1) % 3; updateSlider(); }
         function prevSlide() { currentSlide = (currentSlide - 1 + 3) % 3; updateSlider(); }
-        function startInterval() { setInterval(nextSlide, 3500); }
-        startInterval();
+        setInterval(nextSlide, 3500);
 
         init();
     </script>
