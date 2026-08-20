@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThitipraStudio & Pinkjulieland - Font Store</title>
+    <title>ThitipraStudio & BRPRH- Font Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +37,11 @@
         }
     </script>
     <style>
-        body { background-color: #FAFAFA; -webkit-tap-highlight-color: transparent; }
+        /* Font Faces สำหรับแสดงผลหัวเว็บและบอดี้ */
+        @font-face { font-family: 'MainBodyFont'; src: url('fonts/Katie.ttf'); }
+        @font-face { font-family: 'HeadlineFont'; src: url('fonts/honey.ttf'); }
+
+        body { background-color: #FAFAFA; -webkit-tap-highlight-color: transparent; font-family: 'Prompt', sans-serif; }
         .app-container { max-width: 440px; margin: 0 auto; min-height: 100vh; background-color: #FFF0F5; position: relative; box-shadow: 0 0 25px rgba(0,0,0,0.06); overflow-x: hidden; }
         .gradient-bg { background: linear-gradient(180deg, #FF8DAF 0%, #FFB6C1 100%); }
         .stars-bg { background-image: radial-gradient(circle at 15% 30%, white 1px, transparent 1.5px), radial-gradient(circle at 85% 20%, white 1px, transparent 1.5px), radial-gradient(circle at 30% 60%, white 2px, transparent 2.5px); background-size: 100% 100%; }
@@ -58,7 +61,7 @@
         .price-single-style { background-color: #D4EDDA !important; color: #155724 !important; border-top: 1.5px solid #C3E6CB !important; }
     </style>
 </head>
-<body class="text-brand-text font-sans antialiased">
+<body class="text-brand-text antialiased">
 
     <!-- Overlay สำหรับ Sidebar Menu -->
     <div id="menu-overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
@@ -111,7 +114,7 @@
         </div>
     </div>
 
-    <!-- App Container -->
+    <!-- App Container (Responsive Framework) -->
     <div class="app-container flex flex-col">
         
         <!-- ==================== PAGE 1: หน้าหลัก (HOME) ==================== -->
@@ -323,7 +326,7 @@
             
             <form onsubmit="handleSendOrderWithSlip(event)" class="space-y-3 text-xs">
                 <div class="space-y-2">
-                    <!-- Personal -->
+                    <!-- Personal License -->
                     <label class="block p-2.5 rounded-2xl border-2 cursor-pointer transition bg-pink-50/20 border-pink-200">
                         <div class="flex items-start gap-2">
                             <input type="radio" name="licenseSelect" value="personal" checked onchange="updatePaymentAmount()" class="mt-1 accent-brand-main">
@@ -342,7 +345,7 @@
                         </div>
                     </label>
                     
-                    <!-- Commercial -->
+                    <!-- Commercial License -->
                     <label class="block p-2.5 rounded-2xl border-2 cursor-pointer transition bg-yellow-50/30 border-yellow-200">
                         <div class="flex items-start gap-2">
                             <input type="radio" name="licenseSelect" value="commercial" onchange="updatePaymentAmount()" class="mt-1 accent-brand-main">
@@ -362,7 +365,7 @@
                         </div>
                     </label>
 
-                    <!-- Business -->
+                    <!-- Business License -->
                     <label class="block p-2.5 rounded-2xl border-2 cursor-pointer transition bg-purple-50/30 border-purple-200">
                         <div class="flex items-start gap-2">
                             <input type="radio" name="licenseSelect" value="business" onchange="updatePaymentAmount()" class="mt-1 accent-brand-main">
@@ -433,7 +436,7 @@
             supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         }
 
-        // ==================== ฝังรายการฟอนต์เริ่มต้นทั้ง 41 รายการ ====================
+        // รายชื่อฟอนต์ 41 รายการครบถ้วน เชื่อมโยงไฟล์ .ttf
         const defaultFonts = [
             { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Stephanie.ttf" },
             { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Anthony.ttf" },
@@ -509,7 +512,7 @@
             
             document.getElementById('mainContactLineLink').href = shopSettings.lineUrl;
 
-            // ดึงข้อมูลฟอนต์เพิ่มเติมจาก Supabase ถ้ามี
+            // ตรวจสอบและดึงข้อมูลเพิ่มเติมจาก Supabase
             if (supabaseClient) {
                 try {
                     const { data } = await supabaseClient.from('fonts').select('*').order('created_at', { ascending: false });
@@ -707,7 +710,7 @@
 
             closeModal('orderLicenseModal');
 
-            // ส่งข้อมูลแจ้งเตือนเข้า LINE แอดมินอัตโนมัติ
+            // เด้งส่งข้อมูลเข้า LINE แอดมินอัตโนมัติ
             const msg = `🛒✨ [แจ้งโอนเงินสั่งซื้อฟอนต์ ${orderId}]%0A- ฟอนต์: ${encodeURIComponent(newOrder.fontName)}%0A- สิทธิ์: ${license}%0A- ยอดเงิน: ${price}%0A- อีเมลรับ Google Drive: ${encodeURIComponent(email)}%0A⏰ (แนบสลิปเรียบร้อยแล้ว รอดึงเมลเข้าไดรฟ์ภายใน 1-3 ชม.)`;
             window.open(`${shopSettings.lineUrl}/?${msg}`, '_blank');
             alert(`บันทึกคำสั่งซื้อ ${orderId} เรียบร้อยแล้ว! แอดมินได้รับข้อมูลแล้วและจะดึงเมลเข้า Drive ให้ภายใน 1-3 ชั่วโมงค่ะ`);
