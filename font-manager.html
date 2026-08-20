@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Manager - ThitipraStudio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Slackey&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#FFF8F5] text-[#4A332A] min-h-screen flex flex-col antialiased">
+
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-pink-100 sticky top-0 z-40 shadow-xs">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="w-9 h-9 rounded-2xl bg-[#FF9EBB] text-white flex items-center justify-center font-bold shadow-sm">
+                    <i class="fas fa-font"></i>
+                </span>
+                <div>
+                    <h1 class="font-bold text-sm sm:text-base leading-tight">Thitipra Font Management Center</h1>
+                    <p class="text-[10px] text-pink-500 font-medium">จัดการคลังฟอนต์ทั้งหมด & อัปเดตขึ้นหน้าหลักอัตโนมัติ</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="index.html" class="px-3.5 py-1.5 border border-pink-200 bg-pink-50 text-pink-700 rounded-xl text-xs font-semibold hover:bg-pink-100 transition flex items-center gap-1.5">
+                    <i class="fas fa-store"></i> หน้าร้านค้า (index.html)
+                </a>
+                <button onclick="logoutAdmin()" id="logoutBtn" class="hidden px-3 py-1.5 bg-rose-50 text-rose-600 rounded-xl text-xs font-semibold hover:bg-rose-100 transition">
+                    <i class="fas fa-sign-out-alt"></i> ออก
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1">
+
+        <!-- Login Card (Username: brprh / Password: pleng235) -->
+        <div id="authCard" class="max-w-sm mx-auto bg-white rounded-3xl p-8 shadow-xl border border-pink-100 my-10 text-center">
+            <div class="w-14 h-14 bg-pink-50 text-[#FF9EBB] rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            <h2 class="text-base font-bold text-[#4A332A] mb-1">ยืนยันสิทธิ์แอดมินจัดการฟอนต์</h2>
+            <p class="text-xs text-slate-400 mb-5">กรอกรหัสผ่านเพื่อเข้าใช้งานระบบคลังฟอนต์</p>
+            
+            <form onsubmit="handleAuthLogin(event)" class="space-y-3 text-left text-xs">
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-600">ชื่อผู้ใช้งาน (Username)</label>
+                    <input type="text" id="inputUser" required placeholder="Username..." class="w-full p-2.5 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-600">รหัสผ่าน (Password)</label>
+                    <div class="relative">
+                        <input type="password" id="inputPass" required placeholder="Password..." class="w-full p-2.5 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB] pr-10">
+                        <button type="button" onclick="togglePassVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                            <i id="eyeIcon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <p id="authError" class="text-rose-500 hidden text-[11px] font-semibold">❌ บัญชีผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</p>
+                <button type="submit" class="w-full py-2.5 bg-[#FF9EBB] hover:bg-[#ff89ac] text-white font-bold rounded-xl transition shadow-sm mt-2">เข้าสู่ระบบจัดการ</button>
+            </form>
+        </div>
+
+        <!-- Dashboard Console -->
+        <div id="managerConsole" class="hidden space-y-5">
+
+            <!-- Stats & Quick Actions -->
+            <div class="bg-white p-5 rounded-3xl border border-pink-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-2xl font-bold text-[#FF9EBB]">
+                        <span id="fontCountBadge">0</span>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-base text-slate-800">ฟอนต์ทั้งหมดในฐานข้อมูล</h2>
+                        <p class="text-xs text-slate-400">เพิ่ม ลบ แก้ไข หรือพรีวิวตัวอย่างได้ทันที</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 flex-wrap">
+                    <button onclick="openAddModal()" class="px-4 py-2 bg-[#FF9EBB] hover:bg-[#ff89ac] text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition">
+                        <i class="fas fa-plus"></i> เพิ่มฟอนต์ใหม่
+                    </button>
+                    <button onclick="openBatchModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition">
+                        <i class="fas fa-file-import"></i> นำเข้า JSON
+                    </button>
+                    <button onclick="exportJson()" class="px-3.5 py-2 bg-white border border-pink-200 text-pink-700 hover:bg-pink-50 font-bold rounded-xl text-xs flex items-center gap-1.5 transition">
+                        <i class="fas fa-download"></i> สำรองไฟล์
+                    </button>
+                    <button onclick="resetToDefaults()" class="px-3 py-2 text-rose-500 hover:bg-rose-50 rounded-xl text-xs transition" title="ล้างและคืนค่า 41 ฟอนต์เริ่มต้น">
+                        <i class="fas fa-rotate-left"></i> คืนค่าเริ่มต้น
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter & Search Bar -->
+            <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
+                <div class="w-full sm:max-w-md relative">
+                    <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" id="searchInput" oninput="renderTable()" placeholder="ค้นหาชื่อไทย หรือ ชื่ออังกฤษ..." class="w-full pl-9 pr-4 py-2 bg-white border border-pink-200 rounded-xl text-xs outline-none focus:border-[#FF9EBB]">
+                </div>
+                <div class="flex gap-2 text-xs">
+                    <button onclick="setFilter('all', this)" class="filter-tab px-3 py-1.5 rounded-lg bg-[#FF9EBB] text-white font-bold">ทั้งหมด</button>
+                    <button onclick="setFilter('split', this)" class="filter-tab px-3 py-1.5 rounded-lg bg-white border border-pink-200 text-slate-600">แยกสิทธิ์</button>
+                    <button onclick="setFilter('single', this)" class="filter-tab px-3 py-1.5 rounded-lg bg-white border border-pink-200 text-slate-600">ราคาเดียว</button>
+                </div>
+            </div>
+
+            <!-- Table Container -->
+            <div class="bg-white rounded-3xl border border-pink-100 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
+                    <table class="w-full text-left text-xs text-slate-600">
+                        <thead class="bg-pink-50/50 text-slate-500 sticky top-0 z-10 border-b border-pink-100">
+                            <tr>
+                                <th class="p-3.5">ลำดับ</th>
+                                <th class="p-3.5">ชื่อฟอนต์</th>
+                                <th class="p-3.5">ราคา (ส่วนตัว / พาณิชย์ / องค์กร)</th>
+                                <th class="p-3.5">ไฟล์ฟอนต์ / แหล่งที่มา</th>
+                                <th class="p-3.5">Google Drive ลิงก์</th>
+                                <th class="p-3.5 text-center">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fontTableBody" class="divide-y divide-pink-50"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal: เพิ่ม / แก้ไขฟอนต์ -->
+    <div id="fontModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-pink-100 max-h-[92vh] overflow-y-auto text-xs">
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-pink-100">
+                <h3 id="modalTitle" class="font-bold text-base text-slate-800">เพิ่มฟอนต์ใหม่</h3>
+                <button onclick="closeFontModal()" class="text-slate-400 hover:text-slate-600"><i class="fas fa-times"></i></button>
+            </div>
+
+            <form onsubmit="saveFontForm(event)" class="space-y-3">
+                <input type="hidden" id="editIndex">
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-semibold mb-1">ชื่อภาษาไทย *</label>
+                        <input type="text" id="mTh" required placeholder="เช่น สเตฟานี่" class="w-full p-2 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">ชื่อภาษาอังกฤษ *</label>
+                        <input type="text" id="mEn" required placeholder="เช่น Stephanie" oninput="updatePreviewFontName()" class="w-full p-2 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="block font-semibold mb-1">ส่วนตัว (฿) *</label>
+                        <input type="text" id="mPriceP" required value="79.-" class="w-full p-2 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">พาณิชย์ (฿) *</label>
+                        <input type="text" id="mPriceC" required value="169.-" class="w-full p-2 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">องค์กร (฿)</label>
+                        <input type="text" id="mPriceB" value="700.-" class="w-full p-2 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1">ที่อยู่ไฟล์ฟอนต์ Path / URL (.ttf/.otf) *</label>
+                    <input type="text" id="mFile" required placeholder="fonts/Stephanie.ttf" class="w-full p-2 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
+                    <p class="text-[10px] text-slate-400 mt-1">* วางไฟล์ในโฟลเดอร์ fonts/ หรือใส่ URL ตรง</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-semibold mb-1">Google Drive (ส่วนตัว)</label>
+                        <input type="url" id="mDriveP" placeholder="https://drive.google.com/..." class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">Google Drive (พาณิชย์)</label>
+                        <input type="url" id="mDriveC" placeholder="https://drive.google.com/..." class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
+                    </div>
+                </div>
+
+                <div class="p-3 bg-pink-50/50 border border-pink-200 rounded-2xl text-center">
+                    <span class="text-[10px] text-slate-400 block mb-1">พรีวิวการแสดงผลตัวอย่าง</span>
+                    <div id="livePreview" class="text-xl font-medium">สวัสดี hello 123 ทดสอบฟอนต์</div>
+                </div>
+
+                <div class="pt-2 flex justify-end gap-2 border-t">
+                    <button type="button" onclick="closeFontModal()" class="px-4 py-2 bg-slate-100 rounded-xl font-semibold">ยกเลิก</button>
+                    <button type="submit" class="px-4 py-2 bg-[#FF9EBB] text-white font-bold rounded-xl shadow-sm">บันทึกฟอนต์</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Batch Import JSON -->
+    <div id="batchModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border text-xs">
+            <div class="flex justify-between items-center mb-3 pb-2 border-b">
+                <h3 class="font-bold text-base text-slate-800">นำเข้าฟอนต์ชุดใหญ่ (Batch Import)</h3>
+                <button onclick="closeBatchModal()" class="text-slate-400"><i class="fas fa-times"></i></button>
+            </div>
+            <textarea id="batchText" rows="10" placeholder='[&#10;  { "th": "สเตฟานี่", "en": "Stephanie", "p": "79.-", "c": "169.-", "b": "700.-", "file": "fonts/Stephanie.ttf" }&#10;]' class="w-full p-2.5 bg-slate-50 border rounded-xl font-mono text-[11px] outline-none"></textarea>
+            <div class="pt-3 flex justify-end gap-2 border-t mt-2">
+                <button type="button" onclick="closeBatchModal()" class="px-4 py-2 bg-slate-100 rounded-xl font-semibold">ยกเลิก</button>
+                <button type="button" onclick="executeBatch()" class="px-4 py-2 bg-slate-800 text-white font-bold rounded-xl">ประมวลผลนำเข้า</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const _U = [98, 114, 112, 114, 104];         // brprh
+        const _P = [112, 108, 101, 110, 103, 50, 51, 53]; // pleng235
+
+        function _chk(str, arr) {
+            if (str.length !== arr.length) return false;
+            for (let i = 0; i < arr.length; i++) {
+                if (str.charCodeAt(i) !== arr[i]) return false;
+            }
+            return true;
+        }
+
+        const defaultFonts = [
+            { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Stephanie.ttf" },
+            { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Anthony.ttf" },
+            { th: "ลิลลี่", en: "Lily", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRLily.ttf" },
+            { th: "เฮอร์ไมโอนี่", en: "Hermione", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Hermione.ttf" },
+            { th: "ทริกซี่", en: "Trixie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Trixie.ttf" },
+            { th: "เรนนี่", en: "Rainy", p: "79.-", c: "169.-", b: "700.-", file: "fonts/rainy.ttf" },
+            { th: "บังทัน", en: "Bangtan", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Bangtan.ttf" },
+            { th: "เซลีน", en: "Selene", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRSelene.ttf" },
+            { th: "เฟลิกซ์", en: "Felix", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Felix.ttf" },
+            { th: "ซิดนีย์", en: "Sydney", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Sydney.ttf" },
+            { th: "อโมรี่", en: "Amory", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Amory.ttf" },
+            { th: "ไคลี่", en: "Kylie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Kylie.ttf" },
+            { th: "เดมี่", en: "Demi", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Demi.ttf" },
+            { th: "เคธี่", en: "Katie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Katie.ttf" },
+            { th: "เดซี่", en: "Daisy", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Daisy.ttf" },
+            { th: "ลูก้า", en: "Luca", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Luca.ttf" },
+            { th: "ซินดี้", en: "Sindy", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRSindy.ttf" },
+            { th: "ไรเดอร์", en: "Ryder", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRRyder.ttf" },
+            { th: "เคซี่", en: "Casey", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRCasey.ttf" },
+            { th: "ฮันนี่", en: "Honey", p: "79.-", c: "169.-", b: "700.-", file: "fonts/honey.ttf" },
+            { th: "เจสซิก้า", en: "Jessica", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Jessica.ttf" },
+            { th: "ทีกัฟฟี่", en: "Teagaulfy", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Teagaulfy.ttf" },
+            { th: "ซันจิ", en: "Sanji", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRSanji.ttf" },
+            { th: "เจลลี่แบร์", en: "Jellybear", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRJellybear.ttf" },
+            { th: "ยูมะ", en: "Yuma", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRYuma.ttf" },
+            { th: "ลีโอน่า", en: "Liona", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRLiona.ttf" },
+            { th: "ฟูจิน", en: "Fujin", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRFujin.ttf" },
+            { th: "คูก้า", en: "Kuga", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRKuga.ttf" },
+            { th: "ไอรีน", en: "Irene", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRIrene.ttf" },
+            { th: "โนร่า", en: "Nora", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRNora-Regular.ttf" },
+            { th: "ชิคาโก", en: "Chicago", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRChicago.ttf" },
+            { th: "เบอร์ลิน", en: "Berlin", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRBerlin.ttf" },
+            { th: "ลอนดอน", en: "London", p: "79.-", c: "169.-", b: "700.-", file: "fonts/PRHLondon.ttf" },
+            { th: "เอเธนส์", en: "Athens", p: "99.-", c: "99.-", b: "700.-", file: "fonts/PRHAthens.ttf" },
+            { th: "มอร์แกน", en: "Morgan", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRMorgan-Regular.ttf" },
+            { th: "สเปน", en: "Spain", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRSpain.ttf" },
+            { th: "ฟีเรนเซ", en: "Firenze", p: "79.-", c: "169.-", b: "700.-", file: "fonts/PRHFirenze.ttf" },
+            { th: "สลีพ", en: "Sleep", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRSleep-Regular.ttf" },
+            { th: "โรม", en: "Roma", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRRoma.ttf" },
+            { th: "พริมโรส", en: "Primrose", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRPrimrose.ttf" },
+            { th: "ชินจัง", en: "Chinchan", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRShinchan-Regular.ttf" }
+        ];
+
+        let fonts = JSON.parse(localStorage.getItem('thitipra_fonts')) || defaultFonts;
+        let currentFilter = 'all';
+
+        function togglePassVisibility() {
+            const p = document.getElementById('inputPass');
+            const eye = document.getElementById('eyeIcon');
+            if (p.type === "password") {
+                p.type = "text";
+                eye.className = "fas fa-eye-slash";
+            } else {
+                p.type = "password";
+                eye.className = "fas fa-eye";
+            }
+        }
+
+        function handleAuthLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('inputUser').value.trim();
+            const p = document.getElementById('inputPass').value.trim();
+
+            if (_chk(u, _U) && _chk(p, _P)) {
+                sessionStorage.setItem('thitipra_mgr_auth', 'true');
+                document.getElementById('authError').classList.add('hidden');
+                renderDashboard();
+            } else {
+                document.getElementById('authError').classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('thitipra_mgr_auth');
+            location.reload();
+        }
+
+        function renderDashboard() {
+            document.getElementById('authCard').classList.add('hidden');
+            document.getElementById('managerConsole').classList.remove('hidden');
+            document.getElementById('logoutBtn').classList.remove('hidden');
+            loadDynamicFonts();
+            renderTable();
+        }
+
+        async function loadDynamicFonts() {
+            for (const f of fonts) {
+                if (f.file) {
+                    try {
+                        const font = new FontFace(f.en, `url(${f.file})`);
+                        await font.load();
+                        document.fonts.add(font);
+                    } catch(e) {}
+                }
+            }
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('fontTableBody');
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            tbody.innerHTML = '';
+            document.getElementById('fontCountBadge').innerText = fonts.length;
+
+            const filtered = fonts.filter(f => {
+                const match = f.th.toLowerCase().includes(term) || f.en.toLowerCase().includes(term);
+                const isSingle = (f.p === f.c);
+                if (currentFilter === 'single') return match && isSingle;
+                if (currentFilter === 'split') return match && !isSingle;
+                return match;
+            });
+
+            filtered.forEach((f, idx) => {
+                const isSingle = (f.p === f.c);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-3.5 font-mono text-slate-400">${idx+1}</td>
+                    <td class="p-3.5">
+                        <div class="font-bold text-slate-800 text-sm" style="font-family:'${f.en}', sans-serif;">${f.th} (${f.en})</div>
+                    </td>
+                    <td class="p-3.5">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isSingle ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}">
+                            ${isSingle ? 'ราคาเดียว' : 'แยกสิทธิ์'}
+                        </span>
+                        <div class="text-[11px] text-slate-500 mt-1">${f.p} / ${f.c} / ${f.b || '700.-'}</div>
+                    </td>
+                    <td class="p-3.5 text-[11px]">
+                        <code class="text-pink-600 bg-pink-50 px-1.5 py-0.5 rounded">${f.file}</code>
+                    </td>
+                    <td class="p-3.5 text-[11px]">
+                        <div><a href="${f.drive_personal||'#'}" target="_blank" class="text-pink-500 hover:underline">Drive ส่วนตัว</a></div>
+                        <div><a href="${f.drive_commercial||'#'}" target="_blank" class="text-blue-500 hover:underline">Drive พาณิชย์</a></div>
+                    </td>
+                    <td class="p-3.5 text-center">
+                        <div class="flex items-center justify-center gap-1.5">
+                            <button onclick="editFont(${idx})" class="p-1.5 text-slate-500 hover:text-[#FF9EBB]"><i class="fas fa-edit"></i></button>
+                            <button onclick="deleteFont(${idx})" class="p-1.5 text-slate-500 hover:text-rose-600"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function setFilter(type, btn) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-tab').forEach(b => {
+                b.className = "filter-tab px-3 py-1.5 rounded-lg bg-white border border-pink-200 text-slate-600";
+            });
+            btn.className = "filter-tab px-3 py-1.5 rounded-lg bg-[#FF9EBB] text-white font-bold";
+            renderTable();
+        }
+
+        function openAddModal() {
+            document.getElementById('modalTitle').innerText = 'เพิ่มฟอนต์ใหม่';
+            document.getElementById('editIndex').value = '';
+            document.getElementById('mTh').value = '';
+            document.getElementById('mEn').value = '';
+            document.getElementById('mPriceP').value = '79.-';
+            document.getElementById('mPriceC').value = '169.-';
+            document.getElementById('mPriceB').value = '700.-';
+            document.getElementById('mFile').value = '';
+            document.getElementById('mDriveP').value = '';
+            document.getElementById('mDriveC').value = '';
+            document.getElementById('fontModal').classList.remove('hidden');
+        }
+
+        function closeFontModal() { document.getElementById('fontModal').classList.add('hidden'); }
+
+        function saveFontForm(e) {
+            e.preventDefault();
+            const idx = document.getElementById('editIndex').value;
+            const fontObj = {
+                th: document.getElementById('mTh').value.trim(),
+                en: document.getElementById('mEn').value.trim(),
+                p: document.getElementById('mPriceP').value.trim(),
+                c: document.getElementById('mPriceC').value.trim(),
+                b: document.getElementById('mPriceB').value.trim(),
+                file: document.getElementById('mFile').value.trim(),
+                drive_personal: document.getElementById('mDriveP').value.trim(),
+                drive_commercial: document.getElementById('mDriveC').value.trim()
+            };
+
+            if (idx !== '') fonts[idx] = fontObj; else fonts.unshift(fontObj);
+            localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
+            closeFontModal();
+            loadDynamicFonts();
+            renderTable();
+        }
+
+        function editFont(idx) {
+            const f = fonts[idx];
+            document.getElementById('modalTitle').innerText = 'แก้ไขข้อมูลฟอนต์';
+            document.getElementById('editIndex').value = idx;
+            document.getElementById('mTh').value = f.th;
+            document.getElementById('mEn').value = f.en;
+            document.getElementById('mPriceP').value = f.p;
+            document.getElementById('mPriceC').value = f.c;
+            document.getElementById('mPriceB').value = f.b || '700.-';
+            document.getElementById('mFile').value = f.file;
+            document.getElementById('mDriveP').value = f.drive_personal || '';
+            document.getElementById('mDriveC').value = f.drive_commercial || '';
+            document.getElementById('fontModal').classList.remove('hidden');
+        }
+
+        function deleteFont(idx) {
+            if(confirm(`ต้องการลบฟอนต์ "${fonts[idx].th}" ออกจากระบบ?`)) {
+                fonts.splice(idx, 1);
+                localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
+                renderTable();
+            }
+        }
+
+        function resetToDefaults() {
+            if(confirm('ต้องการคืนค่าฟอนต์เริ่มต้นทั้ง 41 รายการ?')) {
+                fonts = defaultFonts;
+                localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
+                loadDynamicFonts();
+                renderTable();
+                alert('คืนค่า 41 ฟอนต์เริ่มต้นเรียบร้อยแล้ว!');
+            }
+        }
+
+        function openBatchModal() { document.getElementById('batchModal').classList.remove('hidden'); }
+        function closeBatchModal() { document.getElementById('batchModal').classList.add('hidden'); }
+
+        function executeBatch() {
+            const txt = document.getElementById('batchText').value.trim();
+            try {
+                const parsed = JSON.parse(txt);
+                if(Array.isArray(parsed)) {
+                    fonts = [...parsed, ...fonts];
+                    localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
+                    closeBatchModal();
+                    loadDynamicFonts();
+                    renderTable();
+                    alert(`นำเข้าฟอนต์สำเร็จจำนวน ${parsed.length} รายการ!`);
+                }
+            } catch(e) {
+                alert('รูปแบบ JSON ไม่ถูกต้อง');
+            }
+        }
+
+        function exportJson() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fonts, null, 2));
+            const a = document.createElement('a');
+            a.setAttribute("href", dataStr);
+            a.setAttribute("download", `thitipra_fonts_backup_${Date.now()}.json`);
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }
+
+        function updatePreviewFontName() {
+            const en = document.getElementById('mEn').value || 'Preview';
+            document.getElementById('livePreview').style.fontFamily = en;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('thitipra_mgr_auth') === 'true') {
+                renderDashboard();
+            }
+        });
+    </script>
+</body>
+</html>
