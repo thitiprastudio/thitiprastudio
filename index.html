@@ -541,7 +541,10 @@
             <!-- Tab 1: Fonts & Drive Links -->
             <div id="adminTabFonts">
                 <form id="fontForm" onsubmit="handleSaveFont(event)" class="space-y-3 text-xs bg-pink-50/40 p-4 rounded-2xl border mb-6">
-                    <h4 class="font-bold text-sm mb-2 text-pink-500">เพิ่ม / แก้ไขฟอนต์ (แยก Google Drive ส่วนตัว & พาณิชย์)</h4>
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-sm text-pink-500">เพิ่ม / แก้ไขฟอนต์ (แยก Google Drive ส่วนตัว & พาณิชย์)</h4>
+                        <button type="button" onclick="resetForm()" class="text-[11px] bg-gray-200 hover:bg-gray-300 text-gray-700 px-2.5 py-1 rounded-lg">ล้างค่า / ยกเลิกแก้ไข</button>
+                    </div>
                     <input type="hidden" id="editFontId">
                     <div class="grid grid-cols-2 gap-2">
                         <input required type="text" id="newFontTh" class="border p-2 rounded-xl bg-white" placeholder="ชื่อไทย">
@@ -562,7 +565,7 @@
                         <div class="bg-white p-2 rounded-xl border"><label class="block text-[10px]">Bold</label><input type="file" id="fileBold" accept=".ttf,.otf" class="w-full text-[10px]"></div>
                         <div class="bg-white p-2 rounded-xl border"><label class="block text-[10px]">Light</label><input type="file" id="fileLight" accept=".ttf,.otf" class="w-full text-[10px]"></div>
                     </div>
-                    <button type="submit" id="saveBtn" class="w-full bg-[#ff85b3] text-white font-bold py-2.5 rounded-xl">+ บันทึกฟอนต์ขึ้น Cloud</button>
+                    <button type="submit" id="saveBtn" class="w-full bg-[#ff85b3] text-white font-bold py-2.5 rounded-xl transition">+ บันทึกฟอนต์ขึ้น Cloud</button>
                 </form>
                 <div id="adminFontList" class="space-y-2 max-h-60 overflow-y-auto"></div>
             </div>
@@ -715,6 +718,23 @@
             }
         }
 
+        // ฟังก์ชันดึงข้อมูลฟอนต์เก่ามาใส่ในฟอร์มเพื่อแก้ไข
+        function loadFontForEdit(fontObj) {
+            document.getElementById('editFontId').value = fontObj.id;
+            document.getElementById('newFontTh').value = fontObj.th || '';
+            document.getElementById('newFontEn').value = fontObj.en || '';
+            document.getElementById('newFontP').value = fontObj.p || '';
+            document.getElementById('newFontC').value = fontObj.c || '';
+            document.getElementById('newFontDriveP').value = fontObj.drive_personal || '';
+            document.getElementById('newFontDriveC').value = fontObj.drive_commercial || '';
+
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.innerText = '💾 บันทึกการแก้ไขฟอนต์';
+            saveBtn.className = 'w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 rounded-xl transition';
+
+            document.getElementById('fontForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
         async function handleSaveFont(e) {
             e.preventDefault();
             const editId = document.getElementById('editFontId').value;
@@ -751,9 +771,9 @@
                     p, 
                     c, 
                     drive_personal, 
-                    drive_commercial, 
-                    order_index: totalFontsCount + 1 
+                    drive_commercial 
                 };
+
                 if (file_regular) fontPayload.file_regular = file_regular;
                 if (file_bold) fontPayload.file_bold = file_bold;
                 if (file_light) fontPayload.file_light = file_light;
@@ -764,15 +784,16 @@
                         const res = await supabaseClient.from('fonts').update(fontPayload).eq('id', editId);
                         dbError = res.error;
                     } else {
+                        fontPayload.order_index = totalFontsCount + 1;
                         const res = await supabaseClient.from('fonts').insert([fontPayload]);
                         dbError = res.error;
                     }
                     if (dbError) throw new Error(dbError.message);
                 }
 
-                alert('บันทึกฟอนต์สำเร็จ!');
+                alert(editId ? 'แก้ไขข้อมูลฟอนต์สำเร็จ!' : 'บันทึกฟอนต์สำเร็จ!');
                 const term = (document.getElementById('fontSearch').value || '').trim();
-                await loadFontsOnlinePaged(1, term);
+                await loadFontsOnlinePaged(currentPaginationPage, term);
                 resetForm();
                 populateSelects();
                 renderAdminFontList();
@@ -780,6 +801,7 @@
                 alert('บันทึกไม่สำเร็จ: ' + err.message);
             } finally {
                 saveBtn.innerText = '+ บันทึกฟอนต์ขึ้น Cloud';
+                saveBtn.className = 'w-full bg-[#ff85b3] text-white font-bold py-2.5 rounded-xl transition';
                 saveBtn.disabled = false;
             }
         }
@@ -790,7 +812,10 @@
             const editIdInput = document.getElementById('editFontId');
             if (editIdInput) editIdInput.value = '';
             const saveBtn = document.getElementById('saveBtn');
-            if (saveBtn) saveBtn.innerText = '+ บันทึกฟอนต์ขึ้น Cloud';
+            if (saveBtn) {
+                saveBtn.innerText = '+ บันทึกฟอนต์ขึ้น Cloud';
+                saveBtn.className = 'w-full bg-[#ff85b3] text-white font-bold py-2.5 rounded-xl transition';
+            }
         }
 
         function debouncedSearch() {
@@ -1162,11 +1187,22 @@
             const list = document.getElementById('adminFontList');
             list.innerHTML = 'กำลังโหลด...';
             if (!supabaseClient) return;
-            const { data } = await supabaseClient.from('fonts').select('*').order('order_index', { ascending: true }).limit(50);
+            const { data } = await supabaseClient.from('fonts').select('*').order('order_index', { ascending: true }).limit(100);
             list.innerHTML = '';
             if (!data) return;
             data.forEach((f, idx) => {
-                list.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-50 border rounded-xl"><span>${idx+1}. ${f.th} (${f.en}) [ส่วนตัว:${f.p} | พาณิชย์:${f.c}]</span><button onclick="deleteFont('${f.id}')" class="text-red-500 font-bold">ลบ</button></div>`;
+                list.innerHTML += `
+                    <div class="flex justify-between items-center p-2.5 bg-gray-50 border rounded-xl gap-2">
+                        <div class="truncate text-xs">
+                            <b>${idx+1}. ${f.th} (${f.en})</b> 
+                            <div class="text-[10px] text-gray-500">ส่วนตัว: ${f.p} | พาณิชย์: ${f.c}</div>
+                        </div>
+                        <div class="flex gap-1.5 shrink-0">
+                            <button type="button" onclick='loadFontForEdit(${JSON.stringify(f)})' class="bg-blue-500 text-white px-2.5 py-1 rounded-lg text-[11px] font-bold">แก้ไข</button>
+                            <button type="button" onclick="deleteFont('${f.id}')" class="bg-red-500 text-white px-2.5 py-1 rounded-lg text-[11px] font-bold">ลบ</button>
+                        </div>
+                    </div>
+                `;
             });
         }
 
