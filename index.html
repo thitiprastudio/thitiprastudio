@@ -49,7 +49,7 @@
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 100; justify-content: center; align-items: center; padding: 16px; }
         .modal-content { background: white; width: 100%; max-width: 410px; border-radius: 30px; max-height: 90vh; overflow-y: auto; padding: 24px; position: relative; }
         
-        .tester-container { width: 100%; background: white; border: 2px dashed #FF9EBB; border-radius: 20px; position: relative; margin-top: 10px; overflow: hidden; min-height: 220px; display: flex; flex-direction: column; }
+        .tester-container { width: 100%; background: white; border: 2.5px dashed #FF9EBB; border-radius: 20px; position: relative; margin-top: 10px; overflow: hidden; min-height: 220px; display: flex; flex-direction: column; }
         .tester-bg-watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('IMG_5814.png') no-repeat center; background-size: contain; opacity: 0.1; z-index: 1; pointer-events: none; }
         #testerDisplay, #displayLeft, #displayRight { position: relative; z-index: 5; text-align: center; width: 100%; word-wrap: break-word; padding: 30px 15px; flex-grow: 1; max-height: 280px; overflow-y: auto; }
         
@@ -91,7 +91,7 @@
                         <div class="text-[10px] text-pink-500 font-normal">ตัวแทนจำหน่ายอย่างถูกต้อง ✨</div>
                     </div>
                 </button>
-                <!-- เมนูไดนามิกที่แอดมินสร้างเพิ่ม -->
+                
                 <div id="dynamicMenuItems" class="border-t border-b border-pink-100 py-2 my-2 space-y-2"></div>
 
                 <button onclick="checkAdminStatus(); toggleMenu();" class="w-full text-left flex items-center gap-3 p-3 bg-brand-light hover:bg-pink-200 rounded-2xl transition text-brand-dark font-bold border border-pink-200">
@@ -108,7 +108,7 @@
     <!-- App Container -->
     <div class="app-container flex flex-col">
         
-        <!-- ==================== PAGE 1: HOME (Font Store & Catalog) ==================== -->
+        <!-- PAGE 1: HOME -->
         <div id="page-home" class="page active">
             <div class="gradient-bg pt-8 px-5 pb-20 relative rounded-b-[40px]">
                 <div class="stars-bg absolute inset-0 opacity-40"></div>
@@ -133,8 +133,6 @@
             </div>
 
             <div class="bg-white rounded-t-[35px] -mt-14 relative z-10 pt-12 px-4 shadow-app pb-8">
-                
-                <!-- Controls & Search -->
                 <div class="space-y-3 mb-6">
                     <button onclick="openVS()" class="w-full bg-purple-100 hover:bg-purple-200 text-purple-900 font-bold py-3 rounded-2xl text-xs transition shadow-sm flex items-center justify-center gap-2">
                         ❤️ เปิดโหมดเปรียบเทียบฟอนต์ (VS Mode) 🎶
@@ -152,13 +150,12 @@
                     </div>
                 </div>
 
-                <!-- Font Catalog List -->
                 <div class="space-y-3" id="fontList"></div>
                 <div id="paginationControls" class="mt-6 flex justify-center items-center gap-1.5 flex-wrap text-xs"></div>
             </div>
         </div>
 
-        <!-- ==================== PAGE 2: SERVICES / OTHERS ==================== -->
+        <!-- PAGE 2: SERVICES -->
         <div id="page-services" class="page">
             <div class="gradient-bg pt-8 px-5 pb-16 relative rounded-b-[40px]">
                 <div class="text-center text-brand-text font-outfit text-xl font-bold">บริการอื่นๆ ของทางร้าน</div>
@@ -166,7 +163,7 @@
             <div class="px-5 -mt-8 relative z-10 space-y-3 pb-8">
                 <div class="bg-white rounded-2xl p-4 shadow-sm border border-pink-100 text-xs space-y-2">
                     <h3 class="font-bold text-brand-dark text-sm">📌 ช่องทางโซเชียลและร้านค้าเครือข่าย</h3>
-                    <p class="text-gray-600">สามารถติดตามข่าวสาร ฟอนต์ออกใหม่ หรือโปรโมชั่นเด็ดๆ ได้ที่ช่องทางด้านล่างนี้เลยค่ะ</p>
+                    <p class="text-gray-600">ติดตามข่าวสาร ฟอนต์ออกใหม่ หรือโปรโมชั่นเด็ดๆ ได้ที่ช่องทางด้านล่างนี้เลยค่ะ</p>
                     <div class="flex gap-2 pt-2">
                         <a href="https://shop.line.me/@wbk2012r" target="_blank" class="flex-1 bg-green-500 text-white p-2.5 rounded-xl text-center font-bold flex items-center justify-center gap-1.5"><i class="fas fa-store"></i> MyShop</a>
                         <a href="https://lin.ee/8k1sAhb" target="_blank" class="flex-1 bg-brand-main text-white p-2.5 rounded-xl text-center font-bold flex items-center justify-center gap-1.5"><i class="fab fa-line"></i> LINE OA</a>
@@ -175,20 +172,7 @@
             </div>
         </div>
 
-        <!-- ==================== PAGE 3: WEBSITE DESIGN ==================== -->
-        <div id="page-website" class="page">
-            <div class="gradient-bg pt-8 px-5 pb-16 relative rounded-b-[40px]">
-                <div class="text-center text-brand-text font-outfit text-xl font-bold">รับทำเว็บไซต์ & ดีไซน์</div>
-            </div>
-            <div class="px-5 -mt-8 relative z-10 space-y-3 pb-8">
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-pink-100 text-xs space-y-2">
-                    <h3 class="font-bold text-brand-dark text-sm">💻 บริการรับทำเว็บร้านค้าสำเร็จรูป</h3>
-                    <p class="text-gray-600">ดีไซน์สวยงาม โทนสีละมุน ใช้งานง่าย เหมาะกับร้านค้าออนไลน์ทุกประเภท เริ่มต้นเพียง 129.- เท่านั้น สนใจติดต่อแอดมินผ่าน LINE ได้เลยค่ะ</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==================== PAGE 4: GOODNOTES ==================== -->
+        <!-- PAGE 3: GOODNOTES -->
         <div id="page-goodnotes" class="page">
             <div class="gradient-bg pt-8 px-5 pb-16 relative rounded-b-[40px]">
                 <div class="text-center text-brand-text font-outfit text-xl font-bold">แอป Goodnotes พรีเมียม</div>
@@ -196,12 +180,12 @@
             <div class="px-5 -mt-8 relative z-10 space-y-3 pb-8">
                 <div class="bg-white rounded-2xl p-4 shadow-sm border border-pink-100 text-xs space-y-2">
                     <h3 class="font-bold text-brand-dark text-sm">⭐ บริการดาวน์โหลดแอป Goodnotes</h3>
-                    <p class="text-gray-600">มีทั้งแบบรายปีและถาวร ราคาประหยัด ปลอดภัย อัปเดตได้ตลอดชีพ สอบถามรายละเอียดเพิ่มเติมกับแอดมินได้เลยค่า</p>
+                    <p class="text-gray-600">มีทั้งแบบรายปีและถาวร ราคาประหยัด ปลอดภัย อัปเดตตลอดชีพ สอบถามรายละเอียดเพิ่มเติมกับแอดมินได้เลยค่า</p>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== PAGE 5: CONTACT ==================== -->
+        <!-- PAGE 4: CONTACT -->
         <div id="page-contact" class="page">
             <div class="gradient-bg pt-8 px-5 pb-16 relative rounded-b-[40px]">
                 <div class="text-center text-brand-text font-outfit text-xl font-bold">ติดต่อเรา</div>
@@ -210,38 +194,32 @@
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-pink-100 space-y-3">
                     <div class="w-16 h-16 bg-pink-100 text-brand-dark rounded-full flex items-center justify-center mx-auto text-2xl"><i class="fas fa-headset"></i></div>
                     <h3 class="font-bold text-brand-dark text-sm">ทีมงาน ThitipraStudio พร้อมให้บริการ</h3>
-                    <p class="text-xs text-gray-500">ติดปัญหาการใช้งานฟอนต์, ตรวจสอบสลิป, หรือสอบถามคิวงาน สามารถทัก LINE หาแอดมินได้ตลอด 24 ชม.ค่ะ</p>
+                    <p class="text-xs text-gray-500">ติดปัญหาการใช้งานฟอนต์ ตรวจสอบสลิป หรือสอบถามคิวงาน ทัก LINE หาแอดมินได้ตลอด 24 ชม.ค่ะ</p>
                     <a href="https://lin.ee/8k1sAhb" target="_blank" class="block w-full bg-green-500 text-white font-bold py-3 rounded-xl text-xs shadow-md"><i class="fab fa-line text-base"></i> แอดไลน์ติดต่อแอดมิน</a>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== BOTTOM NAVIGATION ==================== -->
+        <!-- BOTTOM NAVIGATION -->
         <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-brand-light px-6 py-2.5 z-40 shadow-nav max-w-[430px] mx-auto rounded-t-3xl">
             <div class="flex justify-between items-center text-[10px]">
                 <div class="flex flex-col items-center gap-0.5 cursor-pointer text-brand-main" onclick="switchTab('page-home', 0)" id="nav-item-0">
-                    <i class="fa-solid fa-house text-lg"></i>
-                    <span class="font-semibold">หน้าแรก</span>
+                    <i class="fa-solid fa-house text-lg"></i><span class="font-semibold">หน้าแรก</span>
                 </div>
                 <div class="flex flex-col items-center gap-0.5 cursor-pointer text-brand-subtext hover:text-brand-main" onclick="switchTab('page-services', 1)" id="nav-item-1">
-                    <i class="fa-solid fa-store text-lg"></i>
-                    <span class="font-medium">บริการ</span>
+                    <i class="fa-solid fa-store text-lg"></i><span class="font-medium">บริการ</span>
                 </div>
                 <div class="flex flex-col items-center gap-0.5 cursor-pointer text-brand-subtext hover:text-brand-main" onclick="switchTab('page-goodnotes', 2)" id="nav-item-2">
-                    <i class="fa-solid fa-book-open text-lg"></i>
-                    <span class="font-medium">แอป GN</span>
+                    <i class="fa-solid fa-book-open text-lg"></i><span class="font-medium">แอป GN</span>
                 </div>
                 <div class="flex flex-col items-center gap-0.5 cursor-pointer text-brand-subtext hover:text-brand-main" onclick="switchTab('page-contact', 3)" id="nav-item-3">
-                    <i class="fa-regular fa-comment-dots text-lg"></i>
-                    <span class="font-medium">ติดต่อ</span>
+                    <i class="fa-regular fa-comment-dots text-lg"></i><span class="font-medium">ติดต่อ</span>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- ==================== MODALS ==================== -->
-
+    <!-- MODALS -->
     <div id="dynamicPageModal" class="modal">
         <div class="modal-content">
             <button onclick="closeModal('dynamicPageModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full w-8 h-8 flex items-center justify-center"><i class="fas fa-xmark"></i></button>
@@ -274,7 +252,6 @@
     <div id="fontModal" class="modal">
         <div class="modal-content">
             <button onclick="closeModal('fontModal')" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 bg-gray-50 rounded-full w-8 h-8 flex items-center justify-center"><i class="fas fa-xmark"></i></button>
-            
             <div class="text-center">
                 <button class="bg-purple-100 text-purple-800 text-[11px] font-bold px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1" onclick="openVSFromModal()">
                     <i class="fas fa-columns"></i> สลับไปโหมดเปรียบเทียบ VS
@@ -297,10 +274,19 @@
                 </div>
 
                 <div class="tester-container">
-                    <div class="tag-watermark absolute top-2 left-2 border border-pink-200 px-2 py-0.5 rounded-md text-[9px] bg-white/80 z-10 text-brand-dark">Thitipra Studio</div>
-                    <div class="tag-watermark absolute top-2 right-2 border border-pink-200 px-2 py-0.5 rounded-md text-[9px] bg-white/80 z-10 text-brand-dark">BR&PRH</div>
+                    <div class="absolute top-2 left-2 border border-pink-200 px-2 py-0.5 rounded-md text-[9px] bg-white/80 z-10 text-brand-dark">Thitipra Studio</div>
+                    <div class="absolute top-2 right-2 border border-pink-200 px-2 py-0.5 rounded-md text-[9px] bg-white/80 z-10 text-brand-dark">BR&PRH</div>
                     <div class="tester-bg-watermark"></div>
                     <div id="testerDisplay">สวัสดี Hello! กขฃค 12345</div>
+                </div>
+
+                <!-- ส่วนแสดงตัวอย่างตัวอักษรแบบครบถ้วน -->
+                <div class="mt-4 text-left bg-pink-50/50 p-3 rounded-2xl border border-pink-100 text-[11px] space-y-2 max-h-36 overflow-y-auto">
+                    <div class="font-bold text-brand-dark border-b border-pink-200 pb-1">📝 ตัวอย่างตัวอักษรในฟอนต์</div>
+                    <div><span class="text-gray-500 block text-[9px]">พยัญชนะไทย:</span> <span class="text-xs">กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮ</span></div>
+                    <div><span class="text-gray-500 block text-[9px]">สระ / วรรณยุกต์:</span> <span class="text-xs">ะัาำิีึืุู็เแโใไ่้๊๋์ํฺๆฯ</span></div>
+                    <div><span class="text-gray-500 block text-[9px]">A-Z / a-z:</span> <span class="text-xs">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</span></div>
+                    <div><span class="text-gray-500 block text-[9px]">ตัวเลข & สัญลักษณ์:</span> <span class="text-xs">0123456789 ๐๑๒๓๔๕๖๗๘๙ !?.,'()[]-+=_/@#$%^&*~฿</span></div>
                 </div>
 
                 <div id="modalPriceDisplay" class="my-3 p-2.5 rounded-xl text-xs font-semibold"></div>
@@ -359,7 +345,6 @@
             
             <form onsubmit="handleSendToLine(event)" class="space-y-3 text-xs">
                 <div class="space-y-2">
-                    <!-- Personal Use -->
                     <label class="block p-3 rounded-2xl border-2 cursor-pointer transition bg-pink-50/20 border-pink-200">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
@@ -378,7 +363,6 @@
                         </div>
                     </label>
                     
-                    <!-- Commercial Use -->
                     <label class="block p-3 rounded-2xl border-2 cursor-pointer transition bg-yellow-50/30 border-yellow-200">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
@@ -398,7 +382,6 @@
                         </div>
                     </label>
 
-                    <!-- Business / Company Use -->
                     <label class="block p-3 rounded-2xl border-2 cursor-pointer transition bg-purple-50/30 border-purple-200">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
@@ -883,13 +866,15 @@
             const totalEl = document.getElementById('paymentTotalAmount');
             if (license === 'personal') totalEl.innerText = `${currentFont.p}`;
             else if (license === 'commercial') totalEl.innerText = `${currentFont.c}`;
-            else if (license === 'freelance') totalEl.innerText = `฿700`;
+            else if (license === 'business') totalEl.innerText = `฿700`;
             else totalEl.innerText = `฿1,000`;
         }
 
         function openOrderModal() {
             if (!currentFont) return;
             document.getElementById('orderModalFontTitle').innerText = `${currentFont.th} (${currentFont.en})`;
+            document.getElementById('orderPricePersonal').innerText = `${currentFont.p}`;
+            document.getElementById('orderPriceCommercial').innerText = `${currentFont.c}`;
             document.querySelector('input[name="licenseSelect"][value="personal"]').checked = true;
             document.getElementById('orderCustomerEmail').value = currentCustomer ? currentCustomer.email : '';
             updatePaymentAmount();
@@ -901,8 +886,8 @@
             if (!currentFont) return;
             const email = document.getElementById('orderCustomerEmail').value.trim();
             const license = document.querySelector('input[name="licenseSelect"]:checked').value;
-            let licenseText = license === 'personal' ? 'Personal (ส่วนตัว)' : license === 'commercial' ? 'Commercial (เชิงพาณิชย์)' : license === 'freelance' ? 'Freelance Use' : 'Company Use';
-            let priceText = license === 'personal' ? currentFont.p : license === 'commercial' ? currentFont.c : license === 'freelance' ? '700.-' : '1,000.-';
+            let licenseText = license === 'personal' ? 'Personal (ส่วนตัว)' : license === 'commercial' ? 'Commercial (เชิงพาณิชย์)' : license === 'business' ? 'Business License' : 'Company Use';
+            let priceText = license === 'personal' ? currentFont.p : license === 'commercial' ? currentFont.c : license === 'business' ? '700.-' : '1,000.-';
 
             const orderId = `REC-${Date.now().toString().slice(-6)}`;
             
@@ -983,8 +968,8 @@
         function openDynamicPage(type) {
             const title = type === 'usage' ? 'เงื่อนไข & ประเภทการใช้งาน' : 'กฎและข้อห้ามลิขสิทธิ์';
             const content = type === 'usage' ? 
-                '👤 Personal Use: สำหรับใช้ส่วนตัว เรียนจดโน้ต\n💼 Commercial Use: สำหรับแม่ค้าออนไลน์ ยิงแอด\n🏢 Company/Freelance: สำหรับองค์กรหรือฟรีแลนซ์ไม่เกิน 5 เครื่อง' : 
-                '1. ห้ามแจกจ่ายหรือขายต่อไฟล์ฟอนต์เด็ดขาด\n2. ห้ามดราฟหรือเทรน AI จากตัวอักษรของฟอนต์\n3. หากตรวจพบการละเมิดปรับตามกฎร้านหรือดำเนินคดีตามกฎหมาย';
+                '👤 Personal Use: สำหรับใช้ส่วนตัว เรียนจดโน้ต\n💼 Commercial Use: สำหรับแม่ค้าออนไลน์ ยิงแอด\n🏢 Business License: สำหรับบริษัท, องค์กร, หจก. (จำกัด 5 เครื่อง)' : 
+                '1. ห้ามแจกจ่ายหรือขายต่อไฟล์ฟอนต์เด็ดขาด\n2. ห้ามดราฟหรือเทรน AI จากตัวอักษรของฟอนต์\n3. หากตรวจพบการละเมิดปรับ 10,000 บาท / 1 ไฟล์';
             
             document.getElementById('dynamicModalTitle').innerText = title;
             document.getElementById('dynamicModalIcon').className = type === 'usage' ? 'fas fa-scale-balanced' : 'fas fa-shield-halved';
@@ -1310,7 +1295,6 @@
         function updateSlider() { if (track) track.style.transform = `translateX(-${currentSlide * 100}%)`; }
         function nextSlide() { currentSlide = (currentSlide + 1) % 3; updateSlider(); }
         function prevSlide() { currentSlide = (currentSlide - 1 + 3) % 3; updateSlider(); }
-        setInterval(nextSlide, 3500);
 
         init();
     </script>
