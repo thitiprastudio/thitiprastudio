@@ -10,8 +10,6 @@
     <script src="fonts.js"></script>
     <style>
         body { font-family: 'Prompt', sans-serif; }
-        /* พื้นที่สำหรับฉีด Font-Face อัตโนมัติ */
-        #dynamicFontFaceStyles { display: none; }
     </style>
     <style id="dynamicFontFaceStyles"></style>
 </head>
@@ -33,7 +31,7 @@
                     <i class="fas fa-columns"></i> <span id="compareBtnText">โหมดเปรียบเทียบฟอนต์</span>
                 </button>
                 <a href="admin.html" class="px-3 py-1.5 bg-slate-800 text-white rounded-xl text-xs font-semibold hover:bg-slate-900 transition flex items-center gap-1.5">
-                    <i class="fas fa-lock"></i> หลังบ้าน (แอดมิน)
+                    <i class="fas fa-lock"></i> หลังบ้าน
                 </a>
             </div>
         </div>
@@ -85,13 +83,13 @@
         </div>
     </main>
 
-    <!-- Modal: ตารางอักษร -->
+    <!-- Modal: ตารางอักษรแยกช่อง -->
     <div id="charModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-6 max-w-2xl w-full shadow-2xl border border-pink-100 max-h-[90vh] overflow-y-auto text-xs space-y-4">
+        <div class="bg-white rounded-3xl p-6 max-w-3xl w-full shadow-2xl border border-pink-100 max-h-[90vh] overflow-y-auto text-xs space-y-5">
             <div class="flex justify-between items-center pb-3 border-b border-pink-100">
                 <div>
                     <h3 id="modalFontTitle" class="font-bold text-base text-slate-800">รายละเอียดฟอนต์</h3>
-                    <p class="text-[10px] text-pink-500">ทดลองพิมพ์เฉพาะฟอนต์นี้ & ตรวจสอบตัวอักษร สระ วรรณยุกต์ ตัวเลข สัญลักษณ์</p>
+                    <p class="text-[10px] text-pink-500">ทดลองพิมพ์ข้อความ & ตรวจสอบตัวอักษร พยัญชนะ สระ วรรณยุกต์ ทีละตัวอักษร</p>
                 </div>
                 <button onclick="closeCharModal()" class="text-slate-400 hover:text-slate-600 text-base"><i class="fas fa-times"></i></button>
             </div>
@@ -105,19 +103,20 @@
                 </div>
             </div>
 
-            <div class="space-y-3 pt-2">
-                <div class="space-y-1">
+            <div class="space-y-4 pt-1">
+                <div class="space-y-1.5">
                     <span class="font-bold text-slate-700 block">พยัญชนะไทย (ก - ฮ):</span>
-                    <div id="charGroupConsonant" class="p-3 bg-slate-50 rounded-2xl border font-normal text-lg tracking-wide leading-relaxed"></div>
+                    <div id="charGroupConsonant" class="grid grid-cols-7 sm:grid-cols-11 gap-1.5 p-3 bg-slate-50 rounded-2xl border text-center text-xl"></div>
                 </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div class="space-y-1">
+                    <div class="space-y-1.5">
                         <span class="font-bold text-slate-700 block">สระ & วรรณยุกต์:</span>
-                        <div id="charGroupVowels" class="p-3 bg-slate-50 rounded-2xl border font-normal text-base leading-relaxed"></div>
+                        <div id="charGroupVowels" class="grid grid-cols-6 sm:grid-cols-7 gap-1.5 p-3 bg-slate-50 rounded-2xl border text-center text-xl"></div>
                     </div>
-                    <div class="space-y-1">
+                    <div class="space-y-1.5">
                         <span class="font-bold text-slate-700 block">ตัวเลข & สัญลักษณ์:</span>
-                        <div id="charGroupSymbols" class="p-3 bg-slate-50 rounded-2xl border font-normal text-base leading-relaxed"></div>
+                        <div id="charGroupSymbols" class="grid grid-cols-6 sm:grid-cols-8 gap-1.5 p-3 bg-slate-50 rounded-2xl border text-center text-lg"></div>
                     </div>
                 </div>
             </div>
@@ -128,7 +127,7 @@
         </div>
     </div>
 
-    <!-- Modal: สั่งซื้อ -->
+    <!-- Modal: สั่งซื้อ พร้อมรายละเอียดสิทธิ์แบบเจาะลึก -->
     <div id="checkoutModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-pink-100 text-xs space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center pb-2 border-b border-pink-100">
@@ -139,7 +138,10 @@
             <div class="p-3.5 bg-pink-50/60 rounded-2xl border border-pink-100 space-y-1">
                 <div class="font-bold text-slate-800 text-sm" id="checkoutFontName">ชื่อฟอนต์</div>
                 <div class="text-slate-500">เลือกสิทธิ์: <span id="checkoutLicenseType" class="font-semibold text-pink-600">-</span></div>
-                <div class="text-slate-500">ยอดชำระเงิน: <strong id="checkoutPrice" class="text-pink-600 text-sm">0.-</strong></div>
+                <div class="text-slate-500 text-[11px] bg-white/80 p-2 rounded-xl mt-1 border border-pink-100" id="checkoutLicenseDetails">
+                    <!-- รายละเอียดจำนวนเครื่อง คน เมล จะแสดงที่นี่ -->
+                </div>
+                <div class="text-slate-500 pt-1">ยอดชำระเงิน: <strong id="checkoutPrice" class="text-pink-600 text-sm">0.-</strong></div>
             </div>
 
             <div class="p-3 bg-slate-50 rounded-2xl border space-y-2 text-center">
@@ -147,7 +149,7 @@
                 <div class="flex justify-center my-1">
                     <img id="storeQrImg" src="" alt="QR Code" class="w-32 h-32 object-contain rounded-xl border bg-white p-1">
                 </div>
-                <p class="text-slate-500" id="storeBankText">ธนาคาร... เลขที่... (ชื่อบัญชี...)</p>
+                <p class="text-slate-500" id="storeBankText"></p>
             </div>
 
             <div class="p-3 bg-amber-50/50 rounded-2xl border border-amber-100 text-[11px] space-y-1">
@@ -190,7 +192,6 @@
         let isCompareMode = false;
         let selectedCompareFonts = [];
 
-        // ฟังก์ชันสร้างและฉีด FontFace CSS เข้าสู่หน้าเว็บโดยอัตโนมัติ
         function injectDynamicFontFaces() {
             let cssRules = "";
             fonts.forEach(f => {
@@ -208,8 +209,7 @@
         }
 
         function renderApp() {
-            injectDynamicFontFaces(); // เรียกใช้งานการฉีดฟอนต์ทุกครั้งที่เรนเดอร์หน้าจอ
-            
+            injectDynamicFontFaces();
             const grid = document.getElementById('fontGrid');
             const term = document.getElementById('searchInput').value.toLowerCase();
             const globalText = document.getElementById('globalPreviewInput').value || 'สวัสดี hello 123 ทดสอบฟอนต์';
@@ -240,7 +240,7 @@
                     card.innerHTML = `
                         <div class="flex items-center justify-between">
                             <h4 class="font-bold text-slate-800 text-sm">${f.th} (${f.en})</h4>
-                            <span class="text-xs font-bold text-pink-600">${f.p}</span>
+                            <span class="text-xs font-bold text-pink-600">ส่วนตัว: ${f.p} | พาณิชย์: ${f.c}</span>
                         </div>
                         <div class="p-3 bg-slate-50 border rounded-xl text-xl text-slate-800 truncate" style="font-family: '${f.en}', sans-serif;">
                             ${globalText}
@@ -278,11 +278,18 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between pt-2 border-t border-pink-50 text-xs">
-                        <span class="text-slate-500">ส่วนตัว: <strong class="text-pink-600">${f.p}</strong> | พาณิชย์: <strong class="text-pink-600">${f.c}</strong></span>
-                        <div class="flex gap-1.5">
-                            <button onclick="openCheckout(${idx}, 'personal')" class="px-2.5 py-1 bg-pink-50 text-pink-600 hover:bg-pink-100 font-bold rounded-lg transition">ซื้อส่วนตัว</button>
-                            <button onclick="openCheckout(${idx}, 'commercial')" class="px-2.5 py-1 bg-[#FF9EBB] text-white hover:bg-[#ff89ac] font-bold rounded-lg transition">ซื้อพาณิชย์</button>
+                    <div class="space-y-1.5 pt-1 border-t border-pink-50 text-xs">
+                        <div class="flex justify-between items-center text-slate-500">
+                            <span>ใช้งานส่วนตัว: <strong class="text-pink-600 font-bold">${f.p}</strong></span>
+                            <button onclick="openCheckout(${idx}, 'personal')" class="px-2.5 py-1 bg-pink-50 text-pink-600 hover:bg-pink-100 font-bold rounded-lg transition">ซื้อสิทธิ์</button>
+                        </div>
+                        <div class="flex justify-between items-center text-slate-500">
+                            <span>เชิงพาณิชย์: <strong class="text-pink-600 font-bold">${f.c}</strong></span>
+                            <button onclick="openCheckout(${idx}, 'commercial')" class="px-2.5 py-1 bg-[#FF9EBB] text-white hover:bg-[#ff89ac] font-bold rounded-lg transition">ซื้อสิทธิ์</button>
+                        </div>
+                        <div class="flex justify-between items-center text-slate-500 pt-0.5 border-t border-dashed border-pink-100">
+                            <span>องค์กร/บริษัท: <strong class="text-slate-800 font-bold">${f.b || '700.-'}</strong></span>
+                            <button onclick="openCheckout(${idx}, 'business')" class="px-2.5 py-1 bg-slate-800 text-white hover:bg-slate-900 font-bold rounded-lg transition">ซื้อสิทธิ์</button>
                         </div>
                     </div>
                 `;
@@ -372,14 +379,21 @@
                 liveBox.innerText = e.target.value || 'ตัวอย่างข้อความ';
             };
 
-            document.getElementById('charGroupConsonant').style.fontFamily = `'${f.en}', sans-serif`;
-            document.getElementById('charGroupConsonant').innerText = "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ";
+            function renderCharGrid(containerId, charString) {
+                const container = document.getElementById(containerId);
+                container.innerHTML = '';
+                container.style.fontFamily = `'${f.en}', sans-serif`;
+                for (let char of charString) {
+                    const box = document.createElement('div');
+                    box.className = "bg-white border border-pink-100 rounded-lg p-1.5 flex items-center justify-center shadow-2xs hover:border-pink-400 transition";
+                    box.innerText = char === ' ' ? '␣' : char;
+                    container.appendChild(box);
+                }
+            }
 
-            document.getElementById('charGroupVowels').style.fontFamily = `'${f.en}', sans-serif`;
-            document.getElementById('charGroupVowels').innerText = "ะ า ิ ี ึ ื ุ ู เ แ โ ใ ไ ำ ็ ่ ้ ๊ ๋ ์";
-
-            document.getElementById('charGroupSymbols').style.fontFamily = `'${f.en}', sans-serif`;
-            document.getElementById('charGroupSymbols').innerText = "0123456789 !@#$%^&*()_+-=[]{}|;':\",./<>?";
+            renderCharGrid('charGroupConsonant', "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ");
+            renderCharGrid('charGroupVowels', "ะ า ิ ี ึ ื ุ ู เ แ โ ใ ไ ำ ็ ่ ้ ๊ ๋ ์");
+            renderCharGrid('charGroupSymbols', "0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?");
 
             document.getElementById('charModal').classList.remove('hidden');
         }
@@ -387,11 +401,23 @@
 
         function openCheckout(idx, licenseType) {
             const f = fonts[idx];
-            const price = licenseType === 'personal' ? f.p : f.c;
-            const licenseName = licenseType === 'personal' ? 'ใช้งานส่วนตัว' : 'ใช้งานเชิงพาณิชย์';
+            let price = f.p;
+            let licenseName = 'ใช้งานส่วนตัว';
+            let licenseDesc = '👤 <strong>สิทธิ์ใช้งานส่วนตัว:</strong> เหมาะสำหรับทำโน้ต ตกแต่งภาพส่วนตัว ใช้ในชีวิตประจำวัน <strong>(จำกัด 1 คน / 1 อุปกรณ์ / 1 อีเมลรับไฟล์)</strong> ไม่อนุญาตให้ใช้เชิงธุรกิจหรือหารายได้';
+
+            if(licenseType === 'commercial') {
+                price = f.c;
+                licenseName = 'ใช้งานเชิงพาณิชย์';
+                licenseDesc = '🛍️ <strong>สิทธิ์ใช้งานเชิงพาณิชย์:</strong> เหมาะสำหรับแม่ค้าออนไลน์ ทำป้ายสินค้า รีวิว โฆษณา แพ็กเกจสินค้า <strong>(จำกัด 1 แบรนด์ / 1 คน / 2 อุปกรณ์ / 1 อีเมลรับไฟล์)</strong>';
+            } else if(licenseType === 'business') {
+                price = f.b || '700.-';
+                licenseName = 'องค์กร / บริษัท';
+                licenseDesc = '🏢 <strong>สิทธิ์องค์กร/บริษัท:</strong> สำหรับบริษัท ทีมงาน หน่วยงาน หรือการผลิตเชิงพาณิชย์ขนาดใหญ่ <strong>(ไม่จำกัดจำนวนคนในองค์กร / ใช้ได้สูงสุด 10 อุปกรณ์ / 1 อีเมลหลักรับไฟล์)</strong>';
+            }
 
             document.getElementById('checkoutFontName').innerText = `${f.th} (${f.en})`;
             document.getElementById('checkoutLicenseType').innerText = licenseName;
+            document.getElementById('checkoutLicenseDetails').innerHTML = licenseDesc;
             document.getElementById('checkoutPrice').innerText = price + " บาท";
             
             document.getElementById('orderFontId').value = f.en;
