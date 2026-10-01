@@ -2,7 +2,7 @@
 let storeConfig = JSON.parse(localStorage.getItem('thitipra_store_config')) || {
     bankName: "ธนาคารกสิกรไทย",
     bankNumber: "123-4-56789-0",
-    bankOwner: "ฐิติประ สตูดิโอ",
+    bankOwner: "ฐิติประ สตูดิโอ (ฐิติพร ประภั)",
     qrCodeUrl: "https://drive.google.com/file/d/10K21SituHASGQzXjsrBeX66d3ICnG7c5/view?usp=sharing",
     terms: "เงื่อนไขการใช้งานลิขสิทธิ์ฟอนต์ ThitipraStudio:\n- ใช้งานส่วนตัว: สำหรับใช้ตกแต่งโน้ต งานอดิเรก โพสต์ส่วนตัว ไม่อนุญาตใช้เชิงธุรกิจ\n- ใช้งานพาณิชย์: สำหรับทำป้ายสินค้า รีวิว โฆษณา แพ็กเกจ และธุรกิจส่วนตัว\n- ใช้งานองค์กร/บริษัท: สำหรับบริษัท หน่วยงาน ทีมงานหลายคน และการผลิตเชิงพาณิชย์ขนาดใหญ่"
 };
