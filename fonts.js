@@ -1,5 +1,13 @@
-// fonts.js - จัดการรายชื่อฟอนต์ทั้งหมดที่นี่ไฟล์เดียว
-const defaultFonts = [
+// fonts.js - คลังข้อมูลกลาง (ฟอนต์, บัญชีธนาคาร, เงื่อนไข)
+let storeConfig = JSON.parse(localStorage.getItem('thitipra_store_config')) || {
+    bankName: "ธนาคารกสิกรไทย",
+    bankNumber: "123-4-56789-0",
+    bankOwner: "บจก. ทิพยประภา สตูดิโอ",
+    qrCodeUrl: "https://via.placeholder.com/200x200.png?text=QR+Code+PromptPay", // เปลี่ยนเป็นลิงก์รูป QR Code ของคุณได้
+    terms: "1. ฟอนต์ลิขสิทธิ์สำหรับใช้งานตามสิทธิ์ที่ซื้อ\n2. ห้ามนำไฟล์ฟอนต์ไปแจกต่อหรือจำหน่ายต่อทุกกรณี\n3. จัดส่งไฟล์ผ่าน Google Drive ภายใน 1-3 ชั่วโมงหลังตรวจสอบสลิป"
+};
+
+let defaultFonts = [
     { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Stephanie.ttf" },
     { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Anthony.ttf" },
     { th: "ลิลลี่", en: "Lily", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRLily.ttf" },
