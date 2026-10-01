@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThitipraFontStudio - คลังฟอนต์ลิขสิทธิ์BR&PRH</title>
+    <title>ThitipraFontStudio - คลังฟอนต์ลิขสิทธิ์</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -143,6 +143,19 @@
                 <div class="text-slate-500 pt-1">ยอดชำระเงิน: <strong id="checkoutPrice" class="text-pink-600 text-sm">0.-</strong></div>
             </div>
 
+            <!-- ตัวเลือกประเภทองค์กร (บริษัททั่วไป vs รับออกแบบภายนอก) -->
+            <div id="businessSubOptions" class="hidden p-3 bg-slate-50 rounded-2xl border space-y-2">
+                <span class="font-semibold text-slate-700 block">🏢 เลือกประเภทการใช้งานสำหรับองค์กร:</span>
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="bizType" value="normal" checked onchange="updateBusinessPrice()">
+                    <span>บริษัททั่วไป (700.- / จำกัด 5 เครื่อง หากเกินคูณ 2)</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="bizType" value="designer" onchange="updateBusinessPrice()">
+                    <span>รับออกแบบภายนอกให้ลูกค้าบริษัท (1,400.- / จำกัด 5 เครื่อง หากเกินคูณ 2)</span>
+                </label>
+            </div>
+
             <div class="p-3 bg-slate-50 rounded-2xl border space-y-2 text-center">
                 <span class="font-semibold text-slate-700 block text-left">💳 ช่องทางชำระเงิน</span>
                 <div class="flex justify-center my-1">
@@ -166,10 +179,8 @@
                     <input type="email" id="buyerEmail" required placeholder="your-email@gmail.com" class="w-full p-2.5 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
                 </div>
 
-                <div>
-                    <label class="block font-semibold mb-1 text-slate-600">แนบหลักฐานการโอนเงิน (สลิป)</label>
-                    <input type="file" id="slipFile" accept="image/*" class="w-full p-2 bg-slate-50 border rounded-xl text-[11px] file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-pink-100 file:text-pink-700 file:font-semibold">
-                    <p class="text-[10px] text-slate-400 mt-1">* ระบบจะเปิด Line เพื่อส่งข้อความออเดอร์ให้แอดมิน (กรุณากดวางแนบรูปสลิปในแชท Line อีกครั้ง)</p>
+                <div class="p-3 bg-pink-50 text-pink-700 rounded-xl text-[11px] font-semibold text-center">
+                    💡 เมื่อกดยืนยัน ระบบจะเปิด Line เพื่อส่งข้อความออเดอร์ให้แอดมิน (โปรดแนบรูปสลิปโอนเงินในแชท Line ได้เลย)
                 </div>
 
                 <div class="pt-2 flex gap-2">
@@ -188,7 +199,6 @@
                 <button onclick="closeAdminModal()" class="text-slate-400 text-base"><i class="fas fa-times"></i></button>
             </div>
             
-            <!-- Login Screen -->
             <div id="adminLoginBox" class="space-y-3 py-4">
                 <p class="text-slate-400">กรุณากรอกรหัสผ่านแอดมินเพื่อจัดการหลังบ้าน</p>
                 <div class="relative max-w-xs">
@@ -201,7 +211,6 @@
                 <button type="button" onclick="verifyAdmin()" class="px-5 py-2 bg-slate-800 text-white font-bold rounded-xl">เข้าสู่ระบบ</button>
             </div>
 
-            <!-- Admin Console (Hidden until login) -->
             <div id="adminConsoleBox" class="hidden space-y-5">
                 <div class="p-4 bg-pink-50/50 rounded-2xl border border-pink-100 space-y-3">
                     <h4 class="font-bold text-slate-800">⚙️ ตั้งค่าบัญชีรับเงิน & เงื่อนไขร้านค้า</h4>
@@ -331,7 +340,7 @@
             { th: "สเปน", en: "Spain", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRSpain.ttf" },
             { th: "ฟีเรนเซ", en: "Firenze", p: "79.-", c: "169.-", b: "700.-", file: "fonts/PRHFirenze.ttf" },
             { th: "สลีพ", en: "Sleep", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRSleep-Regular.ttf" },
-            { th: "โรม", en: "Roma", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRRoma.ttf" },
+            { th: "โรม", en: "Roma", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRRoma.ttf" },
             { th: "พริมโรส", en: "Primrose", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRPrimrose.ttf" },
             { th: "ชินจัง", en: "Chinchan", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRShinchan-Regular.ttf" }
         ];
@@ -341,10 +350,11 @@
             bankNumber: "123-4-56789-0",
             bankOwner: "บจก. ทิพยประภา สตูดิโอ",
             qrCodeUrl: "QRcodepayment.jpg",
-            terms: "เงื่อนไขการใช้งานลิขสิทธิ์ฟอนต์ ThitipraStudio:\n- ใช้งานส่วนตัว: สำหรับใช้ตกแต่งโน้ต งานอดิเรก โพสต์ส่วนตัว ไม่อนุญาตใช้เชิงธุรกิจ\n- ใช้งานพาณิชย์: สำหรับทำป้ายสินค้า รีวิว โฆษณา แพ็กเกจ และธุรกิจส่วนตัว\n- ใช้งานองค์กร/บริษัท: สำหรับบริษัท หน่วยงาน ทีมงานหลายคน และการผลิตเชิงพาณิชย์ขนาดใหญ่"
+            terms: "เงื่อนไขการใช้งานลิขสิทธิ์ฟอนต์ ThitipraStudio:\n- ใช้งานส่วนตัว: สำหรับใช้ตกแต่งโน้ต งานอดิเรก โพสต์ส่วนตัว ไม่อนุญาตใช้เชิงธุรกิจ\n- ใช้งานพาณิชย์: สำหรับทำป้ายสินค้า รีวิว โฆษณา แพ็กเกจ และธุรกิจส่วนตัว\n- ใช้งานองค์กร/บริษัท: สำหรับบริษัท ทีมงาน หน่วยงาน (จำกัด 5 เครื่อง หากเกินคูณ 2)\n- รับออกแบบภายนอกให้ลูกค้าบริษัท: ราคา 1,400 บาท (จำกัด 5 เครื่อง หากเกินคูณ 2)"
         };
 
-        let fonts = JSON.parse(localStorage.getItem('thitipra_fonts')) || defaultFonts;
+        // บังคับโหลดฟอนต์ทั้งหมดจาก defaultFonts เสมอ (แก้ไขปัญหาฟอนต์แสดงแค่ 2 ตัว)
+        let fonts = defaultFonts;
         let config = JSON.parse(localStorage.getItem('thitipra_store_config')) || storeConfig;
         let currentFilter = 'all';
         let isCompareMode = false;
@@ -506,7 +516,7 @@
             if(!isCompareMode) {
                 document.querySelectorAll('#fontGrid input[type="text"]').forEach(input => {
                     input.value = val;
-                    input.nextElementSibling.querySelector('div').innerText = val || 'สวัสดี hello 123 ทดสอบฟอนต์';
+                    input.nextElementSibling.querySelector('div').innerText = val || 'สวัสดีBR&PRH hello123 ทดสอบฟอนต์';
                 });
             } else {
                 renderApp();
@@ -541,7 +551,6 @@
                 const container = document.getElementById(containerId);
                 container.innerHTML = '';
                 container.style.fontFamily = `'${f.en}', sans-serif`;
-                // กรองเอาเฉพาะตัวอักษรจริง ๆ ไม่เอาช่องว่าง
                 for (let char of charString) {
                     if (char.trim() !== "") {
                         const box = document.createElement('div');
@@ -560,20 +569,33 @@
         }
         function closeCharModal() { document.getElementById('charModal').classList.add('hidden'); }
 
+        let currentActiveFontIdx = null;
+        let currentActiveLicenseKey = null;
+
         function openCheckout(idx, licenseType) {
+            currentActiveFontIdx = idx;
+            currentActiveLicenseKey = licenseType;
             const f = fonts[idx];
+            
+            const bizSubOptions = document.getElementById('businessSubOptions');
             let price = f.p;
             let licenseName = 'ใช้งานส่วนตัว';
-            let licenseDesc = '👤 <strong>สิทธิ์ใช้งานส่วนตัว:</strong> เหมาะสำหรับทำโน้ต ตกแต่งภาพส่วนตัว ใช้ในชีวิตประจำวัน <strong>(จำกัด 1 คน / 1 อุปกรณ์ / 1 อีเมลรับไฟล์)</strong> ไม่อนุญาตให้ใช้เชิงธุรกิจหรือหารายได้';
+            let licenseDesc = '👤 <strong>สิทธิ์ใช้งานส่วนตัว:</strong> เหมาะสำหรับทำโน้ต ตกแต่งภาพส่วนตัว ใช้ในชีวิตประจำวัน <strong>(จำกัด 1 คน / 1 อุปกรณ์ / 1 อีเมลรับไฟล์)</strong>';
 
             if(licenseType === 'commercial') {
                 price = f.c;
                 licenseName = 'ใช้งานเชิงพาณิชย์';
-                licenseDesc = '🛍️ <strong>สิทธิ์ใช้งานเชิงพาณิชย์:</strong> เหมาะสำหรับแม่ค้าออนไลน์ ทำป้ายสินค้า รีวิว โฆษณา แพ็กเกจสินค้า <strong>(จำกัด 1 แบรนด์ / 1 คน / 2 อุปกรณ์ / 1 อีเมลรับไฟล์)</strong>';
+                licenseDesc = '🛍️ <strong>สิทธิ์ใช้งานเชิงพาณิชย์:</strong> สำหรับแม่ค้าออนไลน์ ทำป้ายสินค้า รีวิว โฆษณา <strong>(จำกัด 1 แบรนด์ / 1 คน / 2 อุปกรณ์ / 1 อีเมลรับไฟล์)</strong>';
+                bizSubOptions.classList.add('hidden');
             } else if(licenseType === 'business') {
                 price = f.b || '700.-';
                 licenseName = 'องค์กร / บริษัท';
-                licenseDesc = '🏢 <strong>สิทธิ์องค์กร/บริษัท:</strong> สำหรับบริษัท ทีมงาน หน่วยงาน หรือการผลิตเชิงพาณิชย์ขนาดใหญ่ <strong>(ไม่จำกัดจำนวนคนในองค์กร / ใช้ได้สูงสุด 10 อุปกรณ์ / 1 อีเมลหลักรับไฟล์)</strong>';
+                licenseDesc = '🏢 <strong>สิทธิ์องค์กร/บริษัท:</strong> สำหรับบริษัท ทีมงาน หน่วยงาน <strong>(จำกัด 5 เครื่อง หากเกินคูณ 2)</strong>';
+                bizSubOptions.classList.remove('hidden');
+                // ตั้งค่า radio เป็นแบบปกติเริ่มต้น
+                document.querySelector('input[name="bizType"][value="normal"]').checked = true;
+            } else {
+                bizSubOptions.classList.add('hidden');
             }
 
             document.getElementById('checkoutFontName').innerText = `${f.th} (${f.en})`;
@@ -591,6 +613,23 @@
 
             document.getElementById('checkoutModal').classList.remove('hidden');
         }
+
+        function updateBusinessPrice() {
+            const f = fonts[currentActiveFontIdx];
+            const bizType = document.querySelector('input[name="bizType"]:checked').value;
+            let price = f.b || '700.-';
+            let desc = '🏢 <strong>สิทธิ์องค์กร/บริษัท:</strong> สำหรับบริษัท ทีมงาน หน่วยงาน <strong>(จำกัด 5 เครื่อง หากเกินคูณ 2)</strong>';
+
+            if(bizType === 'designer') {
+                price = '1400.-';
+                desc = '🎨 <strong>สิทธิ์รับออกแบบภายนอกให้ลูกค้าบริษัท:</strong> สำหรับนักออกแบบฟรีแลนซ์/เอเจนซี่นำไปรับงานลูกค้านอก <strong>ราคา 1,400 บาท (จำกัด 5 เครื่อง หากเกินคูณ 2)</strong>';
+            }
+
+            document.getElementById('checkoutLicenseDetails').innerHTML = desc;
+            document.getElementById('checkoutPrice').innerText = price + " บาท";
+            document.getElementById('orderPriceVal').value = price;
+        }
+
         function closeCheckoutModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
 
         function submitCheckoutAndSendLine(e) {
@@ -601,16 +640,16 @@
             const email = document.getElementById('buyerEmail').value;
             const orderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
 
-            const message = `🛒✨ [แจ้งโอนเงินสั่งซื้อฟอนต์ ${orderId}]\n` +
+            const message = `🛒✨ [แจ้งสั่งซื้อฟอนต์ ${orderId}]\n` +
                             `- ฟอนต์: ${fontName}\n` +
                             `- สิทธิ์: ${license}\n` +
                             `- ยอดเงิน: ${price}\n` +
                             `- อีเมลรับ Drive: ${email}\n` +
-                            `⏰ (กรุณาวางรูปสลิปโอนเงินแนบมาในแชทนี้ได้เลยค่ะ)`;
+                            `📸 (แนบสลิปโอนเงินในแชทนี้ได้เลยค่ะลูกค้า)`;
 
             const lineUrl = `https://line.me/R/msg/text/?` + encodeURIComponent(message);
             
-            alert('บันทึกคำสั่งซื้อเรียบร้อย! ระบบกำลังเปิด Line เพื่อส่งข้อความออเดอร์ให้แอดมิน\n(โปรดวาง/แนบรูปสลิปโอนเงินในแชท Line ต่อได้ทันที)');
+            alert('บันทึกคำสั่งซื้อเรียบร้อย! ระบบกำลังเปิด Line เพื่อส่งข้อความออเดอร์ให้แอดมิน\n(กรุณาวาง/แนบรูปสลิปโอนเงินในแชท Line ต่อได้ทันที)');
             window.open(lineUrl, '_blank');
             closeCheckoutModal();
         }
