@@ -143,7 +143,7 @@
                 <div class="text-slate-500 pt-1">ยอดชำระเงิน: <strong id="checkoutPrice" class="text-pink-600 text-sm">0.-</strong></div>
             </div>
 
-            <!-- ตัวเลือกประเภทองค์กร (บริษัททั่วไป vs รับออกแบบภายนอก) -->
+            <!-- ตัวเลือกประเภทองค์กร -->
             <div id="businessSubOptions" class="hidden p-3 bg-slate-50 rounded-2xl border space-y-2">
                 <span class="font-semibold text-slate-700 block">🏢 เลือกประเภทการใช้งานสำหรับองค์กร:</span>
                 <label class="flex items-center gap-2 cursor-pointer">
@@ -191,14 +191,20 @@
         </div>
     </div>
 
-    <!-- Modal: ระบบหลังบ้านแอดมินในตัว -->
+    <!-- Modal: ระบบหลังบ้านแอดมินในตัว (พร้อมปุ่มออกจากระบบ) -->
     <div id="adminModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-2xl w-full shadow-2xl border text-xs space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center pb-2 border-b">
-                <h3 class="font-bold text-base text-slate-800">ระบบหลังบ้าน (แอดมิน)</h3>
+                <div class="flex items-center gap-2">
+                    <h3 class="font-bold text-base text-slate-800">ระบบหลังบ้าน (แอดมิน)</h3>
+                    <button type="button" onclick="adminLogout()" id="adminLogoutBtn" class="hidden px-2.5 py-1 bg-rose-50 text-rose-600 hover:bg-rose-100 font-semibold rounded-lg transition text-[11px]">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </button>
+                </div>
                 <button onclick="closeAdminModal()" class="text-slate-400 text-base"><i class="fas fa-times"></i></button>
             </div>
             
+            <!-- Login Screen -->
             <div id="adminLoginBox" class="space-y-3 py-4">
                 <p class="text-slate-400">กรุณากรอกรหัสผ่านแอดมินเพื่อจัดการหลังบ้าน</p>
                 <div class="relative max-w-xs">
@@ -211,6 +217,7 @@
                 <button type="button" onclick="verifyAdmin()" class="px-5 py-2 bg-slate-800 text-white font-bold rounded-xl">เข้าสู่ระบบ</button>
             </div>
 
+            <!-- Admin Console (Hidden until login) -->
             <div id="adminConsoleBox" class="hidden space-y-5">
                 <div class="p-4 bg-pink-50/50 rounded-2xl border border-pink-100 space-y-3">
                     <h4 class="font-bold text-slate-800">⚙️ ตั้งค่าบัญชีรับเงิน & เงื่อนไขร้านค้า</h4>
@@ -353,7 +360,7 @@
             terms: "เงื่อนไขการใช้งานลิขสิทธิ์ฟอนต์ ThitipraStudio:\n- ใช้งานส่วนตัว: สำหรับใช้ตกแต่งโน้ต งานอดิเรก โพสต์ส่วนตัว ไม่อนุญาตใช้เชิงธุรกิจ\n- ใช้งานพาณิชย์: สำหรับทำป้ายสินค้า รีวิว โฆษณา แพ็กเกจ และธุรกิจส่วนตัว\n- ใช้งานองค์กร/บริษัท: สำหรับบริษัท ทีมงาน หน่วยงาน (จำกัด 5 เครื่อง หากเกินคูณ 2)\n- รับออกแบบภายนอกให้ลูกค้าบริษัท: ราคา 1,400 บาท (จำกัด 5 เครื่อง หากเกินคูณ 2)"
         };
 
-        // บังคับโหลดฟอนต์ทั้งหมดจาก defaultFonts เสมอ (แก้ไขปัญหาฟอนต์แสดงแค่ 2 ตัว)
+        // บังคับดึงฟอนต์จาก defaultFonts เสมอ ป้องกันข้อมูลเก่าค้างในคอม
         let fonts = defaultFonts;
         let config = JSON.parse(localStorage.getItem('thitipra_store_config')) || storeConfig;
         let currentFilter = 'all';
@@ -592,7 +599,6 @@
                 licenseName = 'องค์กร / บริษัท';
                 licenseDesc = '🏢 <strong>สิทธิ์องค์กร/บริษัท:</strong> สำหรับบริษัท ทีมงาน หน่วยงาน <strong>(จำกัด 5 เครื่อง หากเกินคูณ 2)</strong>';
                 bizSubOptions.classList.remove('hidden');
-                // ตั้งค่า radio เป็นแบบปกติเริ่มต้น
                 document.querySelector('input[name="bizType"][value="normal"]').checked = true;
             } else {
                 bizSubOptions.classList.add('hidden');
@@ -645,11 +651,11 @@
                             `- สิทธิ์: ${license}\n` +
                             `- ยอดเงิน: ${price}\n` +
                             `- อีเมลรับ Drive: ${email}\n` +
-                            `📸 (แนบสลิปโอนเงินในแชทนี้ได้เลยค่ะลูกค้า)`;
+                            `📸 (แนบสลิปโอนเงินในแชทนี้ได้เลยคค่ะลูกค้า รอแอดมินตรวจสอบจะทำการดึงเมลให้ค่า)`;
 
             const lineUrl = `https://line.me/R/msg/text/?` + encodeURIComponent(message);
             
-            alert('บันทึกคำสั่งซื้อเรียบร้อย! ระบบกำลังเปิด Line เพื่อส่งข้อความออเดอร์ให้แอดมิน\n(กรุณาวาง/แนบรูปสลิปโอนเงินในแชท Line ต่อได้ทันที)');
+            alert('บันทึกคำสั่งซื้อเรียบร้อย! ระบบกำลังเปิด Line เพื่อส่งข้อความออเดอร์ให้แอดมิน\n(โปรดวาง/แนบรูปสลิปโอนเงินในแชท Line ต่อได้ทันที)');
             window.open(lineUrl, '_blank');
             closeCheckoutModal();
         }
@@ -662,6 +668,7 @@
             } else {
                 document.getElementById('adminLoginBox').classList.remove('hidden');
                 document.getElementById('adminConsoleBox').classList.add('hidden');
+                document.getElementById('adminLogoutBtn').classList.add('hidden');
             }
         }
         function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
@@ -688,9 +695,19 @@
             }
         }
 
+        function adminLogout() {
+            sessionStorage.removeItem('admin_auth');
+            document.getElementById('adminLoginBox').classList.remove('hidden');
+            document.getElementById('adminConsoleBox').classList.add('hidden');
+            document.getElementById('adminLogoutBtn').classList.add('hidden');
+            document.getElementById('adminPassInput').value = '';
+            alert('ออกจากระบบแอดมินเรียบร้อยแล้ว');
+        }
+
         function showAdminConsole() {
             document.getElementById('adminLoginBox').classList.add('hidden');
             document.getElementById('adminConsoleBox').classList.remove('hidden');
+            document.getElementById('adminLogoutBtn').classList.remove('hidden');
 
             document.getElementById('cfgBankName').value = config.bankName || "";
             document.getElementById('cfgBankNum').value = config.bankNumber || "";
