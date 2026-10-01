@@ -14,6 +14,7 @@
 </head>
 <body class="bg-[#FFF8F5] text-[#4A332A] min-h-screen flex flex-col antialiased">
 
+    <!-- Header -->
     <header class="bg-white/90 backdrop-blur-md border-b border-pink-100 sticky top-0 z-40 shadow-xs">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -29,13 +30,14 @@
                 <button onclick="toggleCompareMode()" id="compareModeBtn" class="px-3.5 py-1.5 bg-pink-50 text-pink-700 border border-pink-200 rounded-xl text-xs font-semibold hover:bg-pink-100 transition flex items-center gap-1.5">
                     <i class="fas fa-columns"></i> <span id="compareBtnText">โหมดเปรียบเทียบฟอนต์</span>
                 </button>
-                <a href="admin.html" class="px-3 py-1.5 bg-slate-800 text-white rounded-xl text-xs font-semibold hover:bg-slate-900 transition flex items-center gap-1.5">
+                <button onclick="openAdminModal()" class="px-3 py-1.5 bg-slate-800 text-white rounded-xl text-xs font-semibold hover:bg-slate-900 transition flex items-center gap-1.5">
                     <i class="fas fa-lock"></i> หลังบ้าน
-                </a>
+                </button>
             </div>
         </div>
     </header>
 
+    <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-8 w-full flex-1 space-y-6">
         <div class="bg-white rounded-3xl p-6 md:p-8 border border-pink-100 shadow-sm space-y-5">
             <div class="text-center max-w-xl mx-auto space-y-2">
@@ -82,7 +84,7 @@
         </div>
     </main>
 
-    <!-- Modal: ตารางอักษร -->
+    <!-- Modal: ตารางอักษรแยกช่อง -->
     <div id="charModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-3xl w-full shadow-2xl border border-pink-100 max-h-[90vh] overflow-y-auto text-xs space-y-5">
             <div class="flex justify-between items-center pb-3 border-b border-pink-100">
@@ -126,7 +128,7 @@
         </div>
     </div>
 
-    <!-- Modal: สั่งซื้อ -->
+    <!-- Modal: สั่งซื้อ พร้อมรายละเอียดสิทธิ์แบบเจาะลึก -->
     <div id="checkoutModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-pink-100 text-xs space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center pb-2 border-b border-pink-100">
@@ -178,6 +180,113 @@
         </div>
     </div>
 
+    <!-- Modal: ระบบหลังบ้านแอดมินในตัว -->
+    <div id="adminModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-2xl w-full shadow-2xl border text-xs space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center pb-2 border-b">
+                <h3 class="font-bold text-base text-slate-800">ระบบหลังบ้าน (แอดมิน)</h3>
+                <button onclick="closeAdminModal()" class="text-slate-400 text-base"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <!-- Login Screen -->
+            <div id="adminLoginBox" class="space-y-3 py-4">
+                <p class="text-slate-400">กรุณากรอกรหัสผ่านแอดมินเพื่อจัดการหลังบ้าน</p>
+                <div class="relative max-w-xs">
+                    <input type="password" id="adminPassInput" placeholder="รหัสผ่าน..." class="w-full p-2.5 bg-slate-50 border rounded-xl outline-none pr-10">
+                    <button type="button" onclick="toggleAdminPassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                        <i id="adminEyeIcon" class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <p id="adminAuthError" class="text-rose-500 hidden text-[11px] font-semibold">❌ รหัสผ่านไม่ถูกต้อง</p>
+                <button type="button" onclick="verifyAdmin()" class="px-5 py-2 bg-slate-800 text-white font-bold rounded-xl">เข้าสู่ระบบ</button>
+            </div>
+
+            <!-- Admin Console (Hidden until login) -->
+            <div id="adminConsoleBox" class="hidden space-y-5">
+                <div class="p-4 bg-pink-50/50 rounded-2xl border border-pink-100 space-y-3">
+                    <h4 class="font-bold text-slate-800">⚙️ ตั้งค่าบัญชีรับเงิน & เงื่อนไขร้านค้า</h4>
+                    <form onsubmit="saveStoreConfig(event)" class="space-y-2.5">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <label class="font-semibold block mb-1">ชื่อธนาคาร</label>
+                                <input type="text" id="cfgBankName" class="w-full p-2 bg-white border rounded-xl">
+                            </div>
+                            <div>
+                                <label class="font-semibold block mb-1">เลขที่บัญชี</label>
+                                <input type="text" id="cfgBankNum" class="w-full p-2 bg-white border rounded-xl">
+                            </div>
+                            <div>
+                                <label class="font-semibold block mb-1">ชื่อบัญชี</label>
+                                <input type="text" id="cfgBankOwner" class="w-full p-2 bg-white border rounded-xl">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="font-semibold block mb-1">ไฟล์ QR Code</label>
+                            <input type="text" id="cfgQrUrl" class="w-full p-2 bg-white border rounded-xl">
+                        </div>
+                        <div>
+                            <label class="font-semibold block mb-1">เงื่อนไขการใช้งาน</label>
+                            <textarea id="cfgTerms" rows="3" class="w-full p-2 bg-white border rounded-xl"></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="px-4 py-2 bg-slate-800 text-white font-bold rounded-xl">บันทึกการตั้งค่า</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-slate-800">🎨 จัดการราคาฟอนต์ทั้งหมด (<span id="adminFontCount">0</span> รายการ)</h4>
+                    <div class="overflow-x-auto max-h-[300px] overflow-y-auto border rounded-2xl">
+                        <table class="w-full text-left text-xs text-slate-600 bg-white">
+                            <thead class="bg-pink-50 sticky top-0 border-b">
+                                <tr>
+                                    <th class="p-2.5">ลำดับ</th>
+                                    <th class="p-2.5">ชื่อฟอนต์</th>
+                                    <th class="p-2.5">ราคา (ส่วนตัว/พาณิชย์/องค์กร)</th>
+                                    <th class="p-2.5 text-center">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminFontTableBody" class="divide-y divide-pink-50"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: แก้ไขราคาฟอนต์เฉพาะตัว -->
+    <div id="fontEditModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border text-xs space-y-3">
+            <h3 class="font-bold text-base text-slate-800 pb-2 border-b">แก้ไขราคาฟอนต์</h3>
+            <form onsubmit="saveSingleFontPrice(event)" class="space-y-3">
+                <input type="hidden" id="editFontIndex">
+                <div>
+                    <label class="font-semibold block mb-1">ชื่อฟอนต์</label>
+                    <input type="text" id="editFontTitleDisplay" disabled class="w-full p-2 bg-slate-100 border rounded-xl text-slate-500">
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="font-semibold block mb-1">ส่วนตัว</label>
+                        <input type="text" id="editPriceP" required class="w-full p-2 bg-slate-50 border rounded-xl">
+                    </div>
+                    <div>
+                        <label class="font-semibold block mb-1">พาณิชย์</label>
+                        <input type="text" id="editPriceC" required class="w-full p-2 bg-slate-50 border rounded-xl">
+                    </div>
+                    <div>
+                        <label class="font-semibold block mb-1">องค์กร</label>
+                        <input type="text" id="editPriceB" required class="w-full p-2 bg-slate-50 border rounded-xl">
+                    </div>
+                </div>
+                <div class="pt-2 flex justify-end gap-2 border-t">
+                    <button type="button" onclick="closeFontEditModal()" class="px-4 py-2 bg-slate-100 rounded-xl font-semibold">ยกเลิก</button>
+                    <button type="submit" class="px-4 py-2 bg-[#FF9EBB] text-white font-bold rounded-xl">บันทึกราคา</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer class="bg-white border-t border-pink-100 py-6 text-center text-xs text-slate-400 mt-12">
         <p>© ThitipraStudio Font Library. สงวนลิขสิทธิ์ทุกประการ</p>
     </footer>
@@ -222,7 +331,7 @@
             { th: "สเปน", en: "Spain", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRSpain.ttf" },
             { th: "ฟีเรนเซ", en: "Firenze", p: "79.-", c: "169.-", b: "700.-", file: "fonts/PRHFirenze.ttf" },
             { th: "สลีพ", en: "Sleep", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRSleep-Regular.ttf" },
-            { th: "โรม", en: "Roma", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRRoma.ttf" },
+            { th: "โรม", en: "Roma", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRRoma.ttf" },
             { th: "พริมโรส", en: "Primrose", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRPrimrose.ttf" },
             { th: "ชินจัง", en: "Chinchan", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRShinchan-Regular.ttf" }
         ];
@@ -432,11 +541,14 @@
                 const container = document.getElementById(containerId);
                 container.innerHTML = '';
                 container.style.fontFamily = `'${f.en}', sans-serif`;
+                // กรองเอาเฉพาะตัวอักษรจริง ๆ ไม่เอาช่องว่าง
                 for (let char of charString) {
-                    const box = document.createElement('div');
-                    box.className = "bg-white border border-pink-100 rounded-lg p-1.5 flex items-center justify-center shadow-2xs hover:border-pink-400 transition";
-                    box.innerText = char;
-                    container.appendChild(box);
+                    if (char.trim() !== "") {
+                        const box = document.createElement('div');
+                        box.className = "bg-white border border-pink-100 rounded-lg p-1.5 flex items-center justify-center shadow-2xs hover:border-pink-400 transition";
+                        box.innerText = char;
+                        container.appendChild(box);
+                    }
                 }
             }
 
@@ -494,13 +606,117 @@
                             `- สิทธิ์: ${license}\n` +
                             `- ยอดเงิน: ${price}\n` +
                             `- อีเมลรับ Drive: ${email}\n` +
-                            `⏰ (กรุณาวางรูปสลิปโอนเงินแนบมาในแชทนี้ได้เลยค่ะ)`;
+                            `⏰ (กรุณาวางรูปสลิปโอนเงินแนบมาในแชทนี้ได้เลยครับ)`;
 
             const lineUrl = `https://line.me/R/msg/text/?` + encodeURIComponent(message);
             
             alert('บันทึกคำสั่งซื้อเรียบร้อย! ระบบกำลังเปิด Line เพื่อส่งข้อความออเดอร์ให้แอดมิน\n(โปรดวาง/แนบรูปสลิปโอนเงินในแชท Line ต่อได้ทันที)');
             window.open(lineUrl, '_blank');
             closeCheckoutModal();
+        }
+
+        // --- Admin Panel Functions ---
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+            if(sessionStorage.getItem('admin_auth') === 'true') {
+                showAdminConsole();
+            } else {
+                document.getElementById('adminLoginBox').classList.remove('hidden');
+                document.getElementById('adminConsoleBox').classList.add('hidden');
+            }
+        }
+        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
+
+        function toggleAdminPassword() {
+            const pass = document.getElementById('adminPassInput');
+            const eye = document.getElementById('adminEyeIcon');
+            if(pass.type === "password") {
+                pass.type = "text";
+                eye.className = "fas fa-eye-slash";
+            } else {
+                pass.type = "password";
+                eye.className = "fas fa-eye";
+            }
+        }
+
+        function verifyAdmin() {
+            const val = document.getElementById('adminPassInput').value;
+            if(val === 'pleng235') {
+                sessionStorage.setItem('admin_auth', 'true');
+                showAdminConsole();
+            } else {
+                document.getElementById('adminAuthError').classList.remove('hidden');
+            }
+        }
+
+        function showAdminConsole() {
+            document.getElementById('adminLoginBox').classList.add('hidden');
+            document.getElementById('adminConsoleBox').classList.remove('hidden');
+
+            document.getElementById('cfgBankName').value = config.bankName || "";
+            document.getElementById('cfgBankNum').value = config.bankNumber || "";
+            document.getElementById('cfgBankOwner').value = config.bankOwner || "";
+            document.getElementById('cfgQrUrl').value = config.qrCodeUrl || "";
+            document.getElementById('cfgTerms').value = config.terms || "";
+
+            renderAdminTable();
+        }
+
+        function saveStoreConfig(e) {
+            e.preventDefault();
+            config.bankName = document.getElementById('cfgBankName').value;
+            config.bankNumber = document.getElementById('cfgBankNum').value;
+            config.bankOwner = document.getElementById('cfgBankOwner').value;
+            config.qrCodeUrl = document.getElementById('cfgQrUrl').value;
+            config.terms = document.getElementById('cfgTerms').value;
+
+            localStorage.setItem('thitipra_store_config', JSON.stringify(config));
+            alert('บันทึกตั้งค่าร้านค้าเรียบร้อยแล้ว!');
+            renderApp();
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('adminFontTableBody');
+            tbody.innerHTML = '';
+            document.getElementById('adminFontCount').innerText = fonts.length;
+
+            fonts.forEach((f, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-2.5 font-mono text-slate-400">${idx+1}</td>
+                    <td class="p-2.5 font-bold text-slate-800">${f.th} <span class="font-normal text-slate-400">(${f.en})</span></td>
+                    <td class="p-2.5 text-pink-600 font-semibold">${f.p} / ${f.c} / ${f.b || '700.-'}</td>
+                    <td class="p-2.5 text-center">
+                        <button type="button" onclick="openSingleFontEdit(${idx})" class="px-2.5 py-1 bg-pink-50 text-pink-600 hover:bg-pink-100 font-bold rounded-lg transition"><i class="fas fa-edit"></i> แก้ไข</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openSingleFontEdit(idx) {
+            const f = fonts[idx];
+            document.getElementById('editFontIndex').value = idx;
+            document.getElementById('editFontTitleDisplay').value = `${f.th} (${f.en})`;
+            document.getElementById('editPriceP').value = f.p;
+            document.getElementById('editPriceC').value = f.c;
+            document.getElementById('editPriceB').value = f.b || '700.-';
+            document.getElementById('fontEditModal').classList.remove('hidden');
+        }
+        function closeFontEditModal() { document.getElementById('fontEditModal').classList.add('hidden'); }
+
+        function saveSingleFontPrice(e) {
+            e.preventDefault();
+            const idx = document.getElementById('editFontIndex').value;
+            fonts[idx].p = document.getElementById('editPriceP').value;
+            fonts[idx].c = document.getElementById('editPriceC').value;
+            fonts[idx].b = document.getElementById('editPriceB').value;
+
+            localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
+            closeFontEditModal();
+            renderAdminTable();
+            renderApp();
+            alert('อัปเดตราคาฟอนต์สำเร็จ!');
         }
 
         window.addEventListener('DOMContentLoaded', () => {
