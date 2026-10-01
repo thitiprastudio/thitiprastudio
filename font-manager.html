@@ -10,6 +10,21 @@
 
     <style>
         body { font-family: 'Prompt', sans-serif; }
+
+        /* ==========================================
+           ส่วนสำหรับฝังไฟล์ฟอนต์ลงในโค้ดโดยตรง (Base64)
+           ตัวอย่างการใช้งาน:
+           @font-face {
+               font-family: 'Stephanie';
+               src: url(data:font/ttf;charset=utf-8;base64,<วางรหัสBase64ที่นี่>);
+           }
+           ========================================== */
+        
+        /* ตัวอย่างโครงสร้างฟอนต์ฝังโค้ด (คุณสามารถเพิ่ม @font-face ของฟอนต์อื่นๆ ต่อตรงนี้ได้เลย) */
+        @font-face {
+            font-family: 'EmbeddedCustomFont';
+            src: url(data:font/ttf;charset=utf-8;base64,AAEAAAARAQAABAAQR0RFRg...); /* แทนที่ด้วย Base64 ของคุณ */
+        }
     </style>
 </head>
 <body class="bg-[#FFF8F5] text-[#4A332A] min-h-screen flex flex-col antialiased">
@@ -39,7 +54,7 @@
 
     <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1">
 
-        <!-- Login Card (Username: brprh / Password: pleng235) -->
+        <!-- Login Card -->
         <div id="authCard" class="max-w-sm mx-auto bg-white rounded-3xl p-8 shadow-xl border border-pink-100 my-10 text-center">
             <div class="w-14 h-14 bg-pink-50 text-[#FF9EBB] rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl">
                 <i class="fas fa-shield-halved"></i>
@@ -170,9 +185,8 @@
                 </div>
 
                 <div>
-                    <label class="block font-semibold mb-1">ที่อยู่ไฟล์ฟอนต์ Path / URL (.ttf/.otf) *</label>
-                    <input type="text" id="mFile" required placeholder="fonts/Stephanie.ttf" class="w-full p-2 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
-                    <p class="text-[10px] text-slate-400 mt-1">* วางไฟล์ในโฟลเดอร์ fonts/ หรือใส่ URL ตรง</p>
+                    <label class="block font-semibold mb-1">ที่อยู่ไฟล์ฟอนต์ Path / URL / Base64 *</label>
+                    <input type="text" id="mFile" required placeholder="fonts/Stephanie.ttf หรือ data:font/ttf;base64,..." class="w-full p-2 bg-slate-50 border rounded-xl outline-none focus:border-[#FF9EBB]">
                 </div>
 
                 <div class="grid grid-cols-2 gap-2">
@@ -353,7 +367,7 @@
                         <div class="text-[11px] text-slate-500 mt-1">${f.p} / ${f.c} / ${f.b || '700.-'}</div>
                     </td>
                     <td class="p-3.5 text-[11px]">
-                        <code class="text-pink-600 bg-pink-50 px-1.5 py-0.5 rounded">${f.file}</code>
+                        <code class="text-pink-600 bg-pink-50 px-1.5 py-0.5 rounded">${f.file.length > 40 ? f.file.substring(0, 35) + '...' : f.file}</code>
                     </td>
                     <td class="p-3.5 text-[11px]">
                         <div><a href="${f.drive_personal||'#'}" target="_blank" class="text-pink-500 hover:underline">Drive ส่วนตัว</a></div>
