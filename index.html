@@ -138,9 +138,7 @@
             <div class="p-3.5 bg-pink-50/60 rounded-2xl border border-pink-100 space-y-1">
                 <div class="font-bold text-slate-800 text-sm" id="checkoutFontName">ชื่อฟอนต์</div>
                 <div class="text-slate-500">เลือกสิทธิ์: <span id="checkoutLicenseType" class="font-semibold text-pink-600">-</span></div>
-                <div class="text-slate-500 text-[11px] bg-white/80 p-2 rounded-xl mt-1 border border-pink-100" id="checkoutLicenseDetails">
-                    <!-- รายละเอียดจำนวนเครื่อง คน เมล จะแสดงที่นี่ -->
-                </div>
+                <div class="text-slate-500 text-[11px] bg-white/80 p-2 rounded-xl mt-1 border border-pink-100" id="checkoutLicenseDetails"></div>
                 <div class="text-slate-500 pt-1">ยอดชำระเงิน: <strong id="checkoutPrice" class="text-pink-600 text-sm">0.-</strong></div>
             </div>
 
@@ -386,14 +384,14 @@
                 for (let char of charString) {
                     const box = document.createElement('div');
                     box.className = "bg-white border border-pink-100 rounded-lg p-1.5 flex items-center justify-center shadow-2xs hover:border-pink-400 transition";
-                    box.innerText = char === ' ' ? '␣' : char;
+                    box.innerText = char; // เอาสัญลักษณ์ช่องว่างออกแล้ว แสดงผลตามจริง
                     container.appendChild(box);
                 }
             }
 
             renderCharGrid('charGroupConsonant', "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ");
-            renderCharGrid('charGroupVowels', "ะ า ิ ี ึ ื ุ ู เ แ โ ใ ไ ำ ็ ่ ้ ๊ ๋ ์");
-            renderCharGrid('charGroupSymbols', "0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?");
+            renderCharGrid('charGroupVowels', "ะ า ิ ี ึ ื ุ ู เ แ โ ใ ไ ำ ็ ่ ้ ๊ ๋ ์ "); // ปรับช่องว่างให้ปกติ
+            renderCharGrid('charGroupSymbols', "0123456789!@#$%^&*()_+-=[]{}|;':\",./<>? ");
 
             document.getElementById('charModal').classList.remove('hidden');
         }
@@ -445,7 +443,7 @@
                             `- สิทธิ์: ${license}\n` +
                             `- ยอดเงิน: ${price}\n` +
                             `- อีเมลรับ Drive: ${email}\n` +
-                            `⏰ (กรุณาวางรูปสลิปโอนเงินแนบมาในแชทนี้ได้เลยครับ)`;
+                            `⏰ (กรุณาวางรูปสลิปโอนเงินแนบมาในแชทLINE@นี้ได้เลยค่ะ)`;
 
             const lineUrl = `https://line.me/R/msg/text/?` + encodeURIComponent(message);
             
