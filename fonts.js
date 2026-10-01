@@ -2,7 +2,7 @@
 let storeConfig = JSON.parse(localStorage.getItem('thitipra_store_config')) || {
     bankName: "ธนาคารกสิกรไทย",
     bankNumber: "123-4-56789-0",
-    bankOwner: "ฐิติประ สตูดิโอ",
+    bankOwner: "ฐิติประ สตูดิโอ / ฐิติพร ประภั",
     qrCodeUrl: "QRcodepayment.jpg",
     terms: "1. ฟอนต์ลิขสิทธิ์สำหรับใช้งานตามสิทธิ์ที่ซื้อ\n2. ห้ามนำไฟล์ฟอนต์ไปแจกต่อหรือจำหน่ายต่อทุกกรณี\n3. จัดส่งไฟล์ผ่าน Google Drive ภายใน 1-3 ชั่วโมงหลังตรวจสอบสลิป"
 };
