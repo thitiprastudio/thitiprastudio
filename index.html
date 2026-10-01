@@ -8,7 +8,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="fonts.js"></script>
-    <style>body { font-family: 'Prompt', sans-serif; }</style>
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+        /* พื้นที่สำหรับฉีด Font-Face อัตโนมัติ */
+        #dynamicFontFaceStyles { display: none; }
+    </style>
+    <style id="dynamicFontFaceStyles"></style>
 </head>
 <body class="bg-[#FFF8F5] text-[#4A332A] min-h-screen flex flex-col antialiased">
 
@@ -35,7 +40,6 @@
     </header>
 
     <main class="max-w-6xl mx-auto px-4 py-8 w-full flex-1 space-y-6">
-        <!-- Banner & Global Preview -->
         <div class="bg-white rounded-3xl p-6 md:p-8 border border-pink-100 shadow-sm space-y-5">
             <div class="text-center max-w-xl mx-auto space-y-2">
                 <span class="px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs font-bold inline-block">✨ พิมพ์ครั้งเดียว เปลี่ยนทุกฟอนต์</span>
@@ -49,7 +53,6 @@
                 <i class="fas fa-keyboard absolute left-4 top-1/2 -translate-y-1/2 text-pink-400 text-sm"></i>
             </div>
 
-            <!-- Compare Selection Bar (Hidden by default) -->
             <div id="compareBar" class="hidden p-4 bg-pink-50/70 border border-pink-200 rounded-2xl space-y-2">
                 <div class="flex justify-between items-center text-xs font-bold text-slate-700">
                     <span>📌 ติ๊กเลือกฟอนต์ที่ต้องการนำมาเปรียบเทียบด้านล่าง:</span>
@@ -71,7 +74,6 @@
             </div>
         </div>
 
-        <!-- Font Grid Container -->
         <div class="space-y-4">
             <div class="flex items-center justify-between px-1">
                 <h3 class="font-bold text-sm text-slate-700 flex items-center gap-2">
@@ -83,7 +85,7 @@
         </div>
     </main>
 
-    <!-- Modal: ตารางอักษร เฉพาะแต่ละฟอนต์ -->
+    <!-- Modal: ตารางอักษร -->
     <div id="charModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-2xl w-full shadow-2xl border border-pink-100 max-h-[90vh] overflow-y-auto text-xs space-y-4">
             <div class="flex justify-between items-center pb-3 border-b border-pink-100">
@@ -126,7 +128,7 @@
         </div>
     </div>
 
-    <!-- Modal: สั่งซื้อ & ชำระเงิน -->
+    <!-- Modal: สั่งซื้อ -->
     <div id="checkoutModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-pink-100 text-xs space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center pb-2 border-b border-pink-100">
@@ -140,7 +142,6 @@
                 <div class="text-slate-500">ยอดชำระเงิน: <strong id="checkoutPrice" class="text-pink-600 text-sm">0.-</strong></div>
             </div>
 
-            <!-- Payment Info from Config -->
             <div class="p-3 bg-slate-50 rounded-2xl border space-y-2 text-center">
                 <span class="font-semibold text-slate-700 block text-left">💳 ช่องทางชำระเงิน</span>
                 <div class="flex justify-center my-1">
@@ -149,7 +150,6 @@
                 <p class="text-slate-500" id="storeBankText">ธนาคาร... เลขที่... (ชื่อบัญชี...)</p>
             </div>
 
-            <!-- Terms & Conditions from Config -->
             <div class="p-3 bg-amber-50/50 rounded-2xl border border-amber-100 text-[11px] space-y-1">
                 <span class="font-bold text-amber-800 block">📜 เงื่อนไขและข้อตกลงการใช้งาน:</span>
                 <p id="storeTermsText" class="text-amber-900 whitespace-pre-line leading-relaxed"></p>
@@ -190,19 +190,26 @@
         let isCompareMode = false;
         let selectedCompareFonts = [];
 
-        async function loadDynamicFonts() {
-            for (const f of fonts) {
-                if (f.file) {
-                    try {
-                        const font = new FontFace(f.en, `url(${f.file})`);
-                        await font.load();
-                        document.fonts.add(font);
-                    } catch(e) {}
+        // ฟังก์ชันสร้างและฉีด FontFace CSS เข้าสู่หน้าเว็บโดยอัตโนมัติ
+        function injectDynamicFontFaces() {
+            let cssRules = "";
+            fonts.forEach(f => {
+                if (f.file && f.en) {
+                    cssRules += `
+                        @font-face {
+                            font-family: '${f.en}';
+                            src: url('${f.file}');
+                            font-display: swap;
+                        }
+                    `;
                 }
-            }
+            });
+            document.getElementById('dynamicFontFaceStyles').innerHTML = cssRules;
         }
 
         function renderApp() {
+            injectDynamicFontFaces(); // เรียกใช้งานการฉีดฟอนต์ทุกครั้งที่เรนเดอร์หน้าจอ
+            
             const grid = document.getElementById('fontGrid');
             const term = document.getElementById('searchInput').value.toLowerCase();
             const globalText = document.getElementById('globalPreviewInput').value || 'สวัสดี hello 123 ทดสอบฟอนต์';
@@ -317,7 +324,7 @@
             const btnText = document.getElementById('compareBtnText');
             btnText.innerText = isCompareMode ? "ปิดโหมดเปรียบเทียบ" : "โหมดเปรียบเทียบฟอนต์";
             if(isCompareMode && selectedCompareFonts.length === 0) {
-                selectedCompareFonts = fonts.slice(0, 3).map(f => f.en); // เลือกตั้งต้น 3 ฟอนต์แรก
+                selectedCompareFonts = fonts.slice(0, 3).map(f => f.en);
             }
             renderApp();
         }
@@ -391,7 +398,6 @@
             document.getElementById('orderLicenseKey').value = licenseType;
             document.getElementById('orderPriceVal').value = price;
 
-            // Load Store Config Details
             document.getElementById('storeQrImg').src = config.qrCodeUrl;
             document.getElementById('storeBankText').innerHTML = `${config.bankName} เลขที่: <strong>${config.bankNumber}</strong><br>ชื่อบัญชี: ${config.bankOwner}`;
             document.getElementById('storeTermsText').innerText = config.terms;
@@ -422,8 +428,7 @@
             closeCheckoutModal();
         }
 
-        window.addEventListener('DOMContentLoaded', async () => {
-            await loadDynamicFonts();
+        window.addEventListener('DOMContentLoaded', () => {
             renderApp();
         });
     </script>
