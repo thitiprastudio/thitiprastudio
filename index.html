@@ -7,6 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ดึงข้อมูลฟอนต์จากไฟล์แยกภายนอก (fonts.js) -->
+    <script src="fonts.js"></script>
+
     <style>
         body { font-family: 'Prompt', sans-serif; }
     </style>
@@ -222,50 +226,7 @@
     </footer>
 
     <script>
-        const defaultFonts = [
-            { th: "สเตฟานี่", en: "Stephanie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Stephanie.ttf" },
-            { th: "แอนโทนี่", en: "Anthony", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Anthony.ttf" },
-            { th: "ลิลลี่", en: "Lily", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRLily.ttf" },
-            { th: "เฮอร์ไมโอนี่", en: "Hermione", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Hermione.ttf" },
-            { th: "ทริกซี่", en: "Trixie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Trixie.ttf" },
-            { th: "เรนนี่", en: "Rainy", p: "79.-", c: "169.-", b: "700.-", file: "fonts/rainy.ttf" },
-            { th: "บังทัน", en: "Bangtan", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Bangtan.ttf" },
-            { th: "เซลีน", en: "Selene", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRSelene.ttf" },
-            { th: "เฟลิกซ์", en: "Felix", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Felix.ttf" },
-            { th: "ซิดนีย์", en: "Sydney", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Sydney.ttf" },
-            { th: "อโมรี่", en: "Amory", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Amory.ttf" },
-            { th: "ไคลี่", en: "Kylie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Kylie.ttf" },
-            { th: "เดมี่", en: "Demi", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Demi.ttf" },
-            { th: "เคธี่", en: "Katie", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Katie.ttf" },
-            { th: "เดซี่", en: "Daisy", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Daisy.ttf" },
-            { th: "ลูก้า", en: "Luca", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Luca.ttf" },
-            { th: "ซินดี้", en: "Sindy", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRSindy.ttf" },
-            { th: "ไรเดอร์", en: "Ryder", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRRyder.ttf" },
-            { th: "เคซี่", en: "Casey", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRCasey.ttf" },
-            { th: "ฮันนี่", en: "Honey", p: "79.-", c: "169.-", b: "700.-", file: "fonts/honey.ttf" },
-            { th: "เจสซิก้า", en: "Jessica", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Jessica.ttf" },
-            { th: "ทีกัฟฟี่", en: "Teagaulfy", p: "79.-", c: "169.-", b: "700.-", file: "fonts/Teagaulfy.ttf" },
-            { th: "ซันจิ", en: "Sanji", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRSanji.ttf" },
-            { th: "เจลลี่แบร์", en: "Jellybear", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRJellybear.ttf" },
-            { th: "ยูมะ", en: "Yuma", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRYuma.ttf" },
-            { th: "ลีโอน่า", en: "Liona", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRLiona.ttf" },
-            { th: "ฟูจิน", en: "Fujin", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRFujin.ttf" },
-            { th: "คูก้า", en: "Kuga", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRKuga.ttf" },
-            { th: "ไอรีน", en: "Irene", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRIrene.ttf" },
-            { th: "โนร่า", en: "Nora", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRNora-Regular.ttf" },
-            { th: "ชิคาโก", en: "Chicago", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRChicago.ttf" },
-            { th: "เบอร์ลิน", en: "Berlin", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRBerlin.ttf" },
-            { th: "ลอนดอน", en: "London", p: "79.-", c: "169.-", b: "700.-", file: "fonts/PRHLondon.ttf" },
-            { th: "เอเธนส์", en: "Athens", p: "99.-", c: "99.-", b: "700.-", file: "fonts/PRHAthens.ttf" },
-            { th: "มอร์แกน", en: "Morgan", p: "89.-", c: "89.-", b: "700.-", file: "fonts/BRMorgan-Regular.ttf" },
-            { th: "สเปน", en: "Spain", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRSpain.ttf" },
-            { th: "ฟีเรนเซ", en: "Firenze", p: "79.-", c: "169.-", b: "700.-", file: "fonts/PRHFirenze.ttf" },
-            { th: "สลีพ", en: "Sleep", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRSleep-Regular.ttf" },
-            { th: "โรม", en: "Roma", p: "79.-", c: "79.-", b: "700.-", file: "fonts/BRRoma.ttf" },
-            { th: "พริมโรส", en: "Primrose", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRPrimrose.ttf" },
-            { th: "ชินจัง", en: "Chinchan", p: "79.-", c: "169.-", b: "700.-", file: "fonts/BRShinchan-Regular.ttf" }
-        ];
-
+        // ดึงข้อมูลฟอนต์จาก localStorage (หากเคยแก้ไขผ่านเว็บ) หรือดึงจากไฟล์แยก fonts.js
         let fonts = JSON.parse(localStorage.getItem('thitipra_fonts')) || defaultFonts;
         let currentFilter = 'all';
         let isCompareMode = false;
@@ -442,7 +403,6 @@
             const email = document.getElementById('buyerEmail').value;
             const orderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
 
-            // สร้างข้อความสรุปออเดอร์สำหรับส่งเข้า Line
             const message = `🛒✨ [แจ้งโอนเงินสั่งซื้อฟอนต์ ${orderId}]\n` +
                             `- ฟอนต์: ${fontName}\n` +
                             `- สิทธิ์: ${license}\n` +
@@ -450,7 +410,6 @@
                             `- อีเมลรับ Drive: ${email}\n` +
                             `⏰ (แนบสลิปเรียบร้อยแล้ว รอตรวจสอบและดึงเมลเข้าไดรฟ์ภายใน 1-3 ชม.)`;
 
-            // เข้ารหัส URL และเปิดแอป Line เพื่อส่งข้อความเข้าแชท/กลุ่ม
             const lineUrl = `https://line.me/R/msg/text/?` + encodeURIComponent(message);
             
             alert('บันทึกคำสั่งซื้อเรียบร้อย! ระบบกำลังเปิด Line เพื่อส่งข้อมูลออเดอร์ให้แอดมิน...');
@@ -464,7 +423,7 @@
 
         function verifyAdmin() {
             const pass = document.getElementById('adminPassInput').value;
-            if(pass === 'pleng235') { // รหัสผ่านแอดมินของคุณ
+            if(pass === 'pleng235') {
                 isAdminLoggedIn = true;
                 sessionStorage.setItem('admin_logged', 'true');
                 document.getElementById('adminLoginForm').classList.add('hidden');
