@@ -20,7 +20,7 @@
                 </span>
                 <div>
                     <h1 class="font-bold text-sm sm:text-base leading-tight">ระบบหลังบ้าน (แอดมิน)</h1>
-                    <p class="text-[10px] text-pink-500 font-medium">จัดการคลังฟอนต์ บัญชีธนาคาร และเงื่อนไขร้านค้า</p>
+                    <p class="text-[10px] text-pink-500 font-medium">จัดการราคาฟอนต์ บัญชีธนาคาร และเงื่อนไขร้านค้า</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -59,10 +59,10 @@
             </form>
         </div>
 
-        <!-- Admin Console (Hidden until login) -->
+        <!-- Admin Console -->
         <div id="adminConsole" class="hidden space-y-6">
 
-            <!-- Store Settings (Bank & QR & Terms) -->
+            <!-- Store Settings -->
             <div class="bg-white rounded-3xl p-6 border border-pink-100 shadow-sm space-y-4">
                 <h3 class="font-bold text-base text-slate-800 flex items-center gap-2">
                     <i class="fas fa-sliders text-pink-500"></i> ตั้งค่าบัญชีรับเงิน & เงื่อนไขร้านค้า
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <div>
-                        <label class="font-semibold block mb-1">ลิงก์รูป QR Code (ชื่อไฟล์หรือ URL เช่น QRcodepayment.jpg)</label>
+                        <label class="font-semibold block mb-1">ชื่อไฟล์ QR Code (เช่น QRcodepayment.jpg)</label>
                         <input type="text" id="cfgQrUrl" class="w-full p-2 bg-slate-50 border rounded-xl" placeholder="QRcodepayment.jpg">
                     </div>
                     <div>
@@ -100,11 +100,8 @@
             <div class="bg-white rounded-3xl p-6 border border-pink-100 shadow-sm space-y-4">
                 <div class="flex justify-between items-center">
                     <h3 class="font-bold text-base text-slate-800 flex items-center gap-2">
-                        <i class="fas fa-font text-pink-500"></i> จัดการรายการฟอนต์ทั้งหมด (<span id="adminFontCount">0</span>)
+                        <i class="fas fa-font text-pink-500"></i> จัดการราคาฟอนต์ทั้งหมด (<span id="adminFontCount">0</span> รายการ)
                     </h3>
-                    <button onclick="openFontModal()" class="px-4 py-2 bg-[#FF9EBB] hover:bg-[#ff89ac] text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm">
-                        <i class="fas fa-plus"></i> เพิ่มฟอนต์ใหม่
-                    </button>
                 </div>
 
                 <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
@@ -113,9 +110,8 @@
                             <tr>
                                 <th class="p-3">ลำดับ</th>
                                 <th class="p-3">ชื่อฟอนต์</th>
-                                <th class="p-3">ราคา (ส่วนตัว/พาณิชย์)</th>
-                                <th class="p-3">ไฟล์ฟอนต์</th>
-                                <th class="p-3 text-center">จัดการ</th>
+                                <th class="p-3">ราคา (ส่วนตัว / พาณิชย์ / องค์กร)</th>
+                                <th class="p-3 text-center">แก้ไขราคา</th>
                             </tr>
                         </thead>
                         <tbody id="adminFontTableBody" class="divide-y divide-pink-50"></tbody>
@@ -126,61 +122,50 @@
         </div>
     </main>
 
-    <!-- Modal: เพิ่ม / แก้ไขฟอนต์ -->
+    <!-- Modal: แก้ไขราคาฟอนต์ -->
     <div id="fontModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border text-xs space-y-3">
             <div class="flex justify-between items-center pb-2 border-b">
-                <h3 id="modalTitle" class="font-bold text-base text-slate-800">เพิ่มฟอนต์ใหม่</h3>
+                <h3 id="modalTitle" class="font-bold text-base text-slate-800">แก้ไขราคาฟอนต์</h3>
                 <button onclick="closeFontModal()" class="text-slate-400"><i class="fas fa-times"></i></button>
             </div>
             <form onsubmit="saveFont(event)" class="space-y-3">
                 <input type="hidden" id="editIndex">
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="font-semibold block mb-1">ชื่อภาษาไทย *</label>
-                        <input type="text" id="mTh" required class="w-full p-2 bg-slate-50 border rounded-xl">
-                    </div>
-                    <div>
-                        <label class="font-semibold block mb-1">ชื่อภาษาอังกฤษ *</label>
-                        <input type="text" id="mEn" required class="w-full p-2 bg-slate-50 border rounded-xl">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="font-semibold block mb-1">ราคา ส่วนตัว *</label>
-                        <input type="text" id="mP" required value="79.-" class="w-full p-2 bg-slate-50 border rounded-xl">
-                    </div>
-                    <div>
-                        <label class="font-semibold block mb-1">ราคา พาณิชย์ *</label>
-                        <input type="text" id="mC" required value="169.-" class="w-full p-2 bg-slate-50 border rounded-xl">
-                    </div>
-                </div>
                 <div>
-                    <label class="font-semibold block mb-1">ที่อยู่ไฟล์ฟอนต์ (Path / URL) *</label>
-                    <input type="text" id="mFile" required placeholder="fonts/Stephanie.ttf" class="w-full p-2 bg-slate-50 border rounded-xl">
+                    <label class="font-semibold block mb-1">ชื่อฟอนต์</label>
+                    <input type="text" id="mDisplayTitle" disabled class="w-full p-2 bg-slate-100 border rounded-xl text-slate-500">
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="font-semibold block mb-1">ส่วนตัว (฿)</label>
+                        <input type="text" id="mP" required class="w-full p-2 bg-slate-50 border rounded-xl">
+                    </div>
+                    <div>
+                        <label class="font-semibold block mb-1">พาณิชย์ (฿)</label>
+                        <input type="text" id="mC" required class="w-full p-2 bg-slate-50 border rounded-xl">
+                    </div>
+                    <div>
+                        <label class="font-semibold block mb-1">องค์กร (฿)</label>
+                        <input type="text" id="mB" required class="w-full p-2 bg-slate-50 border rounded-xl">
+                    </div>
                 </div>
                 <div class="pt-2 flex justify-end gap-2 border-t">
                     <button type="button" onclick="closeFontModal()" class="px-4 py-2 bg-slate-100 rounded-xl font-semibold">ยกเลิก</button>
-                    <button type="submit" class="px-4 py-2 bg-[#FF9EBB] text-white font-bold rounded-xl shadow-sm">บันทึกฟอนต์</button>
+                    <button type="submit" class="px-4 py-2 bg-[#FF9EBB] text-white font-bold rounded-xl shadow-sm">บันทึกราคา</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        // ป้องกันกรณีไฟล์ fonts.js ยังไม่โหลดหรือตัวแปรไม่มา ให้มีค่าสำรองฉุกเฉิน
-        if (typeof defaultFonts === 'undefined') {
-            var defaultFonts = [];
-        }
-        if (typeof storeConfig === 'undefined') {
-            var storeConfig = {
-                bankName: "ธนาคารกสิกรไทย",
-                bankNumber: "123-4-56789-0",
-                bankOwner: "บจก. ทิพยประภา สตูดิโอ",
-                qrCodeUrl: "QRcodepayment.jpg",
-                terms: "1. ฟอนต์ลิขสิทธิ์สำหรับใช้งานตามสิทธิ์ที่ซื้อ\n2. ห้ามนำไฟล์ฟอนต์ไปแจกต่อหรือจำหน่ายต่อทุกกรณี\n3. จัดส่งไฟล์ผ่าน Google Drive ภายใน 1-3 ชั่วโมงหลังตรวจสอบสลิป"
-            };
-        }
+        if (typeof defaultFonts === 'undefined') var defaultFonts = [];
+        if (typeof storeConfig === 'undefined') var storeConfig = {
+            bankName: "ธนาคารกสิกรไทย",
+            bankNumber: "123-4-56789-0",
+            bankOwner: "บจก. ทิพยประภา สตูดิโอ",
+            qrCodeUrl: "QRcodepayment.jpg",
+            terms: ""
+        };
 
         let fonts = JSON.parse(localStorage.getItem('thitipra_fonts')) || defaultFonts;
         let config = JSON.parse(localStorage.getItem('thitipra_store_config')) || storeConfig;
@@ -255,72 +240,38 @@
                 tr.innerHTML = `
                     <td class="p-3 font-mono text-slate-400">${idx+1}</td>
                     <td class="p-3 font-bold text-slate-800">${f.th} <span class="font-normal text-slate-400">(${f.en})</span></td>
-                    <td class="p-3 text-pink-600 font-semibold">${f.p} / ${f.c}</td>
-                    <td class="p-3 font-mono text-[11px] text-slate-500">${f.file}</td>
+                    <td class="p-3 text-pink-600 font-semibold">${f.p} / ${f.c} / ${f.b || '700.-'}</td>
                     <td class="p-3 text-center">
-                        <button type="button" onclick="editFont(${idx})" class="p-1.5 text-slate-500 hover:text-pink-600"><i class="fas fa-edit"></i></button>
-                        <button type="button" onclick="deleteFont(${idx})" class="p-1.5 text-slate-500 hover:text-rose-600"><i class="fas fa-trash"></i></button>
+                        <button type="button" onclick="editFont(${idx})" class="px-3 py-1 bg-pink-50 text-pink-600 hover:bg-pink-100 font-bold rounded-lg transition"><i class="fas fa-edit"></i> แก้ไขราคา</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        function openFontModal() {
-            document.getElementById('modalTitle').innerText = 'เพิ่มฟอนต์ใหม่';
-            document.getElementById('editIndex').value = '';
-            document.getElementById('mTh').value = '';
-            document.getElementById('mEn').value = '';
-            document.getElementById('mP').value = '79.-';
-            document.getElementById('mC').value = '169.-';
-            document.getElementById('mFile').value = '';
+        function editFont(idx) {
+            const f = fonts[idx];
+            document.getElementById('editIndex').value = idx;
+            document.getElementById('mDisplayTitle').value = `${f.th} (${f.en})`;
+            document.getElementById('mP').value = f.p;
+            document.getElementById('mC').value = f.c;
+            document.getElementById('mB').value = f.b || '700.-';
             document.getElementById('fontModal').classList.remove('hidden');
         }
 
         function closeFontModal() { document.getElementById('fontModal').classList.add('hidden'); }
 
-        function editFont(idx) {
-            const f = fonts[idx];
-            document.getElementById('modalTitle').innerText = 'แก้ไขข้อมูลฟอนต์';
-            document.getElementById('editIndex').value = idx;
-            document.getElementById('mTh').value = f.th;
-            document.getElementById('mEn').value = f.en;
-            document.getElementById('mP').value = f.p;
-            document.getElementById('mC').value = f.c;
-            document.getElementById('mFile').value = f.file;
-            document.getElementById('fontModal').classList.remove('hidden');
-        }
-
         function saveFont(e) {
             e.preventDefault();
             const idx = document.getElementById('editIndex').value;
-            const fontObj = {
-                th: document.getElementById('mTh').value,
-                en: document.getElementById('mEn').value,
-                p: document.getElementById('mP').value,
-                c: document.getElementById('mC').value,
-                b: "700.-",
-                file: document.getElementById('mFile').value
-            };
-
-            if(idx !== '') {
-                fonts[idx] = fontObj;
-            } else {
-                fonts.unshift(fontObj);
-            }
+            fonts[idx].p = document.getElementById('mP').value;
+            fonts[idx].c = document.getElementById('mC').value;
+            fonts[idx].b = document.getElementById('mB').value;
 
             localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
             closeFontModal();
             renderAdminTable();
-            alert('บันทึกข้อมูลฟอนต์สำเร็จ!');
-        }
-
-        function deleteFont(idx) {
-            if(confirm(`ต้องการลบฟอนต์ "${fonts[idx].th}" ออกจากระบบ?`)) {
-                fonts.splice(idx, 1);
-                localStorage.setItem('thitipra_fonts', JSON.stringify(fonts));
-                renderAdminTable();
-            }
+            alert('อัปเดตราคาฟอนต์สำเร็จ!');
         }
     </script>
 </body>
